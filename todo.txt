@@ -1,6 +1,8 @@
 todo 
 -ubah ke bhs indo (locale), udah coba si tpi gatau kok ga work
-- ubah kata-kata dan styling logo
+-ubah kata-kata dan styling logo
+-html to pdf
+https://ekoopmans.github.io/html2pdf.js/
 
 done
 -adminlte3
