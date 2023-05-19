@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Profile
+        Profil
     </x-slot>
     @include('profile.partials.update-profile-information-form')
     @include('profile.partials.update-password-form')

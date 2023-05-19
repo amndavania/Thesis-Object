@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header p-2">
-                <h5>Profile Information</h5>
+                <h5>Informasi Profil</h5>
             </div><!-- /.card-header -->
             <div class="card-body">
                 <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -31,20 +31,20 @@
                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                         <div class="form-group row">
                             <p class="offset-sm-2 text-danger text-sm">
-                                Your email address is unverified.<button form="send-verification" class="btn btn-link text-sm ">
-                                    Click here to re-send the verification email.
+                                Alamat email Anda belum diverifikasi.<button form="send-verification" class="btn btn-link text-sm ">
+                                    Klik di sini untuk mengirim ulang email verifikasi.
                                 </button>
                             </p>
                         </div>
                         @if (session('status') === 'verification-link-sent')
                             <p class="offset-sm-2 text-success text-sm ">
-                                {{ __('A new verification link has been sent to your email address.') }}
+                                {{ __('Tautan verifikasi baru telah dikirim ke alamat email Anda.') }}
                             </p>
                         @endif
                     @endif
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                        <x-primary-button>{{ __('Simpan') }}</x-primary-button>
                         @if (session('status') === 'profile-updated')
                         <p
                             x-data="{ show: true }"
@@ -52,7 +52,7 @@
                             x-transition
                             x-init="setTimeout(() => show = false, 2000)"
                             class="text-sm text-success"
-                        >{{ __('Saved.') }}</p>
+                        >{{ __('Telah Disimpan.') }}</p>
                         @endif
                       </div>
                     </div>

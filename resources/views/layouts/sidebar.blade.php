@@ -26,10 +26,10 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="fas fa-tachometer-alt">
-            {{ __('Dashboard') }}
+            {{ __('Dasbor') }}
         </x-sidebar-link>
         <x-sidebar-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" icon="fas fa-user">
-            {{ __('Profile') }}
+            {{ __('Profil') }}
         </x-sidebar-link>
       </ul>
     </nav>

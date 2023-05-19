@@ -51,10 +51,14 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
-            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+            {{-- <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a> --}}
+            {{-- bug here --}}
+            <div class="text-center">
+              <img src={{asset('vendor/kampus/LOGO IBRAHIMY.png')}} class="rounded" alt="IAI IBRAHIMY">
+            </div>
           </div>
           <div class="card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
           <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
             <form method="POST" action="{{ route('login') }}">
@@ -78,14 +82,14 @@
                   <div class="icheck-primary">
                     <input type="checkbox" id="remember">
                     <label for="remember">
-                      Remember Me
+                      Ingat Saya
                     </label>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
                     <x-primary-button>
-                      {{ __('Sign In') }}
+                      {{ __('Masuk') }}
                   </x-primary-button>
                   </div>
                 <!-- /.col -->
@@ -95,11 +99,11 @@
             
         @if (Route::has('password.request'))
             <p class="mb-1">
-              <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
+              <a href="{{ route('password.request') }}">{{ __('Lupa Password?') }}</a>
             </p>
             @endif
             <p class="mb-0">
-              <a href="{{ route('register') }}" class="text-center">{{ __('Register a new membership') }}</a>
+              <a href="{{ route('register') }}" class="text-center">{{ __('Daftar') }}</a>
             </p>
           </div>
           <!-- /.card-body -->

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('transaction_accounts_id')->constrained();
-            $table->float('ammount');
+            $table->float('ammount_kredit');
+            $table->float('ammount_debit');
         });
     }
 

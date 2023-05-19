@@ -31,7 +31,7 @@
             <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
           </div>
           <div class="card-body">
-            <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
+            <p class="login-box-msg">Anda lupa kata sandi Anda? Di sini Anda dapat dengan mudah mengambil kata sandi baru.</p>
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
             <form method="POST" action="{{ route('password.email') }}">

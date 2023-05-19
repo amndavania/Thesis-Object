@@ -5,15 +5,15 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header p-2">
-                <h5>Delete Account</h5>
+                <h5>Hapus Akun</h5>
             </div><!-- /.card-header -->
             <div class="card-body">
                 <x-danger-button data-toggle="modal" data-target="#confirm-user-deletion">
-                    {{ __('Delete Account') }}
+                    {{ __('Hapus Akun') }}
                 </x-danger-button>
                 <x-modal name="confirm-user-deletion">
                     <x-slot name="modal_title">
-                        {{ __('Are you sure you want to delete your account?') }}
+                        {{ __('Apakah anda yakin ingin menghapus akun anda?') }}
                     </x-slot>
                     <x-slot name="modal_body">
                         <form method="post" action="{{ route('profile.destroy') }}">
@@ -28,7 +28,7 @@
                             {{ __('Cancel') }}
                         </x-secondary-button>
                         <x-danger-button class="ml-3">
-                            {{ __('Delete Account') }}
+                            {{ __('Hapus Akun') }}
                         </x-danger-button>
                         </form>
                     </x-slot>
