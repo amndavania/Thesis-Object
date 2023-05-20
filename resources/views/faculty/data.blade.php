@@ -2,9 +2,6 @@
     <x-slot name="title">
         Fakultas
     </x-slot>
-    {{-- @include('profile.partials.update-profile-information-form')
-    @include('profile.partials.update-password-form')
-    @include('profile.partials.delete-user-form') --}}
     <div class="card">
      <div class="card-header">
           <div class="d-flex justify-content-end">
@@ -28,8 +25,13 @@
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->name }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" >Edit</button>
-                                   <button type="button" class="btn btn-sm btn-danger" onclick="window.location="{{ url('faculty.destror') }}">Hapus</button>
+                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='faculty/{{ $row->id }}/edit'">Edit</button>
+                                   <form action="faculty/destroy/{{ $row->id }}" method="post" class="my-1">
+                                        {{-- <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Hapus</button> --}}
+                                        <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                                        @csrf
+                                        @method('delete')
+                                   </form>
                               </td>   
                          </tr>
                     @endforeach

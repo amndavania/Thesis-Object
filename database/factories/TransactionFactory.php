@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\=Transactions>
+ */
+class TransactionFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'user_id'=>mt_rand(1,6),
+            'reference_number'=>fake()->randomNumber(7, true),
+            'amount'=>fake()->randomFloat(1,10,40),
+            'type'=>fake()->word(),
+            'transaction_accounts_id'=>mt_rand(1,10),
+        ];
+    }
+}

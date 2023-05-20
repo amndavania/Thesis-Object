@@ -11,7 +11,7 @@ class FacultyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():View
     {
         //
         return view('faculty.data')->with([
@@ -22,7 +22,7 @@ class FacultyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create():View
     {
         //
         return view('faculty.create');
@@ -34,8 +34,8 @@ class FacultyController extends Controller
     public function store(Request $request):RedirectResponse
     {
         //
-        $request->validate([
-            'name'=>'required',
+        $this->validate($request,[
+            'name'=>'required|min:5',
         ]);
 
         // Faculty::create($request->all());
@@ -53,8 +53,7 @@ class FacultyController extends Controller
         // $faculty->name=$request->name;
         // $faculty->save();
 
-        return redirect()->route('faculty.index')
-                        ->with('message','Data telah ditambahkan');
+        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
     }
 
     /**
@@ -68,9 +67,10 @@ class FacultyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id):View
     {
         //
+        $faculty = Faculty::findOrFail($id);
         return view('faculty.edit',compact('faculty'));
     }
 
@@ -80,32 +80,27 @@ class FacultyController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $request->validate([
-            'name'=>'required',
+        $this->validate($request,[
+            'name'=>'required|min:5',
         ]);
 
-        $faculty = Faculty::find($id);
-        $faculty->name = $request->name;
-        $faculty->save();
+        $faculty = Faculty::findOrFail($id);
+        $faculty->update([
+            'name' => $request->name,
+        ]);
 
-        // $faculty = new Faculty;
-        // $faculty->name=$request->name;
-        // $faculty->save();
-
-        return redirect()->route('faculty.index')
-                        ->with('message','Data telah disimpan');
+        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id):RedirectResponse
     {
         //
-        $faculty = Faculty::find($id);
+        $faculty = Faculty::findOrFail($id);
         $faculty->delete();
 
-        return redirect()->route('faculty.index')
-                        ->with('message','Data telah disimpan');
+        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
     }
 }

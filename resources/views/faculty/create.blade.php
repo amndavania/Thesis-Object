@@ -2,9 +2,6 @@
     <x-slot name="title">
         Fakultas
     </x-slot>
-    {{-- @include('profile.partials.update-profile-information-form')
-    @include('profile.partials.update-password-form')
-    @include('profile.partials.delete-user-form') --}}
     <div class="card">
      <div class="card-header">
           <div class="text-center">

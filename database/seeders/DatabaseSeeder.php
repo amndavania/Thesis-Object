@@ -31,10 +31,15 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('admin'),
         ]);
 
+        User::factory(5)->create();
         AccountingGroup::factory(10)->create();
         TransactionAccount::factory(10)->create();
         Balance::factory(10)->create();
         Faculty::factory(10)->create();
-// 
+        StudyProgram::factory(10)->create();
+        Ukt::factory(10)->create();
+        Report::factory(10)->create();
+        Student::factory(10)->create();
+        Transaction::factory(10)->create();
     }
 }
