@@ -1,16 +1,17 @@
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
+      {{-- <div class="image">
         <img src={{asset('vendor/dist/img/user2-160x160.jpg')}} class="img-circle elevation-2" alt="User Image">
-      </div>
+      </div> --}}
       <div class="info">
-        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ Auth::user()->name }}</b>!</h5>
+        {{-- <a href="#" class="d-block">{{ Auth::user()->name }}</a> --}}
       </div>
     </div>
 
     <!-- SidebarSearch Form -->
-    <div class="form-inline">
+    {{-- <div class="form-inline">
       <div class="input-group" data-widget="sidebar-search">
         <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -19,7 +20,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -36,6 +37,9 @@
         </x-sidebar-link>
         <x-sidebar-link :href="route('faculty.index')" :active="request()->routeIs('faculty.index')" icon="fas fa-briefcase">
             {{ __('Faculty') }}
+        </x-sidebar-link>
+        <x-sidebar-link :href="route('accounting_group.index')" :active="request()->routeIs('accounting_group.index')" icon="fas fa-layer-group">
+            {{ __('Accounting Group') }}
         </x-sidebar-link>
       </ul>
     </nav>

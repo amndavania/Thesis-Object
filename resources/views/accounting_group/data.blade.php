@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="title">
-        Balance
+        Akun Akuntansi
     </x-slot>
     <div class="card">
      <div class="card-header">
           <div class="d-flex justify-content-end">
-               <button type="button" class="btn btn-sm btn-primary" onclick="window.location='{{ url('faculty/create') }}'">
+               <button type="button" class="btn btn-sm btn-primary" onclick="window.location='{{ url('accounting_group/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                </button>
           </div>
@@ -15,21 +15,20 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <td>Akun Transaksi</td>
-                         <td>Kredit</td>
-                         <td>Debit</td>
+                         <td>Nama</td>
+                         <td>Deskripsi</td>
                          <td>Aksi</td>
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($balance as $row)
-                    {{-- {{ $balance }} --}}
+                    @foreach ($accounting_group as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
-                              <td>{{ $balance->transaction_accounts_id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td>{{ $row->description }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='faculty/{{ $row->id }}/edit'">Edit</button>
-                                   <form action="faculty/destroy/{{ $row->id }}" method="post" class="my-1">
+                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='accounting_group/{{ $row->id }}/edit'">Edit</button>
+                                   <form action="accounting_group/destroy/{{ $row->id }}" method="post" class="my-1">
                                         {{-- <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Hapus</button> --}}
                                         <button type="button" class="btn btn-sm btn-danger">Hapus</button>
                                         @csrf

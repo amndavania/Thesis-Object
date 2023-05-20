@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\FacultyController;
@@ -31,13 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
+    // Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
 
     // Route::get('/faculty', [FacultyController::class, 'index'])->name('faculty.index');
     // Route::get('/faculty/create', [FacultyController::class, 'create'])->name('faculty.create');
     // Route::post('/faculty', [FacultyController::class, 'store'])->name('faculty.store');
 
     Route::resource('faculty', FacultyController::class)->except(['show']);
+    Route::resource('balance', BalanceController::class)->except(['show']);
+    Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
 
 });
 

@@ -50,11 +50,11 @@
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
-          <div class="card-header text-center">
+          <div class="card-header text-center bg-dark">
             {{-- <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a> --}}
             {{-- bug here --}}
             <div class="text-center">
-              <img src={{asset('vendor/kampus/LOGO IBRAHIMY.png')}} class="rounded" alt="IAI IBRAHIMY">
+              <img src='../../img/logo.webp' class="rounded shadow" alt="IAI IBRAHIMY" style="max-height: 200px;">
             </div>
           </div>
           <div class="card-body">
