@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\StudyProgramController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('faculty', FacultyController::class)->except(['show']);
     Route::resource('balance', BalanceController::class)->except(['show']);
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
+    Route::resource('study_program', StudyProgramController::class)->except(['show']);
 
 });
 
