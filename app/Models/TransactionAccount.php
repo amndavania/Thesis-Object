@@ -16,7 +16,7 @@ class TransactionAccount extends Model
     protected $fillable = [
         'id',
         'name',
-        'accountinggroup_id',
+        'accounting_group_id',
         'description',
     ];
 

@@ -12,7 +12,8 @@ class Balance extends Model
 
     protected $fillable = [
         'transaction_accounts_id',
-        'amount',
+        'ammount_kredit',
+        'ammount_debit',
     ];
 
     protected $hidden = [];

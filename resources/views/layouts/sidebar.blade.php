@@ -31,6 +31,12 @@
         <x-sidebar-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" icon="fas fa-user">
             {{ __('Profil') }}
         </x-sidebar-link>
+        <x-sidebar-link :href="route('balance.index')" :active="request()->routeIs('balance.index')" icon="fas fa-wallet">
+            {{ __('Balance') }}
+        </x-sidebar-link>
+        <x-sidebar-link :href="route('faculty.index')" :active="request()->routeIs('faculty.index')" icon="fas fa-briefcase">
+            {{ __('Faculty') }}
+        </x-sidebar-link>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

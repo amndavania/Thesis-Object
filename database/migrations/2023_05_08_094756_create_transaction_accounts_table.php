@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_accounts', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique();
-            $table->primary('id');
+        //    ga paham di sini
+        // versi kanzul inul
+            // $table->unsignedBigInteger('id')->unique();
+            // $table->primary('id');
+            
+            // zidni
+            $table->id();
+
             $table->string('name');
             $table->foreignId('accounting_group_id')->constrained();
             $table->string('description')->nullable();
