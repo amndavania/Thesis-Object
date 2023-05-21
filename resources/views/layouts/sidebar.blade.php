@@ -1,47 +1,163 @@
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      {{-- <div class="image">
-        <img src={{asset('vendor/dist/img/user2-160x160.jpg')}} class="img-circle elevation-2" alt="User Image">
-      </div> --}}
       <div class="info">
         <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ Auth::user()->name }}</b>!</h5>
-        {{-- <a href="#" class="d-block">{{ Auth::user()->name }}</a> --}}
       </div>
     </div>
-
-    <!-- SidebarSearch Form -->
-    {{-- <div class="form-inline">
-      <div class="input-group" data-widget="sidebar-search">
-        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-sidebar">
-            <i class="fas fa-search fa-fw"></i>
-          </button>
-        </div>
-      </div>
-    </div> --}}
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-        <x-sidebar-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" icon="fas fa-tachometer-alt">
-            {{ __('Dasbor') }}
-        </x-sidebar-link>
-        <x-sidebar-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" icon="fas fa-user">
-            {{ __('Profil') }}
-        </x-sidebar-link>
-        <x-sidebar-link :href="route('balance.index')" :active="request()->routeIs('balance.index')" icon="fas fa-wallet">
-            {{ __('Balance') }}
-        </x-sidebar-link>
-        <x-sidebar-link :href="route('faculty.index')" :active="request()->routeIs('faculty.index')" icon="fas fa-briefcase">
-            {{ __('Faculty') }}
-        </x-sidebar-link>
-        <x-sidebar-link :href="route('accounting_group.index')" :active="request()->routeIs('accounting_group.index')" icon="fas fa-layer-group">
-            {{ __('Accounting Group') }}
-        </x-sidebar-link>
+          {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ route('dashboard') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dasbor
+              </p>
+            </a>
+          </li>
+          {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Dasbor Mahasiswa
+              </p>
+            </a>
+          </li>
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+              <p>
+                Penerimaan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Mahasiswa</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lain lain</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-coins"></i>
+              <p>
+                Pengeluaran
+              </p>
+            </a>
+          </li>
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file-invoice-dollar"></i>
+              <p>
+                Laporan Keuangan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jurnal</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Buku Besar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cash Flow</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Laba Rugi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Neraca</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Perubahan Modal</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ route('accounting_group.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+                Akun Transaksi
+              </p>
+            </a>
+          </li>
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-graduate"></i>
+              <p>
+                Akademik
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Mahasiswa</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Program Studi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fakultas</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ route('profile.edit') }}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Pengguna
+              </p>
+            </a>
+          </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
+    
   </div>
