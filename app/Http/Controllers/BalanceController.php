@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Balance;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class BalanceController extends Controller
                         ->join('transaction_account','');
 
         return view('balance.data')->with([
-            'balance' => $balance,
+            'balance' => Balance::All(),
         ]);
     }
 }

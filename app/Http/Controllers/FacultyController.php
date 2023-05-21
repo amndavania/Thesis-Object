@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Faculty;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+
 class FacultyController extends Controller
 {
     /**
