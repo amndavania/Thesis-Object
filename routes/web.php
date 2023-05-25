@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudyProgramController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +24,7 @@ Route::redirect('/', 'dashboard');
 //     return view('welcome');
 // });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,10 +34,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('faculty', FacultyController::class)->except(['show']);
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
-    Route::resource('study_program', StudyProgramController::class)->except(['show']);
 
+    Route::middleware(['admin:admin penerimaan', 'admin:super admin'])->group(function () {
+        // 
+    });
+
+    Route::middleware(['admin:admin pengeluaran', 'admin:super admin'])->group(function () {
+        // 
+    });
+
+    Route::middleware('admin:super admin')->group(function () {
+        Route::resource('faculty', FacultyController::class)->except(['show']);
+        Route::resource('study_program', StudyProgramController::class)->except(['show']);
+    });
 });
 
 
