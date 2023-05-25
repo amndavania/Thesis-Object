@@ -78,8 +78,6 @@ class AccountingGroupController extends Controller
 
         $accounting_group = AccountingGroup::findOrFail($id);
         $accounting_group->update($input);
-
-        dd($accounting_group);
         return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
     }
 

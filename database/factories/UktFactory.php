@@ -20,8 +20,8 @@ class UktFactory extends Factory
             'reference_number'=>fake()->randomNumber(5, true),
             'amount'=>fake()->randomFloat(1, 10, 30),
             'type'=>fake()->word(),
-            'status'=>fake()->word(),
             'transaction_accounts_id'=>mt_rand(1,10),
+            'sudents_id'=>mt_rand(1,10),
         ];
     }
 }

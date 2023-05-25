@@ -18,15 +18,15 @@
                @method('put')
           <div class="form-group">
                <label for="id">ID Akun</label>
-               <input type="text" class="form-control" id="id" placeholder="ID Akun..." value="{{ old('id', $accounting_group->id) }}">
+               <input type="text" class="form-control" name="id" id="id" placeholder="ID Akun..." value="{{ old('id', $accounting_group->id) }}">
           </div>
           <div class="form-group">
                <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" id="name" placeholder="Nama Akun..." value="{{ old('name', $accounting_group->name) }}">
+               <input type="text" class="form-control" name="name" id="name" placeholder="Nama Akun..." value="{{ old('name', $accounting_group->name) }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" placeholder="Deskripsi..." value="{{ old('description', $accounting_group->description) }}">
+               <input type="text" class="form-control" name="description" id="description" placeholder="Deskripsi..." value="{{ old('description', $accounting_group->description) }}">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

@@ -22,6 +22,8 @@ class TransactionAccountFactory extends Factory
             'name' => $this->faker->word,
             'accounting_group_id' => mt_rand(1,10),
             'description' => $this->faker->text,
+            'ammount_kredit'=>fake()->randomFloat(1, 10, 30),
+            'ammount_debit'=>fake()->randomFloat(1, 20, 30),
         ];
     }
 }

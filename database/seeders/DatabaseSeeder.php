@@ -6,7 +6,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\AccountingGroup;
-use App\Models\Balance;
 use App\Models\Faculty;
 use App\Models\Report;
 use App\Models\Student;
@@ -34,7 +33,6 @@ class DatabaseSeeder extends Seeder
         User::factory(5)->create();
         AccountingGroup::factory(10)->create();
         TransactionAccount::factory(10)->create();
-        Balance::factory(10)->create();
         Faculty::factory(10)->create();
         StudyProgram::factory(10)->create();
         Ukt::factory(10)->create();
