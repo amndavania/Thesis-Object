@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('ukts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('students_id')->constrained();
+            $table->string('semester');
             $table->string('reference_number')->nullable();
             $table->float('amount');
+            $table->float('total');
             $table->string('status');
-            $table->string('type');
             $table->foreignId('transaction_accounts_id')->constrained();
             $table->timestamps();
         });

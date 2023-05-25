@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Transaction extends Model
 {
@@ -13,6 +14,7 @@ class Transaction extends Model
 
     protected $fillable = [
         'user_id',
+        'description',
         'reference_number',
         'amount',
         'type',
@@ -21,9 +23,9 @@ class Transaction extends Model
 
     protected $hidden = [];
 
-    public function transactionaccount(): BelongsToMany
+    public function transactionaccount(): BelongsTo
     {
-        return $this->belongsToMany(TransactionAccount::class);
+        return $this->belongsTo(TransactionAccount::class);
     }
 
     public function user(): BelongsTo

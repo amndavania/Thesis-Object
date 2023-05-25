@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
@@ -13,17 +14,16 @@ class Student extends Model
     protected $fillable = [
         'name',
         'nim',
-        'birth',
-        'study_program',
         'force',
-        'ukt_id',
+        'student_types_id',
+        'study_program_id',
     ];
 
     protected $hidden = [];
 
-    public function ukt(): BelongsTo
+    public function ukt(): HasMany
     {
-        return $this->belongsTo(Ukt::class);
+        return $this->hasMany(Ukt::class);
     }
 
     public function studyprogram(): BelongsTo
@@ -31,8 +31,8 @@ class Student extends Model
         return $this->belongsTo(StudyProgram::class);
     }
 
-    public function faculty(): BelongsTo
+    public function studenttype(): BelongsTo
     {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(StudentType::class);
     }
 }
