@@ -9,8 +9,8 @@
           </div>
      </div>
      <div class="card-body">
-          <form class="mx-2 p-4" action="{{ route('faculty.store') }}" method="POST">
-          {{-- <form method="POST" class="mx-2 p-4" action="{{ url('faculty') }}"> --}}
+          {{-- <form class="mx-2 p-4" action="{{ route('faculty.index') }}" method="POST"> --}}
+          <form method="POST" class="mx-2 p-4" action="{{ url('faculty') }}">
                @csrf
           <div class="form-group">
                <label for="name">Nama Fakultas</label>

@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AccountingGroup extends Model
 {
     use HasFactory;
-
+    protected $table = 'accounting_groups';
     protected $fillable = [
+        'id',
         'name',
         'description',
     ];

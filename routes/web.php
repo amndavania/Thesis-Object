@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
     Route::resource('study_program', StudyProgramController::class)->except(['show']);
 
+    // Route::post('/accounting_group', [AccountingGroupController::class, 'store']);
+
 });
 
 // Route::controller(FacultyController::class)->group(function () {

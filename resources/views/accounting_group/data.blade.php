@@ -15,6 +15,7 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
+                         <th>ID Akun</th>
                          <td>Nama</td>
                          <td>Deskripsi</td>
                          <td>Aksi</td>
@@ -24,13 +25,14 @@
                     @foreach ($accounting_group as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
+                              <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='accounting_group/{{ $row->id }}/edit'">Edit</button>
-                                   <form action="accounting_group/destroy/{{ $row->id }}" method="post" class="my-1">
-                                        {{-- <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Hapus</button> --}}
-                                        <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('accounting_group.edit',$row->id ) }}'">Edit</button>
+                                   {{-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='accounting_group/{{ $row->id }}/edit'">Edit</button> --}}
+                                   <form action="{{ route('accounting_group.destroy',$row->id) }}" method="post" class="my-1">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                    </form>

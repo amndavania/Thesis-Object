@@ -32,29 +32,16 @@ class AccountingGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'name'=>'required|min:5',
+        $input = $request->validate([
+            'id'=>'required',
+            'name'=>'required',
+            'description' => 'required'
         ]);
-
-        // AccountingGroup::create($request->all());
-        AccountingGroup::create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
-        // DB::table('accounting_group')->insert($request->all());
-        // DB::table('accounting_group')->insert(
-        //     [
-        //         'name' => $request->name,
-        //     ]
-        // );
-
-        // $accounting_group = new AccountingGroup;
-        // $accounting_group->name=$request->name;
-        // $accounting_group->save();
-
+        AccountingGroup::create($input);
+        
         return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
     }
 
@@ -79,19 +66,20 @@ class AccountingGroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    // controller
+    public function update(Request $request, string $id):RedirectResponse
     {
         //
-        $this->validate($request,[
-            'name'=>'required|min:5',
+        $input = $request->validate([
+            'id'=>'required',
+            'name'=>'required',
+            'description'=>'required',
         ]);
 
         $accounting_group = AccountingGroup::findOrFail($id);
-        $accounting_group->update([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        $accounting_group->update($input);
 
+        dd($accounting_group);
         return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
     }
 
@@ -100,10 +88,7 @@ class AccountingGroupController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        //
-        $accounting_group = AccountingGroup::findOrFail($id);
-        $accounting_group->delete();
-
+        AccountingGroup::destroy($id);
         return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
     }
 }

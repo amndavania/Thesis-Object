@@ -32,27 +32,14 @@ class FacultyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'name'=>'required|min:5',
+        $input = $request->validate([
+            'name'=>'required',
         ]);
 
-        // Faculty::create($request->all());
-        Faculty::create([
-            'name' => $request->name,
-        ]);
-        // DB::table('faculty')->insert($request->all());
-        // DB::table('faculty')->insert(
-        //     [
-        //         'name' => $request->name,
-        //     ]
-        // );
-
-        // $faculty = new Faculty;
-        // $faculty->name=$request->name;
-        // $faculty->save();
+        Faculty::create($input);
 
         return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
     }

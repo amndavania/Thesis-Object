@@ -9,16 +9,19 @@
           </div>
      </div>
      <div class="card-body">
-          <form class="mx-2 p-4" action="{{ route('accounting_group.store') }}" method="POST">
-          {{-- <form method="POST" class="mx-2 p-4" action="{{ url('accounting_group') }}"> --}}
+          <form method="POST" class="mx-2 p-4" action="{{ url('accounting_group') }}">
                @csrf
           <div class="form-group">
+               <label for="id">ID Akun</label>
+               <input type="text" class="form-control" id="id" name="id" placeholder="ID Akun...">
+          </div>
+          <div class="form-group">
                <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" id="name" placeholder="Nama Akun...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun...">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" placeholder="Deskripsi...">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi...">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

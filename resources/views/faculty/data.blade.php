@@ -25,10 +25,9 @@
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->name }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='faculty/{{ $row->id }}/edit'">Edit</button>
-                                   <form action="faculty/destroy/{{ $row->id }}" method="post" class="my-1">
-                                        {{-- <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Hapus</button> --}}
-                                        <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('faculty.edit', $row->id) }}'">Edit</button>
+                                   <form action="{{ route('faculty.destroy',$row->id) }}" method="post" class="my-1">                                       
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                    </form>
