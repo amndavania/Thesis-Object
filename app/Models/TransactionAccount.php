@@ -16,8 +16,10 @@ class TransactionAccount extends Model
     protected $fillable = [
         'id',
         'name',
-        'accounting_group_id',
         'description',
+        'ammount_kredit',
+        'ammount_debit',
+        'accounting_group_id',
     ];
 
     protected $hidden = [];
@@ -27,18 +29,13 @@ class TransactionAccount extends Model
         return $this->belongsTo(AccountingGroup::class);
     }
 
-    public function transaction(): BelongsToMany
+    public function transaction(): HasMany
     {
-        return $this->belongsToMany(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
 
-    public function Ukt(): BelongsToMany
+    public function Ukt(): HasMany
     {
-        return $this->belongsToMany(Ukt::class);
-    }
-
-    public function balance(): HasOne
-    {
-        return $this->hasOne(Transaction::class);
+        return $this->hasMany(Ukt::class);
     }
 }

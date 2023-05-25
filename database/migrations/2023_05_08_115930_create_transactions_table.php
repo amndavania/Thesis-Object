@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('description')->nullable();
             $table->string('reference_number')->nullable();
             $table->float('amount');
             $table->string('type');

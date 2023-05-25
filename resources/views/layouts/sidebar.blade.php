@@ -18,6 +18,7 @@
               </p>
             </a>
           </li>
+
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -27,8 +28,10 @@
               </p>
             </a>
           </li>
+
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin penerimaan')
           {{-- menu sub--}}
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-money-bill-wave-alt"></i>
               <p>
@@ -51,6 +54,9 @@
               </li>
             </ul>
           </li>
+          @endif
+
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin pengeluaran')
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -60,8 +66,11 @@
               </p>
             </a>
           </li>
+        @endif
+          
+
           {{-- menu sub--}}
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file-invoice-dollar"></i>
               <p>
@@ -117,6 +126,8 @@
               </p>
             </a>
           </li>
+
+          @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
@@ -147,6 +158,10 @@
               </li>
             </ul>
           </li>
+        @endif
+
+
+
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('profile.edit') }}" class="nav-link">
