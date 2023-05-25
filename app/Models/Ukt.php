@@ -14,7 +14,7 @@ class Ukt extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sudents_id',
+        'students_id',
         'reference_number',
         'amount',
         'type',

@@ -22,6 +22,7 @@ class TransactionFactory extends Factory
             'amount'=>fake()->randomFloat(1,10,40),
             'type'=>fake()->word(),
             'transaction_accounts_id'=>mt_rand(1,10),
+            'description'=>fake()->word(),
         ];
     }
 }

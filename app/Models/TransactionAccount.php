@@ -13,6 +13,7 @@ class TransactionAccount extends Model
 {
     use HasFactory;
 
+    protected $table = 'transaction_accounts';
     protected $fillable = [
         'id',
         'name',

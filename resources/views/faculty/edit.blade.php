@@ -9,13 +9,12 @@
           </div>
      </div>
      <div class="card-body">
-          {{-- <form method="POST" class="mx-2 p-4" action="/faculty/store"> --}}
           <form method="POST" class="mx-2 p-4" action="{{ route('faculty.update', $faculty->id) }}">
                @csrf
                @method('PUT')
           <div class="form-group">
                <label for="name">Nama Fakultas</label>
-               <input type="text" class="form-control" id="name" placeholder="Nama Fakultas..." value="{{ old('name', $faculty->name) }}">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Fakultas..." value="{{ old('name', $faculty->name) }}">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

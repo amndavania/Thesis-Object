@@ -19,8 +19,8 @@ class StudentFactory extends Factory
         return [
             'name'=>fake()->name(),
             'nim'=>fake()->uuid(),
-            'study_program_id'=>mt_rand(1,10),
             'force'=>fake()->word(),
+            'study_program_id'=>mt_rand(1,10),
             'student_types_id'=>mt_rand(1,10),
         ];
     }

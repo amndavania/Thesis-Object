@@ -33,27 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
-
-    // Route::get('/faculty', [FacultyController::class, 'index'])->name('faculty.index');
-    // Route::get('/faculty/create', [FacultyController::class, 'create'])->name('faculty.create');
-    // Route::post('/faculty', [FacultyController::class, 'store'])->name('faculty.store');
-
     Route::resource('faculty', FacultyController::class)->except(['show']);
-    Route::resource('balance', BalanceController::class)->except(['show']);
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
     Route::resource('study_program', StudyProgramController::class)->except(['show']);
 
-    // Route::post('/accounting_group', [AccountingGroupController::class, 'store']);
-
 });
 
-// Route::controller(FacultyController::class)->group(function () {
-//     Route::get('/faculty', 'index')->name('faculty.index');
-//     Route::get('/faculty/create', 'create')->name('faculty.create');
-//     Route::post('/faculty','store')->name('faculty.store');
-// })->middleware(['auth', 'verified']);
-
-// Route::resource('faculty', FacultyController::class)->except(['show']);
 
 require __DIR__.'/auth.php';

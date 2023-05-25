@@ -11,6 +11,7 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $table = 'students';
     protected $fillable = [
         'name',
         'nim',

@@ -10,6 +10,7 @@ class StudentType extends Model
 {
     use HasFactory;
 
+    protected $table = 'student_types';
     protected $fillable = [
         'type',
         'dpp',
