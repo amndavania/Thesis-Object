@@ -18,8 +18,8 @@ class StudentFactory extends Factory
     {
         return [
             'name'=>fake()->name(),
-            'nim'=>fake()->uuid(),
-            'force'=>fake()->word(),
+            'nim'=>fake()->randomNumber(8, true),
+            'force'=>fake()->numberBetween(1990, 2023),
             'study_program_id'=>mt_rand(1,10),
             'student_types_id'=>mt_rand(1,10),
         ];

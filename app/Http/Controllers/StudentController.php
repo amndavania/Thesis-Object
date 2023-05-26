@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Faculty;
 use App\Models\Student;
+use App\Models\StudentType;
+use App\Models\StudyProgram;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -27,8 +29,11 @@ class StudentController extends Controller
     public function create():View
     {
         //
-        $faculty = Faculty::all();
-        return view('student.create', compact('faculty'));
+
+        return view('student.create')->with([
+            "study_program" => StudyProgram::all(),
+            "student_type" => StudentType::all(),
+        ]);
     }
 
     /**
@@ -38,12 +43,18 @@ class StudentController extends Controller
     {
         $input = $request->validate([
             'name'=>'required',
-            'fakultas'=>'required',
+            'nim'=>'required',
+            'force'=>'required',
+            'study_program'=>'required',
+            'student_type'=>'required',
         ]);
-
+        // dd($request);
         Student::create([
-            'name' => $input['name'],
-            'faculty_id' => $input['fakultas'],
+            'name'=>$input['name'],
+            'nim'=>$input['nim'],
+            'force'=>$input['force'],
+            'study_program_id'=>$input['study_program'],
+            'student_types_id'=>$input['student_type'],
         ]);
 
         return redirect()->route('student.index')->with(['success' => 'Data telah disimpan']);
@@ -65,7 +76,8 @@ class StudentController extends Controller
         //
         return view('student.edit')->with([
             'student' => Student::findOrFail($id),
-            'faculty' => Faculty::All(),
+            "study_program" => StudyProgram::all(),
+            "student_type" => StudentType::all(),
         ]);
     }
 
@@ -77,13 +89,19 @@ class StudentController extends Controller
         //
         $input = $request->validate([
             'name'=>'required',
-            'fakultas'=>'required',
+            'nim'=>'required',
+            'force'=>'required',
+            'study_program'=>'required',
+            'student_type'=>'required',
         ]);
         
         $student = Student::findOrFail($id);
         $student->update([
             'name' => $input['name'],
-            'faculty_id' => $input['fakultas'],
+            'nim' => $input['nim'],
+            'force' => $input['force'],
+            'study_program_id' => $input['study_program'],
+            'student_types_id' => $input['student_type'],
         ]);
 
         return redirect()->route('student.index')->with(['success' => 'Data telah disimpan']);
