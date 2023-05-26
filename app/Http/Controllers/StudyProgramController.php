@@ -47,7 +47,7 @@ class StudyProgramController extends Controller
             'faculty_id' => $input['fakultas'],
         ]);
 
-        return redirect()->route('study_program.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('study_program.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
@@ -87,7 +87,7 @@ class StudyProgramController extends Controller
             'faculty_id' => $input['fakultas'],
         ]);
 
-        return redirect()->route('study_program.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('study_program.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
     /**
@@ -99,6 +99,6 @@ class StudyProgramController extends Controller
         $study_program = StudyProgram::findOrFail($id);
         $study_program->delete();
 
-        return redirect()->route('study_program.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('study_program.index')->with(['success' => 'Data telah dihapus']);
     }
 }

@@ -4,10 +4,11 @@
     </x-slot>
     <div class="card">
      <div class="card-header">
-          <div class="d-flex justify-content-end">
-               <button type="button" class="btn btn-sm btn-primary" onclick="window.location='{{ url('study_program/create') }}'">
+          <div class="d-flex">
+                @include('flash-message')
+                <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('study_program/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
-               </button>
+                </button>
           </div>
      </div>
      <div class="card-body">

@@ -41,7 +41,7 @@ class FacultyController extends Controller
 
         Faculty::create($input);
 
-        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('faculty.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
@@ -77,7 +77,7 @@ class FacultyController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('faculty.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
     /**
@@ -89,6 +89,6 @@ class FacultyController extends Controller
         $faculty = Faculty::findOrFail($id);
         $faculty->delete();
 
-        return redirect()->route('faculty.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('faculty.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }
