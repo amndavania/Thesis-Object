@@ -25,12 +25,11 @@
                          <tr>
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->name }}</td>
-                              <td>{{ $row->faculty }}</td>
+                              <td>{{ $row->faculty->name }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='study_program/{{ $row->id }}/edit'">Edit</button>
-                                   <form action="study_program/destroy/{{ $row->id }}" method="post" class="my-1">
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Hapus</button>
-                                        {{-- <button type="button" class="btn btn-sm btn-danger">Hapus</button> --}}
+                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('study_program.edit',$row->id) }}'">Edit</button>
+                                   <form action="{{ route('study_program.destroy',$row->id) }}" method="post" class="my-1">                                       
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                    </form>

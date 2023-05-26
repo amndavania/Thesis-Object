@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faculty;
 use App\Models\StudyProgram;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,11 +18,7 @@ class StudyProgramController extends Controller
     {
         //
         return view('study_program.data')->with([
-            'study_program' => DB::table('study_programs')
-                            ->join('faculties','study_programs.id','=','faculties.id')
-                            ->select('study_programs.*','faculties.name as faculty')
-                            ->get(),
-            // 'study_program' => StudyProgram::join('faculty','faculty_id','=','faculty.id')->get(),
+            'study_program' => StudyProgram::all(),
         ]);
     }
 
@@ -31,7 +28,8 @@ class StudyProgramController extends Controller
     public function create():View
     {
         //
-        return view('study_program.create');
+        $faculty = Faculty::all();
+        return view('study_program.create', compact('faculty'));
     }
 
     /**
@@ -39,26 +37,15 @@ class StudyProgramController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
-        //
-        $this->validate($request,[
-            'name'=>'required|min:5',
+        $input = $request->validate([
+            'name'=>'required',
+            'fakultas'=>'required',
         ]);
 
-        // StudyProgram::create($request->all());
         StudyProgram::create([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $input['name'],
+            'faculty_id' => $input['fakultas'],
         ]);
-        // DB::table('study_program')->insert($request->all());
-        // DB::table('study_program')->insert(
-        //     [
-        //         'name' => $request->name,
-        //     ]
-        // );
-
-        // $study_program = new StudyProgram;
-        // $study_program->name=$request->name;
-        // $study_program->save();
 
         return redirect()->route('study_program.index')->with(['success' => 'Data telah disimpan']);
     }
@@ -77,24 +64,27 @@ class StudyProgramController extends Controller
     public function edit(string $id):View
     {
         //
-        $study_program = StudyProgram::findOrFail($id);
-        return view('study_program.edit',compact('study_program'));
+        return view('study_program.edit')->with([
+            'study_program' => StudyProgram::findOrFail($id),
+            'faculty' => Faculty::All(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id):RedirectResponse
     {
         //
-        $this->validate($request,[
-            'name'=>'required|min:5',
+        $input = $request->validate([
+            'name'=>'required',
+            'fakultas'=>'required',
         ]);
-
+        
         $study_program = StudyProgram::findOrFail($id);
         $study_program->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $input['name'],
+            'faculty_id' => $input['fakultas'],
         ]);
 
         return redirect()->route('study_program.index')->with(['success' => 'Data telah disimpan']);
