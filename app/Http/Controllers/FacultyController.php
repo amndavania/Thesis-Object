@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Faculty;
+use App\Models\StudyProgram;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Http\Requests\Faculty\FacultyCreateRequest;
+use App\Http\Requests\Faculty\FacultyUpdateRequest;
 
 class FacultyController extends Controller
 {
@@ -32,15 +34,10 @@ class FacultyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FacultyCreateRequest $request)
     {
-        //
-        $input = $request->validate([
-            'name'=>'required',
-        ]);
 
-        Faculty::create($input);
-
+        Faculty::create($request->all());
         return redirect()->route('faculty.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
@@ -65,18 +62,11 @@ class FacultyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FacultyUpdateRequest $request, string $id):RedirectResponse
     {
-        //
-        $this->validate($request,[
-            'name'=>'required|min:5',
-        ]);
 
         $faculty = Faculty::findOrFail($id);
-        $faculty->update([
-            'name' => $request->name,
-        ]);
-
+        $faculty->update($request->all());
         return redirect()->route('faculty.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
@@ -86,9 +76,17 @@ class FacultyController extends Controller
     public function destroy($id):RedirectResponse
     {
         //
-        $faculty = Faculty::findOrFail($id);
-        $faculty->delete();
+        $study_program = StudyProgram::where('faculty_id', $id)->exists();
 
-        return redirect()->route('faculty.index')->with(['success' => 'Data berhasil dihapus']);
+        if (!$study_program) {
+            $faculty = Faculty::findOrFail($id);
+            $faculty->delete();
+            return redirect()->route('faculty.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->route('faculty.index')->with(['warning' => 'Fakultas masih terhubung dengan Program Studi']);
+        }
+        
+
+        
     }
 }

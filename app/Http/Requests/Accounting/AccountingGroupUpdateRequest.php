@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Accounting;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountingGroupCreateRequest extends FormRequest
+class AccountingGroupUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,9 @@ class AccountingGroupCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'=>'required|unique:accounting_groups|numeric',
-            'name'=>'required|unique:accounting_groups|alpha',
+            'id'=>'required|numeric|unique:accounting_groups,id,'.$this->id,
+            'name'=>'required|alpha|unique:accounting_groups,name,'.$this->id,
             'description'=>'required',
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'id'=>'Id Akun',
-            'name'=>'Nama',
-            'description'=>'Deskripsi'
         ];
     }
 

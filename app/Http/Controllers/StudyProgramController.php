@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Faculty;
 use App\Models\StudyProgram;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Study\StudyProgramCreateRequest;
+use App\Http\Requests\Study\StudyProgramUpdateRequest;
 
 class StudyProgramController extends Controller
 {
@@ -35,17 +35,10 @@ class StudyProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(StudyProgramCreateRequest $request):RedirectResponse
     {
-        $input = $request->validate([
-            'name'=>'required',
-            'fakultas'=>'required',
-        ]);
 
-        StudyProgram::create([
-            'name' => $input['name'],
-            'faculty_id' => $input['fakultas'],
-        ]);
+        StudyProgram::create($request->all());
 
         return redirect()->route('study_program.index')->with(['success' => 'Data berhasil disimpan']);
     }
@@ -73,22 +66,14 @@ class StudyProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id):RedirectResponse
+    public function update(StudyProgramUpdateRequest $request, string $id):RedirectResponse
     {
-        //
-        $input = $request->validate([
-            'name'=>'required',
-            'fakultas'=>'required',
-        ]);
         
         $study_program = StudyProgram::findOrFail($id);
-        $study_program->update([
-            'name' => $input['name'],
-            'faculty_id' => $input['fakultas'],
-        ]);
-
+        $study_program->update($request->all());
         return redirect()->route('study_program.index')->with(['success' => 'Data berhasil diupdate']);
     }
+
 
     /**
      * Remove the specified resource from storage.

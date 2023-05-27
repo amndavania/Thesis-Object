@@ -15,12 +15,12 @@
                @csrf
                @method('PUT')
           <div class="form-group">
-               <label for="name">Nama Akun</label>
+               <label for="name">Nama Program Studi</label>
                <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun..." value="{{ old('name', $study_program->name) }}">
           </div>
            <div class="form-group">
-               <label for="fakultas">Fakultas</label>
-               <select class="form-control" id="fakultas" name="fakultas">
+               <label for="faculty_id">Fakultas</label>
+               <select class="form-control" id="faculty_id" name="faculty_id">
                     @foreach ($faculty as $item)
                          <option value="{{ $item->id }}" {{ $study_program->faculty_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach

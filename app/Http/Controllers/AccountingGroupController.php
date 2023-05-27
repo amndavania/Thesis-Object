@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccountingGroup;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\AccountingGroupCreateRequest;
+use App\Http\Requests\Accounting\AccountingGroupCreateRequest;
+use App\Http\Requests\Accounting\AccountingGroupUpdateRequest;
 
 class AccountingGroupController extends Controller
 {
@@ -62,7 +62,7 @@ class AccountingGroupController extends Controller
      * Update the specified resource in storage.
      */
     // controller
-    public function update(AccountingGroupCreateRequest $request, string $id):RedirectResponse
+    public function update(AccountingGroupUpdateRequest $request, string $id):RedirectResponse
     {
         $accounting_group = AccountingGroup::findOrFail($id);
         $accounting_group->update($request->all());

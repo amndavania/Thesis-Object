@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="title">
-        Fakultas
+        Akun Transaksi
     </x-slot>
     <div class="card">
      <div class="card-header">
           <div class="text-center">
-               <h4>Tambah Data Akun Akuntasi</h4>
+               <h4>Tambah Data Akun Transaksi</h4>
           </div>
      </div>
      <div class="card-body">

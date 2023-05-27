@@ -13,12 +13,12 @@
           <form class="mx-2 p-4" action="{{ route('study_program.store') }}" method="POST">
                @csrf
           <div class="form-group">
-               <label for="name">Nama</label>
+               <label for="name">Nama Program Studi</label>
                <input type="text" class="form-control" id="name" name="name" placeholder="Nama...">
           </div>
           <div class="form-group">
-               <label for="fakultas">Fakultas</label>
-               <select class="form-control" id="fakultas" name="fakultas">
+               <label for="faculty_id">Fakultas</label>
+               <select class="form-control" id="faculty_id" name="faculty_id">
                     @foreach ($faculty as $item)
                          <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
