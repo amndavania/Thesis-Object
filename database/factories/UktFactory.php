@@ -23,7 +23,7 @@ class UktFactory extends Factory
             'status'=>fake()->word(),
             'transaction_accounts_id'=>mt_rand(1,10),
             'students_id'=>mt_rand(1,10),
-            'semester'=>fake()->randomNumber(1),
+            'semester'=>fake()->randomDigitNotNull(),
         ];
     }
 }

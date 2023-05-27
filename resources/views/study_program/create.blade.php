@@ -10,16 +10,20 @@
      </div>
      <div class="card-body">
           <form class="mx-2 p-4" action="{{ route('study_program.store') }}" method="POST">
-          {{-- <form method="POST" class="mx-2 p-4" action="{{ url('study_program') }}"> --}}
                @csrf
           <div class="form-group">
                <label for="name">Nama</label>
-               <input type="text" class="form-control" id="name" placeholder="Nama...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama...">
           </div>
           <div class="form-group">
-               <label for="fakultas">Deskripsi</label>
-               <input type="text" class="form-control" id="fakultas" placeholder="Deskripsi...">
+               <label for="fakultas">Fakultas</label>
+               <select class="form-control" id="fakultas" name="fakultas">
+                    @foreach ($faculty as $item) 
+                         <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                    @endforeach
+               </select>
           </div>
+
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>

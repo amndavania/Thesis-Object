@@ -21,6 +21,7 @@ class StudentTypeFactory extends Factory
             'dpp'=>fake()->randomFloat(1, 10, 30),
             'krs'=>fake()->randomFloat(1, 10, 30),
             'uts'=>fake()->randomFloat(1, 10, 30),
+            'uas'=>fake()->randomFloat(1, 10, 30),
             'wisuda'=>fake()->randomFloat(1, 10, 30),
         ];
     }

@@ -29,11 +29,11 @@ class Student extends Model
 
     public function studyprogram(): BelongsTo
     {
-        return $this->belongsTo(StudyProgram::class);
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
 
     public function studenttype(): BelongsTo
     {
-        return $this->belongsTo(StudentType::class);
+        return $this->belongsTo(StudentType::class,'student_types_id');
     }
 }
