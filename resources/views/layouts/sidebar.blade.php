@@ -2,7 +2,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
-        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ Auth::user()->name }}</b>!</h5>
+        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
       </div>
     </div>
 
@@ -129,7 +129,7 @@
 
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-graduate"></i>
               <p>

@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function transaction(): HasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Transaction::class);
     }
 
     public function report(): HasMany
