@@ -12,19 +12,7 @@
           {{-- <form method="POST" class="mx-2 p-4" action="/"> --}}
                {{-- {{ $accounting_group }} --}}
           {{-- <form method="post" class="mx-2 p-4" action="{{ url('accounting_group/' .$accounting_group->id) }}"> --}}
-            @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <h4 class="alert-heading">Gagal! Perhatikan ketentuan berikut:</h4>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+            @include('message.form-message')
           <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}">
           {{-- <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}"> --}}
                @csrf

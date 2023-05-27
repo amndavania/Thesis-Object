@@ -5,7 +5,7 @@
     <div class="card">
      <div class="card-header">
           <div class="d-flex">
-                @include('flash-message')
+                @include('message.flash-message')
                 <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('faculty/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                 </button>

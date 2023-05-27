@@ -5,7 +5,7 @@
     <div class="card">
      <div class="card-header">
           <div class="d-flex">
-                @include('flash-message')
+                @include('message.flash-message')
                 <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('study_program/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                 </button>
@@ -29,12 +29,12 @@
                               <td>{{ $row->faculty->name }}</td>
                               <td>
                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('study_program.edit',$row->id) }}'">Edit</button>
-                                   <form action="{{ route('study_program.destroy',$row->id) }}" method="post" class="my-1">                                       
+                                   <form action="{{ route('study_program.destroy',$row->id) }}" method="post" class="my-1">
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                    </form>
-                              </td>   
+                              </td>
                          </tr>
                     @endforeach
                </tbody>

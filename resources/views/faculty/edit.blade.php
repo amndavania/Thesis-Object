@@ -9,6 +9,7 @@
           </div>
      </div>
      <div class="card-body">
+        @include('message.form-message')
           <form method="POST" class="mx-2 p-4" action="{{ route('faculty.update', $faculty->id) }}">
                @csrf
                @method('PUT')
