@@ -18,7 +18,7 @@ class TransactionAccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => "Akun Transaksi ".$this->faker->word,
             'accounting_group_id' => mt_rand(1,10),
             'description' => $this->faker->text,
             'ammount_kredit'=>fake()->numberBetween(10000, 1000000),

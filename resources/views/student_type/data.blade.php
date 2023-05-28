@@ -35,18 +35,22 @@
                               <td>{{ $row->uas }}</td>
                               <td>{{ $row->wisuda }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('student_type.edit',$row->id ) }}'">Edit</button>
-                                   {{-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='student_type/{{ $row->id }}/edit'">Edit</button> --}}
-                                   <form action="{{ route('student_type.destroy',$row->id) }}" method="post" class="my-1">
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
+                                    <div class="d-flex justify-content-center align-items-center text-center">
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('student_type.edit',$row->id) }}'">Edit</button>
+                                        <form action="{{ route('student_type.destroy',$row->id) }}" method="post" class="m-1">                                       
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
-                                   </form>
+                                        </form>
+                                   </div>
                               </td>   
                          </tr>
                     @endforeach
                </tbody>
           </table>
+          <div class="d-flex justify-content-center align-items-center text-center">
+               {{ $student_type->links() }}
+          </div>
 
      </div>
     </div>

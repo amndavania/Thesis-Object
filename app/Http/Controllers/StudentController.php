@@ -19,7 +19,7 @@ class StudentController extends Controller
     {
         //
         return view('student.data')->with([
-            'student' => Student::all(),
+            'student' => Student::paginate(20),
         ]);
     }
 

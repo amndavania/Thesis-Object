@@ -16,7 +16,7 @@ class StudentTypeController extends Controller
     {
         //
         return view('student_type.data')->with([
-            'student_type' => StudentType::all(),
+            'student_type' => StudentType::paginate(20),
         ]);
     }
 

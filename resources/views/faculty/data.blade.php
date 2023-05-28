@@ -25,17 +25,22 @@
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->name }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('faculty.edit', $row->id) }}'">Edit</button>
-                                   <form action="{{ route('faculty.destroy',$row->id) }}" method="post" class="my-1">                                       
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
+                                   <div class="d-flex justify-content-center align-items-center text-center">
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('faculty.edit',$row->id) }}'">Edit</button>
+                                        <form action="{{ route('faculty.destroy',$row->id) }}" method="post" class="m-1">                                       
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
-                                   </form>
+                                        </form>
+                                   </div>
                               </td>   
                          </tr>
                     @endforeach
                </tbody>
           </table>
+          <div class="d-flex justify-content-center align-items-center text-center">
+               {{ $faculty->links() }}
+          </div>
 
      </div>
     </div>

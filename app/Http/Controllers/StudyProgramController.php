@@ -17,7 +17,7 @@ class StudyProgramController extends Controller
     {
         //
         return view('study_program.data')->with([
-            'study_program' => StudyProgram::all(),
+            'study_program' => StudyProgram::paginate(20),
         ]);
     }
 
