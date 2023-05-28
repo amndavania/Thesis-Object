@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\StudyProgramController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('faculty', FacultyController::class)->except(['show']);
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
+        Route::resource('student_type', StudentTypeController::class)->except(['show']);
     });
 });
 
