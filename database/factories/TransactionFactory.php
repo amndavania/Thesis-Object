@@ -19,10 +19,10 @@ class TransactionFactory extends Factory
         return [
             'user_id'=>mt_rand(1,6),
             'reference_number'=>fake()->randomNumber(7, true),
-            'amount'=>fake()->randomFloat(1,10,40),
+            'amount'=>fake()->numberBetween(1000, 1000000),
             'type'=>fake()->word(),
             'transaction_accounts_id'=>mt_rand(1,10),
-            'description'=>fake()->word(),
+            'description'=>fake()->sentence(),
         ];
     }
 }

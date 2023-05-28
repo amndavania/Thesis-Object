@@ -18,11 +18,11 @@ class StudentTypeFactory extends Factory
     {
         return [
             'type'=>fake()->word(),
-            'dpp'=>fake()->randomFloat(1, 10, 30),
-            'krs'=>fake()->randomFloat(1, 10, 30),
-            'uts'=>fake()->randomFloat(1, 10, 30),
-            'uas'=>fake()->randomFloat(1, 10, 30),
-            'wisuda'=>fake()->randomFloat(1, 10, 30),
+            'dpp'=>fake()->numberBetween(100000, 1000000),
+            'krs'=>fake()->numberBetween(100000, 1000000),
+            'uts'=>fake()->numberBetween(100000, 1000000),
+            'uas'=>fake()->numberBetween(100000, 1000000),
+            'wisuda'=>fake()->numberBetween(100000, 1000000),
         ];
     }
 }
