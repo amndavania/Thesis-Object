@@ -32,14 +32,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create();
-        AccountingGroup::factory(10)->create();
-        TransactionAccount::factory(10)->create();
-        Transaction::factory(10)->create();
-        StudentType::factory(10)->create();
-        Report::factory(10)->create();
-        Faculty::factory(10)->create();
-        StudyProgram::factory(10)->create();
-        Student::factory(10)->create();
-        Ukt::factory(10)->create();
+        AccountingGroup::factory(30)->create();
+        TransactionAccount::factory(30)->create();
+        Transaction::factory(100)->create();
+        StudentType::factory(30)->create();
+        Report::factory(30)->create();
+        Faculty::factory(30)->create();
+        StudyProgram::factory(30)->create();
+        Student::factory(250)->create();
+        Ukt::factory(40)->create();
     }
 }

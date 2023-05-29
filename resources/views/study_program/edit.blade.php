@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Akun Akuntansi
+        Program Studi
     </x-slot>
     <div class="card">
      <div class="card-header">

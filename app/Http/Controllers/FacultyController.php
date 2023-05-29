@@ -18,7 +18,7 @@ class FacultyController extends Controller
     {
         //
         return view('faculty.data')->with([
-            'faculty' => Faculty::All()
+            'faculty' => Faculty::paginate(20)
         ]);
     }
 

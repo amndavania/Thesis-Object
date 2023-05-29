@@ -17,7 +17,7 @@ class StudyProgramFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
+            'name' => "Ilmu ".fake()->word(),
             'faculty_id' => mt_rand(1,10),
         ];
     }

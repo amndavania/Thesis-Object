@@ -18,12 +18,12 @@ class UktFactory extends Factory
     {
         return [
             'reference_number'=>fake()->randomNumber(5, true),
-            'amount'=>fake()->randomFloat(1, 10, 30),
-            'total'=>fake()->randomFloat(1, 10, 30),
+            'amount'=>fake()->numberBetween(100000, 1000000),
+            'total'=>fake()->numberBetween(100000, 1000000),
             'status'=>fake()->word(),
             'transaction_accounts_id'=>mt_rand(1,10),
             'students_id'=>mt_rand(1,10),
-            'semester'=>fake()->randomNumber(1),
+            'semester'=>fake()->randomDigitNotNull(),
         ];
     }
 }

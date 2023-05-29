@@ -21,12 +21,8 @@ class AccountingGroupFactory extends Factory
     public function definition(): array
     {
          return [
-            'name' => fake()->word(),
-            'description' => fake()->text(),
-            // 'name' => $this->faker->word,
-            // 'description' => $this->faker->text,
-            // 'updated_at' => now(),
-            // 'created_at' => now(),
+            'name' => "Akun ".fake()->word(),
+            'description' => fake()->sentence(),
         ];
     }
 }

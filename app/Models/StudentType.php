@@ -16,6 +16,7 @@ class StudentType extends Model
         'dpp',
         'krs',
         'uts',
+        'uas',
         'wisuda',
     ];
 

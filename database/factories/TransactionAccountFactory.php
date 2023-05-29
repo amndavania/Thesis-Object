@@ -18,12 +18,11 @@ class TransactionAccountFactory extends Factory
     public function definition(): array
     {
         return [
-            // 'id' => random_int(1,100), 
-            'name' => $this->faker->word,
+            'name' => "Akun Transaksi ".$this->faker->word,
             'accounting_group_id' => mt_rand(1,10),
             'description' => $this->faker->text,
-            'ammount_kredit'=>fake()->randomFloat(1, 10, 30),
-            'ammount_debit'=>fake()->randomFloat(1, 20, 30),
+            'ammount_kredit'=>fake()->numberBetween(10000, 1000000),
+            'ammount_debit'=>fake()->numberBetween(10000, 1000000),
         ];
     }
 }

@@ -30,10 +30,9 @@
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description }}</td>
                               <td>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='{{ route('accounting_group.edit',$row->id ) }}'">Edit</button>
-                                   {{-- <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location='accounting_group/{{ $row->id }}/edit'">Edit</button> --}}
-                                   <form action="{{ route('accounting_group.destroy',$row->id) }}" method="post" class="my-1">
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('accounting_group.edit',$row->id) }}'">Edit</button>
+                                        <form action="{{ route('accounting_group.destroy',$row->id) }}" method="post" class="m-1">                                       
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                    </form>
@@ -42,6 +41,9 @@
                     @endforeach
                </tbody>
           </table>
+          <div class="d-flex justify-content-center align-items-center text-center">
+               {{ $accounting_group->links() }}
+          </div>
 
      </div>
     </div>

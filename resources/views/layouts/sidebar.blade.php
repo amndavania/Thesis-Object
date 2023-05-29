@@ -2,7 +2,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
-        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ Auth::user()->name }}</b>!</h5>
+        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
       </div>
     </div>
 
@@ -129,7 +129,7 @@
 
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
-          <li class="nav-item has-treeview menu-open">
+          <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-graduate"></i>
               <p>
@@ -139,7 +139,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('student.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mahasiswa</p>
                 </a>
@@ -154,6 +154,12 @@
                 <a href="{{ route('faculty.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Fakultas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('student_type.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Beasiswa</p>
                 </a>
               </li>
             </ul>

@@ -17,7 +17,7 @@ class AccountingGroupController extends Controller
     {
         //
         return view('accounting_group.data')->with([
-            'accounting_group' => AccountingGroup::All()
+            'accounting_group' => AccountingGroup::paginate(20)
         ]);
     }
 
