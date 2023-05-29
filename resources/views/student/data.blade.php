@@ -18,7 +18,7 @@
                          <th>No</th>
                          <td>Nama</td>
                          <td>NIM</td>
-                         <td>Angkatan</td>
+                         <td>Tahun Masuk</td>
                          <td>Prodi</td>
                          <td>Tipe</td>
                          <td>Aksi</td>

@@ -22,7 +22,7 @@
                <input type="text" class="form-control" id="name" name="nim" placeholder="NIM..." value="{{ old('nim', $student->nim) }}">
           </div>
           <div class="form-group">
-               <label for="force">Angkatan</label>
+               <label for="force">Tahun Masuk</label>
                <input type="text" class="form-control" id="name" name="force" placeholder="Angkatan..." value="{{ old('force', $student->force) }}">
           </div>
           <div class="form-group">
