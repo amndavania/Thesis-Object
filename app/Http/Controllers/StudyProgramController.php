@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use App\Models\Student;
 use App\Models\StudyProgram;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -79,10 +80,17 @@ class StudyProgramController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        //
-        $study_program = StudyProgram::findOrFail($id);
-        $study_program->delete();
 
-        return redirect()->route('study_program.index')->with(['success' => 'Data telah dihapus']);
+        $student = Student::where('study_program_id', $id)->exists();
+
+        if (!$student) {
+            $study_program = StudyProgram::findOrFail($id);
+            $study_program->delete();
+            return redirect()->route('study_program.index')->with(['success' => 'Data telah dihapus']);
+        } else {
+            return redirect()->route('study_program.index')->with(['warning' => 'Program Studi masih terhubung dengan Mahasiswa']);
+        }
+
+        
     }
 }

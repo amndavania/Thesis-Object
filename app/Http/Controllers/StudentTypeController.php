@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentType;
+use App\Models\Student;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StudentType\StudentTypeCreateRequest;
@@ -74,10 +75,15 @@ class StudentTypeController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        //
-        $student_type = StudentType::findOrFail($id);
-        $student_type->delete();
 
-        return redirect()->route('student_type.index')->with(['success' => 'Data berhasil dihapus']);
+        $student = Student::where('student_types_id', $id)->exists();
+
+        if (!$student) {
+            $student_type = StudentType::findOrFail($id);
+            $student_type->delete();
+            return redirect()->route('student_type.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->route('student_type.index')->with(['warning' => 'Beasiswa masih terhubung dengan Mahasiswa']);
+        }
     }
 }
