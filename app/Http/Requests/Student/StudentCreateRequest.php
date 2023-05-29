@@ -25,8 +25,8 @@ class StudentCreateRequest extends FormRequest
             'name'=>'required',
             'nim'=>'required|numeric|unique:students,nim',
             'force'=>'required|numeric',
-            'study_program'=>'required',
-            'student_type'=>'required',
+            'study_program_id'=>'required',
+            'student_types_id'=>'required',
         ];
     }
 
@@ -38,8 +38,8 @@ class StudentCreateRequest extends FormRequest
             'nim.numeric'=>'NIM harus berupa angka',
             'force.required'=>'Tahun masuk wajib diisi',
             'force.numeric'=>'Tahun masuk harus berupa angka',
-            'study_program.required'=>'Program Studi wajib diisi',
-            'student_type.required'=>'Jenis Beasiswa wajib diisi',
+            'study_program_id.required'=>'Program Studi wajib diisi',
+            'student_types_id.required'=>'Jenis Beasiswa wajib diisi',
         ];
     }
 }

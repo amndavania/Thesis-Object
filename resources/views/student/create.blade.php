@@ -25,16 +25,16 @@
                <input type="number" class="form-control" id="name" name="force" placeholder="Angkatan...">
           </div>
           <div class="form-group">
-               <label for="study_program">Program Studi</label>
-               <select class="form-control" id="study_program" name="study_program">
+               <label for="study_program_id">Program Studi</label>
+               <select class="form-control" id="study_program_id" name="study_program_id">
                     @foreach ($study_program as $item)
                          <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                </select>
           </div>
           <div class="form-group">
-               <label for="student_type">Tipe</label>
-               <select class="form-control" id="student_type" name="student_type">
+               <label for="student_types_id">Tipe</label>
+               <select class="form-control" id="student_types_id" name="student_types_id">
                     @foreach ($student_type as $item)
                          <option value="{{ $item->id }}">{{ $item->type }}</option>
                     @endforeach
