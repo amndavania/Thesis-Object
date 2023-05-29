@@ -22,8 +22,10 @@ class StudyProgramUpdateRequest extends FormRequest
 
     public function rules(): array
     {
+        $studyprogram_id = $this->route('study_program');
+
         return [
-            'name'=>'required|unique:study_programs,name,'.$this->id,
+            'name'=>'required|unique:study_programs,name,'.$studyprogram_id,
             'faculty_id'=>'required',
         ];
     }

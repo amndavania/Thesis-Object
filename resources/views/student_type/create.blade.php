@@ -9,6 +9,7 @@
           </div>
      </div>
      <div class="card-body">
+        @include('message.form-message')
           <form method="POST" class="mx-2 p-4" action="{{ url('student_type') }}">
                @csrf
           <div class="form-group">
@@ -24,7 +25,7 @@
                <input type="number" class="form-control" id="krs" name="krs" placeholder="Biaya KRS...">
           </div>
           <div class="form-group">
-               <label for="uts">Biaya UAS</label>
+               <label for="uts">Biaya UTS</label>
                <input type="number" class="form-control" id="uts" name="uts" placeholder="Biaya UTS...">
           </div>
           <div class="form-group">

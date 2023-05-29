@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentType;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StudentType\StudentTypeCreateRequest;
+use App\Http\Requests\StudentType\StudentTypeUpdateRequest;
 
 class StudentTypeController extends Controller
 {
@@ -32,20 +33,11 @@ class StudentTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(StudentTypeCreateRequest $request):RedirectResponse
     {
-        $input = $request->validate([
-            'type'=>'required',
-            'dpp'=>'required',
-            'krs'=>'required',
-            'uts'=>'required',
-            'uas'=>'required',
-            'wisuda'=>'required',
-        ]);
 
-        StudentType::create($input);
-
-        return redirect()->route('student_type.index')->with(['success' => 'Data telah disimpan']);
+        StudentType::create($request->all());
+        return redirect()->route('student_type.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
@@ -62,30 +54,19 @@ class StudentTypeController extends Controller
     public function edit(string $id):View
     {
         //
-        return view('student_type.edit')->with([
-            'student_type' => StudentType::findOrFail($id),
-        ]);
+        $student_type = StudentType::findOrFail($id);
+        return view('student_type.edit', compact('student_type'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id):RedirectResponse
+    public function update(StudentTypeUpdateRequest $request, string $id):RedirectResponse
     {
-        //
-        $input = $request->validate([
-            'type'=>'required',
-            'dpp'=>'required',
-            'krs'=>'required',
-            'uts'=>'required',
-            'uas'=>'required',
-            'wisuda'=>'required',
-        ]);
-        
-        $student_type = StudentType::findOrFail($id);
-        $student_type->update($input);
 
-        return redirect()->route('student_type.index')->with(['success' => 'Data telah disimpan']);
+        $student_type = StudentType::findOrFail($id);
+        $student_type->update($request->all());
+        return redirect()->route('student_type.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
     /**
@@ -97,6 +78,6 @@ class StudentTypeController extends Controller
         $student_type = StudentType::findOrFail($id);
         $student_type->delete();
 
-        return redirect()->route('student_type.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('student_type.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }

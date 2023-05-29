@@ -9,6 +9,7 @@
           </div>
      </div>
      <div class="card-body">
+        @include('message.form-message')
           <form method="post" class="mx-2 p-4" action="{{ route('student_type.update', $student_type->id) }}">
                @csrf
                @method('put')
@@ -25,7 +26,7 @@
                <input type="number" class="form-control" id="krs" name="krs" placeholder="Biaya KRS..." value="{{ old('krs', $student_type->krs) }}">
           </div>
           <div class="form-group">
-               <label for="uts">Biaya UAS</label>
+               <label for="uts">Biaya UTS</label>
                <input type="number" class="form-control" id="uts" name="uts" placeholder="Biaya UTS..."  value="{{ old('uts', $student_type->uts) }}">
           </div>
           <div class="form-group">

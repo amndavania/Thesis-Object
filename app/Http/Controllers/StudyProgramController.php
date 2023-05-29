@@ -39,7 +39,6 @@ class StudyProgramController extends Controller
     {
 
         StudyProgram::create($request->all());
-
         return redirect()->route('study_program.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
@@ -68,7 +67,7 @@ class StudyProgramController extends Controller
      */
     public function update(StudyProgramUpdateRequest $request, string $id):RedirectResponse
     {
-        
+
         $study_program = StudyProgram::findOrFail($id);
         $study_program->update($request->all());
         return redirect()->route('study_program.index')->with(['success' => 'Data berhasil diupdate']);

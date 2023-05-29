@@ -4,8 +4,9 @@
     </x-slot>
     <div class="card">
      <div class="card-header">
-          <div class="d-flex justify-content-end">
-               <button type="button" class="btn btn-sm btn-primary" onclick="window.location='{{ url('student/create') }}'">
+          <div class="d-flex">
+            @include('message.flash-message')
+               <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('student/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                </button>
           </div>
@@ -35,14 +36,14 @@
                               <td>
                                    <div class="d-flex justify-content-center align-items-center text-center">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('student.edit',$row->id) }}'">Edit</button>
-                                        <form action="{{ route('student.destroy',$row->id) }}" method="post" class="m-1">                                       
+                                        <form action="{{ route('student.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')
                                         </form>
                                    </div>
-                                   
-                              </td>   
+
+                              </td>
                          </tr>
                     @endforeach
                </tbody>

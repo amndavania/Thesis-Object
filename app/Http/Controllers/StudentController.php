@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Faculty;
 use App\Models\Student;
 use App\Models\StudentType;
 use App\Models\StudyProgram;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Student\StudentCreateRequest;
+use App\Http\Requests\Student\StudentUpdateRequest;
 
 class StudentController extends Controller
 {
@@ -29,35 +29,23 @@ class StudentController extends Controller
     public function create():View
     {
         //
-
-        return view('student.create')->with([
-            "study_program" => StudyProgram::all(),
-            "student_type" => StudentType::all(),
-        ]);
+        $study_program = StudyProgram::all();
+        $student_type = StudentType::all();
+        // return view('student.create')->with([
+        //     "study_program" => StudyProgram::all(),
+        //     "student_type" => StudentType::all(),
+        // ]);
+        return view('student.create', compact('study_program', 'student_type'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request):RedirectResponse
+    public function store(StudentCreateRequest $request):RedirectResponse
     {
-        $input = $request->validate([
-            'name'=>'required',
-            'nim'=>'required',
-            'force'=>'required',
-            'study_program'=>'required',
-            'student_type'=>'required',
-        ]);
-        // dd($request);
-        Student::create([
-            'name'=>$input['name'],
-            'nim'=>$input['nim'],
-            'force'=>$input['force'],
-            'study_program_id'=>$input['study_program'],
-            'student_types_id'=>$input['student_type'],
-        ]);
 
-        return redirect()->route('student.index')->with(['success' => 'Data telah disimpan']);
+        Student::create($request->all());
+        return redirect()->route('student.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
@@ -84,27 +72,12 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id):RedirectResponse
+    public function update(StudentUpdateRequest $request, string $id):RedirectResponse
     {
-        //
-        $input = $request->validate([
-            'name'=>'required',
-            'nim'=>'required',
-            'force'=>'required',
-            'study_program'=>'required',
-            'student_type'=>'required',
-        ]);
-        
-        $student = Student::findOrFail($id);
-        $student->update([
-            'name' => $input['name'],
-            'nim' => $input['nim'],
-            'force' => $input['force'],
-            'study_program_id' => $input['study_program'],
-            'student_types_id' => $input['student_type'],
-        ]);
 
-        return redirect()->route('student.index')->with(['success' => 'Data telah disimpan']);
+        $student = Student::findOrFail($id);
+        $student->update($request->all());
+        return redirect()->route('student.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
     /**
@@ -116,6 +89,6 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         $student->delete();
 
-        return redirect()->route('student.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('student.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }

@@ -9,7 +9,7 @@
           </div>
      </div>
      <div class="card-body">
-          {{-- <form method="POST" class="mx-2 p-4" action="/student/store"> --}}
+        @include('message.form-message')
           <form method="POST" class="mx-2 p-4" action="{{ route('student.update', $student->id) }}">
                @csrf
                @method('PUT')
@@ -29,7 +29,7 @@
           <label for="study_program">Program Studi</label>
           <select class="form-control" id="study_program" name="study_program">
                @foreach ($study_program as $item)
-                    <option value="{{ $item->id }}" {{ $student->study_program_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option> 
+                    <option value="{{ $item->id }}" {{ $student->study_program_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                @endforeach
           </select>
           </div>
@@ -37,7 +37,7 @@
           <label for="student_type">Tipe Mahasiswa</label>
           <select class="form-control" id="student_type" name="student_type">
                @foreach ($student_type as $item)
-                    <option value="{{ $item->id }}" {{ $student->student_types_id == $item->id ? 'selected' : '' }}>{{ $item->type }}</option> 
+                    <option value="{{ $item->id }}" {{ $student->student_types_id == $item->id ? 'selected' : '' }}>{{ $item->type }}</option>
                @endforeach
           </select>
           </div>
