@@ -10,6 +10,7 @@
      </div>
      <div class="card-body">
           {{-- <form class="mx-2 p-4" action="{{ route('faculty.index') }}" method="POST"> --}}
+            @include('message.form-message')
           <form method="POST" class="mx-2 p-4" action="{{ url('faculty') }}">
                @csrf
           <div class="form-group">

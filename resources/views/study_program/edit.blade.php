@@ -10,18 +10,19 @@
      </div>
      <div class="card-body">
           {{-- <form method="POST" class="mx-2 p-4" action="/study_program/store"> --}}
+            @include('message.form-message')
           <form method="POST" class="mx-2 p-4" action="{{ route('study_program.update', $study_program->id) }}">
                @csrf
                @method('PUT')
           <div class="form-group">
-               <label for="name">Nama Akun</label>
+               <label for="name">Nama Program Studi</label>
                <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun..." value="{{ old('name', $study_program->name) }}">
           </div>
            <div class="form-group">
-               <label for="fakultas">Fakultas</label>
-               <select class="form-control" id="fakultas" name="fakultas">
-                    @foreach ($faculty as $item) 
-                         <option value="{{ $item->id }}" {{ $study_program->faculty_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option> 
+               <label for="faculty_id">Fakultas</label>
+               <select class="form-control" id="faculty_id" name="faculty_id">
+                    @foreach ($faculty as $item)
+                         <option value="{{ $item->id }}" {{ $study_program->faculty_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                </select>
           </div>

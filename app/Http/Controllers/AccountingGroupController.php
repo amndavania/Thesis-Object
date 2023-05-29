@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccountingGroup;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Accounting\AccountingGroupCreateRequest;
+use App\Http\Requests\Accounting\AccountingGroupUpdateRequest;
 
 class AccountingGroupController extends Controller
 {
@@ -32,17 +33,11 @@ class AccountingGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AccountingGroupCreateRequest $request)
     {
-        //
-        $input = $request->validate([
-            'id'=>'required',
-            'name'=>'required',
-            'description' => 'required'
-        ]);
-        AccountingGroup::create($input);
-        
-        return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
+        AccountingGroup::create($request->all());
+
+        return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil Disimpan']);
     }
 
     /**
@@ -67,18 +62,11 @@ class AccountingGroupController extends Controller
      * Update the specified resource in storage.
      */
     // controller
-    public function update(Request $request, string $id):RedirectResponse
+    public function update(AccountingGroupUpdateRequest $request, string $id):RedirectResponse
     {
-        //
-        $input = $request->validate([
-            'id'=>'required',
-            'name'=>'required',
-            'description'=>'required',
-        ]);
-
         $accounting_group = AccountingGroup::findOrFail($id);
-        $accounting_group->update($input);
-        return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
+        $accounting_group->update($request->all());
+        return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
     /**
@@ -87,6 +75,6 @@ class AccountingGroupController extends Controller
     public function destroy($id):RedirectResponse
     {
         AccountingGroup::destroy($id);
-        return redirect()->route('accounting_group.index')->with(['success' => 'Data telah disimpan']);
+        return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }

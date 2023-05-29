@@ -12,6 +12,7 @@
           {{-- <form method="POST" class="mx-2 p-4" action="/"> --}}
                {{-- {{ $accounting_group }} --}}
           {{-- <form method="post" class="mx-2 p-4" action="{{ url('accounting_group/' .$accounting_group->id) }}"> --}}
+            @include('message.form-message')
           <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}">
           {{-- <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}"> --}}
                @csrf
