@@ -2,8 +2,20 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\AccountingGroup;
+use App\Models\Faculty;
+use App\Models\Report;
+use App\Models\Student;
+use App\Models\StudentType;
+use App\Models\StudyProgram;
+use App\Models\Transaction;
+use App\Models\TransactionAccount;
+use App\Models\Ukt;
+
+// use Illuminate\Support\Facades\Hash;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +24,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'password'  => bcrypt('admin'),
+            'role' => 'super admin'
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory(5)->create();
+        AccountingGroup::factory(30)->create();
+        TransactionAccount::factory(30)->create();
+        Transaction::factory(100)->create();
+        StudentType::factory(30)->create();
+        Report::factory(30)->create();
+        Faculty::factory(30)->create();
+        StudyProgram::factory(30)->create();
+        Student::factory(250)->create();
+        Ukt::factory(40)->create();
     }
 }
