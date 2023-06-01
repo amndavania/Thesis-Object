@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="title">
-        Jurnal Umum
+      Buku Besar
     </x-slot>
     <div class="card">
          <div class="card-body">
-          <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3">Download Jurnal Umum</a>
+          <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
@@ -12,7 +12,6 @@
                          <td>Tanggal</td>
                          <td>Nama Akun</td>
                          <td>ID Akun</td>
-                         <td>Ref</td>
                          <td>Debit</td>
                          <td>Kredit</td>
                     </tr>
@@ -22,11 +21,10 @@
                          <tr>
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->created_at }}</td>
-                              <td>{{ $row->transactionaccount->name }}</td>
+                              <td>{{ $row->name }}</td>
                               <td>{{ $row->id }}</td>
-                              <td>{{ $row->reference_number }}</td>
-                              <td class="currency">{{ $row->type == 'Debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
-                              <td class="currency">{{ $row->type == 'Kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
+                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
                          </tr>
                     @endforeach
                </tbody>

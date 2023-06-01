@@ -11,7 +11,7 @@ class JurnalController extends Controller
 {
     public function index()
     {
-        return view('report.printformat.jurnal')->with([
+        return view('report.jurnal')->with([
             'data' => Transaction::get(),
         ]);
     }
