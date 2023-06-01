@@ -2,7 +2,7 @@
     <x-slot name="title">
         Fakultas
     </x-slot>
-    <a href="{{ url('/download/jurnal') }}" target="_blank" class="btn btn-info btn-md">Download Jurnal</a>
+    <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md">Download Jurnal</a>
     <div class="card">
      <div class="card-body">
           <table class="table table-striped ">
@@ -31,7 +31,6 @@
                     @endforeach
                </tbody>
           </table>
-
      </div>
     </div>
 </x-app-layout>

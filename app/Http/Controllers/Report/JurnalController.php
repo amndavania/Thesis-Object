@@ -19,12 +19,12 @@ class JurnalController extends Controller
     public function downloadJurnal()
     {
         $data = Transaction::get();
-        $content = view('report.printformat.jurnal', compact('data'))->render();
+        $content = PDF::loadView('report.printformat.jurnal', compact('data'));
         $fileName = 'jurnal.pdf';
         
-        $pdf = PDF::loadHtml($content);
+        // $pdf = PDF::loadHtml($content);
     
-        return $pdf->stream();
+        return $content->stream();
 
     }
 }

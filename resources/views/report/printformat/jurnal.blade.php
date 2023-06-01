@@ -4,179 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='../../../css/laporan.css' rel="stylesheet" type="text/css">
+    <link href="{{ public_path('css/laporan.css') }}" rel="stylesheet" type="text/css">
     <!-- <script src="{{asset('js/laporan.js')}}"></script> -->
-    <style>
-        .a4-container {
-  width: 210mm;
-  height: 297mm;
-  margin: 0 auto;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  padding: 20mm;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.title {
-  text-align: center;
-  font-size: larger;
-  /* padding-bottom: 10px; */
-  /* padding-top: 20px; */
-}
-
-.title p {
-  margin-top: 10px;
-  padding-top: 5px;
-  margin-bottom: 5px;
-  font-size: large;
-}
-.title h5 {
-  margin-top: 5px;
-  font-size: medium;
-}
-.title h2 {
-  padding-top: 10px;
-  font-size: large;
-  margin: 0px;
-}
-.keterangan {
-  padding-bottom: 20px;
-}
-.content {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: auto;
-}
-.content th {
-  background-color: rgba(128, 128, 128, 0.7);
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #000000;
-}
-.content td {
-  padding: 8px;
-  width: 100px;
-  text-align: left;
-  border: 1px solid #000000;
-}
-.content tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.content tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.currency::after {
-  content: ",00";
-}
-.perubahanModal td,
-th {
-  text-align: left;
-  padding: 8px;
-}
-.perubahanModal th {
-  padding: 8px;
-  text-align: left;
-  margin: 0px;
-}
-
-@media print {
-  .a4-container {
-    margin: 0;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  .title {
-    position: static;
-    text-align: center;
-  }
-
-  .content {
-    position: static;
-  }
-  .th {
-    background-color: rgba(128, 128, 128, 0.8) !important;
-  }
-  .header {
-    position: static;
-  }
-}
-
-.signature-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 70px;
-}
-
-.signature {
-  width: 200px;
-}
-
-.signature-placeholder {
-  border-bottom: 1px solid #000;
-  margin-bottom: 10px;
-  padding-bottom: 100px;
-}
-
-.signature-placeholder p {
-  text-align: center;
-  margin: 0px;
-}
-img {
-  width: 100px;
-  padding-bottom: 20px;
-}
-.header {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #000;
-}
-hr {
-  border-bottom: 2px solid #000;
-  margin-top: 2px;
-}
-.logo {
-  width: 100px;
-  margin-right: 20px;
-}
-
-.header-content {
-  flex-grow: 1;
-}
-
-.header-content h2,
-.header-content p {
-  margin: 0;
-  text-align: center;
-}
-
-.header-content p {
-  font-size: 14px;
-}
-
-.contact-info {
-  font-size: 14px;
-  text-align: center;
-}
-
-.contact-info span {
-  display: block;
-}
-.total td {
-  background-color: rgba(128, 128, 128, 0.4);
-}
-
-    </style>
     <title>Laporan Jurnal</title>
 </head>
 <body>
     <div class="a4-container">
         <div class="header">
-        <img src="/img/logo.png" alt="Logo" class="logo">
+            <img src="{{ public_path('img/logouniv.png') }}" class="logo">
             <div class="header-content">
                 <h2>KEMENTERIAN AGAMA</h2>
                 <h2>INSTITUT AGAMA ISLAM IBRAHIMY</h2>
@@ -187,6 +22,7 @@ hr {
             </div>            
         </div>
         <hr>
+
         <h2 class="title">
             Jurnal Umum
         </h2>
