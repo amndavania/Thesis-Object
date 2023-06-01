@@ -11,20 +11,16 @@ class JurnalController extends Controller
 {
     public function index()
     {
-        return view('report.printformat.jurnal')->with([
-            'data' => Transaction::get(),
+        return view('report.jurnal')->with([
+            'transaction' => Transaction::all(),
         ]);
     }
 
-    public function downloadJurnal()
+    public function export()
     {
-        $data = Transaction::get();
-        $content = view('report.printformat.jurnal', compact('data'))->render();
-        $fileName = 'jurnal.pdf';
-        
-        $pdf = PDF::loadHtml($content);
-    
+        $transaction = Transaction::all();
+        $pdf = PDF::loadView('report.printformat.jurnal', compact('transaction'));
+        // $pdf->setOptions(['margin_top' => 0, 'margin_bottom' => 0, 'margin_left' => 0, 'margin_right' => 0]);
         return $pdf->stream();
-
     }
 }

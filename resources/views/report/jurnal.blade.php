@@ -2,8 +2,16 @@
     <x-slot name="title">
         Fakultas
     </x-slot>
-    <a href="{{ url('/download/jurnal') }}" target="_blank" class="btn btn-info btn-md">Download Jurnal</a>
+    <a href="{{ url('jurnal/export') }}" target="_blank" class="btn btn-info btn-md">Download Jurnal</a>
     <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+              @include('message.flash-message')
+                 <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('jurnal/export') }}'">
+                      <i class="fas fa-plus-circle"></i> Export To PDF
+                 </button>
+            </div>
+       </div>
      <div class="card-body">
           <table class="table table-striped ">
                <thead class="table-dark">
@@ -18,7 +26,7 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($transaksi as $row)
+                    @foreach ($transaction as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->created_at }}</td>
