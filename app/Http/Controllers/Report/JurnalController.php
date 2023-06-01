@@ -22,7 +22,7 @@ class JurnalController extends Controller
         $transaction = Transaction::all();
         $pdf = PDF::loadView('report.printformat.jurnal', compact('transaction'));
         $pdf->setOption('enable-local-file-access', true);
-        Session::flash('success', 'Laporan Jurnal');
+        Session::flash('title', 'Laporan Jurnal');
         return $pdf->stream('Laporan Jurnal.pdf');
     }
 }
