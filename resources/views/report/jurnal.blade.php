@@ -2,14 +2,11 @@
     <x-slot name="title">
         Fakultas
     </x-slot>
-    <a href="{{ url('jurnal/export') }}" target="_blank" class="btn btn-info btn-md">Download Jurnal</a>
     <div class="card">
         <div class="card-header">
             <div class="d-flex">
               @include('message.flash-message')
-                 <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('jurnal/export') }}'">
-                      <i class="fas fa-plus-circle"></i> Export To PDF
-                 </button>
+              <a href="{{ url('jurnal/export') }}" target="_blank" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</a>
             </div>
        </div>
      <div class="card-body">

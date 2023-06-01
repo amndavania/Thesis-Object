@@ -20,7 +20,8 @@ class JurnalController extends Controller
     {
         $transaction = Transaction::all();
         $pdf = PDF::loadView('report.printformat.jurnal', compact('transaction'));
+        $pdf->setOption('enable-local-file-access', true);
         // $pdf->setOptions(['margin_top' => 0, 'margin_bottom' => 0, 'margin_left' => 0, 'margin_right' => 0]);
-        return $pdf->stream();
+        return $pdf->stream('jurnal.pdf');
     }
 }
