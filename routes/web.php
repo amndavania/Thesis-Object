@@ -7,6 +7,7 @@ use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\UktController;
+use App\Http\Controllers\TransactionAccountController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\Report\JurnalController;
@@ -60,6 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
+        Route::resource('transaction_account', TransactionAccountController::class)->except(['show']);
         Route::resource('jurnal', JurnalController::class)->except(['show']);
         Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
         Route::resource('cashflow', CashFlowController::class)->except(['show']);

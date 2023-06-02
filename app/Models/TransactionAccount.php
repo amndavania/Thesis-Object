@@ -27,7 +27,7 @@ class TransactionAccount extends Model
 
     public function accountinggroup(): BelongsTo
     {
-        return $this->belongsTo(AccountingGroup::class);
+        return $this->belongsTo(AccountingGroup::class, 'accounting_group_id');
     }
 
     public function transaction(): HasMany

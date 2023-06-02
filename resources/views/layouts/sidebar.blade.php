@@ -119,10 +119,18 @@
           </li>
           {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="{{ route('accounting_group.index') }}" class="nav-link">
+            <a href="{{ route('transaction_account.index') }}" class="nav-link">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Akun Transaksi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{ route('accounting_group.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+                Grup Akun Transaksi
               </p>
             </a>
           </li>
