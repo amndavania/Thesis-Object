@@ -1,5 +1,4 @@
 @include('report.kop')
-        
         <h2 class="title">
             Jurnal Umum
         </h2>

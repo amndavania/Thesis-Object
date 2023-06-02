@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\Report\JurnalController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\StudentTypeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Report\JurnalController;
+use App\Http\Controllers\Report\BukuBesarController;
+use App\Http\Controllers\Report\CashFlowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,8 +59,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
 
-        // Route::get('download/jurnal', [JurnalController::class, 'downloadJurnal']);
-        // Route::get('/cekjurnal', [JurnalController::class, 'index']);
+        Route::resource('report/bukubesar', BukuBesarController::class)->except(['show']);
+        Route::resource('report/cashflow', CashFlowController::class)->except(['show']);
     });
 });
 
