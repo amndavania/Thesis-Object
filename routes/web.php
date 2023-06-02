@@ -6,8 +6,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudyProgramController;
+use App\Http\Controllers\UktController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentTypeController;
-
 use App\Http\Controllers\Report\JurnalController;
 use App\Http\Controllers\Report\BukuBesarController;
 use App\Http\Controllers\Report\CashFlowController;
@@ -44,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
+    Route::resource('ukt', UktController::class)->except(['show']);
 
     Route::middleware(['admin:admin penerimaan', 'admin:super admin'])->group(function () {
         //
