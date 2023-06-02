@@ -8,7 +8,6 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudyProgramController;
 use App\Http\Controllers\UktController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\Report\JurnalController;
 use App\Http\Controllers\Report\BukuBesarController;
