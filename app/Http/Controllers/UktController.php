@@ -37,7 +37,7 @@ class UktController extends Controller
     {
         // dd($request);
         Ukt::create($request->all());
-        return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
+        return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
