@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use App\Models\TransactionAccount;
 use PDF;
 
@@ -16,15 +17,13 @@ class BukuBesarController extends Controller
         ]);
     }
 
-    public function downloadbukubesar()
+    public function export()
     {
-        $data = TransactionAccount::get();
-        $content = PDF::loadView('report.printformat.bukubesar', compact('data'));
-        $fileName = 'laporan buku besar.pdf';
-        
-        // $pdf = PDF::loadHtml($content);
-    
-        return $content->stream();
+        $data = TransactionAccount::all();
+        $pdf = PDF::loadView('report.printformat.bukubesar', compact('data'));
+        $pdf->setOption('enable-local-file-access', true);
+        Session::flash('title', 'Laporan Buku Besar');
+        return $pdf->stream('Laporan Buku Besar.pdf');
 
     }
 }

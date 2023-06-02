@@ -3,8 +3,14 @@
       Buku Besar
     </x-slot>
     <div class="card">
+     <div class="card-header">
+          <div class="d-flex">
+            @include('message.flash-message')
+            <a href="{{ url('bukubesar/export') }}" target="_blank" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</a>
+          </div>
+     </div>
          <div class="card-body">
-          <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a>
+          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a> --}}
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

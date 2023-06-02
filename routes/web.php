@@ -56,11 +56,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
         Route::resource('jurnal', JurnalController::class)->except(['show']);
+        Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
+        Route::resource('cashflow', CashFlowController::class)->except(['show']);
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
+        Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
+        Route::get('cashflow/export', [CashFlowController::class, 'export']);
 
-        Route::resource('report/bukubesar', BukuBesarController::class)->except(['show']);
-        Route::resource('report/cashflow', CashFlowController::class)->except(['show']);
+        // Route::resource('report/bukubesar', BukuBesarController::class)->except(['show']);
+        // Route::resource('report/cashflow', CashFlowController::class)->except(['show']);
     });
 });
 

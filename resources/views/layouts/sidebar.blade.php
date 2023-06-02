@@ -86,13 +86,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="bukubesar" class="nav-link">
+                <a href="{{ route('bukubesar.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buku Besar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="cashflow" class="nav-link">
+                <a href="{{ route('cashflow.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cash Flow</p>
                 </a>

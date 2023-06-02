@@ -16,7 +16,7 @@
             <table>
                 <tr>
                   <td>
-                    <img src="{{public_path('img/logo.png')}}" alt="Logo" class="logo">
+                    <img src="{{public_path('img/logouniv.png')}}" alt="Logo" class="logo">
                   </td>
                   <td>
                     <div class="header-content">
@@ -29,6 +29,6 @@
                     </div>
                   </td>
                 </tr>
-              </table>            
+              </table>
         </div>
         <hr>

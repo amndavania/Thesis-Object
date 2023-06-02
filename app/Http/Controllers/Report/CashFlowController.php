@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use App\Models\TransactionAccount;
 use PDF;
 
@@ -17,7 +18,7 @@ class CashFlowController extends Controller
         $dataD = TransactionAccount::where('accounting_group_id', 4)->get();
         $dataE = TransactionAccount::where('accounting_group_id', 5)->get();
         $dataF = TransactionAccount::where('accounting_group_id', 6)->get();
-        
+
         return view('report.cashflow')->with([
             'dataA' => $dataA,
             'dataB' => $dataB,
@@ -28,15 +29,13 @@ class CashFlowController extends Controller
         ]);
     }
 
-    public function downloadbukubesar()
+    public function export()
     {
         $data = TransactionAccount::get();
-        $content = PDF::loadView('report.printformat.cashflow', compact('data'));
-        $fileName = 'laporan buku besar.pdf';
-        
-        // $pdf = PDF::loadHtml($content);
-    
-        return $content->stream();
+        $pdf = PDF::loadView('report.printformat.cashflow', compact('data'));
+        $pdf->setOption('enable-local-file-access', true);
+        Session::flash('title', 'Laporan Cash Flow');
+        return $pdf->stream('Laporan Cash Flow.pdf');
 
     }
 }
