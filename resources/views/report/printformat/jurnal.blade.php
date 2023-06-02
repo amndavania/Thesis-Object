@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ public_path('css/laporan.css') }}" rel="stylesheet" type="text/css">
-    <!-- <script src="{{asset('js/laporan.js')}}"></script> -->
-    <title>Laporan Jurnal</title>
-</head>
-<body>
-    <div class="a4-container">
-        <div class="header">
-            <img src="{{ public_path('img/logouniv.png') }}" class="logo">
-            <div class="header-content">
-                <h2>KEMENTERIAN AGAMA</h2>
-                <h2>INSTITUT AGAMA ISLAM IBRAHIMY</h2>
-                <div class="contact-info">
-                    <span>Jl. KH. Hasyim Asy'ari No.01, Dusun Krajan, Kembiritan Kec. Genteng, Kabupaten Banyuwangi, Jawa Timur 68465</span>
-                    <span>Phone:0333-845654&nbsp;Email: admin@iaiibrahimy.ac.id</span>
-                </div>
-            </div>            
-        </div>
-        <hr>
-
+@include('report.kop')
         <h2 class="title">
             Jurnal Umum
         </h2>
@@ -32,21 +8,21 @@
                     Periode
                 </td>
                 <td>:</td>
-                <td>Mei 2023</td>                   
+                <td>Mei 2023</td>
             </tr>
             <tr>
                 <td>
                     Tanggal Dibuat
                 </td>
                 <td>:</td>
-                <td>25 Mei 2023</td> 
+                <td>25 Mei 2023</td>
             </tr>
             <tr>
                 <td>
                     Kode
                 </td>
                 <td>:</td>
-                <td>6666-9966-3363</td> 
+                <td>6666-9966-3363</td>
             </tr>
         </table>
         <table class="content">
@@ -64,13 +40,10 @@
             <tbody>
                 <?php
 
-
-
-
                 $jumlahDebit = 0;
                 $jumlahKredit = 0;
 
-                foreach ($data as $key => $row) {
+                foreach ($transaction as $key => $row) {
                     $No = $key+1;
                     $Tanggal = $row->created_at;
                     $Nama_Akun = $row->transactionaccount->name;
@@ -95,7 +68,7 @@
                 ?>
             </tbody>
             <tfoot class = "total">
-                <tr>                    
+                <tr>
                     <td colspan="5" style="text-align: center; background-color: rgba(128, 128, 128, 0.4)">
                     <strong>Jumlah</strong>
                     </td>
@@ -106,26 +79,6 @@
                 </tr>
             </tfoot>
             </div>
-        </table>        
+        </table>
 
-        <div class="signature-container">
-            <div class="signature signature-left">
-                <div class="signature-placeholder">
-                    <p>Mengetahui,</p>
-                    <p id="warek">Warek II Bidang Keuangan</p>
-                    
-                </div>
-                    <p style="text-align: center; margin: 2px;">Zidniyati, M.Pd.</p>
-            </div>
-            <div class="signature signature-right">
-                <div class="signature-placeholder">
-                    <p id="date">Banyuwangi, 24-05-2023</p>
-                    <p id="kabak-keuangan">Ka. BAUKK</p>                        
-                </div>
-                    <p style="text-align: center; margin: 2px;">Samsuri, M.Si.</p>
-            </div>
-    </div>
-    </div>       
-    </div>
-</body>
-</html>
+@include('report.signature')

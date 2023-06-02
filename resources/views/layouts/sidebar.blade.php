@@ -67,7 +67,7 @@
             </a>
           </li>
         @endif
-          
+
 
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
@@ -80,7 +80,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="jurnal" class="nav-link">
+                <a href="{{ route('jurnal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jurnal</p>
                 </a>
@@ -180,5 +180,5 @@
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
-    
+
   </div>

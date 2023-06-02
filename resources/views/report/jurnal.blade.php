@@ -1,10 +1,15 @@
 <x-app-layout>
     <x-slot name="title">
-        Jurnal Umum
+        Jurnal
     </x-slot>
     <div class="card">
-         <div class="card-body">
-          <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3">Download Jurnal Umum</a>
+        <div class="card-header">
+            <div class="d-flex">
+              @include('message.flash-message')
+              <a href="{{ url('jurnal/export') }}" target="_blank" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</a>
+            </div>
+       </div>
+     <div class="card-body">
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
@@ -18,7 +23,7 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($transaction as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->created_at }}</td>

@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-    <title>Laporan Buku Besar</title>
-</head>
-<body>
-    <div class="a4-container">
-        <div class="header">
-            <img src="logo.png" alt="Logo" class="logo">
-            <div class="header-content">
-                <h2>KEMENTERIAN AGAMA</h2>
-                <h2>INSTITUT AGAMA ISLAM IBRAHIMY</h2>
-                <div class="contact-info">
-                    <span>Jl. KH. Hasyim Asy'ari No.01, Dusun Krajan, Kembiritan Kec. Genteng, Kabupaten Banyuwangi, Jawa Timur 68465</span>
-                    <span>Phone:0333-845654&nbsp;Email: admin@iaiibrahimy.ac.id</span> 
-                </div>
-            </div>            
-        </div>
-        <hr>
+@include('report.kop')
         <div class="title">
             <h2>Laporan Buku Besar</h2>
             <h5>25 Mei 2023</h5>
@@ -97,24 +74,4 @@
             </tfoot>
             </div>
         </table>
-        <div class="signature-container">
-            <div class="signature signature-left">
-                <div class="signature-placeholder">
-                    <p>Mengetahui,</p>
-                    <p id="warek">Warek II Bidang Keuangan</p>
-                    
-                </div>
-                    <p style="text-align: center; margin: 2px;">Zidniyati, M.Pd.</p>
-            </div>
-            <div class="signature signature-right">
-                <div class="signature-placeholder">
-                    <p id="date">Banyuwangi, 24-05-2023</p>
-                    <p id="kabak-keuangan">Ka. BAUKK</p>                        
-                </div>
-                    <p style="text-align: center; margin: 2px;">Samsuri, M.Si.</p>
-            </div>
-    </div>
-    </div>       
-    </div>
-</body>
-</html>
+        @include('report.signature')

@@ -43,11 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
 
     Route::middleware(['admin:admin penerimaan', 'admin:super admin'])->group(function () {
-        // 
+        //
     });
 
     Route::middleware(['admin:admin pengeluaran', 'admin:super admin'])->group(function () {
-        // 
+        //
     });
 
     Route::middleware('admin:super admin')->group(function () {
@@ -55,12 +55,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
+        Route::resource('jurnal', JurnalController::class)->except(['show']);
 
-        Route::resource('report/jurnal', JurnalController::class)->except(['show']);
+        Route::get('jurnal/export', [JurnalController::class, 'export']);
+
         Route::resource('report/bukubesar', BukuBesarController::class)->except(['show']);
         Route::resource('report/cashflow', CashFlowController::class)->except(['show']);
-        
-        Route::get('download/jurnal', [JurnalController::class, 'downloadJurnal']);
     });
 });
 

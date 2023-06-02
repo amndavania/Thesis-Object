@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use App\Models\Transaction;
 use PDF;
 
@@ -12,19 +13,16 @@ class JurnalController extends Controller
     public function index()
     {
         return view('report.jurnal')->with([
-            'data' => Transaction::get(),
+            'transaction' => Transaction::all(),
         ]);
     }
 
-    public function downloadJurnal()
+    public function export()
     {
-        $data = Transaction::get();
-        $content = PDF::loadView('report.printformat.jurnal', compact('data'));
-        $fileName = 'jurnal.pdf';
-        
-        // $pdf = PDF::loadHtml($content);
-    
-        return $content->stream();
-
+        $transaction = Transaction::all();
+        $pdf = PDF::loadView('report.printformat.jurnal', compact('transaction'));
+        $pdf->setOption('enable-local-file-access', true);
+        Session::flash('title', 'Laporan Jurnal');
+        return $pdf->stream('Laporan Jurnal.pdf');
     }
 }
