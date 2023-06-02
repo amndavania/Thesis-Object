@@ -67,7 +67,7 @@
             </a>
           </li>
         @endif
-          
+
 
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
@@ -80,37 +80,37 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('jurnal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jurnal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('bukubesar.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buku Besar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('cashflow.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cash Flow</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('labarugi.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Laba Rugi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('neraca.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Neraca</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('perubahanmodal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Perubahan Modal</p>
                 </a>
@@ -180,5 +180,5 @@
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
-    
+
   </div>

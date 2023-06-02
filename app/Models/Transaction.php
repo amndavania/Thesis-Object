@@ -26,7 +26,7 @@ class Transaction extends Model
 
     public function transactionaccount(): BelongsTo
     {
-        return $this->belongsTo(TransactionAccount::class);
+        return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
     }
 
     public function user(): BelongsTo

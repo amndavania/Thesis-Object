@@ -1,0 +1,163 @@
+.container {
+  margin: 0 auto;
+  background-color: white;
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  font-size: larger;
+}
+
+.title p {
+  margin-top: 10px;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  font-size: large;
+}
+
+.title h5 {
+  margin-top: 5px;
+  font-size: medium;
+}
+.title h2 {
+  padding-top: 10px;
+  font-size: large;
+  margin: 0px;
+}
+.keterangan {
+  padding-bottom: 20px;
+}
+.content {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+.content th {
+  background-color: rgba(128, 128, 128, 0.7);
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #000000;
+}
+.content td {
+  padding: 8px;
+  width: 100px;
+  text-align: left;
+  border: 1px solid #000000;
+}
+.content tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.content tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.currency::after {
+  content: ",00";
+}
+.perubahanModal td,
+th {
+  text-align: left;
+  padding: 8px;
+}
+.perubahanModal th {
+  padding: 8px;
+  text-align: left;
+  margin: 0px;
+}
+
+@media print {
+  .container {
+    margin: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .title {
+    position: static;
+    text-align: center;
+  }
+
+  .content {
+    position: static;
+  }
+  .th {
+    background-color: rgba(128, 128, 128, 0.8) !important;
+  }
+  .header {
+    position: static;
+  }
+}
+
+.signature {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding-top: 70px;
+  }
+  
+  .signature td {
+    padding: 10px;
+    text-align: left;
+    border: none;
+  }
+
+.signature-placeholder {
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+  padding-bottom: 100px;
+}
+
+.signature-placeholder p {
+  text-align: left;
+  margin: 0px;
+}
+
+img {
+  width: 100px;
+  padding-bottom: 20px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+}
+hr {
+  border-bottom: 2px solid #000;
+  margin-top: 2px;
+}
+.logo {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.header-content {
+  flex-grow: 1;
+}
+
+.header-content h2,
+.header-content p {
+  margin: 0;
+  text-align: center;
+}
+
+.header-content p {
+  font-size: 14px;
+}
+
+.contact-info {
+  font-size: 14px;
+  text-align: center;
+}
+
+.contact-info span {
+  display: block;
+}
+.total td {
+  background-color: rgba(128, 128, 128, 0.4);
+}
