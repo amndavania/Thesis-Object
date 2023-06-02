@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-      Cash Flow
+      Perubahan Modal
     </x-slot>
     <div class="card">
         <div class="card-header">
@@ -10,7 +10,7 @@
             </div>
        </div>
          <div class="card-body">
-          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Cash Flow</a> --}}
+          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Perubahan Modal</a> --}}
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

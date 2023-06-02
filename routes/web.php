@@ -11,6 +11,9 @@ use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\Report\JurnalController;
 use App\Http\Controllers\Report\BukuBesarController;
 use App\Http\Controllers\Report\CashFlowController;
+use App\Http\Controllers\Report\NeracaController;
+use App\Http\Controllers\Report\PerubahanModalController;
+use App\Http\Controllers\Report\LabaRugiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +61,16 @@ Route::middleware('auth')->group(function () {
         Route::resource('jurnal', JurnalController::class)->except(['show']);
         Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
         Route::resource('cashflow', CashFlowController::class)->except(['show']);
+        Route::resource('labarugi', LabaRugiController::class)->except(['show']);
+        Route::resource('neraca', NeracaController::class)->except(['show']);
+        Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
         Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
         Route::get('cashflow/export', [CashFlowController::class, 'export']);
+        Route::get('labarugi/export', [LabaRugiController::class, 'export']);
+        Route::get('neraca/export', [NeracaController::class, 'export']);
+        Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
 
         // Route::resource('report/bukubesar', BukuBesarController::class)->except(['show']);
         // Route::resource('report/cashflow', CashFlowController::class)->except(['show']);

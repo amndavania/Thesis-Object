@@ -1,8 +1,23 @@
 @include('report.kop')
-        <div class="title">
-            <h2>Laporan Rugi Laba</h2>
-            <h5>untuk periode yang berakhir 30 Mei 2023</h5>
-        </div>
+            <h2 class="title">
+                Laporan Rugi Laba
+            </h2>
+            <table class="keterangan">
+            <tr>
+                <td>
+                    Periode
+                </td>
+                <td>:</td>
+                <td>Mei 2023</td>
+            </tr>
+            <tr>
+                <td>
+                    Tanggal Dicetak
+                </td>
+                <td>:</td>
+                <td>25 Mei 2023</td>
+            </tr>
+        </table>
         <table class="content">
             <thead>
                 <tr>

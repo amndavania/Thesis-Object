@@ -12,17 +12,10 @@
             </tr>
             <tr>
                 <td>
-                    Tanggal Dibuat
+                    Tanggal Dicetak
                 </td>
                 <td>:</td>
                 <td>25 Mei 2023</td>
-            </tr>
-            <tr>
-                <td>
-                    Kode
-                </td>
-                <td>:</td>
-                <td>6666-9966-3363</td>
             </tr>
         </table>
         <table class="content">
