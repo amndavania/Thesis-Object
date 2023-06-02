@@ -43,13 +43,13 @@
               <li class="nav-item">
                 <a href="{{ route('ukt.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Mahasiswa</p>
+                  <p>Mahasiswa / UKT</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('pemasukan.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lain lain</p>
+                  <p>Pemasukan lain</p>
                 </a>
               </li>
             </ul>
@@ -59,7 +59,7 @@
           @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin pengeluaran')
           {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{ route('pengeluaran.index') }}" class="nav-link">
               <i class="nav-icon fas fa-coins"></i>
               <p>
                 Pengeluaran

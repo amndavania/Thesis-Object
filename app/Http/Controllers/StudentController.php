@@ -29,13 +29,8 @@ class StudentController extends Controller
      */
     public function create():View
     {
-        //
         $study_program = StudyProgram::all();
         $student_type = StudentType::all();
-        // return view('student.create')->with([
-        //     "study_program" => StudyProgram::all(),
-        //     "student_type" => StudentType::all(),
-        // ]);
         return view('student.create', compact('study_program', 'student_type'));
     }
 

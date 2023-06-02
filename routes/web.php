@@ -3,6 +3,8 @@
 use App\Http\Controllers\AccountingGroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\StudyProgramController;
@@ -40,13 +42,18 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
     Route::resource('ukt', UktController::class)->except(['show']);
+    
+    Route::resource('pengeluaran', PengeluaranController::class)->except(['show']);
+    Route::resource('pemasukan', PemasukanController::class)->except(['show']);
 
     Route::middleware(['admin:admin penerimaan', 'admin:super admin'])->group(function () {
-        // 
+        // Route::resource('pemasukan', PemasukanController::class)->except(['show']);
+        // ni juga
     });
 
     Route::middleware(['admin:admin pengeluaran', 'admin:super admin'])->group(function () {
-        // 
+        // Route::resource('pengeluaran', PengeluaranController::class)->except(['show']); 
+        // eror zul
     });
 
     Route::middleware('admin:super admin')->group(function () {

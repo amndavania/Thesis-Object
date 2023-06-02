@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('reference_number')->nullable();
             $table->float('amount');
-            $table->string('type');
+            $table->enum('type', ['kredit','debit']);
             $table->foreignId('transaction_accounts_id')->constrained();
             $table->timestamps();
         });
