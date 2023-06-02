@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Ukt\UktCreateRequest;
+use App\Http\Requests\Ukt\UktUpdateRequest;
 use App\Models\Student;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
@@ -33,9 +35,8 @@ class UktController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UktCreateRequest $request)
     {
-        // dd($request);
         Ukt::create($request->all());
         return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
     }
@@ -62,7 +63,7 @@ class UktController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id):RedirectResponse
+    public function update(UktUpdateRequest $request, String $id):RedirectResponse
     {
         $ukt = Ukt::findOrFail($id);
         $request['students_id'] = $ukt->students_id;

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan Mahasiswa
+        Pemasukan UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -32,7 +32,7 @@
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->student_id->name }} / {{ $row->student_id->nim }}</td>
                               <td>{{ $row->semester }}</td>
-                              <td>{{ $row->reference_number }}</td>
+                              <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td>
                               <td>{{ $row->amount }}</td>
                               <td>{{ $row->total }}</td>
                               <td>{{ $row->status }}</td>

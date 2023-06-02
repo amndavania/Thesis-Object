@@ -6,6 +6,7 @@ use App\Http\Requests\TransactionAccount\TransactionAccountCreateRequest;
 use App\Http\Requests\TransactionAccount\TransactionAccountUpdateRequest;
 use App\Models\AccountingGroup;
 use App\Models\TransactionAccount;
+use App\Models\Ukt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -77,7 +78,14 @@ class TransactionAccountController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        TransactionAccount::destroy($id);
-        return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
+        $ukt = Ukt::where('transaction_accounts_id', $id)->exists();
+
+        if (!$ukt) {
+            $transaction_account = TransactionAccount::findOrFail($id);
+            $transaction_account->delete();
+            return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->route('transaction_account.index')->with(['warning' => 'AKun Transaksi masih terhubung dengan UKT Mahasiswa']);
+        }
     }
 }
