@@ -40,20 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
-    Route::resource('ukt', UktController::class)->except(['show']);
-    
-    Route::resource('pengeluaran', PengeluaranController::class)->except(['show']);
-    Route::resource('pemasukan', PemasukanController::class)->except(['show']);
-
     Route::middleware(['admin:admin penerimaan', 'admin:super admin'])->group(function () {
-        // Route::resource('pemasukan', PemasukanController::class)->except(['show']);
-        // ni juga
+        Route::resource('pemasukan', PemasukanController::class)->except(['show']);
     });
 
     Route::middleware(['admin:admin pengeluaran', 'admin:super admin'])->group(function () {
-        // Route::resource('pengeluaran', PengeluaranController::class)->except(['show']); 
-        // eror zul
+        Route::resource('pengeluaran', PengeluaranController::class)->except(['show']);
     });
 
     Route::middleware('admin:super admin')->group(function () {
@@ -61,6 +53,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
+        Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
+        Route::resource('ukt', UktController::class)->except(['show']);
+        Route::resource('pengeluaran', PengeluaranController::class)->except(['show']);
+        Route::resource('pemasukan', PemasukanController::class)->except(['show']);
     });
 });
 
