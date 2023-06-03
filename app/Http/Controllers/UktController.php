@@ -38,7 +38,7 @@ class UktController extends Controller
     public function store(UktCreateRequest $request)
     {
         Ukt::create($request->all());
-        return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
+        return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**

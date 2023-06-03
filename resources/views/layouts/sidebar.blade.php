@@ -9,6 +9,8 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        @if(Auth::user()->role == 'super admin')
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('dashboard') }}" class="nav-link">
@@ -18,16 +20,7 @@
               </p>
             </a>
           </li>
-
-          {{-- menu --}}
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Dasbor Mahasiswa
-              </p>
-            </a>
-          </li>
+          @endif
 
           @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin penerimaan')
           {{-- menu sub--}}
@@ -47,9 +40,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('pemasukan.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lain lain</p>
+                  <p>Pemasukan lain</p>
                 </a>
               </li>
             </ul>
@@ -59,7 +52,7 @@
           @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin pengeluaran')
           {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{ route('pengeluaran.index') }}" class="nav-link">
               <i class="nav-icon fas fa-coins"></i>
               <p>
                 Pengeluaran
@@ -174,7 +167,15 @@
           </li>
         @endif
 
-
+        {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Dasbor Mahasiswa
+              </p>
+            </a>
+          </li>
 
           {{-- menu --}}
           <li class="nav-item has-treeview">
