@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('student_types', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->decimal('dpp', 10, 2)->nullable();
-            $table->decimal('krs', 10, 2)->nullable();
-            $table->decimal('uts', 10, 2)->nullable();
-            $table->decimal('uas', 10, 2)->nullable();
-            $table->decimal('wisuda', 10, 2)->nullable();
+            $table->decimal('dpp', 14, 2)->nullable();
+            $table->decimal('krs', 14, 2)->nullable();
+            $table->decimal('uts', 14, 2)->nullable();
+            $table->decimal('uas', 14, 2)->nullable();
+            $table->decimal('wisuda', 14, 2)->nullable();
             $table->timestamps();
         });
     }

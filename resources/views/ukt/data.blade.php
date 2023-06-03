@@ -33,12 +33,12 @@
                               <td>{{ $row->student_id->name }} / {{ $row->student_id->nim }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td>
-                              <td>{{ $row->amount }}</td>
-                              <td>{{ $row->total }}</td>
+                              <td>{{ 'Rp ' . number_format($row->amount, 0, ',', '.') }}</td>
+                              <td>{{ 'Rp ' . number_format($row->total, 0, ',', '.') }}</td>
                               <td>{{ $row->status }}</td>
                               <td>{{ $row->transactionaccount->name }}</td>
                               <td>
-                                   <div class="d-flex justify-content-center align-items-center text-center">
+                                   <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button>
                                         <form action="{{ route('ukt.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>

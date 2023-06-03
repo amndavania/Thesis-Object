@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StudentType;
+namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StudentTypeCreateRequest extends FormRequest
+class TransactionCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,16 @@ class StudentTypeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type'=>'required|unique:student_types,type',
+            'amount'=>'required',
+            'transaction_accounts_id'=>'required',
         ];
     }
 
     public function messages()
     {
-        return [
-            'type.required'=>'Nama beasiswa harus diisi',
-            'type.unique'=>'Nama beasiswa sudah ada',
+        return[
+            'amount.required'=>'Jumlah harus diisi',
+            'transaction_accounts_id.required'=>'Akun Transaksi harus diisi'
         ];
     }
 }

@@ -14,7 +14,7 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama Program Studi</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama..." value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="faculty_id">Fakultas</label>

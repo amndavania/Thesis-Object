@@ -14,27 +14,27 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama Beasiswa</label>
-               <input type="text" class="form-control" id="name" name="type" placeholder="Nama...">
+               <input type="text" class="form-control" id="name" name="type" placeholder="Nama..." value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="dpp">DPP</label>
-               <input type="number" class="form-control" id="dpp" name="dpp" placeholder="Biaya DPP...">
+               <input type="number" class="form-control" id="dpp" name="dpp" placeholder="Biaya DPP..." value="{{ old('dpp') }}">
           </div>
           <div class="form-group">
                <label for="krs">KRS</label>
-               <input type="number" class="form-control" id="krs" name="krs" placeholder="Biaya KRS...">
+               <input type="number" class="form-control" id="krs" name="krs" placeholder="Biaya KRS..." value="{{ old('krs') }}">
           </div>
           <div class="form-group">
                <label for="uts">Biaya UTS</label>
-               <input type="number" class="form-control" id="uts" name="uts" placeholder="Biaya UTS...">
+               <input type="number" class="form-control" id="uts" name="uts" placeholder="Biaya UTS..." value="{{ old('uts') }}">
           </div>
           <div class="form-group">
                <label for="uas">Biaya UAS</label>
-               <input type="number" class="form-control" id="uas" name="uas" placeholder="Biaya UAS...">
+               <input type="number" class="form-control" id="uas" name="uas" placeholder="Biaya UAS..." value="{{ old('uas') }}">
           </div>
           <div class="form-group">
                <label for="wisuda">Biaya Wisuda</label>
-               <input type="number" class="form-control" id="wisuda" name="wisuda" placeholder="Biaya Wisuda...">
+               <input type="number" class="form-control" id="wisuda" name="wisuda" placeholder="Biaya Wisuda..." value="{{ old('wisuda') }}">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

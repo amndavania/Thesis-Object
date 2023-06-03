@@ -14,15 +14,15 @@
                @csrf
           <div class="form-group">
                <label for="id">ID Akun</label>
-               <input type="text" class="form-control" id="id" name="id" placeholder="ID Akun...">
+               <input type="text" class="form-control" id="id" name="id" placeholder="ID Akun..." value="{{ old('id') }}">
           </div>
           <div class="form-group">
                <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun..." value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi...">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description') }}">
           </div>
           <div class="form-group">
             <label for="accounting_group_id">Grup</label>

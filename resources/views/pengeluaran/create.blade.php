@@ -14,15 +14,15 @@
                @csrf
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi...">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description') }}">
           </div>
           <div class="form-group">
                <label for="reference_number">Nomor Referensi</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Nomor Referensi...">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Nomor Referensi..." value="{{ old('reference_number') }}">
           </div>
           <div class="form-group">
                <label for="amount">Jumlah</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah...">
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
           </div>
           <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>

@@ -31,7 +31,7 @@ class FacultyUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Nama Fakultas wajib diisi',
+            'name.required'=>'Nama Fakultas harus diisi',
             'name.unique'=>'Nama Fakultas sudah ada',
         ];
     }

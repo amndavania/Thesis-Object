@@ -31,9 +31,9 @@
                               <th>{{ $loop->iteration }}</th>
                               <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
-                              <td>{{ $row->ammount_kredit }}</td>
-                              <td>{{ $row->ammount_debit }}</td>
+                              <td>{{ $row->description ? $row->description : '-' }}</td>
+                              <td>{{ 'Rp ' . number_format($row->ammount_kredit, 0, ',', '.') }}</td>
+                              <td>{{ 'Rp ' . number_format($row->ammount_debit, 0, ',', '.') }}</td>
                               <td>{{ $row->accountinggroup->name}}</td>
                               <td>
                                 <div class="d-flex">

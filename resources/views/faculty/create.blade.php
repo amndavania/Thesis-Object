@@ -15,7 +15,7 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama Fakultas</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Fakultas...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Fakultas..." value="{{ old('name') }}">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

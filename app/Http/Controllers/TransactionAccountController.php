@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TransactionAccount\TransactionAccountCreateRequest;
 use App\Http\Requests\TransactionAccount\TransactionAccountUpdateRequest;
 use App\Models\AccountingGroup;
+use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
 use Illuminate\Http\RedirectResponse;
@@ -79,8 +80,9 @@ class TransactionAccountController extends Controller
     public function destroy($id):RedirectResponse
     {
         $ukt = Ukt::where('transaction_accounts_id', $id)->exists();
+        $transaction = Transaction::where('transaction_accounts_id', $id)->exists();
 
-        if (!$ukt) {
+        if (!$ukt && !$transaction) {
             $transaction_account = TransactionAccount::findOrFail($id);
             $transaction_account->delete();
             return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);

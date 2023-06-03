@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('students_id')->constrained();
             $table->string('semester');
             $table->string('reference_number')->nullable();
-            $table->float('amount');
-            $table->float('total');
+            $table->decimal('amount', 14, 2);
+            $table->decimal('total', 14, 2);
             $table->string('status');
             $table->foreignId('transaction_accounts_id')->constrained();
             $table->timestamps();

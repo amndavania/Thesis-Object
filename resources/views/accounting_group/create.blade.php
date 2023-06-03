@@ -14,11 +14,11 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama Grup</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun...">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Grup..." value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi...">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description') }}">
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

@@ -26,7 +26,7 @@
                          <tr>
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
+                              <td>{{ $row->description ? $row->description : '-' }}</td>
                               <td>
                                 <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('accounting_group.edit',$row->id) }}'">Edit</button>

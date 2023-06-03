@@ -22,9 +22,8 @@ class TransactionAccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'=>'required|numeric|unique:accounting_groups,id,'.$this->id,
-            'name'=>'required|alpha|unique:accounting_groups,name,'.$this->id,
-            'description'=>'required',
+            'id'=>'required|numeric|unique:transaction_accounts,id,'.$this->id,
+            'name'=>'required|unique:transaction_accounts,name,'.$this->id,
             'accounting_group_id'=>'required',
         ];
     }
@@ -32,14 +31,12 @@ class TransactionAccountUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'id.required'=>'Id Akun wajib diisi',
+            'id.required'=>'Id Akun harus diisi',
             'id.unique'=>'Id Akun sudah ada',
             'id.numeric'=>'Id Akun harus berupa angka',
-            'name.required'=>'Nama Akun wajib diisi',
+            'name.required'=>'Nama Akun harus diisi',
             'name.unique'=>'Nama Akun sudah ada',
-            'name.alpha'=>'Nama Akun harus berupa huruf',
-            'description.required'=>'Deskripsi wajib diisi',
-            'accounting_group_id.required'=>'Grup Akun Transaksi wajib diisi',
+            'accounting_group_id.required'=>'Grup Akun Transaksi harus diisi',
         ];
     }
 }

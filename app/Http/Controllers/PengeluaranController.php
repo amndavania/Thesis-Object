@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\TransactionCreateRequest;
+use App\Http\Requests\Transaction\TransactionUpdateRequest;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class PengeluaranController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TransactionCreateRequest $request)
     {
         $request['user_id'] = $request->user()->id;
         $request['type'] = 'kredit';
@@ -60,7 +62,7 @@ class PengeluaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransactionUpdateRequest $request, string $id)
     {
         $pengeluaran = Transaction::findOrFail($id);
         $pengeluaran->update($request->all());
