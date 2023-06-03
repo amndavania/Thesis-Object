@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Accounting;
+namespace App\Http\Requests\TransactionAccount;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountingGroupUpdateRequest extends FormRequest
+class TransactionAccountUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,24 @@ class AccountingGroupUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id'=>'required|numeric|unique:accounting_groups,id,'.$this->id,
             'name'=>'required|alpha|unique:accounting_groups,name,'.$this->id,
             'description'=>'required',
+            'accounting_group_id'=>'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required'=>'Nama Grup wajib diisi',
-            'name.unique'=>'Nama Grup sudah ada',
-            'name.alpha'=>'Nama Grup harus berupa huruf',
+            'id.required'=>'Id Akun wajib diisi',
+            'id.unique'=>'Id Akun sudah ada',
+            'id.numeric'=>'Id Akun harus berupa angka',
+            'name.required'=>'Nama Akun wajib diisi',
+            'name.unique'=>'Nama Akun sudah ada',
+            'name.alpha'=>'Nama Akun harus berupa huruf',
             'description.required'=>'Deskripsi wajib diisi',
+            'accounting_group_id.required'=>'Grup Akun Transaksi wajib diisi',
         ];
     }
 }

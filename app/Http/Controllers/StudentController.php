@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Student\StudentCreateRequest;
 use App\Http\Requests\Student\StudentUpdateRequest;
+use App\Models\Ukt;
 
 class StudentController extends Controller
 {
@@ -81,10 +82,14 @@ class StudentController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        //
-        $student = Student::findOrFail($id);
-        $student->delete();
+        $ukt = Ukt::where('students_id', $id)->exists();
 
-        return redirect()->route('student.index')->with(['success' => 'Data berhasil dihapus']);
+        if (!$ukt) {
+            $student = Student::findOrFail($id);
+            $student->delete();
+            return redirect()->route('student.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->route('student.index')->with(['warning' => 'Mahasiswa masih terhubung dengan UKT Mahasiswa']);
+        }
     }
 }

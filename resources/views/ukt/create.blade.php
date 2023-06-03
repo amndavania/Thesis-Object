@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan Mahasiswa
+        Pemasukan UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -22,23 +22,23 @@
           </div>
           <div class="form-group">
                <label for="semester">Semester</label>
-               <input type="number" class="form-control" id="semester" name="semester" placeholder="Semester...">
+               <input type="number" class="form-control" id="semester" name="semester" placeholder="Semester..." value="{{ old('semester') }}">
           </div>
           <div class="form-group">
                <label for="reference_number">Reference Number</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Reference Number...">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Reference Number..." value="{{ old('reference_number') }}">
           </div>
           <div class="form-group">
                <label for="amount">Jumlah</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah...">
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
           </div>
           <div class="form-group">
                <label for="total">Total</label>
-               <input type="number" class="form-control" id="total" name="total" placeholder="Total...">
+               <input type="number" class="form-control" id="total" name="total" placeholder="Total..." value="{{ old('total') }}">
           </div>
           <div class="form-group">
                <label for="status">Status</label>
-               <input type="text" class="form-control" id="status" name="status" placeholder="Status...">
+               <input type="text" class="form-control" id="status" name="status" placeholder="Status..." value="{{ old('status') }}">
           </div>
           <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>

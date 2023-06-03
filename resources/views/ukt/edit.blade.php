@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan Mahasiswa
+        Pemasukan UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -44,6 +44,7 @@
                          <option value="{{ $item->id }}" {{ $ukt->transaction_accounts_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                </select>
+          </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
