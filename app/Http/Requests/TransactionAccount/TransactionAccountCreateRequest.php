@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Requests\TransactionAccount;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class TransactionAccountCreateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'id'=>'required|numeric|unique:transaction_accounts,id',
+            'name'=>'required|unique:transaction_accounts,name',
+            'accounting_group_id'=>'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'id.required'=>'Id Akun harus diisi',
+            'id.unique'=>'Id Akun sudah ada',
+            'id.numeric'=>'Id Akun harus berupa angka',
+            'name.required'=>'Nama Akun harus diisi',
+            'name.unique'=>'Nama Akun sudah ada',
+            'accounting_group_id.required'=>'Grup Akun Transaksi harus diisi',
+        ];
+    }
+}

@@ -22,22 +22,15 @@ class AccountingGroupCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'=>'required|numeric|unique:accounting_groups,id',
-            'name'=>'required|alpha|unique:accounting_groups,name',
-            'description'=>'required',
+            'name'=>'required|unique:accounting_groups,name',
         ];
     }
 
     public function messages()
     {
         return [
-            'id.required'=>'Id Akun wajib diisi',
-            'id.unique'=>'Id Akun sudah ada',
-            'id.numeric'=>'Id Akun harus berupa angka',
-            'name.required'=>'Nama Akun wajib diisi',
-            'name.unique'=>'Nama Akun sudah ada',
-            'name.alpha'=>'Nama Akun harus berupa huruf',
-            'description.required'=>'Deskripsi wajib diisi',
+            'name.required'=>'Nama Grup harus diisi',
+            'name.unique'=>'Nama Grup sudah ada',
         ];
     }
 }

@@ -9,6 +9,8 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        @if(Auth::user()->role == 'super admin')
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('dashboard') }}" class="nav-link">
@@ -18,16 +20,7 @@
               </p>
             </a>
           </li>
-
-          {{-- menu --}}
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Dasbor Mahasiswa
-              </p>
-            </a>
-          </li>
+          @endif
 
           @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin penerimaan')
           {{-- menu sub--}}
@@ -35,21 +28,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-money-bill-wave-alt"></i>
               <p>
-                Penerimaan
+                Pemasukan
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('ukt.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Mahasiswa</p>
+                  <p>UKT Mahasiswa</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('pemasukan.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lain lain</p>
+                  <p>Pemasukan lain</p>
                 </a>
               </li>
             </ul>
@@ -59,7 +52,7 @@
           @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin pengeluaran')
           {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="{{ route('pengeluaran.index') }}" class="nav-link">
               <i class="nav-icon fas fa-coins"></i>
               <p>
                 Pengeluaran
@@ -67,7 +60,7 @@
             </a>
           </li>
         @endif
-          
+
 
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
@@ -80,37 +73,37 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('jurnal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jurnal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('bukubesar.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buku Besar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('cashflow.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cash Flow</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('labarugi.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Laba Rugi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('neraca.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Neraca</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('perubahanmodal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Perubahan Modal</p>
                 </a>
@@ -119,10 +112,18 @@
           </li>
           {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="{{ route('accounting_group.index') }}" class="nav-link">
+            <a href="{{ route('transaction_account.index') }}" class="nav-link">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Akun Transaksi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{ route('accounting_group.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-wallet"></i>
+              <p>
+                Grup Akun Transaksi
               </p>
             </a>
           </li>
@@ -166,7 +167,15 @@
           </li>
         @endif
 
-
+        {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Dasbor Mahasiswa
+              </p>
+            </a>
+          </li>
 
           {{-- menu --}}
           <li class="nav-item has-treeview">
@@ -180,5 +189,5 @@
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
-    
+
   </div>

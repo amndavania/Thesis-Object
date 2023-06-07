@@ -15,21 +15,23 @@ class Ukt extends Model
 
     protected $fillable = [
         'students_id',
+        'semester',
         'reference_number',
         'amount',
-        'type',
+        'total',
+        'status',
         'transaction_accounts_id',
     ];
 
 
     public function student_id(): BelongsTo
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'students_id');
     }
 
 
     public function transactionaccount(): BelongsTo
     {
-        return $this->belongsTo(TransactionAccount::class);
+        return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
     }
 }

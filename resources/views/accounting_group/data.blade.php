@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Akun Transaksi
+        Grup Akun Transaksi
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -16,7 +16,6 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <th>ID Akun</th>
                          <td>Nama</td>
                          <td>Deskripsi</td>
                          <td>Aksi</td>
@@ -26,13 +25,12 @@
                     @foreach ($accounting_group as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
-                              <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
+                              <td>{{ $row->description ? $row->description : '-' }}</td>
                               <td>
                                 <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('accounting_group.edit',$row->id) }}'">Edit</button>
-                                        <form action="{{ route('accounting_group.destroy',$row->id) }}" method="post" class="m-1">                                       
+                                        <form action="{{ route('accounting_group.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf
                                         @method('delete')

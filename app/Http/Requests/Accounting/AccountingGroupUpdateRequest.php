@@ -21,23 +21,18 @@ class AccountingGroupUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $accounting_group_id = $this->route('accounting_group');
+
         return [
-            'id'=>'required|numeric|unique:accounting_groups,id,'.$this->id,
-            'name'=>'required|alpha|unique:accounting_groups,name,'.$this->id,
-            'description'=>'required',
+            'name'=>'required|unique:accounting_groups,name,'.$accounting_group_id,
         ];
     }
 
     public function messages()
     {
         return [
-            'id.required'=>'Id Akun wajib diisi',
-            'id.unique'=>'Id Akun sudah ada',
-            'id.numeric'=>'Id Akun harus berupa angka',
-            'name.required'=>'Nama Akun wajib diisi',
-            'name.unique'=>'Nama Akun sudah ada',
-            'name.alpha'=>'Nama Akun harus berupa huruf',
-            'description.required'=>'Deskripsi wajib diisi',
+            'name.required'=>'Nama Grup harus diisi',
+            'name.unique'=>'Nama Grup sudah ada',
         ];
     }
 }

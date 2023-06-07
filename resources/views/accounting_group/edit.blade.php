@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Akun Akuntansi
+        Grup Akun Akuntansi
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -18,12 +18,8 @@
                @csrf
                @method('put')
           <div class="form-group">
-               <label for="id">ID Akun</label>
-               <input type="text" class="form-control" name="id" id="id" placeholder="ID Akun..." value="{{ old('id', $accounting_group->id) }}">
-          </div>
-          <div class="form-group">
-               <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" name="name" id="name" placeholder="Nama Akun..." value="{{ old('name', $accounting_group->name) }}">
+               <label for="name">Nama Grup</label>
+               <input type="text" class="form-control" name="name" id="name" placeholder="Nama Grup..." value="{{ old('name', $accounting_group->name) }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>

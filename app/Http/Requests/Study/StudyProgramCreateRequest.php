@@ -30,9 +30,9 @@ class StudyProgramCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Nama Program Studi wajib diisi',
+            'name.required'=>'Nama Program Studi harus diisi',
             'name.unique'=>'Nama Program Studi sudah ada',
-            'faculty_id.required'=>'Fakultas wajib diisi',
+            'faculty_id.required'=>'Fakultas harus diisi',
         ];
     }
 }

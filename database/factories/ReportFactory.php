@@ -17,7 +17,7 @@ class ReportFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>mt_rand(1,6),
+            'user_id'=>mt_rand(1,10),
             'type'=>fake()->word(),
             'data'=>json_encode(["key" => fake()->randomNumber()] ),
         ];

@@ -33,13 +33,13 @@ class StudentCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Nama mahasiswa wajib diisi',
-            'nim.required'=>'NIM wajib diisi',
+            'name.required'=>'Nama mahasiswa harus diisi',
+            'nim.required'=>'NIM harus diisi',
             'nim.numeric'=>'NIM harus berupa angka',
-            'force.required'=>'Tahun masuk wajib diisi',
+            'force.required'=>'Tahun masuk harus diisi',
             'force.numeric'=>'Tahun masuk harus berupa angka',
-            'study_program_id.required'=>'Program Studi wajib diisi',
-            'student_types_id.required'=>'Jenis Beasiswa wajib diisi',
+            'study_program_id.required'=>'Program Studi harus diisi',
+            'student_types_id.required'=>'Jenis Beasiswa harus diisi',
         ];
     }
 }

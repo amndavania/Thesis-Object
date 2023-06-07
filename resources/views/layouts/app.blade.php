@@ -94,5 +94,19 @@
 {{-- <script src={{asset('vendor/dist/js/demo.js')}}></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src={{asset('vendor/dist/js/pages/dashboard3.js')}}></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var currencyCells = document.querySelectorAll('.currency');
+      
+      currencyCells.forEach(function(cell) {
+        var amount = parseFloat(cell.textContent);
+        
+        if (!isNaN(amount)) {
+          var formattedAmount = amount.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 2 });
+          cell.textContent = formattedAmount;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

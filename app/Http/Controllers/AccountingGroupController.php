@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Accounting\AccountingGroupCreateRequest;
 use App\Http\Requests\Accounting\AccountingGroupUpdateRequest;
+use App\Models\TransactionAccount;
 
 class AccountingGroupController extends Controller
 {
@@ -74,7 +75,14 @@ class AccountingGroupController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        AccountingGroup::destroy($id);
-        return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil dihapus']);
+        $transaction_account = TransactionAccount::where('accounting_group_id', $id)->exists();
+
+        if (!$transaction_account) {
+            $accounting_group = AccountingGroup::findOrFail($id);
+            $accounting_group->delete();
+            return redirect()->route('accounting_group.index')->with(['success' => 'Data telah dihapus']);
+        } else {
+            return redirect()->route('accounting_group.index')->with(['warning' => 'Grup Akun Transaksi masih terhubung dengan Akun Transaksi']);
+        }
     }
 }
