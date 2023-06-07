@@ -14,6 +14,13 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href={{asset('vendor/dist/css/adminlte.min.css')}}>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/1.0.0-beta.1/select2-bootstrap.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+
+
 </head>
 <!--
 `body` tag options:
@@ -94,19 +101,12 @@
 {{-- <script src={{asset('vendor/dist/js/demo.js')}}></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src={{asset('vendor/dist/js/pages/dashboard3.js')}}></script>
-<script>
-    window.addEventListener('DOMContentLoaded', function() {
-      var currencyCells = document.querySelectorAll('.currency');
-      
-      currencyCells.forEach(function(cell) {
-        var amount = parseFloat(cell.textContent);
-        
-        if (!isNaN(amount)) {
-          var formattedAmount = amount.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 2 });
-          cell.textContent = formattedAmount;
-        }
-      });
-    });
-  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+@include('layouts.script')
+
 </body>
 </html>

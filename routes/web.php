@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
         Route::get('neraca/export', [NeracaController::class, 'export']);
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
 
+        Route::get('bukubesar/search', [BukuBesarController::class, 'search']);
+
+
     });
 });
 
