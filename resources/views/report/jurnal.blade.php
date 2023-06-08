@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="d-flex">
                 <form class="form-inline" action="{{ route('jurnal.index') }}" method="GET">
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker">
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
 
@@ -28,9 +28,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($data as $index => $row)
+                    @php
+                        $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->description }}</td>
                               <td>{{ $row->transactionaccount->id }}</td>

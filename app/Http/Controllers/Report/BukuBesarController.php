@@ -19,9 +19,9 @@ class BukuBesarController extends Controller
         $search_account = $request->input('search_account');
         $datepicker = $request->input('datepicker');
 
-        if (empty($search_account) && empty($datepicker)) {
+        if (empty($search_account) || empty($datepicker)) {
             return view('report.bukubesar')->with([
-                'data' => Transaction::get(),
+                'data' => Transaction::paginate(20),
                 'selects' => TransactionAccount::pluck('name', 'id')
             ]);
         }else {

@@ -26,9 +26,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($student_type as $row)
+                    @foreach ($student_type as $index => $row)
+                    @php
+                        $number = ($student_type->currentPage() - 1) * $student_type->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->dpp, 0, ',', '.') }}</td>
                               <td>{{ 'Rp ' . number_format($row->krs, 0, ',', '.') }}</td>

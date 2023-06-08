@@ -25,9 +25,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($pemasukan as $row)
+                    @foreach ($pemasukan as $index => $row)
+                    @php
+                        $number = ($pemasukan->currentPage() - 1) * $pemasukan->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->user->name }}</td>
                               <td>{{ $row->description }}</td>
                               <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td>

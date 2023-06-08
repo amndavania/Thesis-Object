@@ -22,9 +22,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($study_program as $row)
+                    @foreach ($study_program as $index => $row)
+                    @php
+                        $number = ($study_program->currentPage() - 1) * $study_program->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->faculty->name }}</td>
                               <td>
