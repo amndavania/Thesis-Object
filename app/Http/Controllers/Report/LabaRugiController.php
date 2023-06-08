@@ -12,20 +12,18 @@ class LabaRugiController extends Controller
 {
     public function index()
     {
-        $dataA = TransactionAccount::where('accounting_group_id', 1)->get();
-        $dataB = TransactionAccount::where('accounting_group_id', 2)->get();
-        $dataC = TransactionAccount::where('accounting_group_id', 3)->get();
-        $dataD = TransactionAccount::where('accounting_group_id', 4)->get();
-        $dataE = TransactionAccount::where('accounting_group_id', 5)->get();
-        $dataF = TransactionAccount::where('accounting_group_id', 6)->get();
+        $pendapatan = TransactionAccount::where('accounting_group_id', 1)->get();
+        $pengeluaran = TransactionAccount::where('accounting_group_id', 2)->get();
+        $penyusutanAmortisasi = TransactionAccount::where('accounting_group_id', 3)->get();
+        $bungaPajak = TransactionAccount::where('accounting_group_id', 4)->get();
+        $pendapatanPengeluaranLain = TransactionAccount::where('accounting_group_id', 5)->get();
 
         return view('report.labarugi')->with([
-            'dataA' => $dataA,
-            'dataB' => $dataB,
-            'dataC' => $dataC,
-            'dataD' => $dataD,
-            'dataE' => $dataE,
-            'dataF' => $dataF,
+            'dataA' => $pendapatan,
+            'dataB' => $pengeluaran,
+            'dataC' => $penyusutanAmortisasi,
+            'dataD' => $bungaPajak,
+            'dataE' => $pendapatanPengeluaranLain,
         ]);
     }
 

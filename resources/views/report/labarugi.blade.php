@@ -16,177 +16,153 @@
                     <tr>
                          <td>ID Akun</td>
                          <td>Nama Akun</td>
-                         <td>Jumlah</td>
+                         <td>Debet</td>
+                         <td>Kredit</td>
+                         <td>Saldo</td>
                     </tr>
                </thead>
-               <tr>
-                    <td colspan="2">
-                         <strong>Modal di awal Tahun Fiskal</strong>
-                    </td>
-                    <td> Modal awal </td>
-                </tr>
-               <tr>
-                    <td colspan="3">
-                         <strong>Kas Masuk</strong>
+               <body>
+                    <tr>
+                    <td colspan="5">
+                         <strong>Pendapatan</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPendapatan = 0;
                @endphp
                     @foreach ($dataA as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
+                              <td class="currency">{{ $totalPendapatan = $row->ammount_debit + $row->ammount_kredit; }}</td>
                          </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Kas Masuk</strong>
+                    <td colspan="4">
+                         <strong>Total Pendapatan</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPendapatan }}</td>
                 </tr>
 
                <tr>
-                    <td colspan="0">
-                    <strong>Kas Keluar</strong>
+                    <td colspan="5">
+                    <strong>Pengeluaran</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPengeluaran = 0;
                @endphp
                     @foreach ($dataB as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
+                              <td class="currency">{{ $totalPengeluaran = $row->ammount_debit + $row->ammount_kredit; }}</td>
                          </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Kas Keluar</strong>
+                    <td colspan="4">
+                         <strong>Total Pengeluaran</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPengeluaran }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
-                    <strong>Penjualan Aset</strong>
+                    <td colspan="4">
+                         <strong>Laba / Rugi Kotor</strong>
+                    </td>
+                    <td class="currency">{{ $labaRugiKotor = $totalPendapatan + $totalPengeluaran }}</td>
+                </tr>
+               <tr>
+                    <td colspan="5">
+                    <strong>Penyusutan / Amortisasi</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPenyusutan = 0;
                @endphp
                     @foreach ($dataC as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
+                              <td class="currency">{{ $totalPenyusutan = $row->ammount_debit + $row->ammount_kredit; }}</td>
                          </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Penjualan Aset</strong>
+                    <td colspan="4">
+                         <strong>Total Penyusutan dan Amortisasi</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPenyusutan }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
-                    <strong>Pembelian Aset</strong>
+                    <td colspan="4">
+                         <strong>Ebit</strong>
+                    </td>
+                    <td class="currency">{{ $ebit = $labaRugiKotor + $totalPenyusutan}}</td>
+                </tr>
+               <tr>
+                    <td colspan="5">
+                    <strong>Bunga / Pajak</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalBungaPajak = 0;
                @endphp
                     @foreach ($dataD as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
+                              <td class="currency">{{ $totalBungaPajak = $row->ammount_debit + $row->ammount_kredit; }}</td>
                          </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
+                    <td colspan="4">
                          <strong>Total Pembelian Aset</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalBungaPajak }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
-                    <strong>Penambahan Dana</strong>
+                    <td colspan="4">
+                         <strong>Laba / Rugi Kotor</strong>
+                    </td>
+                    <td class="currency">{{ $labaRugiKotor2 = $ebit + $totalBungaPajak }}</td>
+                </tr>
+               <tr>
+                    <td colspan="5">
+                    <strong>Pendapatan / Pengeluaran Lain-Lain</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPendapatanPengeluaranLain = 0;
                @endphp
                     @foreach ($dataE as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_kredit }}</td>
+                              <td class="currency">{{ $totalPendapatanPengeluaranLain = $row->ammount_debit + $row->ammount_kredit; }}</td>
                          </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Penambahan Dana</strong>
+                    <td colspan="4">
+                         <strong>Total Pendapatan / Pengeluaran Lain</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPendapatanPengeluaranLain }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
-                    <strong>Pengurangan Dana</strong>
+                    <td colspan="4">
+                         <strong>Laba / Rugi Bersih</strong>
                     </td>
+                    <td class="currency">{{ $labaRugiBersih = $labaRugiKotor2 + $totalPendapatanPengeluaranLain }}</td>
                 </tr>
-               <tbody>
-               @php
-               $totalDebit = 0;
-               @endphp
-                    @foreach ($dataF as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
-                         </tr>
-                         @php
-                         $totalDebit += $row->ammount_debit;
-                         @endphp
-                    @endforeach
-               </tbody>
-               <tr>
-                    <td colspan="2">
-                         <strong>Total Pengurangan Dana</strong>
-                    </td>
-                    <td class="currency">{{ $totalDebit }}</td>
-                </tr>
-               </tbody>
+                </tbody>
           </table>
      </div>
     </div>

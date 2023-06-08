@@ -30,8 +30,8 @@
                               <td>{{ $row->transactionaccount->name }}</td>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->reference_number }}</td>
-                              <td class="currency">{{ $row->type == 'Debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
-                              <td class="currency">{{ $row->type == 'Kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
+                              <td class="currency">{{ $row->type == 'Debit' ? $row->amount : null }}</td>
+                              <td class="currency">{{ $row->type == 'Kredit' ? $row->amount : null }}</td>
                          </tr>
                     @endforeach
                </tbody>
