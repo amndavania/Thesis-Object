@@ -6,7 +6,6 @@
      <div class="card-header">
           <div class="d-flex">
             <form class="form-inline" action="{{ route('bukubesar.index') }}" method="GET">
-                <label class="sr-only" for="search_account">Akun Transaksi</label>
                 <div class="mb-2 mr-sm-2">
                     <select class="form-control selectpicker" name="search_account" id="search_account" data-live-search="true">
                         @foreach ($selects as $id => $name)
@@ -14,7 +13,6 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="sr-only" for="datepicker">Bulan</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker">
 
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
@@ -33,22 +31,18 @@
                          <td>Uraian</td>
                          <td>Debit</td>
                          <td>Kredit</td>
+                         <td>Saldo</td>
                     </tr>
                </thead>
                <tbody>
                     @foreach ($data as $row)
                          <tr>
                               <th>{{ $loop->iteration }}</th>
-                              <td>{{ $row->created_at }}</td>
+                              <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->description }}</td>
-                              @if ($row->type == "debit")
-                                <td class="currency">{{ $row->amount }}</td>
-                                <td>-</td>
-                              @else
-                                <td>-</td>
-                                <td class="currency">{{ $row->amount }}</td>
-                              @endif
-
+                              <td class="currency">{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
+                              <td class="currency">{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
+                              <td>{{ $row->saldo }}</td>
                          </tr>
                     @endforeach
                </tbody>

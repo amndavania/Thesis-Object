@@ -3,18 +3,32 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 use PDF;
-
 
 class JurnalController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
     {
-        return view('report.jurnal')->with([
-            'transaction' => Transaction::all(),
-        ]);
+        $datepicker = $request->input('datepicker');
+
+        if (empty($datepicker)) {
+            return view('report.jurnal')->with([
+                'data' => Transaction::paginate(20),
+            ]);
+        }else {
+            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+            $monthYear = $parsedDate->format('Y-m');
+            return view('report.jurnal')->with([
+                'data' => Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$monthYear])
+                     ->paginate(20),
+            ]);
+        }
     }
 
     public function export()
