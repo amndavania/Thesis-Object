@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan UKT Mahasiswa
+        UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
