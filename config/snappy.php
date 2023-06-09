@@ -44,15 +44,5 @@ return [
         'env'     => [],
     ],
     
-    'image' => [
-        'enabled' => true,
-        'binary'  => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage"',
-        'timeout' => false,
-        'options' => [
-            'enable-local-file-access' => true,
-            'encoding'      => 'UTF-8'
-        ],
-        'env'     => [],
-    ],
 
 ];

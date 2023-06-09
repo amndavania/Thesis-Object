@@ -31,44 +31,36 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-
-                $jumlahDebit = 0;
-                $jumlahKredit = 0;
-
-                foreach ($transaction as $key => $row) {
-                    $No = $key+1;
-                    $Tanggal = $row->created_at;
-                    $Nama_Akun = $row->transactionaccount->name;
-                    $ID_Akun = $row->id;
-                    $Ref = $row->reference_number;
-                    $Debit = $row->type == 'Debit' ? $row->amount : 0;
-                    $Kredit = $row->type == 'Kredit' ? $row->amount : 0;
-
-                    $jumlahDebit += $Debit;
-                    $jumlahKredit += $Kredit;
-
-                    echo '<tr>';
-                    echo '<td>' . $No . '</td>';
-                    echo '<td>' . $Tanggal . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Ref . '</td>';
-                    echo '<td class="currency">' . $Debit . "</td>";
-                    echo '<td class="currency">' . $Kredit . '</td>';
-                    echo '</tr>';
-                }
-                ?>
+            @php
+               $totalKredit = 0;
+               $totalDebit = 0;
+            @endphp
+            @foreach ($transaction as $row)
+                         <tr>
+                              <td>{{ $loop->iteration }}</td>
+                              <td>{{ $row->created_at->format('d-m-Y') }}</td>
+                              <td>{{ $row->transactionaccount->name }}</td>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->reference_number }}</td>
+                              <td class="currency">{{ $row->type == 'Debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
+                              <td class="currency">{{ $row->type == 'Kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : null }}</td>
+                         </tr>
+                         @php
+        if ($row->type == 'Debit') {
+            $totalDebit += $row->amount;
+        } elseif ($row->type == 'Kredit') {
+            $totalKredit += $row->amount;
+        }
+    @endphp
+                    @endforeach
             </tbody>
-            <tfoot class = "total">
-                <tr>
-                    <td colspan="5" style="text-align: center; background-color: rgba(128, 128, 128, 0.4)">
-                    <strong>Jumlah</strong>
+            <tfoot class="total">
+            <tr>
+                    <td colspan="5">
+                         <strong>Total</strong>
                     </td>
-                    <?php
-                    echo '<td class="currency">' . $jumlahDebit . '</td>';
-                    echo '<td class="currency">' . $jumlahKredit . '</td>';
-                    ?>
+                    <td class="currency">{{ 'Rp ' . number_format($totalDebit, 0, ',', '.') }}</td>
+                    <td class="currency">{{ 'Rp ' . number_format($totalKredit, 0, ',', '.') }}</td>
                 </tr>
             </tfoot>
             </div>

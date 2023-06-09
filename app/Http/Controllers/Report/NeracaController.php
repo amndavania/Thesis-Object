@@ -12,20 +12,20 @@ class NeracaController extends Controller
 {
     public function index()
     {
-        $dataA = TransactionAccount::where('accounting_group_id', 1)->get();
-        $dataB = TransactionAccount::where('accounting_group_id', 2)->get();
-        $dataC = TransactionAccount::where('accounting_group_id', 3)->get();
-        $dataD = TransactionAccount::where('accounting_group_id', 4)->get();
-        $dataE = TransactionAccount::where('accounting_group_id', 5)->get();
-        $dataF = TransactionAccount::where('accounting_group_id', 6)->get();
+        $arusKasMasuk = TransactionAccount::where('accounting_group_id', 1)->get();
+        $arusKasKeluar = TransactionAccount::where('accounting_group_id', 2)->get();
+        $penjualanAset = TransactionAccount::where('accounting_group_id', 3)->get();
+        $pembelianAset = TransactionAccount::where('accounting_group_id', 4)->get();
+        $penambahanDana = TransactionAccount::where('accounting_group_id', 5)->get();
+        $penguranganDana = TransactionAccount::where('accounting_group_id', 6)->get();
 
         return view('report.neraca')->with([
-            'dataA' => $dataA,
-            'dataB' => $dataB,
-            'dataC' => $dataC,
-            'dataD' => $dataD,
-            'dataE' => $dataE,
-            'dataF' => $dataF,
+            'dataA' => $arusKasMasuk,
+            'dataB' => $arusKasKeluar,
+            'dataC' => $penjualanAset,
+            'dataD' => $pembelianAset,
+            'dataE' => $penambahanDana,
+            'dataF' => $penguranganDana,
         ]);
     }
 
