@@ -22,7 +22,6 @@ class UktUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'students_id'=>'required',
             'semester'=>'required|numeric',
             'amount'=>'required',
             'total'=>'required',
@@ -34,7 +33,6 @@ class UktUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'students_id.required'=>'Mahasiswa harus diisi',
             'semester.required'=>'Semester harus diisi',
             'semester.numeric'=>'Semester harus berupa angka',
             'amount.required'=>'Jumlah harus diisi',

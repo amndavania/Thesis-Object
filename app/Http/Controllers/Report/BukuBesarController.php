@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Session;
 use App\Models\TransactionAccount;
+use DateTime;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -16,24 +17,37 @@ class BukuBesarController extends Controller
      */
     public function index(Request $request)
     {
+        $select = TransactionAccount::pluck('name', 'id');
         $search_account = $request->input('search_account');
         $datepicker = $request->input('datepicker');
 
-        if (empty($search_account) || empty($datepicker)) {
-            return view('report.bukubesar')->with([
-                'data' => Transaction::paginate(20),
-                'selects' => TransactionAccount::pluck('name', 'id')
-            ]);
-        }else {
+        if (empty($search_account) && empty($datepicker)) {
+            $search_account = 1;
+            $date = date('Y-m');
+        }elseif(empty($search_account)) {
+            $search_account = 1;
             $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-            $monthYear = $parsedDate->format('Y-m');
-            return view('report.bukubesar')->with([
-                'data' => Transaction::where('transaction_accounts_id', $search_account)
-                     ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$monthYear])
-                     ->paginate(20),
-                'selects' => TransactionAccount::pluck('name', 'id')
-            ]);
+            $date = $parsedDate->format('Y-m');
+        }elseif(empty($datepicker)) {
+            $date = date('Y-m');
+        }else{
+            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+            $date = $parsedDate->format('Y-m');
         }
+
+        $data = Transaction::where('transaction_accounts_id', $search_account)
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$date])
+                    ->paginate(20);
+        $dateTime = new DateTime($date);
+        $formattedDate = $dateTime->format('F Y');
+        $account = TransactionAccount::find($search_account);
+
+        return view('report.bukubesar')->with([
+            'data' => $data,
+            'selects' => $select,
+            'account' => $account->name,
+            'datepicker' => $formattedDate,
+        ]);
     }
 
     public function export()

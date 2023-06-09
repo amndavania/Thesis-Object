@@ -4,7 +4,7 @@
     </x-slot>
     <div class="card">
      <div class="card-header">
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
             <form class="form-inline" action="{{ route('bukubesar.index') }}" method="GET">
                 <div class="mb-2 mr-sm-2">
                     <select class="form-control selectpicker" name="search_account" id="search_account" data-live-search="true">
@@ -24,6 +24,10 @@
      </div>
          <div class="card-body">
           {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a> --}}
+          <div class="d-flex align-items-center">
+            <h5>Akun : {{ !empty($account) ? $account : '-' }}</h5>
+            <h5 class="ml-auto p-2">Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
+          </div>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

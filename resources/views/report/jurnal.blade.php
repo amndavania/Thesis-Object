@@ -14,6 +14,7 @@
             </div>
        </div>
      <div class="card-body">
+        <h5>Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

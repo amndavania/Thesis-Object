@@ -23,10 +23,12 @@ class JurnalController extends Controller
             ]);
         }else {
             $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+            $formattedDate = $parsedDate->format('F Y');
             $monthYear = $parsedDate->format('Y-m');
             return view('report.jurnal')->with([
                 'data' => Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$monthYear])
-                     ->paginate(20),
+                     ->paginate(20), 
+                'datepicker' => $formattedDate,
             ]);
         }
     }
