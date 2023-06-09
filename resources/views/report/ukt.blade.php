@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Detail UKT Mahasiswa
+        Pembayaran Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -24,9 +24,10 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
+                         <td>Tanggal</td>
                          <td>Tahun Akademik</td>
                          <td>Semester</td>
-                         <td>Tagihan</td>
+                         <td>Jenis Tagihan</td>
                          <td>Nominal</td>
                          <td>Status</td>
                     </tr>
@@ -35,6 +36,7 @@
                     @foreach ($ukt as $row)
                          <tr>
                             <th>{{ $loop->iteration }}</th>
+                            <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->tagihan }}</td>
