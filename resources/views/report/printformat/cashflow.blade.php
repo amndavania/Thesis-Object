@@ -24,318 +24,217 @@
                     <th style="width: 10%;">ID_Akun</th>
                     <th style="width: 30%;">Nama_Akun</th>
                     <th style="width: 20%;">Jumlah</th>
-                    <th style="width: 20%;">Saldo</th>
+                    <th style="width: 20%;">Total</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="3"><strong>Modal Diawal Tahun Fiskal</strong></td>
+                    <td colspan="4"><strong>AKTIVITAS OPERASI</strong></td>
                 </tr>
                 <tr style="background-color: #f2f2f2">
-                    <td></td>
-                    <td colspan="3"><strong>Arus Kas Masuk</strong></td>
+                    <td colspan="4"><strong>Arus Kas Masuk</strong></td>
                 </tr>
-                <?php
-                $datakasMasuk = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 100000, ''),
-                    array('ID 4', 'Akun 4', 200000, ''),
-                    array('ID 5', 'Akun 5', 300000, ''), 
-                );
-                $totalArusKasMasuk = 0;
-
-                foreach ($datakasMasuk as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalArusKasMasuk += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-                <tr>
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Total Arus Kas Masuk</strong>
+                @php
+               $totalArusKasMasuk = 0;
+               @endphp
+                    @foreach ($dataA as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalArusKasMasuk += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
+                    <tr>
+                    <td colspan="3">
+                         <strong>Total Arus Kas Masuk</strong>
                     </td>
-                    <?php
-                    echo '<td class="currency">' . $totalArusKasMasuk . '</td>';
-                    ?>
+                    <td class="currency">{{ $totalArusKasMasuk }}</td>
                 </tr>
                 <tr style="background-color: #f2f2f2">
-                    <td></td>
-                    <td colspan="3"><strong>Arus Kas Keluar</strong></td>
+                    <td colspan="4"><strong>Arus Kas Keluar</strong></td>
                 </tr>
                 <tr>
-                <?php
-                $datakasKeluar = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 100000, ''),
-                    array('ID 4', 'Akun 4', 2000000, ''),
-                    array('ID 5', 'Akun 5', 3000000, ''), 
-                );
-                $totalArusKasKeluar = 0;
-
-                foreach ($datakasKeluar as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalArusKasKeluar += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
+                @php
+               $totalArusKasKeluar = 0;
+               @endphp
+                    @foreach ($dataB as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalArusKasKeluar += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
                 </tr>
                 <tr>
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Total Arus Kas Keluar</strong>
+                    <td colspan="3">
+                         <strong>Total Arus Kas Keluar</strong>
                     </td>
-                    <?php
-                    echo '<td class="currency">' . $totalArusKasKeluar . '</td>';
-                    ?>                
+                    <td class="currency">{{ $totalArusKasKeluar }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                    <strong>ARUS KAS DARI AKTIVITAS OPERASI</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasOperasi = $totalArusKasMasuk - $totalArusKasKeluar;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasOperasi }}</td>
+                </tr>
+
+                <tr style="background-color: rgba(128, 128, 128, 0.4)">
+                    <td colspan="4"><strong>Aktivasi Investasi</strong></td>
+                </tr>
+                <tr style="background-color: #f2f2f2">
+                    <td colspan="4"><strong>Penjualan Aset</strong></td>
+                </tr>
+                <tr>
+                @php
+               $totalPenjualanAset = 0;
+               @endphp
+                    @foreach ($dataC as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalPenjualanAset += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
+                    <tr>
+                    <td colspan="3">
+                         <strong>Total Penjualan Aset</strong>
+                    </td>
+                    <td class="currency">{{ $totalPenjualanAset }}</td>
+                </tr>
+                <tr style="background-color: #f2f2f2">
+                    <td colspan="4"><strong>Pembelian Aset</strong></td>
+                </tr>
+                <tr>
+                @php
+               $totalPembelianAset = 0;
+               @endphp
+                    @foreach ($dataD as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalPembelianAset += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
+                    <tr>
+                    <td colspan="3">
+                         <strong>Total Pembelian Aset</strong>
+                    </td>
+                    <td class="currency">{{ $totalPembelianAset }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                    <strong>ARUS KAS DARI AKTIVITAS INVESTASI</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasInvestasi = $totalPenjualanAset - $totalPembelianAset;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasInvestasi }}</td>
                 </tr>
                 <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="2"><strong>Arus Kas Dari Aktivitas Operasi</strong></td>
-                    <?php
-                    $arusKasAktivasiOperasi = $totalArusKasMasuk - $totalArusKasKeluar;
-                    echo '<td class="currency">' . $arusKasAktivasiOperasi . '</td>';
-                    ?> 
-                </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="3"><strong>Aktivasi Investasi</strong></td>
+                    <td colspan="4"><strong>Aktivasi Pendanaan</strong></td>
                 </tr>
                 <tr style="background-color: #f2f2f2">
-                    <td></td>
-                    <td colspan="3"><strong>Penjualan Aset</strong></td>
-                </tr>
-                <tr>
-                <?php
-                $dataAset = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 100000, ''),
-                    array('ID 4', 'Akun 4', 2000000, ''),
-                    array('ID 5', 'Akun 5', 3000000, ''), 
-                );
-                $totalJualAset = 0;
-
-                foreach ($dataAset as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalJualAset += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-                <tr>
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Total Penjualan Aset</strong>
-                    </td>
-                    <?php
-                    echo '<td class="currency">' . $totalJualAset . '</td>';
-                    ?>
-                </tr>
-                <tr style="background-color: #f2f2f2">
-                    <td></td>
-                    <td colspan="3"><strong>Pembelian Aset</strong></td>
-                </tr>
-                <tr>
-                <?php
-                $dataAset = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 100000, ''),
-                    array('ID 4', 'Akun 4', 20000000, ''),
-                    array('ID 5', 'Akun 5', 3000000, ''), 
-                );
-                $totalBeliAset = 0;
-
-                foreach ($dataAset as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalBeliAset += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-                <tr>
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Total Pembelian Aset</strong>
-                    </td>
-                    <?php
-                    echo '<td class="currency">' . $totalBeliAset . '</td>';
-                    ?>
-                </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="2"><strong>Arus Kas Dari Aktivitas Investasi</strong></td>
-                    <?php
-                    $arusKasAktivasiInvestasi = $totalJualAset - $totalBeliAset;
-                    echo '<td class="currency">' . $arusKasAktivasiInvestasi . '</td>';
-                    ?> 
-                </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="3"><strong>Aktivasi Pendanaan</strong></td>
-                </tr>
-                <tr style="background-color: #f2f2f2">
-                    <td></td>
                     <td><strong>Penambahan Dana</strong></td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr>
-                <?php
-                $dataPenambahanDana = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 1000000, ''),
-                    array('ID 4', 'Akun 4', 2000000, ''),
-                    array('ID 5', 'Akun 5', 3000000, ''), 
-                );
-                $totalPenambahanDana = 0;
-
-                foreach ($dataPenambahanDana as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalPenambahanDana += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-                <tr>
-                    <td></td>
-                    <td>
-                    <strong>Total Penambahan Dana</strong>
+                @php
+               $totalPenambahanDana = 0;
+               @endphp
+                    @foreach ($dataE as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalPenambahanDana += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
+                    <tr>
+                    <td colspan="3">
+                         <strong>Total Penambahan Dana</strong>
                     </td>
-                    <td></td>
-                    <?php
-                    echo '<td class="currency">' . $totalPenambahanDana. '</td>';
-                    ?>
+                    <td class="currency">{{ $totalPenambahanDana }}</td>
                 </tr>
                 <tr style="background-color: #f2f2f2">
-                    <td></td>
-                    <td><strong>Pengurangan Dana</strong></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="4"><strong>Pengurangan Dana</strong></td>
                 </tr>
                 <tr>
-                <?php
-                $dataPenguranganDana = array(
-                    array('ID 1', 'Akun 1', 50000000, ''),
-                    array('ID 2', 'Akun 2', 2000000, ''),
-                    array('ID 3', 'Akun 3', 100000, ''),
-                    array('ID 4', 'Akun 4', 2000000, ''),
-                    array('ID 5', 'Akun 5', 7000000, ''), 
-                );
-                $totalPenguranganDana = 0;
-
-                foreach ($dataPenguranganDana as $row) {
-                    $ID_Akun = $row[0];
-                    $Nama_Akun = $row[1];
-                    $Jumlah = $row[2];
-                    $Saldo = $row[3];
-
-                    $totalPenguranganDana += $Jumlah;
-
-                    echo '<tr>';
-                    echo '<td>' . $ID_Akun . '</td>';
-                    echo '<td>' . $Nama_Akun . '</td>';
-                    echo '<td class="currency">' . $Jumlah . '</td>';
-                    echo '<td>' . $Saldo . '</td>';
-                    echo '</tr>';
-                }
-                ?>
-                <tr>
-                    <td></td>
-                    <td>
-                    <strong>Total Pengurangan Dana</strong>
+                @php
+               $totalPenguranganDana = 0;
+               @endphp
+                    @foreach ($dataF as $row)
+                         <tr>
+                              <td>{{ $row->id }}</td>
+                              <td>{{ $row->name }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
+                         </tr>
+                         @php
+                         $totalPenguranganDana += $row->ammount_debit - $row->ammount_kredit;
+                         @endphp
+                    @endforeach
+                    <tr>
+                    <td colspan="3">
+                         <strong>Total Pengurangan Dana</strong>
                     </td>
-                    <td></td>
-                    <?php
-                    echo '<td class="currency">' . $totalPenguranganDana . '</td>';
-                    ?>
+                    <td class="currency">{{ $totalPenguranganDana }}</td>
                 </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.4)">
-                    <td></td>
-                    <td colspan="2"><strong>Arus Kas Dari Aktivitas Pendanaan</strong></td>
-                    <?php
-                    $arusKasAktivasiPendanaan = $totalPenambahanDana- $totalPenguranganDana;
-                    echo '<td class="currency">' . $arusKasAktivasiPendanaan . '</td>';
-                    ?> 
+                <tr>
+                    <td colspan="3">
+                         <strong>ARUS KAS DARI AKTIVITAS PENDANAAN</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasPendanaan = $totalPenambahanDana - $totalPenguranganDana;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasPendanaan }}</td>
                 </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.7)">
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Kenaikan/Penurunan Kas</strong></td>
-                    <?php
-                    $kenaikanPenurunanKas = $arusKasAktivasiOperasi + $arusKasAktivasiInvestasi + $arusKasAktivasiPendanaan;
-                    echo '<td class="currency">' . $kenaikanPenurunanKas . '</td>';
-                    ?>
+                <tr>
+                    <td colspan="3">
+                         <strong>Kenaikan / Penurunan Kas</strong>
+                    </td>
+                    @php
+                         $totalKenaikanPenurunanKas = $totalArusKasAktivitasOperasi + $totalArusKasAktivitasInvestasi + $totalArusKasAktivitasPendanaan;
+                    @endphp
+                    <td class="currency">{{ $totalKenaikanPenurunanKas }}</td>
                 </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.7)">
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Saldo Awal Kas</strong></td>
-                    <?php
-                    $SaldoAwalKas = 25000000;
-                    echo '<td class="currency">' . $SaldoAwalKas . '</td>';
-                    ?>
+                <tr>
+                    <td colspan="3">
+                         <strong>Saldo Awal Kas</strong>
+                    </td>
+                    @php
+                         $totalAwalKas = "Saldo awal ini darimana?";
+                    @endphp
+                    <td class="currency">{{ $totalAwalKas }}</td>
                 </tr>
-                <tr style="background-color: rgba(128, 128, 128, 0.7)">
-                    <td></td>
-                    <td colspan="2">
-                    <strong>Saldo Akhir Kas</strong></td>
-                    <?php
-                    $SaldoAkhirKas = $kenaikanPenurunanKas + $SaldoAwalKas;
-                    echo '<td class="currency">' . $SaldoAkhirKas . '</td>';
-                    ?>
+                <tr>
+                    <td colspan="3">
+                         <strong>Saldo Akhir Kas</strong>
+                    </td>
+                    @php
+                         $totalAkhirKas = "$totalKenaikanPenurunanKas + $totalAwalKas";
+                    @endphp
+                    <td class="currency">{{ $totalAkhirKas }}</td>
                 </tr>
             </tbody>
             <tfoot class = "total">

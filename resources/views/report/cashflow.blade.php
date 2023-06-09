@@ -17,174 +17,228 @@
                          <td>ID Akun</td>
                          <td>Nama Akun</td>
                          <td>Jumlah</td>
+                         <td>Total</td>
                     </tr>
                </thead>
+               <body>
                <tr>
-                    <td colspan="2">
-                         <strong>Modal di awal Tahun Fiskal</strong>
-                    </td>
-                    <td> Modal awal </td>
-                </tr>
-               <tr>
-                    <td colspan="3">
-                         <strong>Kas Masuk</strong>
+                    <td colspan="4">
+                         <strong>Aktivitas Operasi</strong>
                     </td>
                 </tr>
-               <tbody>
+               <tr>
+                    <td colspan="4">
+                         <strong>Arus Kas Masuk</strong>
+                    </td>
+                </tr>
                @php
-               $totalDebit = 0;
+               $totalArusKasMasuk = 0;
                @endphp
                     @foreach ($dataA as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalArusKasMasuk += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Kas Masuk</strong>
+                    <td colspan="3">
+                         <strong>Total Arus Kas Masuk</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalArusKasMasuk }}</td>
                 </tr>
-
                <tr>
-                    <td colspan="0">
-                    <strong>Kas Keluar</strong>
+                    <td colspan="4">
+                    <strong>Arus Kas Keluar</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalArusKasKeluar = 0;
                @endphp
                     @foreach ($dataB as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalArusKasKeluar += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
-                         <strong>Total Kas Keluar</strong>
+                    <td colspan="3">
+                         <strong>Total Arus Kas Keluar</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalArusKasKeluar }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
+                    <td colspan="3">
+                    <strong>Arus Kas Dari Aktivitas Operasi</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasOperasi = $totalArusKasMasuk - $totalArusKasKeluar;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasOperasi }}</td>
+                </tr>
+               <tr>
+                    <td colspan="4">
+                    <strong>Aktivitas Investasi</strong>
+                    </td>
+                </tr>
+               <tr>
+                    <td colspan="4">
                     <strong>Penjualan Aset</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPenjualanAset = 0;
                @endphp
                     @foreach ($dataC as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalPenjualanAset += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                          <strong>Total Penjualan Aset</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPenjualanAset }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
+                    <td colspan="4">
                     <strong>Pembelian Aset</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPembelianAset = 0;
                @endphp
                     @foreach ($dataD as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalPembelianAset += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                          <strong>Total Pembelian Aset</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPembelianAset }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
+                    <td colspan="3">
+                    <strong>Arus Kas Dari Aktivitas Investasi</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasInvestasi = $totalPenjualanAset - $totalPembelianAset;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasInvestasi }}</td>
+                </tr>
+               <tr>
+                    <td colspan="4">
+                    <strong>Aktivitas Pendanaan</strong>
+                    </td>
+                </tr>
+               <tr>
+                    <td colspan="4">
                     <strong>Penambahan Dana</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPenambahanDana = 0;
                @endphp
                     @foreach ($dataE as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalPenambahanDana += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                          <strong>Total Penambahan Dana</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPenambahanDana }}</td>
                 </tr>
-               </tbody>
                <tr>
-                    <td colspan="0">
+                    <td colspan="4">
                     <strong>Pengurangan Dana</strong>
                     </td>
                 </tr>
-               <tbody>
                @php
-               $totalDebit = 0;
+               $totalPenguranganDana = 0;
                @endphp
                     @foreach ($dataF as $row)
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit }}</td>
+                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              <td></td>
                          </tr>
                          @php
-                         $totalDebit += $row->ammount_debit;
+                         $totalPenguranganDana += $row->ammount_debit - $row->ammount_kredit;
                          @endphp
                     @endforeach
-               </tbody>
                <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                          <strong>Total Pengurangan Dana</strong>
                     </td>
-                    <td class="currency">{{ $totalDebit }}</td>
+                    <td class="currency">{{ $totalPenguranganDana }}</td>
+                </tr>
+               <tr>
+                    <td colspan="3">
+                         <strong>Arus Kas Dari Aktivitas Pendanaan</strong>
+                    </td>
+                    @php
+                         $totalArusKasAktivitasPendanaan = $totalPenambahanDana - $totalPenguranganDana;
+                    @endphp
+                    <td class="currency">{{ $totalArusKasAktivitasPendanaan }}</td>
+                </tr>
+               <tr>
+                    <td colspan="3">
+                         <strong>Kenaikan / Penurunan Kas</strong>
+                    </td>
+                    @php
+                         $totalKenaikanPenurunanKas = $totalArusKasAktivitasOperasi + $totalArusKasAktivitasInvestasi + $totalArusKasAktivitasPendanaan;
+                    @endphp
+                    <td class="currency">{{ $totalKenaikanPenurunanKas }}</td>
+                </tr>
+               <tr>
+                    <td colspan="3">
+                         <strong>Saldo Awal Kas</strong>
+                    </td>
+                    @php
+                         $totalAwalKas = "Saldo awal ini darimana?";
+                    @endphp
+                    <td class="currency">{{ $totalAwalKas }}</td>
+                </tr>
+               <tr>
+                    <td colspan="3">
+                         <strong>Saldo Akhir Kas</strong>
+                    </td>
+                    @php
+                         $totalAkhirKas = "$totalKenaikanPenurunanKas + $totalAwalKas";
+                    @endphp
+                    <td class="currency">{{ $totalAkhirKas }}</td>
                 </tr>
                </tbody>
           </table>
