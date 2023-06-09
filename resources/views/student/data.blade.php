@@ -25,9 +25,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($student as $row)
+                    @foreach ($student as $index => $row)
+                    @php
+                        $number = ($student->currentPage() - 1) * $student->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->nim }}</td>
                               <td>{{ $row->force }}</td>

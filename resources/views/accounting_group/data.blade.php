@@ -22,9 +22,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($accounting_group as $row)
+                    @foreach ($accounting_group as $index => $row)
+                    @php
+                        $number = ($accounting_group->currentPage() - 1) * $accounting_group->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description ? $row->description : '-' }}</td>
                               <td>

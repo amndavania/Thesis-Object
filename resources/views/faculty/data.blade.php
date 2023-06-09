@@ -21,9 +21,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($faculty as $row)
+                    @foreach ($faculty as $index => $row)
+                    @php
+                        $number = ($faculty->currentPage() - 1) * $faculty->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
                               <td>
                                 <div class="d-flex">

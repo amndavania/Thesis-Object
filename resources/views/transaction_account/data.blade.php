@@ -26,9 +26,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($transaction_account as $row)
+                    @foreach ($transaction_account as $index => $row)
+                    @php
+                        $number = ($transaction_account->currentPage() - 1) * $transaction_account->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description ? $row->description : '-' }}</td>

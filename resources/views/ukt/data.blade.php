@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan UKT Mahasiswa
+        UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -27,9 +27,12 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($ukt as $row)
+                    @foreach ($ukt as $index => $row)
+                    @php
+                        $number = ($ukt->currentPage() - 1) * $ukt->perPage() + $index + 1;
+                    @endphp
                          <tr>
-                              <th>{{ $loop->iteration }}</th>
+                              <th>{{ $number }}</th>
                               <td>{{ $row->student_id->name }} / {{ $row->student_id->nim }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td>

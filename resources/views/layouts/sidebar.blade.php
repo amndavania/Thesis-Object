@@ -93,19 +93,25 @@
               <li class="nav-item">
                 <a href="{{ route('labarugi.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Laba Rugi</p>
+                  <p>Laba Rugi</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('neraca.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Neraca</p>
+                  <p>Neraca</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('perubahanmodal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Perubahan Modal</p>
+                  <p>Perubahan Modal</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('uktdetail.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Detail UKT</p>
                 </a>
               </li>
             </ul>
