@@ -10,7 +10,7 @@
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
 
-                <button onclick="window.open('{{ url('jurnal/export') }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+                <button onclick="window.open('{{ url('jurnal/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
             </div>
        </div>
      <div class="card-body">

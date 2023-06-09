@@ -21,6 +21,49 @@ class BukuBesarController extends Controller
         $search_account = $request->input('search_account');
         $datepicker = $request->input('datepicker');
 
+        $getData = $this->getData($search_account, $datepicker);
+
+        $data = Transaction::where('transaction_accounts_id', $getData[0])
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])
+                    ->paginate(20);
+        $account = TransactionAccount::find($getData[0]);
+
+        return view('report.bukubesar')->with([
+            'data' => $data,
+            'selects' => $select,
+            'account' => $account,
+            'datepicker' => $getData[2],
+        ]);
+    }
+
+    public function export(Request $request)
+    {
+        $search_account = $request->input('search_account');
+        $datepicker = $request->input('datepicker');
+
+        $dateTime = DateTime::createFromFormat('F Y', $datepicker);
+        $date = $dateTime->format('m-Y');
+
+        $getData = $this->getData($search_account, $date);
+        
+        $transaction = Transaction::where('transaction_accounts_id', $getData[0])
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
+        $account = TransactionAccount::find($getData[0]);
+
+        $pdf = PDF::loadView('report.printformat.bukubesar', [
+            'data' => $transaction,
+            'datepicker' => $getData[2],
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'account' => $account,
+        ]);
+        $pdf->setOption('enable-local-file-access', true);
+        Session::flash('title', 'Laporan Buku Besar');
+        return $pdf->stream('Laporan Buku Besar.pdf');
+
+    }
+
+    public function getData($search_account, $datepicker)
+    {
         if (empty($search_account) && empty($datepicker)) {
             $search_account = 1;
             $date = date('Y-m');
@@ -35,28 +78,9 @@ class BukuBesarController extends Controller
             $date = $parsedDate->format('Y-m');
         }
 
-        $data = Transaction::where('transaction_accounts_id', $search_account)
-                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$date])
-                    ->paginate(20);
         $dateTime = new DateTime($date);
         $formattedDate = $dateTime->format('F Y');
-        $account = TransactionAccount::find($search_account);
 
-        return view('report.bukubesar')->with([
-            'data' => $data,
-            'selects' => $select,
-            'account' => $account->name,
-            'datepicker' => $formattedDate,
-        ]);
-    }
-
-    public function export()
-    {
-        $data = TransactionAccount::all();
-        $pdf = PDF::loadView('report.printformat.bukubesar', compact('data'));
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Laporan Buku Besar');
-        return $pdf->stream('Laporan Buku Besar.pdf');
-
+        return [$search_account, $date, $formattedDate];
     }
 }

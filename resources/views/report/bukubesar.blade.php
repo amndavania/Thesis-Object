@@ -19,13 +19,13 @@
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
               </form>
 
-              <button onclick="window.open('{{ url('bukubesar/export') }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+              <button onclick="window.open('{{ url('bukubesar/export') }}?search_account={{ $account->id }}&datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
           </div>
      </div>
          <div class="card-body">
           {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a> --}}
           <div class="d-flex align-items-center">
-            <h5>Akun : {{ !empty($account) ? $account : '-' }}</h5>
+            <h5>Akun : {{ !empty($account) ? $account->name : '-' }}</h5>
             <h5 class="ml-auto p-2">Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
           </div>
           <table class="table table-striped ">
