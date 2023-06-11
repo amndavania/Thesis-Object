@@ -37,6 +37,11 @@ class PengeluaranController extends Controller
         $request['user_id'] = $request->user()->id;
         $request['type'] = 'kredit';
         Transaction::create($request->all());
+
+        $account = TransactionAccount::findOrFail($request->transaction_accounts_id);
+        $account->fill(['ammount_kredit' => $account->ammount_kredit + $request->amount]);
+        $account->save();
+
         return redirect()->route('pengeluaran.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
@@ -74,6 +79,14 @@ class PengeluaranController extends Controller
      */
     public function destroy(string $id)
     {
+        $transaction = Transaction::where('id', $id)->first();
+        $kredit = $transaction->amount;
+        $transaction_account_id = $transaction->transaction_accounts_id;
+
+        $account = TransactionAccount::findOrFail($transaction_account_id);
+        $account->fill(['ammount_kredit' => $account->ammount_kredit - $kredit]);
+        $account->save();
+
         $pengeluaran = Transaction::findOrFail($id);
         $pengeluaran->delete();
         return redirect()->route('pengeluaran.index')->with(['success' => 'Data berhasil dihapus']);

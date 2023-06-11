@@ -5,21 +5,24 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex">
-              @include('message.flash-message')
-              <a href="{{ url('cashflow/export') }}" target="_blank" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</a>
+              <form class="form-inline" action="{{ route('neraca.index') }}" method="GET">
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
+                    <button type="submit" class="btn btn-primary mb-2">Cari</button>
+                </form>
+                <button onclick="window.open('{{ url('neraca/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
             </div>
        </div>
          <div class="card-body">
-          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Cash Flow</a> --}}
+            <h5>Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
                          <td>ID Akun</td>
                          <td>Nama Akun</td>
-                         <td>Jumlah</td>
+                         <td>Saldo</td>
                     </tr>
                </thead>
-               <body>
+               <tbody>
                <tr>
                     <td colspan="3">
                          <strong>AKTIVA</strong>
@@ -37,7 +40,18 @@
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              @php
+                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
+                              @endphp
+                              <td>
+                                @if ($saldo < 0)
+                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                @elseif ($saldo > 0)
+                                    Rp {{ number_format($saldo, 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                          </tr>
                          @php
                          $totalAktivaLancar += $row->ammount_debit - $row->ammount_kredit;
@@ -55,7 +69,18 @@
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              @php
+                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
+                              @endphp
+                              <td>
+                                @if ($saldo < 0)
+                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                @elseif ($saldo > 0)
+                                    Rp {{ number_format($saldo, 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                          </tr>
                          @php
                          $totalAktivaTetap += $row->ammount_debit - $row->ammount_kredit;
@@ -65,7 +90,18 @@
                     <td colspan="2">
                          <strong>Total Aktiva</strong>
                     </td>
-                    <td class="currency">{{ $totalAktiva = $totalAktivaLancar + $totalAktivaTetap }}</td>
+                    @php
+                        $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
+                    @endphp
+                    <td>
+                        @if ($totalAktiva < 0)
+                            (Rp {{ number_format(abs($totalAktiva), 2, ',', '.') }})
+                        @elseif ($totalAktiva > 0)
+                            Rp {{ number_format($totalAktiva, 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                <tr>
                     <td colspan="3">
@@ -84,7 +120,18 @@
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              @php
+                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
+                              @endphp
+                              <td>
+                                @if ($saldo < 0)
+                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                @elseif ($saldo > 0)
+                                    Rp {{ number_format($saldo, 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                          </tr>
                          @php
                          $totalHutangLancar += $row->ammount_debit - $row->ammount_kredit;
@@ -102,7 +149,18 @@
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              @php
+                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
+                              @endphp
+                              <td>
+                                @if ($saldo < 0)
+                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                @elseif ($saldo > 0)
+                                    Rp {{ number_format($saldo, 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                          </tr>
                          @php
                          $totalHutangJangkaPanjang += $row->ammount_debit - $row->ammount_kredit;
@@ -112,7 +170,18 @@
                     <td colspan="2">
                          <strong>Total Hutang</strong>
                     </td>
-                    <td class="currency">{{ $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang }}</td>
+                    @php
+                        $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang;
+                    @endphp
+                    <td>
+                        @if ($totalHutang < 0)
+                            (Rp {{ number_format(abs($totalHutang), 2, ',', '.') }})
+                        @elseif ($totalHutang > 0)
+                            Rp {{ number_format($totalHutang, 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                <tr>
                     <td colspan="3">
@@ -126,7 +195,18 @@
                          <tr>
                               <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
+                              @php
+                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
+                              @endphp
+                              <td>
+                                @if ($saldo < 0)
+                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                @elseif ($saldo > 0)
+                                    Rp {{ number_format($saldo, 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                          </tr>
                          @php
                          $totalModal += $row->ammount_debit - $row->ammount_kredit;
@@ -136,7 +216,15 @@
                     <td colspan="2">
                          <strong>Total Modal</strong>
                     </td>
-                    <td class="currency">{{ $totalModal }}</td>
+                    <td>
+                        @if ($totalModal < 0)
+                            (Rp {{ number_format(abs($totalModal), 2, ',', '.') }})
+                        @elseif ($totalModal > 0)
+                            Rp {{ number_format($totalModal, 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
                 </tbody>
           </table>

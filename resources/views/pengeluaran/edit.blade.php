@@ -23,15 +23,11 @@
           </div>
           <div class="form-group">
                <label for="amount">Jumlah</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount', $pengeluaran->amount) }}">
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount', $pengeluaran->amount) }}" readonly>
           </div>
           <div class="form-group">
-          <label for="transaction_accounts_id">Akun Transaksi</label>
-          <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
-               @foreach ($transaction_account as $item)
-                    <option value="{{ $item->id }}" {{ $pengeluaran->transaction_accounts_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-               @endforeach
-          </select>
+            <label for="transaction_accounts_id">Akun Transaksi</label>
+            <input type="text" class="form-control" id="transaction_accounts_id" name="transaction_accounts_id" placeholder="{{ $pengeluaran->transactionaccount->name }}" readonly>
           </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>

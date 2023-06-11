@@ -37,6 +37,11 @@ class PemasukanController extends Controller
         $request['user_id'] = $request->user()->id;
         $request['type'] = 'debit';
         Transaction::create($request->all());
+
+        $account = TransactionAccount::findOrFail($request->transaction_accounts_id);
+        $account->fill(['ammount_debit' => $account->ammount_debit + $request->amount]);
+        $account->save();
+
         return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
@@ -66,6 +71,7 @@ class PemasukanController extends Controller
     {
         $pemasukan = Transaction::findOrFail($id);
         $pemasukan->update($request->all());
+
         return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
@@ -74,8 +80,18 @@ class PemasukanController extends Controller
      */
     public function destroy(string $id)
     {
+
+        $transaction = Transaction::where('id', $id)->first();
+        $debit = $transaction->amount;
+        $transaction_account_id = $transaction->transaction_accounts_id;
+
+        $account = TransactionAccount::findOrFail($transaction_account_id);
+        $account->fill(['ammount_debit' => $account->ammount_debit - $debit]);
+        $account->save();
+
         $pemasukan = Transaction::findOrFail($id);
         $pemasukan->delete();
+
         return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil dihapus']);
     }
 }

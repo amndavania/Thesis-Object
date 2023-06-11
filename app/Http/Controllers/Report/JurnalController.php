@@ -17,12 +17,25 @@ class JurnalController extends Controller
     public function index(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $getData = $this->getData($datepicker);
-        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[0])->paginate(20);
+        $getDate = $this->getDate($datepicker);
+        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->paginate(20);
+        $transactions = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
+
+        $totalDebit = 0;
+        $totalKredit = 0;
+        foreach ($transactions as $row){
+            if ($row->type == 'debit') {
+                $totalDebit += $row->amount;
+            } elseif ($row->type == 'kredit') {
+                $totalKredit += $row->amount;
+            }
+        };
 
         return view('report.jurnal')->with([
             'data' => $transaction,
-            'datepicker' => $getData[1],
+            'datepicker' => $getDate[1],
+            'totalDebit' => $totalDebit,
+            'totalKredit' => $totalKredit,
         ]);
     }
 
@@ -32,12 +45,12 @@ class JurnalController extends Controller
         $dateTime = DateTime::createFromFormat('F Y', $datepicker);
         $date = $dateTime->format('m-Y');
 
-        $getData = $this->getData($date);
-        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[0])->get();
+        $getDate = $this->getDate($date);
+        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
 
         $pdf = PDF::loadView('report.printformat.jurnal', [
             'data' => $transaction,
-            'datepicker' => $getData[1],
+            'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
         ]);
         $pdf->setOption('enable-local-file-access', true);
@@ -45,7 +58,7 @@ class JurnalController extends Controller
         return $pdf->stream('Jurnal Umum.pdf');
     }
 
-    public function getData($datepicker)
+    public function getDate($datepicker)
     {
         if (empty($datepicker)) {
             $date = date('Y-m');

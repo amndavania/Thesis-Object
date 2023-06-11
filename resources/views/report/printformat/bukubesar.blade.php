@@ -48,7 +48,6 @@
                $totalKredit = 0;
                $totalDebit = 0;
                $totalSaldo = 0;
-               $saldo = 0;
             @endphp
             @foreach ($data as $row)
                  <tr>
@@ -77,7 +76,7 @@
                             @else
                                 -
                             @endif
-                        </td>    
+                        </td>
                       {{-- <td class="currency">{{ $totalSaldo ? 'Rp ' . number_format($totalSaldo, 0, ',', '.') : '-'}}</td> --}}
                  </tr>
             @endforeach
@@ -97,7 +96,7 @@
                         @else
                             -
                         @endif
-                    </td> 
+                    </td>
                 </tr>
             </tfoot>
             </div>
