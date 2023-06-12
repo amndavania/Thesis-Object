@@ -27,8 +27,9 @@
                </thead>
                <tbody>
                     <tr>
-                        <td colspan="5">
-                            <strong>Pendapatan</strong>
+                        <td></td>
+                        <td colspan="4">
+                            <strong>PENDAPATAN</strong>
                         </td>
                     </tr>
                @php
@@ -55,7 +56,8 @@
                          </tr>
                     @endforeach
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Total Pendapatan</strong>
                     </td>
                     <td>
@@ -70,8 +72,9 @@
                 </tr>
 
                <tr>
-                    <td colspan="5">
-                    <strong>Pengeluaran</strong>
+                <td></td>
+                    <td colspan="4">
+                    <strong>PENGELUARAN</strong>
                     </td>
                 </tr>
                @php
@@ -98,7 +101,8 @@
                          </tr>
                     @endforeach
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Total Pengeluaran</strong>
                     </td>
                     <td>
@@ -112,7 +116,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Laba / Rugi Kotor</strong>
                     </td>
                     @php
@@ -129,8 +134,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="5">
-                    <strong>Penyusutan / Amortisasi</strong>
+                <td></td>
+                    <td colspan="4">
+                    <strong>PENYUSUTAN / AMORTISASI</strong>
                     </td>
                 </tr>
                @php
@@ -157,7 +163,8 @@
                          </tr>
                     @endforeach
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Total Penyusutan dan Amortisasi</strong>
                     </td>
                     <td>
@@ -171,7 +178,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Ebit</strong>
                     </td>
                     @php
@@ -188,8 +196,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="5">
-                    <strong>Bunga / Pajak</strong>
+                <td></td>
+                    <td colspan="4">
+                    <strong>BUNGA / PAJAK</strong>
                     </td>
                 </tr>
                @php
@@ -216,7 +225,8 @@
                          </tr>
                     @endforeach
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Total Pembelian Aset</strong>
                     </td>
                     <td>
@@ -230,7 +240,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Laba / Rugi Kotor</strong>
                     </td>
                     @php
@@ -247,8 +258,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="5">
-                    <strong>Pendapatan / Pengeluaran Lain-Lain</strong>
+                <td></td>
+                    <td colspan="4">
+                    <strong>PENDAPATAN / PENGELUARAN LAIN-LAIN</strong>
                     </td>
                 </tr>
                @php
@@ -275,7 +287,8 @@
                          </tr>
                     @endforeach
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Total Pendapatan / Pengeluaran Lain</strong>
                     </td>
                     <td>
@@ -289,8 +302,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
-                         <strong>Laba / Rugi Bersih</strong>
+                <td></td>
+                    <td colspan="3">
+                         <strong>LABA / RUGI BERSIH</strong>
                     </td>
                     @php
                     $labaRugiBersih = $labaRugiKotor2 + $totalPendapatanPengeluaranLain;

@@ -25,12 +25,14 @@
                </thead>
                <tbody>
                <tr>
-                    <td colspan="4">
-                         <strong>Aktivitas Operasi</strong>
+                <td></td>
+                    <td colspan="3">
+                         <strong>AKTIVITAS OPERASI</strong>
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                          <strong>Arus Kas Masuk</strong>
                     </td>
                 </tr>
@@ -60,7 +62,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Arus Kas Masuk</strong>
                     </td>
                     <td>
@@ -74,7 +77,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                     <strong>Arus Kas Keluar</strong>
                     </td>
                 </tr>
@@ -104,7 +108,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Arus Kas Keluar</strong>
                     </td>
                     <td>
@@ -118,8 +123,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
-                    <strong>Arus Kas Dari Aktivitas Operasi</strong>
+                <td></td>
+                    <td colspan="2">
+                    <strong>ARUS KAS DARI AKTIVITAS OPERASI</strong>
                     </td>
                     @php
                          $totalArusKasAktivitasOperasi = $totalArusKasMasuk - $totalArusKasKeluar;
@@ -135,12 +141,14 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
-                    <strong>Aktivitas Investasi</strong>
+                <td></td>
+                    <td colspan="3">
+                    <strong>AKTIVITAS INVESTASI</strong>
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                     <strong>Penjualan Aset</strong>
                     </td>
                 </tr>
@@ -170,7 +178,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Penjualan Aset</strong>
                     </td>
                     <td>
@@ -184,7 +193,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                     <strong>Pembelian Aset</strong>
                     </td>
                 </tr>
@@ -214,7 +224,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Pembelian Aset</strong>
                     </td>
                     <td>
@@ -228,8 +239,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
-                    <strong>Arus Kas Dari Aktivitas Investasi</strong>
+                <td></td>
+                    <td colspan="2">
+                    <strong>ARUS KAS DARI AKTIVITAS INVESTASI</strong>
                     </td>
                     @php
                          $totalArusKasAktivitasInvestasi = $totalPenjualanAset - $totalPembelianAset;
@@ -245,12 +257,14 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
-                    <strong>Aktivitas Pendanaan</strong>
+                <td></td>
+                    <td colspan="3">
+                    <strong>AKTIVITAS PENDANAAN</strong>
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                     <strong>Penambahan Dana</strong>
                     </td>
                 </tr>
@@ -280,7 +294,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Penambahan Dana</strong>
                     </td>
                     <td>
@@ -294,7 +309,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="4">
+                <td></td>
+                    <td colspan="3">
                     <strong>Pengurangan Dana</strong>
                     </td>
                 </tr>
@@ -324,7 +340,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Total Pengurangan Dana</strong>
                     </td>
                     <td>
@@ -338,8 +355,9 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
-                         <strong>Arus Kas Dari Aktivitas Pendanaan</strong>
+                <td></td>
+                    <td colspan="2">
+                         <strong>ARUS KAS DARI AKTIVITAS PENDANAAN</strong>
                     </td>
                     @php
                          $totalArusKasAktivitasPendanaan = $totalPenambahanDana - $totalPenguranganDana;
@@ -355,7 +373,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Kenaikan / Penurunan Kas</strong>
                     </td>
                     @php
@@ -372,7 +391,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Saldo Awal Kas</strong>
                     </td>
                     @php
@@ -381,7 +401,8 @@
                     <td class="currency">{{ $totalAwalKas }}</td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Saldo Akhir Kas</strong>
                     </td>
                     @php

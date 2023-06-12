@@ -24,12 +24,14 @@
                </thead>
                <tbody>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>AKTIVA</strong>
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                          <strong>Aktiva Lancar</strong>
                     </td>
                 </tr>
@@ -58,7 +60,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                     <strong>Aktiva Tetap</strong>
                     </td>
                 </tr>
@@ -87,8 +90,9 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="2">
-                         <strong>Total Aktiva</strong>
+                <td></td>
+                    <td colspan="1">
+                         <strong>TOTAL AKTIVA</strong>
                     </td>
                     @php
                         $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
@@ -104,12 +108,14 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                     <strong>PASIVA</strong>
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                     <strong>Hutang Lancar</strong>
                     </td>
                 </tr>
@@ -138,7 +144,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                     <strong>Hutang Jangka Panjang</strong>
                     </td>
                 </tr>
@@ -167,7 +174,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="2">
+                <td></td>
+                    <td colspan="1">
                          <strong>Total Hutang</strong>
                     </td>
                     @php
@@ -184,7 +192,8 @@
                     </td>
                 </tr>
                <tr>
-                    <td colspan="3">
+                <td></td>
+                    <td colspan="2">
                     <strong>Modal</strong>
                     </td>
                 </tr>
@@ -213,7 +222,8 @@
                          @endphp
                     @endforeach
                <tr>
-                    <td colspan="2">
+                <td></td>
+                    <td colspan="1">
                          <strong>Total Modal</strong>
                     </td>
                     <td>
@@ -226,6 +236,24 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <td></td>
+                        <td colspan="1">
+                             <strong>TOTAL PASIVA</strong>
+                        </td>
+                        @php
+                            $totalPasiva = $totalHutang + $totalModal;
+                        @endphp
+                        <td>
+                            @if ($totalPasiva < 0)
+                                (Rp {{ number_format(abs($totalPasiva), 2, ',', '.') }})
+                            @elseif ($totalPasiva > 0)
+                                Rp {{ number_format($totalPasiva, 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
           </table>
      </div>

@@ -21,7 +21,7 @@
         <table class="content">
             <thead class="thead">
                 <tr>
-                    <th style="width: 10%;">ID</th>
+                    <th style="width: 10%;">Kode Akun</th>
                     <th style="width: 30%;">Nama Akun</th>
                     <th style="width: 20%;">Saldo</th>
                     <th style="width: 20%;">Total</th>
@@ -29,12 +29,14 @@
             </thead>
             <tbody>
                 <tr>
-                     <td colspan="4">
-                          <strong>Aktivitas Operasi</strong>
+                 <td></td>
+                     <td colspan="3">
+                          <strong>AKTIVITAS OPERASI</strong>
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                           <strong>Arus Kas Masuk</strong>
                      </td>
                  </tr>
@@ -43,12 +45,12 @@
                 @endphp
                      @foreach ($dataA as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -64,10 +66,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Arus Kas Masuk</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalArusKasMasuk < 0)
                              (Rp {{ number_format(abs($totalArusKasMasuk), 2, ',', '.') }})
                          @elseif ($totalArusKasMasuk > 0)
@@ -78,7 +81,8 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                      <strong>Arus Kas Keluar</strong>
                      </td>
                  </tr>
@@ -87,12 +91,12 @@
                 @endphp
                      @foreach ($dataB as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -108,10 +112,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Arus Kas Keluar</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalArusKasKeluar < 0)
                              (Rp {{ number_format(abs($totalArusKasKeluar), 2, ',', '.') }})
                          @elseif ($totalArusKasKeluar > 0)
@@ -122,13 +127,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="3">
-                     <strong>Arus Kas Dari Aktivitas Operasi</strong>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>ARUS KAS DARI AKTIVITAS OPERASI</strong>
                      </td>
                      @php
                           $totalArusKasAktivitasOperasi = $totalArusKasMasuk - $totalArusKasKeluar;
                      @endphp
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalArusKasAktivitasOperasi < 0)
                              (Rp {{ number_format(abs($totalArusKasAktivitasOperasi), 2, ',', '.') }})
                          @elseif ($totalArusKasAktivitasOperasi > 0)
@@ -139,12 +145,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
-                     <strong>Aktivitas Investasi</strong>
+                 <td></td>
+                     <td colspan="3">
+                     <strong>AKTIVITAS INVESTASI</strong>
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                      <strong>Penjualan Aset</strong>
                      </td>
                  </tr>
@@ -153,12 +161,12 @@
                 @endphp
                      @foreach ($dataC as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -174,10 +182,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Penjualan Aset</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalPenjualanAset < 0)
                              (Rp {{ number_format(abs($totalPenjualanAset), 2, ',', '.') }})
                          @elseif ($totalPenjualanAset > 0)
@@ -188,7 +197,8 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                      <strong>Pembelian Aset</strong>
                      </td>
                  </tr>
@@ -197,12 +207,12 @@
                 @endphp
                      @foreach ($dataD as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -218,10 +228,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Pembelian Aset</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalPembelianAset < 0)
                              (Rp {{ number_format(abs($totalPembelianAset), 2, ',', '.') }})
                          @elseif ($totalPembelianAset > 0)
@@ -232,13 +243,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="3">
-                     <strong>Arus Kas Dari Aktivitas Investasi</strong>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>ARUS KAS DARI AKTIVITAS INVESTASI</strong>
                      </td>
                      @php
                           $totalArusKasAktivitasInvestasi = $totalPenjualanAset - $totalPembelianAset;
                      @endphp
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalArusKasAktivitasInvestasi < 0)
                              (Rp {{ number_format(abs($totalArusKasAktivitasInvestasi), 2, ',', '.') }})
                          @elseif ($totalArusKasAktivitasInvestasi > 0)
@@ -249,12 +261,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
-                     <strong>Aktivitas Pendanaan</strong>
+                 <td></td>
+                     <td colspan="3">
+                     <strong>AKTIVITAS PENDANAAN</strong>
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                      <strong>Penambahan Dana</strong>
                      </td>
                  </tr>
@@ -263,12 +277,12 @@
                 @endphp
                      @foreach ($dataE as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -284,10 +298,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Penambahan Dana</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalPenambahanDana < 0)
                              (Rp {{ number_format(abs($totalPenambahanDana), 2, ',', '.') }})
                          @elseif ($totalPenambahanDana > 0)
@@ -298,7 +313,8 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="4">
+                 <td></td>
+                     <td colspan="3">
                      <strong>Pengurangan Dana</strong>
                      </td>
                  </tr>
@@ -307,12 +323,12 @@
                 @endphp
                      @foreach ($dataF as $row)
                           <tr>
-                               <td>{{ $row->id }}</td>
+                               <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td>
+                                 <td style="text-align: right;">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -328,10 +344,11 @@
                           @endphp
                      @endforeach
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Total Pengurangan Dana</strong>
                      </td>
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalPenguranganDana < 0)
                              (Rp {{ number_format(abs($totalPenguranganDana), 2, ',', '.') }})
                          @elseif ($totalPenguranganDana > 0)
@@ -342,13 +359,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="3">
-                          <strong>Arus Kas Dari Aktivitas Pendanaan</strong>
+                 <td></td>
+                     <td colspan="2">
+                          <strong>ARUS KAS DARI AKTIVITAS PENDANAAN</strong>
                      </td>
                      @php
                           $totalArusKasAktivitasPendanaan = $totalPenambahanDana - $totalPenguranganDana;
                      @endphp
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalArusKasAktivitasPendanaan < 0)
                              (Rp {{ number_format(abs($totalArusKasAktivitasPendanaan), 2, ',', '.') }})
                          @elseif ($totalArusKasAktivitasPendanaan > 0)
@@ -359,13 +377,14 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Kenaikan / Penurunan Kas</strong>
                      </td>
                      @php
                           $totalKenaikanPenurunanKas = $totalArusKasAktivitasOperasi + $totalArusKasAktivitasInvestasi + $totalArusKasAktivitasPendanaan;
                      @endphp
-                     <td>
+                     <td style="text-align: right;">
                          @if ($totalKenaikanPenurunanKas < 0)
                              (Rp {{ number_format(abs($totalKenaikanPenurunanKas), 2, ',', '.') }})
                          @elseif ($totalKenaikanPenurunanKas > 0)
@@ -376,7 +395,8 @@
                      </td>
                  </tr>
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Saldo Awal Kas</strong>
                      </td>
                      @php
@@ -385,7 +405,8 @@
                      <td class="currency">{{ $totalAwalKas }}</td>
                  </tr>
                 <tr>
-                     <td colspan="3">
+                 <td></td>
+                     <td colspan="2">
                           <strong>Saldo Akhir Kas</strong>
                      </td>
                      @php
