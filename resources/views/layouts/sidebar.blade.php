@@ -26,41 +26,38 @@
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-money-bill-wave-alt"></i>
+                <i class="nav-icon fas fa-coins"></i>
               <p>
-                Pemasukan
+                Transaksi
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('ukt.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>UKT Mahasiswa</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('pemasukan.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pemasukan lain</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{ route('pemasukan.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Data Transaksi</p>
+                    </a>
+                  </li>
+                <li class="nav-item">
+                    <a href="{{ route('transaction_account.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Akun Transaksi
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('accounting_group.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Grup Akun Transaksi
+                      </p>
+                    </a>
+                  </li>
             </ul>
           </li>
           @endif
-
-          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin pengeluaran')
-          {{-- menu --}}
-          <li class="nav-item has-treeview">
-            <a href="{{ route('pengeluaran.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-coins"></i>
-              <p>
-                Pengeluaran
-              </p>
-            </a>
-          </li>
-        @endif
-
 
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
@@ -85,12 +82,6 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('cashflow.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cash Flow</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('labarugi.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laba Rugi</p>
@@ -103,64 +94,41 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{ route('cashflow.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cash Flow</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('perubahanmodal.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perubahan Modal</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ route('uktdetail.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Detail UKT</p>
-                </a>
-              </li>
             </ul>
-          </li>
-          {{-- menu --}}
-          <li class="nav-item has-treeview">
-            <a href="{{ route('transaction_account.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-wallet"></i>
-              <p>
-                Akun Transaksi
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="{{ route('accounting_group.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-wallet"></i>
-              <p>
-                Grup Akun Transaksi
-              </p>
-            </a>
           </li>
 
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-graduate"></i>
+                <i class="nav-icon fas fa-university"></i>
               <p>
                 Akademik
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('student.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Mahasiswa</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{ route('faculty.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Fakultas</p>
+                    </a>
+                  </li>
               <li class="nav-item">
                 <a href="{{ route('study_program.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Program Studi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('faculty.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fakultas</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -172,6 +140,37 @@
             </ul>
           </li>
         @endif
+
+        {{-- menu sub--}}
+        <li class="nav-item has-treeview menu-closed">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-graduate"></i>
+              <p>
+                Kemahasiswaan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('student.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Daftar Mahasiswa</p>
+                    </a>
+                  </li>
+                <li class="nav-item">
+                    <a href="{{ route('ukt.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pembayaran UKT</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('uktdetail.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Detail UKT</p>
+                    </a>
+                  </li>
+            </ul>
+          </li>
 
         {{-- menu --}}
           <li class="nav-item has-treeview">
