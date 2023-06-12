@@ -5,101 +5,179 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex">
-              @include('message.flash-message')
-              <a href="{{ url('cashflow/export') }}" target="_blank" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</a>
+                <form class="form-inline" action="{{ route('perubahanmodal.index') }}" method="GET">
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
+                    <button type="submit" class="btn btn-primary mb-2">Cari</button>
+                </form>
+                <button onclick="window.open('{{ url('perubahanmodal/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
             </div>
        </div>
          <div class="card-body">
-          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Perubahan Modal</a> --}}
+            <h5>Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
                          <td>ID Akun</td>
                          <td>Nama Akun</td>
-                         <td>Jumlah</td>
+                         <td>Saldo</td>
                     </tr>
                </thead>
-               <body>
-               <tr>
-                    <td colspan="3">
-                         <strong>Modal di Awal Tahun Fiskal</strong>
-                    </td>
-               </tr>
-               @php
-               $totalModalAwal = 0;
-               @endphp
-                    @foreach ($dataA as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
-                         </tr>
-                         @php
-                         $totalModalAwal += ($row->ammount_debit - $row->ammount_kredit);
-                         @endphp
-                    @endforeach
-               <tr>
-                    <td colspan="2">
-                         <strong>Total Modal Awal</strong>
-                    </td>
-                    <td class="currency">{{ $totalModalAwal }}</td>
+               <tbody>
+                <tr>
+                    <td></td>
+                     <td colspan="2">
+                          <strong>MODAL DI AWAL TAHUN FISKAL</strong>
+                     </td>
                 </tr>
+                @php
+                $totalModalAwal = 0;
+                @endphp
+                     @foreach ($dataA as $row)
+                          <tr>
+                               <td>{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                               $saldo = $row->ammount_debit - $row->ammount_kredit;
+                                 @endphp
+                                 <td>
+                                     @if ($saldo < 0)
+                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                     @elseif ($saldo > 0)
+                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                                     @else
+                                         -
+                                     @endif
+                                 </td>
+                          </tr>
+                          @php
+                          $totalModalAwal += ($row->ammount_debit - $row->ammount_kredit);
+                          @endphp
+                     @endforeach
+                <tr>
+                    <td></td>
+                     <td colspan="1">
+                          <strong>Total Modal Awal</strong>
+                     </td>
+                     <td>
+                         @if ($totalModalAwal < 0)
+                             (Rp {{ number_format(abs($totalModalAwal), 2, ',', '.') }})
+                         @elseif ($totalModalAwal > 0)
+                             Rp {{ number_format($totalModalAwal, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
 
-               <tr>
-                    <td colspan="0">
-                    <strong>Penambahan Modal</strong>
-                    </td>
-                </tr>
-               @php
-               $totalPenambahanModal = 0;
-               @endphp
-                    @foreach ($dataB as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
-                         </tr>
-                         @php
-                         $totalPenambahanModal += ($row->ammount_debit - $row->ammount_kredit);
-                         @endphp
-                    @endforeach
-               <tr>
-                    <td colspan="2">
-                         <strong>Total Penambahan Modal</strong>
-                    </td>
-                    <td class="currency">{{ $totalPenambahanModal }}</td>
-                </tr>
-               <tr>
-                    <td colspan="3">
-                    <strong>Pengurangan Modal</strong>
-                    </td>
-                </tr>
-               @php
-               $totalPenguranganModal = 0;
-               @endphp
-                    @foreach ($dataC as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td class="currency">{{ $row->ammount_debit - $row->ammount_kredit }}</td>
-                         </tr>
-                         @php
-                         $totalPenguranganModal += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                    <td colspan="2">
-                         <strong>Total Pengurangan Modal</strong>
-                    </td>
-                    <td class="currency">{{ $totalPenguranganModal }}</td>
-                </tr>
-               <tr>
-                    <td colspan="2">
-                         <strong>Modal di akhir tahun fiskal</strong>
-                    </td>
-                    <td class="currency">{{ $modalAkhir = $totalModalAwal + $totalPenambahanModal - $totalPenguranganModal }}</td>
-                </tr>
-                </tbody>
+                <tr>
+                    <td></td>
+                     <td colspan="2">
+                     <strong>PENAMBAHAN MODAL</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalPenambahanModal = 0;
+                @endphp
+                     @foreach ($dataB as $row)
+                          <tr>
+                               <td>{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                               $saldo = $row->ammount_debit - $row->ammount_kredit;
+                                 @endphp
+                                 <td>
+                                     @if ($saldo < 0)
+                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                     @elseif ($saldo > 0)
+                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                                     @else
+                                         -
+                                     @endif
+                                 </td>
+                          </tr>
+                          @php
+                          $totalPenambahanModal += ($row->ammount_debit - $row->ammount_kredit);
+                          @endphp
+                     @endforeach
+                <tr>
+                    <td></td>
+                     <td colspan="1">
+                          <strong>Total Penambahan Modal</strong>
+                     </td>
+                     <td>
+                         @if ($totalPenambahanModal < 0)
+                             (Rp {{ number_format(abs($totalPenambahanModal), 2, ',', '.') }})
+                         @elseif ($totalPenambahanModal > 0)
+                             Rp {{ number_format($totalPenambahanModal, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                <tr>
+                    <td></td>
+                     <td colspan="2">
+                     <strong>PENGURANGAN MODAL</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalPenguranganModal = 0;
+                @endphp
+                     @foreach ($dataC as $row)
+                          <tr>
+                               <td>{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                               $saldo = $row->ammount_debit - $row->ammount_kredit;
+                                 @endphp
+                                 <td>
+                                     @if ($saldo < 0)
+                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                     @elseif ($saldo > 0)
+                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                                     @else
+                                         -
+                                     @endif
+                                 </td>
+                          </tr>
+                          @php
+                          $totalPenguranganModal += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                    <td></td>
+                     <td colspan="1">
+                          <strong>Total Pengurangan Modal</strong>
+                     </td>
+                     <td>
+                         @if ($totalPenguranganModal < 0)
+                             (Rp {{ number_format(abs($totalPenguranganModal), 2, ',', '.') }})
+                         @elseif ($totalPenguranganModal > 0)
+                             Rp {{ number_format($totalPenguranganModal, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                <tr>
+                    <td></td>
+                     <td colspan="1">
+                          <strong>MODAL DI AKHIR TAHUN FISKAL</strong>
+                     </td>
+                     @php
+                     $modalAkhir = $totalModalAwal + $totalPenambahanModal - $totalPenguranganModal;
+                     @endphp
+                     <td>
+                         @if ($modalAkhir < 0)
+                             (Rp {{ number_format(abs($modalAkhir), 2, ',', '.') }})
+                         @elseif ($modalAkhir > 0)
+                             Rp {{ number_format($modalAkhir, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                 </tbody>
           </table>
      </div>
     </div>
