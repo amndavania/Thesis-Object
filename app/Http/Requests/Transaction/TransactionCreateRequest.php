@@ -22,6 +22,7 @@ class TransactionCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'type'=>'required',
             'amount'=>'required',
             'transaction_accounts_id'=>'required',
         ];
@@ -30,6 +31,7 @@ class TransactionCreateRequest extends FormRequest
     public function messages()
     {
         return[
+            'type.required'=>'Tipe harus diisi',
             'amount.required'=>'Jumlah harus diisi',
             'transaction_accounts_id.required'=>'Akun Transaksi harus diisi'
         ];

@@ -17,10 +17,10 @@
                     <tr>
                          <th>No</th>
                          <th>ID Akun</th>
-                         <td>Nama</td>
-                         <td>Deskripsi</td>
-                         <td>Kredit</td>
-                         <td>Debit</td>
+                         <td style="width: 20%">Nama</td>
+                         <td style="width: 40%">Deskripsi</td>
+                         <td style="width: 20%">Kredit</td>
+                         <td style="width: 20%">Debit</td>
                          <td>Grup</td>
                          <td>Aksi</td>
                     </tr>
@@ -35,8 +35,8 @@
                               <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description ? $row->description : '-' }}</td>
-                              <td>{{ 'Rp ' . number_format($row->ammount_kredit, 0, ',', '.') }}</td>
-                              <td>{{ 'Rp ' . number_format($row->ammount_debit, 0, ',', '.') }}</td>
+                              <td>{{ 'Rp ' . number_format($row->ammount_kredit, 2, ',', '.') }}</td>
+                              <td>{{ 'Rp ' . number_format($row->ammount_debit, 2, ',', '.') }}</td>
                               <td>{{ $row->accountinggroup->name}}</td>
                               <td>
                                 <div class="d-flex">

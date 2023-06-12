@@ -87,7 +87,7 @@ class TransactionAccountController extends Controller
             $transaction_account->delete();
             return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
-            return redirect()->route('transaction_account.index')->with(['warning' => 'AKun Transaksi masih terhubung dengan UKT Mahasiswa']);
+            return redirect()->route('transaction_account.index')->with(['warning' => 'AKun Transaksi masih terhubung dengan Data Transaksi']);
         }
     }
 }

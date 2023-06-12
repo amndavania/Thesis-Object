@@ -23,7 +23,6 @@ class TransactionUpdateRequest extends FormRequest
     {
         return [
             'amount'=>'required',
-            'transaction_accounts_id'=>'required',
         ];
     }
 
@@ -31,7 +30,6 @@ class TransactionUpdateRequest extends FormRequest
     {
         return[
             'amount.required'=>'Jumlah harus diisi',
-            'transaction_accounts_id.required'=>'Akun Transaksi harus diisi'
         ];
     }
 }

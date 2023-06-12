@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan
+        Transaksi
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -10,7 +10,7 @@
      </div>
      <div class="card-body">
         @include('message.form-message')
-          <form class="mx-2 p-4" action="{{ route('pemasukan.store') }}" method="POST">
+          <form class="mx-2 p-4" action="{{ route('transaction.store') }}" method="POST">
                @csrf
           <div class="form-group">
                <label for="description">Deskripsi</label>
@@ -21,9 +21,16 @@
                <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Nomor Referensi..." value="{{ old('reference_number') }}">
           </div>
           <div class="form-group">
-               <label for="amount">Jumlah</label>
+               <label for="amount">Nominal</label>
                <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
           </div>
+          <div class="form-group">
+            <label for="type">Tipe</label>
+            <select class="form-control" id="type" name="type">
+                <option value="debit">Debit</option>
+                <option value="kredit">Kredit</option>
+            </select>
+       </div>
           <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>
                <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
