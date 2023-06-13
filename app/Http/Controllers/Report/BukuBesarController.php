@@ -64,11 +64,12 @@ class BukuBesarController extends Controller
 
     public function getData($search_account, $datepicker)
     {
+        $account = TransactionAccount::first();
         if (empty($search_account) && empty($datepicker)) {
-            $search_account = 1;
+            $search_account = $account->id;
             $date = date('Y-m');
         }elseif(empty($search_account)) {
-            $search_account = 1;
+            $search_account = $account->id;
             $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
             $date = $parsedDate->format('Y-m');
         }elseif(empty($datepicker)) {

@@ -32,26 +32,26 @@
                <label for="amount">Jumlah</label>
                <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
                <label for="total">Total</label>
                <input type="number" class="form-control" id="total" name="total" placeholder="Total..." value="{{ old('total') }}">
-          </div>
+          </div> --}}
           <div class="form-group">
                <label for="status">Status</label>
                <select class="form-control" id="status" name="status">
                     <option value="lunas">Lunas</option>
-                    <option value="belum bayar">Dispensasi</option>
-                    <option value="belum bayar">Dispensasi</option>
+                    <option value="belum lunas">Dispensasi</option>
+                    <option value="belum bayar">Belum bayar</option>
            </select>
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>
                <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
                     @foreach ($transaction_account as $item)
                          <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                </select>
-          </div>
+          </div> --}}
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>

@@ -134,7 +134,7 @@
               <li class="nav-item">
                 <a href="{{ route('student_type.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Beasiswa</p>
+                  <p>Skema Pembayaran</p>
                 </a>
               </li>
             </ul>

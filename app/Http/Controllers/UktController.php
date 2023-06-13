@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Ukt\UktCreateRequest;
 use App\Http\Requests\Ukt\UktUpdateRequest;
 use App\Models\Student;
+use App\Models\StudentType;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
@@ -38,9 +39,49 @@ class UktController extends Controller
      */
     public function store(UktCreateRequest $request)
     {
-        // $request['user_id'] = $request->user()->id;
 
-        // $request['transaction_accounts_id'] =
+        //Get student and student type
+        $student_id = $request->students_id;
+        $student = Student::where('id', $student_id)->first();
+        $student_type = StudentType::where('year', $student->force)
+            ->where('study_program_id', $student->study_program_id)->first();
+
+        //Add up all bills
+        $total = $student_type->dpp + $student_type->krs + $student_type->uts + $student_type->uas + $student_type->wisuda;
+        $request['total'] = $total;
+        $request['transaction_accounts_id'] = 1130;
+
+        //Add Transaction on debit
+        $user_id = $request->user()->id;
+        $description = "Pembayaran " . $student->nim . " " . $student->name;
+        $reference_number = $request->reference_number;
+        $amount = $request->amount;
+        $type = "debit";
+        $transaction_accounts_id = 1130;
+
+        Transaction::create([
+            'user_id' => $user_id,
+            'description' => $description,
+            'reference_number' => $reference_number,
+            'amount' => $amount,
+            'type' => $type,
+            'transaction_accounts_id' => $transaction_accounts_id
+        ]);
+
+        //Add Transaction on kredit
+        $description = "Pendapatan " . $student->nim . " " . $student->name;
+        $amount = $request->amount;
+        $type = "kredit";
+        $transaction_accounts_id = 1120;
+
+        Transaction::create([
+            'user_id' => $user_id,
+            'description' => $description,
+            'reference_number' => $reference_number,
+            'amount' => $amount,
+            'type' => $type,
+            'transaction_accounts_id' => $transaction_accounts_id
+        ]);
 
         Ukt::create($request->all());
 

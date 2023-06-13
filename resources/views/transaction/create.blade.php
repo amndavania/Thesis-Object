@@ -31,14 +31,14 @@
                 <option value="kredit">Kredit</option>
             </select>
        </div>
-          {{-- <div class="form-group">
+          <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>
                <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
                     @foreach ($transaction_account as $item)
                          <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                </select>
-          </div> --}}
+          </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>

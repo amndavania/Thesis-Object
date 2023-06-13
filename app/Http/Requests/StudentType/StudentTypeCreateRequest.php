@@ -23,6 +23,8 @@ class StudentTypeCreateRequest extends FormRequest
     {
         return [
             'type'=>'required|unique:student_types,type',
+            'year'=>'required',
+            'study_program_id'=>'required'
         ];
     }
 
@@ -31,6 +33,8 @@ class StudentTypeCreateRequest extends FormRequest
         return [
             'type.required'=>'Nama beasiswa harus diisi',
             'type.unique'=>'Nama beasiswa sudah ada',
+            'year.required'=>'Tahun masuk harus diisi',
+            'study_program_id'=>'Program Studi harus diisi'
         ];
     }
 }

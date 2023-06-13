@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Beasiswa/Status Mahasiswa
+        Skema Pembayaran Beasiswa/Reguler
     </x-slot>
     <div class="card">
      <div class="card-header">
