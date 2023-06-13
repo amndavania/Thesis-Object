@@ -7,7 +7,10 @@ use App\Models\Transaction;
 use DateTime;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 use PDF;
+use Spatie\Browsershot\Browsershot;
 
 class JurnalController extends Controller
 {
@@ -40,23 +43,23 @@ class JurnalController extends Controller
     }
 
     public function export(Request $request)
-    {
-        $datepicker = $request->input('datepicker');
-        $dateTime = DateTime::createFromFormat('F Y', $datepicker);
-        $date = $dateTime->format('m-Y');
+{
+    $datepicker = $request->input('datepicker');
+    $dateTime = DateTime::createFromFormat('F Y', $datepicker);
+    $date = $dateTime->format('m-Y');
 
-        $getDate = $this->getDate($date);
-        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
+    $getDate = $this->getDate($date);
+    $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
 
-        $pdf = PDF::loadView('report.printformat.jurnal', [
-            'data' => $transaction,
-            'datepicker' => $getDate[1],
-            'today' => date('d F Y', strtotime(date('Y-m-d'))),
-        ]);
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Jurnal Umum');
-        return $pdf->stream('Jurnal Umum.pdf');
-    }
+    $pdf = PDF::loadView('report.printformat.jurnal', [
+        'data' => $transaction,
+        'datepicker' => $getDate[1],
+        'today' => date('d F Y', strtotime(date('Y-m-d'))),
+    ]);
+    $pdf->setOption('enable-local-file-access', true);
+    Session::flash('title', 'Laporan Buku Besar');
+    return $pdf->stream('Laporan Buku Besar.pdf');
+}
 
     public function getDate($datepicker)
     {

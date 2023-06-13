@@ -16,6 +16,7 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
+                         <td>Tanggal</td>
                          <td>Deskripsi</td>
                          {{-- <td>Nomor Referensi</td> --}}
                          <td>Nominal</td>
@@ -31,6 +32,7 @@
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
+                              <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->description }}</td>
                               {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>

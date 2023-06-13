@@ -17,6 +17,18 @@
                <input type="text" class="form-control" id="name" name="type" placeholder="Nama..." value="{{ old('name') }}">
           </div>
           <div class="form-group">
+            <label for="year">Tahun Masuk</label>
+            <input type="number" class="form-control" id="year" name="year" placeholder="Tahun Masuk..." value="{{ old('year') }}">
+        </div>
+        <div class="form-group">
+            <label for="study_program_id">Program Studi</label>
+            <select class="form-control" id="study_program_id" name="study_program_id">
+                 @foreach ($study_program as $item)
+                      <option value="{{ $item->id }}">{{ $item->name }}</option>
+                 @endforeach
+            </select>
+       </div>
+          <div class="form-group">
                <label for="dpp">DPP</label>
                <input type="number" class="form-control" id="dpp" name="dpp" placeholder="Biaya DPP..." value="{{ old('dpp') }}">
           </div>

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pemasukan UKT Mahasiswa
+        Pembayaran UKT Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -38,7 +38,11 @@
           </div>
           <div class="form-group">
                <label for="status">Status</label>
-               <input type="text" class="form-control" id="status" name="status" placeholder="Status..." value="{{ old('status') }}">
+               <select class="form-control" id="status" name="status">
+                    <option value="lunas">Lunas</option>
+                    <option value="belum bayar">Dispensasi</option>
+                    <option value="belum bayar">Dispensasi</option>
+           </select>
           </div>
           <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>

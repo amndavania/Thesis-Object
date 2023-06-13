@@ -51,11 +51,11 @@
             @endphp
             @foreach ($data as $row)
                  <tr>
-                      <td>{{ $loop->iteration }}</td>
-                      <td>{{ $row->created_at->format('d-m-Y') }}</td>
+                      <td style="text-align: center;">{{ $loop->iteration }}</td>
+                      <td style="text-align: center;">{{ $row->created_at->format('d-m-Y') }}</td>
                       <td>{{ $row->description }}</td>
-                      <td>{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
-                      <td>{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                      <td style="text-align: right;">{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                      <td style="text-align: right;">{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
                         @php
                         $debit = 0;
                         $kredit = 0;
@@ -68,7 +68,7 @@
                             }
                             $totalSaldo += ($debit - $kredit);
                         @endphp
-                        <td>
+                        <td style="text-align: right;">
                             @if ($totalSaldo < 0)
                                 (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
                             @elseif ($totalSaldo > 0)
@@ -86,9 +86,9 @@
                     <td colspan="3">
                          <strong>Total</strong>
                     </td>
-                    <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
-                    <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
-                    <td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                    <td style="text-align: right;">
                         @if ($totalSaldo < 0)
                             (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
                         @elseif ($totalSaldo > 0)

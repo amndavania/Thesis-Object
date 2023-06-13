@@ -21,9 +21,9 @@
         <table class="content">
             <thead>
                 <tr>
-                    <th style="width: 5%;">No</th>
+                    <th style="width: 3%;">No</th>
                     <th style="width: 12%;">Tanggal</th>
-                    <th style="width: 20%;">Uraian</th>
+                    <th style="width: 25%;">Uraian</th>
                     <th style="width: 8%;">ID</th>
                     <th style="width: 20%;">Nama Akun</th>
                     {{-- <th style="width: 8%;">Ref</th> --}}
@@ -39,14 +39,14 @@
 
             @foreach ($data as $row)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $row->created_at->format('d-m-Y') }}</td>
+                    <td style="text-align: center;">{{ $loop->iteration }}</td>
+                    <td style="text-align: center;">{{ $row->created_at->format('d-m-Y') }}</td>
                     <td>{{ $row->description }}</td>
-                    <td>{{ $row->transactionaccount->id }}</td>
+                    <td style="text-align: center;">{{ $row->transactionaccount->id }}</td>
                     <td>{{ $row->transactionaccount->name }}</td>
                     {{-- <td>{{ $row->reference_number }}</td> --}}
-                    <td>{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
-                    <td>{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                    <td style="text-align: right;">{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                    <td style="text-align: right;">{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
                 </tr>
                 @php
                     if ($row->type == 'debit') {
@@ -63,8 +63,8 @@
                     <td colspan="5">
                          <strong>Total</strong>
                     </td>
-                    <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
-                    <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
                 </tr>
             </tfoot>
             </div>

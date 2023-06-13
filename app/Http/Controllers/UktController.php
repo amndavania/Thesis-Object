@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Ukt\UktCreateRequest;
 use App\Http\Requests\Ukt\UktUpdateRequest;
 use App\Models\Student;
+use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
 use Illuminate\Http\RedirectResponse;
@@ -37,8 +38,13 @@ class UktController extends Controller
      */
     public function store(UktCreateRequest $request)
     {
+        // $request['user_id'] = $request->user()->id;
+
+        // $request['transaction_accounts_id'] =
+
         Ukt::create($request->all());
-        return redirect()->route('pemasukan.index')->with(['success' => 'Data berhasil disimpan']);
+
+        return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
