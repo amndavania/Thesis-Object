@@ -16,6 +16,7 @@ class Ukt extends Model
     protected $fillable = [
         'students_id',
         'semester',
+        'type',
         'reference_number',
         'amount',
         'total',

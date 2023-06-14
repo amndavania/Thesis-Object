@@ -36,13 +36,7 @@ class TransactionController extends Controller
         $request['user_id'] = $request->user()->id;
         Transaction::create($request->all());
 
-        $account = TransactionAccount::findOrFail($request->transaction_accounts_id);
-        if ($request->type == 'debit') {
-            $account->fill(['ammount_debit' => $account->ammount_debit + $request->amount]);
-        }else{
-            $account->fill(['ammount_kredit' => $account->ammount_kredit + $request->amount]);
-        }
-        $account->save();
+        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type);
 
         return redirect()->route('transaction.index')->with(['success' => 'Data berhasil disimpan']);
     }
@@ -72,10 +66,10 @@ class TransactionController extends Controller
     public function update(TransactionUpdateRequest $request, string $id)
     {
         $transaction = Transaction::findOrFail($id);
-        $request['amount'] = $transaction->amount;
-        $request['type'] = $transaction->type;
         $request['transaction_accounts_id'] = $transaction->transaction_accounts_id;        
         $transaction->update($request->all());
+
+        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type);
 
         return redirect()->route('transaction.index')->with(['success' => 'Data berhasil diupdate']);
     }
@@ -85,23 +79,32 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-
         $transaction = Transaction::where('id', $id)->first();
-        $amount = $transaction->amount;
-        $transaction_account_id = $transaction->transaction_accounts_id;
 
-        $account = TransactionAccount::findOrFail($transaction_account_id);
-        if ($transaction->type == 'debit') {
-            $account->fill(['ammount_debit' => $account->ammount_debit - $amount]);
-        }else{
-            $account->fill(['ammount_kredit' => $account->ammount_kredit - $amount]);
-        }
+        $transactions = Transaction::findOrFail($id);
+        $transactions->delete();
 
-        $account->save();
-
-        $pemasukan = Transaction::findOrFail($id);
-        $pemasukan->delete();
+        $this->updateTransactionAccount($transaction->transaction_accounts_id);
 
         return redirect()->route('transaction.index')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function updateTransactionAccount($transaction_accounts_id)
+    {
+        $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
+
+        if (empty($transactions)){
+            $total_debit = 0;
+            $total_kredit = 0;
+        }else {
+            $total_debit = $transactions->where('type', 'debit')->sum('amount');
+            $total_kredit = $transactions->where('type', 'kredit')->sum('amount');            
+        }
+
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+        $account->fill(['ammount_debit' => $total_debit]);
+        $account->fill(['ammount_kredit' => $total_kredit]);
+
+        $account->save();
     }
 }

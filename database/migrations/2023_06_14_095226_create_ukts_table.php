@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('students_id')->constrained();
             $table->string('semester');
+            $table->string('type');
             $table->string('reference_number')->nullable();
             $table->decimal('amount', 14, 2);
             $table->decimal('total', 14, 2);

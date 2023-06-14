@@ -46,42 +46,53 @@ class UktController extends Controller
         $student_type = StudentType::where('year', $student->force)
             ->where('study_program_id', $student->study_program_id)->first();
 
-        //Add up all bills
-        $total = $student_type->dpp + $student_type->krs + $student_type->uts + $student_type->uas + $student_type->wisuda;
+        //Set total and status payment
+        $payment = Ukt::where('students_id', $student_id)
+            ->where('semester', $request->semester)
+            ->where('type', $request->type)->get();
+
+        $history = 0;
+        if (!empty($payment)) {
+            foreach ($payment as $item) {
+                $history = $history + $item->amount;
+            }
+        }
+
+        if ($request->type == 'DPP') {
+            $total = $student_type->dpp;
+            $status = $this->setStatus(($request->amount + $history), $total);
+        } elseif ($request->type == 'UKT') {
+            $total = $student_type->krs + $student_type->uts + $student_type->uas;
+            $status = $this->setStatus(($request->amount + $history), $total);
+        } elseif ($request->type == 'WISUDA') {
+            $total = $student_type->wisuda;
+            $status = $this->setStatus(($request->amount + $history), $total);
+        }
         $request['total'] = $total;
+        $request['status'] = $status;
+
         $request['transaction_accounts_id'] = 1130;
 
         //Add Transaction on debit
         $user_id = $request->user()->id;
-        $description = "Pembayaran " . $student->nim . " " . $student->name;
+        $description = "Pembayaran " . $request->type . " " . $student->nim . " " . $student->name;
         $reference_number = $request->reference_number;
         $amount = $request->amount;
         $type = "debit";
         $transaction_accounts_id = 1130;
 
-        Transaction::create([
-            'user_id' => $user_id,
-            'description' => $description,
-            'reference_number' => $reference_number,
-            'amount' => $amount,
-            'type' => $type,
-            'transaction_accounts_id' => $transaction_accounts_id
-        ]);
+        $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+        $this->updateTransactionAccount($transaction_accounts_id);
 
         //Add Transaction on kredit
-        $description = "Pendapatan " . $student->nim . " " . $student->name;
+        $description = "Pendapatan " . $request->type . " " . $student->nim . " " . $student->name;
         $amount = $request->amount;
         $type = "kredit";
         $transaction_accounts_id = 1120;
 
-        Transaction::create([
-            'user_id' => $user_id,
-            'description' => $description,
-            'reference_number' => $reference_number,
-            'amount' => $amount,
-            'type' => $type,
-            'transaction_accounts_id' => $transaction_accounts_id
-        ]);
+        $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+        $this->updateTransactionAccount($transaction_accounts_id);
+        
 
         Ukt::create($request->all());
 
@@ -127,5 +138,49 @@ class UktController extends Controller
         $ukt->delete();
 
         return redirect()->route('ukt.index')->with(['success' => 'Data berhasil dihapus']);
+    }
+
+    public function setStatus($amount, $total)
+    {
+        if ($amount < $total) {
+            $status = 'dispensasi';
+        }elseif ($amount == $total) {
+            $status = 'lunas';
+        }elseif ($amount > $total) {
+            $status = 'lebih';
+        }
+
+        return $status;
+    }
+
+    public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+    {
+        Transaction::create([
+            'user_id' => $user_id,
+            'description' => $description,
+            'reference_number' => $reference_number,
+            'amount' => $amount,
+            'type' => $type,
+            'transaction_accounts_id' => $transaction_accounts_id
+        ]);
+    }
+
+    public function updateTransactionAccount($transaction_accounts_id)
+    {
+        $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
+
+        if (empty($transactions)){
+            $total_debit = 0;
+            $total_kredit = 0;
+        }else {
+            $total_debit = $transactions->where('type', 'debit')->sum('amount');
+            $total_kredit = $transactions->where('type', 'kredit')->sum('amount');            
+        }
+
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+        $account->fill(['ammount_debit' => $total_debit]);
+        $account->fill(['ammount_kredit' => $total_kredit]);
+
+        $account->save();
     }
 }

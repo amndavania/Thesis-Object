@@ -23,16 +23,19 @@
           </div>
           <div class="form-group">
                <label for="amount">Nominal</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount', $transaction->amount) }}" readonly>
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount', $transaction->amount) }}">
           </div>
           <div class="form-group">
             <label for="type">Tipe</label>
-            <input type="text" class="form-control" id="type" name="type" placeholder="{{ $transaction->type }}" readonly>
-          </div>
-          <div class="form-group">
-            <label for="transaction_accounts_id">Akun Transaksi</label>
-            <input type="text" class="form-control" id="transaction_accounts_id" name="transaction_accounts_id" placeholder="{{ $transaction->transactionaccount->name }}" readonly>
-          </div>
+            <select class="form-control" id="type" name="type">
+                <option value="debit" {{ $transaction->type == 'debit' ? 'selected' : '' }}>Debit</option>
+                <option value="kredit" {{ $transaction->type == 'kredit' ? 'selected' : '' }}>Kredit</option>
+            </select>
+       </div>
+       <div class="form-group">
+        <label for="transaction_accounts_id">Akun Transaksi</label>
+        <input type="text" class="form-control" id="transaction_accounts_id" name="transaction_accounts_id" placeholder="{{ $transaction->transactionaccount->name }}" readonly>
+      </div>
           <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>

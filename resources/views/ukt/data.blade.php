@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pembayaran UKT Mahasiswa
+        Pembayaran Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -19,9 +19,10 @@
                          <td>Tanggal</td>
                          <td>Mahasiswa</td>
                          <td>Semester</td>
+                         <td>Jenis</td>
                          {{-- <td>Nomor Referensi</td> --}}
                          <td>Jumlah</td>
-                         <td>Total</td>
+                         {{-- <td>Total</td> --}}
                          <td>Status</td>
                          {{-- <td>Akun Transaksi</td> --}}
                          <td>Aksi</td>
@@ -37,9 +38,10 @@
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->student_id->nim }} | {{ $row->student_id->name }}</td>
                               <td>{{ $row->semester }}</td>
+                              <td>{{ $row->type }}</td>
                               {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
-                              <td>{{ 'Rp ' . number_format($row->total, 2, ',', '.') }}</td>
+                              {{-- <td>{{ 'Rp ' . number_format($row->total, 2, ',', '.') }}</td> --}}
                               <td>{{ $row->status }}</td>
                               {{-- <td>{{ $row->transactionaccount->name }}</td> --}}
                               <td>

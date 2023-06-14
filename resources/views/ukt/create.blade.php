@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Pembayaran UKT Mahasiswa
+        Pembayaran Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -25,6 +25,14 @@
                <input type="number" class="form-control" id="semester" name="semester" placeholder="Semester..." value="{{ old('semester') }}">
           </div>
           <div class="form-group">
+               <label for="type">Jenis</label>
+               <select class="form-control" id="type" name="type">
+                    <option value="DPP">DPP</option>
+                    <option value="UKT">UKT</option>
+                    <option value="WISUDA">WISUDA</option>
+               </select>
+          </div>
+          <div class="form-group">
                <label for="reference_number">Reference Number</label>
                <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Reference Number..." value="{{ old('reference_number') }}">
           </div>
@@ -36,14 +44,14 @@
                <label for="total">Total</label>
                <input type="number" class="form-control" id="total" name="total" placeholder="Total..." value="{{ old('total') }}">
           </div> --}}
-          <div class="form-group">
+          {{-- <div class="form-group">
                <label for="status">Status</label>
                <select class="form-control" id="status" name="status">
                     <option value="lunas">Lunas</option>
-                    <option value="belum lunas">Dispensasi</option>
+                    <option value="dispensasi">Dispensasi</option>
                     <option value="belum bayar">Belum bayar</option>
            </select>
-          </div>
+          </div> --}}
           {{-- <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>
                <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
