@@ -25,7 +25,6 @@
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
-                         <td>Tahun Akademik</td>
                          <td>Semester</td>
                          <td>Jenis Tagihan</td>
                          <td>Nominal</td>
@@ -38,8 +37,7 @@
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->semester }}</td>
-                              <td>{{ $row->semester }}</td>
-                              <td>{{ $row->tagihan }}</td>
+                              <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->amount, 0, ',', '.') }}</td>
                               <td>{{ $row->status }}</td>
                          </tr>

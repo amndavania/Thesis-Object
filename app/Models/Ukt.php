@@ -21,7 +21,8 @@ class Ukt extends Model
         'amount',
         'total',
         'status',
-        'transaction_accounts_id',
+        'transaction_debit_id',
+        'transaction_kredit_id',
     ];
 
 
@@ -31,8 +32,18 @@ class Ukt extends Model
     }
 
 
-    public function transactionaccount(): BelongsTo
-    {
-        return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
-    }
+    // public function transactionaccount(): BelongsTo
+    // {
+    //     return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
+    // }
+
+    // public function transactiondebit(): BelongsTo
+    // {
+    //     return $this->belongsTo(Transaction::class, 'transaction_debit_id');
+    // }
+
+    // public function transactionkredit(): BelongsTo
+    // {
+    //     return $this->belongsTo(Transaction::class, 'transaction_kredit_id');
+    // }
 }

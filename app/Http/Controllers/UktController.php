@@ -39,41 +39,23 @@ class UktController extends Controller
      */
     public function store(UktCreateRequest $request)
     {
+        $student_id = $request->students_id;
+        $semester = $request->semester;
+        $payment_type = $request->type;
+        $amount = $request->amount;
 
         //Get student and student type
-        $student_id = $request->students_id;
-        $student = Student::where('id', $student_id)->first();
-        $student_type = StudentType::where('year', $student->force)
-            ->where('study_program_id', $student->study_program_id)->first();
+        $student_type = $this->getStudentType($request->students_id);
 
-        //Set total and status payment
-        $payment = Ukt::where('students_id', $student_id)
-            ->where('semester', $request->semester)
-            ->where('type', $request->type)->get();
-
-        $history = 0;
-        if (!empty($payment)) {
-            foreach ($payment as $item) {
-                $history = $history + $item->amount;
-            }
-        }
-
-        if ($request->type == 'DPP') {
-            $total = $student_type->dpp;
-            $status = $this->setStatus(($request->amount + $history), $total);
-        } elseif ($request->type == 'UKT') {
-            $total = $student_type->krs + $student_type->uts + $student_type->uas;
-            $status = $this->setStatus(($request->amount + $history), $total);
-        } elseif ($request->type == 'WISUDA') {
-            $total = $student_type->wisuda;
-            $status = $this->setStatus(($request->amount + $history), $total);
-        }
-        $request['total'] = $total;
-        $request['status'] = $status;
+        //Set total and payment status
+        $setTotalStatus = $this->setTotalStatus($student_id, $semester, $payment_type, $amount, $student_type);
+        $request['total'] = $setTotalStatus[0];
+        $request['status'] = $setTotalStatus[1];
 
         $request['transaction_accounts_id'] = 1130;
 
         //Add Transaction on debit
+        $student = Student::where('id', $request->students_id)->first();
         $user_id = $request->user()->id;
         $description = "Pembayaran " . $request->type . " " . $student->nim . " " . $student->name;
         $reference_number = $request->reference_number;
@@ -82,6 +64,8 @@ class UktController extends Controller
         $transaction_accounts_id = 1130;
 
         $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+        $latestTransaction = Transaction::latest('id')->first();
+        $request['transaction_debit_id'] = $latestTransaction->id;
         $this->updateTransactionAccount($transaction_accounts_id);
 
         //Add Transaction on kredit
@@ -91,8 +75,10 @@ class UktController extends Controller
         $transaction_accounts_id = 1120;
 
         $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+        $latestTransaction = Transaction::latest('id')->first();
+        $request['transaction_kredit_id'] = $latestTransaction->id;
+
         $this->updateTransactionAccount($transaction_accounts_id);
-        
 
         Ukt::create($request->all());
 
@@ -116,6 +102,7 @@ class UktController extends Controller
             'ukt' => Ukt::findOrFail($id),
             'transaction_account' => TransactionAccount::all(),
         ]);
+
     }
 
     /**
@@ -125,6 +112,42 @@ class UktController extends Controller
     {
         $ukt = Ukt::findOrFail($id);
         $request['students_id'] = $ukt->students_id;
+        $request['type'] = $ukt->type;
+
+        $student_id = $request->students_id;
+        $semester = $request->semester;
+        $payment_type = $request->type;
+        $amount = $request->amount;
+
+        //Get student and student type
+        $student_type = $this->getStudentType($request->students_id);
+
+        //Set total and payment status
+        $setTotalStatus = $this->setTotalStatus($student_id, $semester, $payment_type, $amount, $student_type);
+        $request['total'] = $setTotalStatus[0];
+        $request['status'] = $setTotalStatus[1];
+
+        $request['transaction_accounts_id'] = 1130;
+
+        //Update Transaction on debit
+        $student = Student::where('id', $request->students_id)->first();
+        $user_id = $request->user()->id;
+        $description = "Pembayaran " . $request->type . " " . $student->nim . " " . $student->name;
+        $reference_number = $request->reference_number;
+        $amount = $request->amount;
+        $transaction_accounts_id = 1130;
+
+        $this->updateTransaction($user_id, $description, $reference_number, $amount, $ukt->transaction_debit_id);
+        $this->updateTransactionAccount($transaction_accounts_id);
+
+        //Update Transaction on kredit
+        $description = "Pendapatan " . $request->type . " " . $student->nim . " " . $student->name;
+        $amount = $request->amount;
+        $transaction_accounts_id = 1120;
+
+        $this->updateTransaction($user_id, $description, $reference_number, $amount,  $ukt->transaction_kredit_id);
+        $this->updateTransactionAccount($transaction_accounts_id);
+
         $ukt->update($request->all());
         return redirect()->route('ukt.index')->with(['success' => 'Data berhasil diupdate']);
     }
@@ -135,6 +158,13 @@ class UktController extends Controller
     public function destroy(String $id):RedirectResponse
     {
         $ukt = Ukt::findOrFail($id);
+
+        $this->deleteTransaction($ukt->transaction_debit_id);
+        $this->deleteTransaction($ukt->transaction_kredit_id);
+
+        $this->updateTransactionAccount(1120);
+        $this->updateTransactionAccount(1130);
+
         $ukt->delete();
 
         return redirect()->route('ukt.index')->with(['success' => 'Data berhasil dihapus']);
@@ -165,6 +195,30 @@ class UktController extends Controller
         ]);
     }
 
+    public function updateTransaction($user_id, $description, $reference_number, $amount, $transaction_id)
+    {
+
+        $transaction = Transaction::where('id', $transaction_id)->first();
+
+        if (!empty($transaction)) {
+            $transaction->user_id = $user_id;
+            $transaction->description = $description;
+            $transaction->reference_number = $reference_number;
+            $transaction->amount = $amount;
+
+            $transaction->save();
+        }
+
+    }
+
+    public function deleteTransaction($transaction_id)
+    {
+
+        $transaction = Transaction::where('id', $transaction_id)->first();
+        $transaction->delete();
+
+    }
+
     public function updateTransactionAccount($transaction_accounts_id)
     {
         $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
@@ -174,7 +228,7 @@ class UktController extends Controller
             $total_kredit = 0;
         }else {
             $total_debit = $transactions->where('type', 'debit')->sum('amount');
-            $total_kredit = $transactions->where('type', 'kredit')->sum('amount');            
+            $total_kredit = $transactions->where('type', 'kredit')->sum('amount');
         }
 
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
@@ -182,5 +236,42 @@ class UktController extends Controller
         $account->fill(['ammount_kredit' => $total_kredit]);
 
         $account->save();
+    }
+
+    public function getStudentType($student_id)
+    {
+        $student = Student::where('id', $student_id)->first();
+        $student_type = StudentType::where('year', $student->force)
+            ->where('study_program_id', $student->study_program_id)->first();
+
+        return $student_type;
+    }
+
+    public function setTotalStatus($student_id, $semester, $payment_type, $amount, $student_type)
+    {
+
+        $payment = Ukt::where('students_id', $student_id)
+            ->where('semester', $semester)
+            ->where('type', $payment_type)->get();
+
+        $history = 0;
+        if (!empty($payment)) {
+            foreach ($payment as $item) {
+                $history = $history + $item->amount;
+            }
+        }
+
+        if ($payment_type == 'DPP') {
+            $total = $student_type->dpp;
+            $status = $this->setStatus(($amount + $history), $total);
+        } elseif ($payment_type == 'UKT') {
+            $total = $student_type->krs + $student_type->uts + $student_type->uas;
+            $status = $this->setStatus(($amount + $history), $total);
+        } elseif ($payment_type == 'WISUDA') {
+            $total = $student_type->wisuda;
+            $status = $this->setStatus(($amount + $history), $total);
+        }
+
+        return [$total, $status];
     }
 }

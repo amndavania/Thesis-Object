@@ -49,3 +49,27 @@
         });
     }
     </script>
+
+<script>
+    const semesterSelect = document.getElementById('semester');
+    const typeSelect = document.getElementById('type');
+
+    semesterSelect.addEventListener('change', function() {
+         const selectedSemester = parseInt(semesterSelect.value);
+
+         if (selectedSemester !== 1 && selectedSemester !== 2) {
+              const dppOption = typeSelect.querySelector('option[value="DPP"]');
+              if (dppOption) {
+                   dppOption.remove();
+              }
+         } else {
+              const dppOption = typeSelect.querySelector('option[value="DPP"]');
+              if (!dppOption) {
+                   const option = document.createElement('option');
+                   option.value = 'DPP';
+                   option.text = 'DPP';
+                   typeSelect.appendChild(option);
+              }
+         }
+    });
+</script>

@@ -15,7 +15,7 @@
                @method('put')
           <div class="form-group">
                <label for="id">ID Akun</label>
-               <input type="text" class="form-control" name="id" id="id" placeholder="ID Akun..." value="{{ old('id', $transaction_account->id) }}">
+               <input type="text" class="form-control" name="id" id="id" placeholder="ID Akun..." value="{{ old('id', $transaction_account->id) }}" readonly>
           </div>
           <div class="form-group">
                <label for="name">Nama Akun</label>
