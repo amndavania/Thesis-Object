@@ -160,13 +160,13 @@
                 <li class="nav-item">
                     <a href="{{ route('ukt.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Pembayaran UKT</p>
+                      <p>Pembayaran Mahasiswa</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="{{ route('uktdetail.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Detail UKT</p>
+                      <p>Detail Pembayaran</p>
                     </a>
                   </li>
             </ul>

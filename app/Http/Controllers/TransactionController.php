@@ -6,6 +6,7 @@ use App\Http\Requests\Transaction\TransactionCreateRequest;
 use App\Http\Requests\Transaction\TransactionUpdateRequest;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
+use App\Models\Ukt;
 
 class TransactionController extends Controller
 {
@@ -81,12 +82,19 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::where('id', $id)->first();
 
-        $transactions = Transaction::findOrFail($id);
-        $transactions->delete();
+        $ukt_debit = Ukt::where('transaction_debit_id', $id)->exists();
+        $ukt_kredit = Ukt::where('transaction_kredit_id', $id)->exists();
 
-        $this->updateTransactionAccount($transaction->transaction_accounts_id);
+        if (!$ukt_debit && !$ukt_kredit) {
+            $transactions = Transaction::findOrFail($id);
+            $transactions->delete();
+            $this->updateTransactionAccount($transaction->transaction_accounts_id);
 
-        return redirect()->route('transaction.index')->with(['success' => 'Data berhasil dihapus']);
+            return redirect()->route('transaction.index')->with(['success' => 'Data berhasil dihapus']);
+        } else {
+            return redirect()->route('transaction.index')->with(['warning' => 'Mohon hapus melalui menu Pembayaran Mahasiswa']);
+        }
+
     }
 
     public function updateTransactionAccount($transaction_accounts_id)

@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
         Route::get('labarugi/export', [LabaRugiController::class, 'export']);
         Route::get('neraca/export', [NeracaController::class, 'export']);
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
+        Route::get('uktdetail/export', [UktDetailController::class, 'export']);
 
         // Route::post('ukt/detail', [UktController::class, 'detail']);
 

@@ -3,36 +3,104 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use App\Models\Student;
 use App\Models\Ukt;
 use Illuminate\Http\Request;
+use PDF;
 
 class UktDetailController extends Controller
 {
     public function index(Request $request)
     {
 
-        $student_id = $request->input('student_id');
+        $student_id = $request->input('students_id');
         if (empty($student_id)) {
             return view('report.ukt')->with([
                 'ukt' => Ukt::where('students_id', 1)->get(),
                 'students' => Student::select('name', 'id', 'nim')->get(),
+                'student_id' => 1,
             ]);
         }else {
             return view('report.ukt')->with([
             'ukt' => Ukt::where('students_id', $student_id)->get(),
             'students' => Student::select('name', 'id', 'nim')->get(),
+            'student_id' => $student_id,
         ]);
         }
     }
 
-    // public function export()
-    // {
-    //     $data = TransactionAccount::all();
-    //     $pdf = PDF::loadView('report.printformat.bukubesar', compact('data'));
-    //     $pdf->setOption('enable-local-file-access', true);
-    //     Session::flash('title', 'Laporan Buku Besar');
-    //     return $pdf->stream('Laporan Buku Besar.pdf');
+    public function export(Request $request)
+    {
+        $ukt = $this->setData($request->student);
+        $student = Student::where('id', $request->student)->first();
 
-    // }
+        $pdf = PDF::loadView('report.printformat.pembayaran', [
+            'ukt' => $ukt,
+            'name' => $student->name,
+            'nim' => $student->nim,
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+        ]);
+
+        $pdf->setOption('enable-local-file-access', true);
+        Session::flash('title', 'Laporan Pembayaran Mahasiswa');
+        return $pdf->stream('Laporan Pembayaran Mahasiswa.pdf');
+
+    }
+
+    public function setData($student_id)
+    {
+
+        $dpp = Ukt::where('students_id', $student_id)->where('type', 'DPP')->latest('created_at')->get();
+        $ukt = Ukt::where('students_id', $student_id)->where('type', 'UKT')->latest('created_at')->get();
+        $wisuda = Ukt::where('students_id', $student_id)->where('type', 'WISUDA')->latest('created_at')->get();
+
+        $detail = [];
+
+        if (!$dpp->isEmpty()) {
+            $data = [
+                'tanggal' => $dpp->first()->created_at,
+                'semester' => $dpp->first()->semester,
+                'jenis' => $dpp->first()->type,
+                'total' => $dpp->sum('amount'),
+                'status' => $dpp->first()->status,
+            ];
+            array_push($detail, $data);
+        }
+
+        if (!$ukt->isEmpty()) {
+            for ($i=0; $i < Ukt::max('semester'); $i++) { 
+                $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
+                $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
+                $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
+                $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
+    
+                $data = [
+                    'tanggal' => $uktsemester_tanggal,
+                    'semester' => $i + 1,
+                    'jenis' => $uktsemester_jenis,
+                    'total' => $uktsemester_total,
+                    'status' => $uktsemester_status,
+                ];
+            
+                array_push($detail, $data);
+            };
+        }
+
+        if (!$wisuda->isEmpty()) {
+            $data = [
+                'tanggal' => $wisuda->first()->created_at,
+                'semester' => $wisuda->first()->semester,
+                'jenis' => $wisuda->first()->type,
+                'total' => $wisuda->sum('amount'),
+                'status' => $wisuda->first()->status, 
+            ];
+    
+            array_push($detail, $data);
+        }
+        
+
+        return $detail;
+
+    }
 }

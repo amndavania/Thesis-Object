@@ -73,3 +73,10 @@
          }
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#students_id').select2();
+    });
+</script>
+
