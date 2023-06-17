@@ -30,6 +30,8 @@
                          <td>Jenis Tagihan</td>
                          <td>Nominal</td>
                          <td>Status</td>
+                         <td>Keterangan</td>
+                         <td>Aksi</td>
                     </tr>
                </thead>
                <tbody>
@@ -39,8 +41,16 @@
                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
-                              <td>{{ 'Rp ' . number_format($row->amount, 0, ',', '.') }}</td>
+                              <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
                               <td>{{ $row->status }}</td>
+                              <td>{{ $row->keterangan }}</td>
+                              @if ($row->keterangan == 'Menunggu Dispensasi UTS' || $row->keterangan == 'Menunggu Dispensasi UAS')
+                                    <td>
+                                        <button type="button" onclick="updateData('{{ $row->id }}', '{{ $row->keterangan }}', '{{ $student_id }}')" class="btn btn-sm btn-outline-danger">Dispensasi</button>
+                                    </td>
+                                @else
+                                <td></td>
+                                @endif
                          </tr>
                     @endforeach
                </tbody>

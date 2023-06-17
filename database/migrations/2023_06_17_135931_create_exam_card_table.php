@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ukts', function (Blueprint $table) {
+        Schema::create('exam_card', function (Blueprint $table) {
             $table->id();
             $table->foreignId('students_id')->constrained();
-            $table->string('semester');
             $table->string('type');
-            $table->string('reference_number')->nullable();
-            $table->decimal('amount', 14, 2);
-            $table->decimal('total', 14, 2);
-            $table->string('status');
-            $table->integer('transaction_debit_id');
-            $table->integer('transaction_kredit_id');
+            $table->string('semester');
+            $table->string('year');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ukts');
+        Schema::dropIfExists('exam_card');
     }
 };

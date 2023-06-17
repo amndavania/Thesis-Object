@@ -80,3 +80,11 @@
     });
 </script>
 
+<script>
+  function updateData(id, dispensasi, student_id) {
+      var url = '{{ route('uktdetail.index') }}?id=' + encodeURIComponent(id) + '&dispensasi=' + encodeURIComponent(dispensasi) + '&students_id=' + encodeURIComponent(student_id);
+      window.location.href = url;
+  }
+</script>
+
+

@@ -18,6 +18,7 @@ use App\Http\Controllers\Report\NeracaController;
 use App\Http\Controllers\Report\PerubahanModalController;
 use App\Http\Controllers\Report\LabaRugiController;
 use App\Http\Controllers\Report\UktDetailController;
+use App\Http\Controllers\ExamCardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('neraca', NeracaController::class)->except(['show']);
         Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
         Route::resource('uktdetail', UktDetailController::class)->except(['show']);
+        Route::resource('examcard', ExamCardController::class)->except(['show']);
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
         Route::get('bukubesar/export', [BukuBesarController::class, 'export']);

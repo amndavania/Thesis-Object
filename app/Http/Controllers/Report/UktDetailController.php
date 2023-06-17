@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UktController;
 use Illuminate\Support\Facades\Session;
 use App\Models\Student;
 use App\Models\Ukt;
@@ -15,14 +16,30 @@ class UktDetailController extends Controller
     {
 
         $student_id = $request->input('students_id');
+        $payment_id = $request->input('id');
+        $dispensasi = $request->input('dispensasi');
+
+        if (!empty($payment_id) && !empty($dispensasi)) {
+            $payment = Ukt::where('id', $payment_id)->first();
+
+            if ($dispensasi == "Menunggu Dispensasi UTS") {
+                $payment->keterangan = "UTS";
+            } elseif ($dispensasi == "Menunggu Dispensasi UAS") {
+                $payment->keterangan = "UAS";
+            }
+            $payment->save();
+
+            UktController::createExamCard($student_id, $payment->keterangan, $payment->semester, 2023);
+        }
+        
         if (empty($student_id)) {
-            return view('report.ukt')->with([
+            return view('detail_payment.ukt')->with([
                 'ukt' => Ukt::where('students_id', 1)->get(),
                 'students' => Student::select('name', 'id', 'nim')->get(),
                 'student_id' => 1,
             ]);
         }else {
-            return view('report.ukt')->with([
+            return view('detail_payment.ukt')->with([
             'ukt' => Ukt::where('students_id', $student_id)->get(),
             'students' => Student::select('name', 'id', 'nim')->get(),
             'student_id' => $student_id,
@@ -69,12 +86,12 @@ class UktDetailController extends Controller
         }
 
         if (!$ukt->isEmpty()) {
-            for ($i=0; $i < Ukt::max('semester'); $i++) { 
+            for ($i=0; $i < Ukt::max('semester'); $i++) {
                 $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
                 $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
                 $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
                 $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
-    
+
                 $data = [
                     'tanggal' => $uktsemester_tanggal,
                     'semester' => $i + 1,
@@ -82,7 +99,7 @@ class UktDetailController extends Controller
                     'total' => $uktsemester_total,
                     'status' => $uktsemester_status,
                 ];
-            
+
                 array_push($detail, $data);
             };
         }
@@ -93,12 +110,12 @@ class UktDetailController extends Controller
                 'semester' => $wisuda->first()->semester,
                 'jenis' => $wisuda->first()->type,
                 'total' => $wisuda->sum('amount'),
-                'status' => $wisuda->first()->status, 
+                'status' => $wisuda->first()->status,
             ];
-    
+
             array_push($detail, $data);
         }
-        
+
 
         return $detail;
 

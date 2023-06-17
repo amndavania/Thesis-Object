@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Ukt\UktCreateRequest;
 use App\Http\Requests\Ukt\UktUpdateRequest;
+use App\Models\ExamCard;
 use App\Models\Student;
 use App\Models\StudentType;
 use App\Models\Transaction;
@@ -83,7 +84,47 @@ class UktController extends Controller
         $payment = Ukt::latest()->first();
         $payment->total = $setTotalStatus[0];
         $payment->status = $setTotalStatus[1];
+
+        //Set keterangan
+
+        if ($payment_type == "UKT") {
+            $ukt = Ukt::where('students_id', $student_id)
+                ->where('semester', $semester)
+                ->where('type', $payment_type)->get();
+            if ($setTotalStatus[1] == "Lunas") {
+                $payment->keterangan = 'ALL';
+                $exam = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', 'UTS')->exists();
+                if (empty($exam)) {
+                    $this->createExamCard($student_id, "UTS", $semester, "2023");
+                    $this->createExamCard($student_id, "UAS", $semester, "2023");
+                }else {
+                    $this->createExamCard($student_id, "UAS", $semester, "2023");
+                }
+            } elseif ($setTotalStatus[1] == "Belum Lunas") {
+                if ($ukt->sum('amount') >= ( $student_type->krs + $student_type->uts )) {
+                    $card = ExamCard::where('students_id', $student_id)
+                        ->where('semester', $semester)->where('type', 'UTS')->exists();
+                    if (empty($card)) {
+                        $payment->keterangan = 'UTS';
+                        $this->createExamCard($student_id, "UTS", $semester, "2023");
+                    } else{
+                        $payment->keterangan = 'Menunggu Dispensasi UAS';
+                    }
+                } elseif ($ukt->sum('amount') >= $student_type->krs) {
+                    $card = Ukt::where('students_id', $student_id)
+                        ->where('semester', $semester)->where('keterangan', 'KRS')->exists();
+                    if (empty($card)) {
+                        $payment->keterangan = 'KRS';
+                    } else {
+                        $payment->keterangan = 'Menunggu Dispensasi UTS';
+                    }
+                }
+            }
+        }
+
         $payment->save();
+
+
 
         // Ukt::create($request->all());
 
@@ -263,14 +304,29 @@ class UktController extends Controller
 
         if ($payment_type == 'DPP') {
             $total = $student_type->dpp;
+            $dpp = Ukt::where('students_id', $student_id)->whereIn('semester', [1, 2])
+                ->where('type', $payment_type)->get();
+            $status = $this->setStatus(($dpp->sum('amount')), $total);
         } elseif ($payment_type == 'UKT') {
             $total = $student_type->krs + $student_type->uts + $student_type->uas;
+            $status = $this->setStatus(($payment->sum('amount')), $total);
         } elseif ($payment_type == 'WISUDA') {
             $total = $student_type->wisuda;
+            $status = $this->setStatus(($payment->sum('amount')), $total);
         }
 
-        $status = $this->setStatus(($payment->sum('amount')), $total);
-
         return [$total, $status];
+    }
+
+    public static function createExamCard($student_id, $type, $semester, $year)
+    {
+        $examcard = [
+            'students_id' => $student_id,
+            'type' => $type,
+            'semester' => $semester,
+            'year' => $year,
+        ];
+
+        ExamCard::create($examcard);
     }
 }
