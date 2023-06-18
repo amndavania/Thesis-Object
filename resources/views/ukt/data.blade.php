@@ -46,7 +46,7 @@
                               {{-- <td>{{ $row->transactionaccount->name }}</td> --}}
                               <td>
                                    <div class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button>
+                                        {{-- <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button> --}}
                                         <form action="{{ route('ukt.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf

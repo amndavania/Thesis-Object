@@ -24,14 +24,16 @@ class UktDetailController extends Controller
 
             if ($dispensasi == "Menunggu Dispensasi UTS") {
                 $payment->keterangan = "UTS";
+                $payment->exam_uts_id = UktController::createExamCard($student_id, "UTS", $payment->semester, 2023);
             } elseif ($dispensasi == "Menunggu Dispensasi UAS") {
-                $payment->keterangan = "UAS";
+                $payment->keterangan = "ALL";
+                $payment->exam_uas_id = UktController::createExamCard($student_id, "UAS", $payment->semester, 2023);
             }
             $payment->save();
 
-            UktController::createExamCard($student_id, $payment->keterangan, $payment->semester, 2023);
+
         }
-        
+
         if (empty($student_id)) {
             return view('detail_payment.ukt')->with([
                 'ukt' => Ukt::where('students_id', 1)->get(),
