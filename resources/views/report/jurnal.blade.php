@@ -10,7 +10,7 @@
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
 
-                <button onclick="window.open('{{ url('jurnal/export') }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+                <button onclick="window.open('{{ url('jurnal/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
             </div>
        </div>
      <div class="card-body">
@@ -20,7 +20,7 @@
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
-                         <td>Uraian</td>
+                         <td style="width: 30%">Uraian</td>
                          <td>ID</td>
                          <td>Nama Akun</td>
                          <td>Ref</td>
@@ -40,11 +40,21 @@
                               <td>{{ $row->transactionaccount->id }}</td>
                               <td>{{ $row->transactionaccount->name }}</td>
                               <td>{{ $row->reference_number }}</td>
-                              <td class="currency">{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
-                              <td class="currency">{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
+                              <td>{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                              <td>{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
                          </tr>
                     @endforeach
                </tbody>
+
+                <tfoot class="table-dark">
+                    <tr>
+                        <td colspan="6">
+                            <strong>Total</strong>
+                        </td>
+                        <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                        <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                    </tr>
+                </tfoot>
           </table>
           <div class="d-flex justify-content-center align-items-center text-center">
                {{ $data->links() }}

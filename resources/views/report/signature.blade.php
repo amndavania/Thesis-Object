@@ -11,7 +11,7 @@
       <td></td>
       <td>
         <div class="signature-placeholder">
-            <p id="date">Banyuwangi, 24-05-2023</p>
+            <p id="date">Banyuwangi, {{ $today }}</p>
             <p id="kabak-keuangan">Ka. BAUKK</p>
         </div>
             <p style="margin: 2px;">Samsuri, M.Si.</p>

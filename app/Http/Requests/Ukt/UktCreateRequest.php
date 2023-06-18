@@ -24,10 +24,9 @@ class UktCreateRequest extends FormRequest
         return [
             'students_id'=>'required',
             'semester'=>'required|numeric',
+            'type'=>'required',
             'amount'=>'required',
-            'total'=>'required',
-            'status'=>'required',
-            'transaction_accounts_id'=>'required',
+            // 'status'=>'required',
         ];
     }
 
@@ -37,10 +36,9 @@ class UktCreateRequest extends FormRequest
             'students_id.required'=>'Mahasiswa harus diisi',
             'semester.required'=>'Semester harus diisi',
             'semester.numeric'=>'Semester harus berupa angka',
+            'type.required'=>'Status harus diisi',
             'amount.required'=>'Jumlah harus diisi',
-            'total.required'=>'Total harus diisi',
-            'status.required'=>'Status harus diisi',
-            'transaction_accounts_id.required'=>'Akun Transaksi harus diisi',
+            // 'status.required'=>'Status harus diisi',
         ];
     }
 }

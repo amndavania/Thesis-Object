@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Beasiswa/Status Mahasiswa
+        Skema Pembayaran Beasiswa/Reguler
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -17,6 +17,8 @@
                     <tr>
                          <th>No</th>
                          <td>Nama</td>
+                         <td>Tahun Masuk</td>
+                         <td>Prodi</td>
                          <td>DPP</td>
                          <td>KRS</td>
                          <td>UTS</td>
@@ -33,6 +35,8 @@
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->type }}</td>
+                              <td>{{ $row->year }}</td>
+                              <td>{{ $row->studyprogram->name }}</td>
                               <td>{{ 'Rp ' . number_format($row->dpp, 0, ',', '.') }}</td>
                               <td>{{ 'Rp ' . number_format($row->krs, 0, ',', '.') }}</td>
                               <td>{{ 'Rp ' . number_format($row->uts, 0, ',', '.') }}</td>

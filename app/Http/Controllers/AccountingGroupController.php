@@ -82,7 +82,7 @@ class AccountingGroupController extends Controller
             $accounting_group->delete();
             return redirect()->route('accounting_group.index')->with(['success' => 'Data telah dihapus']);
         } else {
-            return redirect()->route('accounting_group.index')->with(['warning' => 'Grup Akun Transaksi masih terhubung dengan Akun Transaksi']);
+            return redirect()->route('accounting_group.index')->with(['warning' => 'Grup Akun Transaksi sedang dipakai di Akun Transaksi']);
         }
     }
 }

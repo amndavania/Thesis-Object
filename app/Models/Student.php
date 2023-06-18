@@ -36,4 +36,9 @@ class Student extends Model
     {
         return $this->belongsTo(StudentType::class,'student_types_id');
     }
+
+    public function examcard(): HasMany
+    {
+        return $this->hasMany(ExamCard::class);
+    }
 }

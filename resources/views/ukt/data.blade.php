@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        UKT Mahasiswa
+        Pembayaran Mahasiswa
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -16,13 +16,15 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
+                         <td>Tanggal</td>
                          <td>Mahasiswa</td>
                          <td>Semester</td>
-                         <td>Nomor Referensi</td>
+                         <td>Jenis</td>
+                         {{-- <td>Nomor Referensi</td> --}}
                          <td>Jumlah</td>
-                         <td>Total</td>
+                         {{-- <td>Total</td> --}}
                          <td>Status</td>
-                         <td>Akun Transaksi</td>
+                         {{-- <td>Akun Transaksi</td> --}}
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -33,16 +35,18 @@
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
-                              <td>{{ $row->student_id->name }} / {{ $row->student_id->nim }}</td>
+                              <td>{{ $row->created_at->format('d-m-Y') }}</td>
+                              <td>{{ $row->student_id->nim }} | {{ $row->student_id->name }}</td>
                               <td>{{ $row->semester }}</td>
-                              <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td>
-                              <td>{{ 'Rp ' . number_format($row->amount, 0, ',', '.') }}</td>
-                              <td>{{ 'Rp ' . number_format($row->total, 0, ',', '.') }}</td>
+                              <td>{{ $row->type }}</td>
+                              {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
+                              <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
+                              {{-- <td>{{ 'Rp ' . number_format($row->total, 2, ',', '.') }}</td> --}}
                               <td>{{ $row->status }}</td>
-                              <td>{{ $row->transactionaccount->name }}</td>
+                              {{-- <td>{{ $row->transactionaccount->name }}</td> --}}
                               <td>
                                    <div class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button>
+                                        {{-- <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button> --}}
                                         <form action="{{ route('ukt.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf

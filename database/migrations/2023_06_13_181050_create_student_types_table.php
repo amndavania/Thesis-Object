@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('student_types', function (Blueprint $table) {
             $table->id();
             $table->string('type');
+            $table->string('year');
+            $table->foreignId('study_program_id')->constrained();
             $table->decimal('dpp', 14, 2)->nullable();
             $table->decimal('krs', 14, 2)->nullable();
             $table->decimal('uts', 14, 2)->nullable();

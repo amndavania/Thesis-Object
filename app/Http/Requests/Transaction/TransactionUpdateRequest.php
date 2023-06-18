@@ -22,16 +22,18 @@ class TransactionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'description'=>'required',
+            'type'=>'required',
             'amount'=>'required',
-            'transaction_accounts_id'=>'required',
         ];
     }
 
     public function messages()
     {
         return[
-            'amount.required'=>'Jumlah harus diisi',
-            'transaction_accounts_id.required'=>'Akun Transaksi harus diisi'
+            'description.required'=>'Deskripsi harus diisi',
+            'type.required'=>'Tipe harus diisi',
+            'amount.required'=>'Nominal harus diisi',
         ];
     }
 }

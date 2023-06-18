@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class StudentType extends Model
@@ -13,6 +14,8 @@ class StudentType extends Model
     protected $table = 'student_types';
     protected $fillable = [
         'type',
+        'year',
+        'study_program_id',
         'dpp',
         'krs',
         'uts',
@@ -25,5 +28,10 @@ class StudentType extends Model
     public function student(): HasMany
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function studyprogram(): BelongsTo
+    {
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
 }

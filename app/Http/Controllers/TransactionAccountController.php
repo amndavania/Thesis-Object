@@ -79,15 +79,14 @@ class TransactionAccountController extends Controller
      */
     public function destroy($id):RedirectResponse
     {
-        $ukt = Ukt::where('transaction_accounts_id', $id)->exists();
         $transaction = Transaction::where('transaction_accounts_id', $id)->exists();
 
-        if (!$ukt && !$transaction) {
+        if (!$transaction) {
             $transaction_account = TransactionAccount::findOrFail($id);
             $transaction_account->delete();
             return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
-            return redirect()->route('transaction_account.index')->with(['warning' => 'AKun Transaksi masih terhubung dengan UKT Mahasiswa']);
+            return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di Data Transaksi']);
         }
     }
 }

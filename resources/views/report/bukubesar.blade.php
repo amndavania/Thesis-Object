@@ -19,13 +19,13 @@
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
               </form>
 
-              <button onclick="window.open('{{ url('bukubesar/export') }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+              <button onclick="window.open('{{ url('bukubesar/export') }}?search_account={{ $account->id }}&datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
           </div>
      </div>
          <div class="card-body">
           {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a> --}}
           <div class="d-flex align-items-center">
-            <h5>Akun : {{ !empty($account) ? $account : '-' }}</h5>
+            <h5>Akun : {{ !empty($account) ? $account->name : '-' }}</h5>
             <h5 class="ml-auto p-2">Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
           </div>
           <table class="table table-striped ">
@@ -40,6 +40,11 @@
                     </tr>
                </thead>
                <tbody>
+                    @php
+                        $totalKredit = 0;
+                        $totalDebit = 0;
+                        $totalSaldo = 0;
+                    @endphp
                     @foreach ($data as $index => $row)
                     @php
                         $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
@@ -48,12 +53,50 @@
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->description }}</td>
-                              <td class="currency">{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
-                              <td class="currency">{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 0, ',', '.') : '-' }}</td>
-                              <td>{{ $row->saldo }}</td>
+                              <td>{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                              <td>{{ $row->type == 'kredit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
+                              @php
+                                $debit = 0;
+                                $kredit = 0;
+                                    if ($row->type == 'debit') {
+                                        $debit = $row->amount;
+                                        $totalDebit += $debit;
+                                    } elseif ($row->type == 'kredit') {
+                                        $kredit = $row->amount;
+                                        $totalKredit += $kredit;
+                                    }
+                                    $totalSaldo += ($debit - $kredit);
+                                @endphp
+                                <td>
+                                    @if ($totalSaldo < 0)
+                                        (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
+                                    @elseif ($totalSaldo > 0)
+                                        Rp {{ number_format($totalSaldo, 2, ',', '.') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                          </tr>
                     @endforeach
                </tbody>
+               <tfoot class="table-dark">
+                <tr>
+                        <td colspan="3">
+                             <strong>Total</strong>
+                        </td>
+                        <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                        <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                        <td>
+                            @if ($totalSaldo < 0)
+                                (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
+                            @elseif ($totalSaldo > 0)
+                                Rp {{ number_format($totalSaldo, 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
+                </tfoot>
           </table>
           <div class="d-flex justify-content-center align-items-center text-center">
             {{ $data->links() }}

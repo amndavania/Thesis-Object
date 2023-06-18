@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StudentType\StudentTypeCreateRequest;
 use App\Http\Requests\StudentType\StudentTypeUpdateRequest;
+use App\Models\StudyProgram;
 
 class StudentTypeController extends Controller
 {
@@ -27,8 +28,8 @@ class StudentTypeController extends Controller
      */
     public function create():View
     {
-        //
-        return view('student_type.create');
+        $study_program = StudyProgram::all();
+        return view('student_type.create', compact('study_program'));
     }
 
     /**
@@ -55,8 +56,10 @@ class StudentTypeController extends Controller
     public function edit(string $id):View
     {
         //
-        $student_type = StudentType::findOrFail($id);
-        return view('student_type.edit', compact('student_type'));
+        return view('student_type.edit')->with([
+            'student_type' => StudentType::findOrFail($id),
+            'study_program' => StudyProgram::all(),
+        ]);
     }
 
     /**

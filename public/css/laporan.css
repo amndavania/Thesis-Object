@@ -146,12 +146,16 @@ hr {
   text-align: center;
 }
 
+.text-center {
+    text-align: center;
+  }
+
 .header-content p {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .contact-info {
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
 }
 
