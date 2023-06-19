@@ -47,7 +47,7 @@
                           @php
                            $totalPendapatan = $row->ammount_debit + $row->ammount_kredit;
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: right; @if ($totalPendapatan < 0) color: red; @endif">
                                 @if ($totalPendapatan < 0)
                                     (Rp {{ number_format(abs($totalPendapatan), 2, ',', '.') }})
                                 @elseif ($totalPendapatan > 0)
@@ -63,7 +63,7 @@
                 <td colspan="3">
                      <strong>Total Pendapatan</strong>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($totalPendapatan < 0) color: red; @endif">
                     @if ($totalPendapatan < 0)
                         (Rp {{ number_format(abs($totalPendapatan), 2, ',', '.') }})
                     @elseif ($totalPendapatan > 0)
@@ -92,7 +92,7 @@
                           @php
                            $totalPengeluaran = $row->ammount_debit + $row->ammount_kredit;
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: right; @if ($totalPengeluaran < 0) color: red; @endif">
                                 @if ($totalPengeluaran < 0)
                                     (Rp {{ number_format(abs($totalPengeluaran), 2, ',', '.') }})
                                 @elseif ($totalPengeluaran > 0)
@@ -108,7 +108,7 @@
                 <td colspan="3">
                      <strong>Total Pengeluaran</strong>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($totalPengeluaran < 0) color: red; @endif">
                     @if ($totalPengeluaran < 0)
                         (Rp {{ number_format(abs($totalPengeluaran), 2, ',', '.') }})
                     @elseif ($totalPengeluaran > 0)
@@ -126,7 +126,7 @@
                 @php
                 $labaRugiKotor = $totalPendapatan + $totalPengeluaran;
                 @endphp
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($labaRugiKotor < 0) color: red; @endif">
                     @if ($labaRugiKotor < 0)
                         (Rp {{ number_format(abs($labaRugiKotor), 2, ',', '.') }})
                     @elseif ($labaRugiKotor > 0)
@@ -154,7 +154,7 @@
                           @php
                             $totalPenyusutan = $row->ammount_debit + $row->ammount_kredit;
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: right; @if ($totalPenyusutan < 0) color: red; @endif">
                                 @if ($totalPenyusutan < 0)
                                     (Rp {{ number_format(abs($totalPenyusutan), 2, ',', '.') }})
                                 @elseif ($totalPenyusutan > 0)
@@ -170,7 +170,7 @@
                 <td colspan="3">
                      <strong>Total Penyusutan dan Amortisasi</strong>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($totalPenyusutan < 0) color: red; @endif">
                     @if ($totalPenyusutan < 0)
                         (Rp {{ number_format(abs($totalPenyusutan), 2, ',', '.') }})
                     @elseif ($totalPenyusutan > 0)
@@ -188,7 +188,7 @@
                 @php
                 $ebit = $labaRugiKotor + $totalPenyusutan;
                 @endphp
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($ebit < 0) color: red; @endif">
                     @if ($ebit < 0)
                         (Rp {{ number_format(abs($ebit), 2, ',', '.') }})
                     @elseif ($ebit > 0)
@@ -216,7 +216,7 @@
                           @php
                            $totalBungaPajak = $row->ammount_debit + $row->ammount_kredit;
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: right; @if ($totalBungaPajak < 0) color: red; @endif">
                                 @if ($totalBungaPajak < 0)
                                     (Rp {{ number_format(abs($totalBungaPajak), 2, ',', '.') }})
                                 @elseif ($totalBungaPajak > 0)
@@ -232,7 +232,7 @@
                 <td colspan="3">
                      <strong>Total Pembelian Aset</strong>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($totalBungaPajak < 0) color: red; @endif">
                     @if ($totalBungaPajak < 0)
                         (Rp {{ number_format(abs($totalBungaPajak), 2, ',', '.') }})
                     @elseif ($totalBungaPajak > 0)
@@ -250,7 +250,7 @@
                 @php
                 $labaRugiKotor2 = $ebit + $totalBungaPajak;
                 @endphp
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($labaRugiKotor2 < 0) color: red; @endif">
                     @if ($labaRugiKotor2 < 0)
                         (Rp {{ number_format(abs($labaRugiKotor2), 2, ',', '.') }})
                     @elseif ($labaRugiKotor2 > 0)
@@ -278,7 +278,7 @@
                           @php
                            $totalPendapatanPengeluaranLain = $row->ammount_debit + $row->ammount_kredit;
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: right; @if ($totalPendapatanPengeluaranLain < 0) color: red; @endif">
                                 @if ($totalPendapatanPengeluaranLain < 0)
                                     (Rp {{ number_format(abs($totalPendapatanPengeluaranLain), 2, ',', '.') }})
                                 @elseif ($totalPendapatanPengeluaranLain > 0)
@@ -294,7 +294,7 @@
                 <td colspan="3">
                      <strong>Total Pendapatan / Pengeluaran Lain</strong>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($totalPendapatanPengeluaranLain < 0) color: red; @endif">
                     @if ($totalPendapatanPengeluaranLain < 0)
                         (Rp {{ number_format(abs($totalPendapatanPengeluaranLain), 2, ',', '.') }})
                     @elseif ($totalPendapatanPengeluaranLain > 0)
@@ -312,7 +312,7 @@
                 @php
                 $labaRugiBersih = $labaRugiKotor2 + $totalPendapatanPengeluaranLain;
                 @endphp
-                <td style="text-align: right;">
+                <td style="text-align: right; @if ($labaRugiBersih < 0) color: red; @endif">
                     @if ($labaRugiBersih < 0)
                         (Rp {{ number_format(abs($labaRugiBersih), 2, ',', '.') }})
                     @elseif ($labaRugiBersih > 0)

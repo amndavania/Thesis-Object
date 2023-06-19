@@ -38,7 +38,7 @@ class CashFlowController extends Controller
         $getDate = $this->getDate($date);
         $getData = $this->getData($getDate[0]);
 
-        $pdf = PDF::loadView('report.printformat.cashflow', [
+        return view('report.printformat.cashflow')->with([
             'dataA' => $getData[0],
             'dataB' => $getData[1],
             'dataC' => $getData[2],
@@ -47,10 +47,8 @@ class CashFlowController extends Controller
             'dataF' => $getData[5],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'title' => "Laporan Cash FLow"
         ]);
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Laporan Cash Flow');
-        return $pdf->stream('Laporan Cash Flow.pdf');
 
     }
 

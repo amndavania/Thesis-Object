@@ -68,7 +68,7 @@
                             }
                             $totalSaldo += ($debit - $kredit);
                         @endphp
-                        <td style="text-align: right;">
+                        <td style="text-align: right; @if ($totalSaldo < 0) color: red; @endif">
                             @if ($totalSaldo < 0)
                                 (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
                             @elseif ($totalSaldo > 0)
@@ -88,7 +88,7 @@
                     </td>
                     <td style="text-align: right;">{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
                     <td style="text-align: right;">{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
-                    <td style="text-align: right;">
+                    <td style="text-align: right; @if ($totalSaldo < 0) color: red; @endif">
                         @if ($totalSaldo < 0)
                             (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
                         @elseif ($totalSaldo > 0)
