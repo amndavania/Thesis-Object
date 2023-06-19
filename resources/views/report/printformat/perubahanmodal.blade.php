@@ -48,7 +48,7 @@
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td style="text-align: right;">
+                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -67,7 +67,7 @@
                      <td colspan="1">
                           <strong>Total Modal Awal</strong>
                      </td>
-                     <td style="text-align: right;">
+                     <td style="text-align: right; @if ($totalModalAwal < 0) color: red; @endif">
                          @if ($totalModalAwal < 0)
                              (Rp {{ number_format(abs($totalModalAwal), 2, ',', '.') }})
                          @elseif ($totalModalAwal > 0)
@@ -94,7 +94,7 @@
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td style="text-align: right;">
+                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -113,7 +113,7 @@
                      <td colspan="1">
                           <strong>Total Penambahan Modal</strong>
                      </td>
-                     <td style="text-align: right;">
+                     <td style="text-align: right; @if ($totalPenambahanModal < 0) color: red; @endif">
                          @if ($totalPenambahanModal < 0)
                              (Rp {{ number_format(abs($totalPenambahanModal), 2, ',', '.') }})
                          @elseif ($totalPenambahanModal > 0)
@@ -139,7 +139,7 @@
                                @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                                  @endphp
-                                 <td style="text-align: right;">
+                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                                      @if ($saldo < 0)
                                          (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                                      @elseif ($saldo > 0)
@@ -158,7 +158,7 @@
                      <td colspan="1">
                           <strong>Total Pengurangan Modal</strong>
                      </td>
-                     <td style="text-align: right;">
+                     <td style="text-align: right; @if ($totalPenguranganModal < 0) color: red; @endif">
                          @if ($totalPenguranganModal < 0)
                              (Rp {{ number_format(abs($totalPenguranganModal), 2, ',', '.') }})
                          @elseif ($totalPenguranganModal > 0)
@@ -176,7 +176,7 @@
                      @php
                      $modalAkhir = $totalModalAwal + $totalPenambahanModal - $totalPenguranganModal;
                      @endphp
-                     <td style="text-align: right;">
+                     <td style="text-align: right; @if ($modalAkhir < 0) color: red; @endif">
                          @if ($modalAkhir < 0)
                              (Rp {{ number_format(abs($modalAkhir), 2, ',', '.') }})
                          @elseif ($modalAkhir > 0)

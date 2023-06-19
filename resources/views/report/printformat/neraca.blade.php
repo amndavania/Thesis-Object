@@ -49,7 +49,7 @@
                            @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                            @endphp
-                           <td style="text-align: right;">
+                           <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                              @if ($saldo < 0)
                                  (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                              @elseif ($saldo > 0)
@@ -79,7 +79,7 @@
                            @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                            @endphp
-                           <td style="text-align: right;">
+                           <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                              @if ($saldo < 0)
                                  (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                              @elseif ($saldo > 0)
@@ -101,7 +101,7 @@
                  @php
                      $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
                  @endphp
-                 <td style="text-align: right;">
+                 <td style="text-align: right; @if ($totalAktiva < 0) color: red; @endif">
                      @if ($totalAktiva < 0)
                          (Rp {{ number_format(abs($totalAktiva), 2, ',', '.') }})
                      @elseif ($totalAktiva > 0)
@@ -133,7 +133,7 @@
                            @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                            @endphp
-                           <td style="text-align: right;">
+                           <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                              @if ($saldo < 0)
                                  (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                              @elseif ($saldo > 0)
@@ -163,7 +163,7 @@
                            @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                            @endphp
-                           <td style="text-align: right;">
+                           <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                              @if ($saldo < 0)
                                  (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                              @elseif ($saldo > 0)
@@ -185,7 +185,7 @@
                  @php
                      $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang;
                  @endphp
-                 <td style="text-align: right;">
+                 <td style="text-align: right; @if ($totalHutang < 0) color: red; @endif">
                      @if ($totalHutang < 0)
                          (Rp {{ number_format(abs($totalHutang), 2, ',', '.') }})
                      @elseif ($totalHutang > 0)
@@ -211,7 +211,7 @@
                            @php
                                $saldo = $row->ammount_debit - $row->ammount_kredit;
                            @endphp
-                           <td style="text-align: right;">
+                           <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
                              @if ($saldo < 0)
                                  (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
                              @elseif ($saldo > 0)
@@ -230,7 +230,7 @@
                  <td colspan="1">
                       <strong>Total Modal</strong>
                  </td>
-                 <td style="text-align: right;">
+                 <td style="text-align: right; @if ($totalModal < 0) color: red; @endif">
                      @if ($totalModal < 0)
                          (Rp {{ number_format(abs($totalModal), 2, ',', '.') }})
                      @elseif ($totalModal > 0)
@@ -248,7 +248,7 @@
                      @php
                          $totalPasiva = $totalHutang + $totalModal;
                      @endphp
-                     <td style="text-align: right;">
+                     <td style="text-align: right; @if ($totalPasiva < 0) color: red; @endif">
                          @if ($totalPasiva < 0)
                              (Rp {{ number_format(abs($totalPasiva), 2, ',', '.') }})
                          @elseif ($totalPasiva > 0)
