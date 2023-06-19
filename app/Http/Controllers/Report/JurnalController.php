@@ -51,14 +51,12 @@ class JurnalController extends Controller
     $getDate = $this->getDate($date);
     $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
 
-    $pdf = PDF::loadView('report.printformat.jurnal', [
+    return view('report.printformat.jurnal')->with([
         'data' => $transaction,
         'datepicker' => $getDate[1],
         'today' => date('d F Y', strtotime(date('Y-m-d'))),
+        'title' => "Laporan Jurnal"
     ]);
-    $pdf->setOption('enable-local-file-access', true);
-    Session::flash('title', 'Laporan Buku Besar');
-    return $pdf->stream('Laporan Buku Besar.pdf');
 }
 
     public function getDate($datepicker)

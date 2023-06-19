@@ -71,16 +71,13 @@ class UktDetailController extends Controller
         $ukt = $this->setData($request->student);
         $student = Student::where('id', $request->student)->first();
 
-        $pdf = PDF::loadView('report.printformat.pembayaran', [
+        return view('report.printformat.pembayaran')->with([
             'ukt' => $ukt,
             'name' => $student->name,
             'nim' => $student->nim,
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'title' => "Laporan Pembayaran Mahasiswa"
         ]);
-
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Laporan Pembayaran Mahasiswa');
-        return $pdf->stream('Laporan Pembayaran Mahasiswa.pdf');
 
     }
 

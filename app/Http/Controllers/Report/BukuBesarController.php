@@ -50,15 +50,13 @@ class BukuBesarController extends Controller
                     ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
         $account = TransactionAccount::find($getData[0]);
 
-        $pdf = PDF::loadView('report.printformat.bukubesar', [
+        return view('report.printformat.bukubesar')->with([
             'data' => $transaction,
             'datepicker' => $getData[2],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'account' => $account,
+            'title' => "Laporan Buku Besar"
         ]);
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Laporan Buku Besar');
-        return $pdf->stream('Laporan Buku Besar.pdf');
 
     }
 

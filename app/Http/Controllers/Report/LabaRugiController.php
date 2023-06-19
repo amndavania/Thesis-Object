@@ -37,7 +37,7 @@ class LabaRugiController extends Controller
         $getDate = $this->getDate($date);
         $getData = $this->getData($getDate[0]);
 
-        $pdf = PDF::loadView('report.printformat.labarugi', [
+        return view('report.printformat.labarugi')->with([
             'dataA' => $getData[0],
             'dataB' => $getData[1],
             'dataC' => $getData[2],
@@ -45,11 +45,8 @@ class LabaRugiController extends Controller
             'dataE' => $getData[4],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'title' => "Laporan Laba Rugi"
         ]);
-        $pdf->setOption('enable-local-file-access', true);
-        Session::flash('title', 'Laporan Laba Rugi');
-        return $pdf->stream('Laporan Laba Rugi.pdf');
-
     }
 
     public function getDate($datepicker)
