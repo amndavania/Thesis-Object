@@ -55,10 +55,17 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
-        return view('transaction.edit')->with([
-            'transaction' => Transaction::findOrFail($id),
-            'transaction_account' => TransactionAccount::all(),
-        ]);
+        $ukt_debit = Ukt::where('transaction_debit_id', $id)->exists();
+        $ukt_kredit = Ukt::where('transaction_kredit_id', $id)->exists();
+
+        if ($ukt_debit || $ukt_kredit) {
+            return redirect()->route('transaction.index')->with(['warning' => 'Mohon edit melalui menu Pembayaran Mahasiswa']);
+        } else {
+            return view('transaction.edit')->with([
+                'transaction' => Transaction::findOrFail($id),
+                'transaction_account' => TransactionAccount::all(),
+            ]);
+        }
     }
 
     /**

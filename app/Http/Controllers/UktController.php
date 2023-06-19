@@ -87,6 +87,8 @@ class UktController extends Controller
 
         //Set keterangan
 
+        $currentYear = date('Y');
+
         if ($payment_type == "UKT") {
             $ukt = Ukt::where('students_id', $student_id)
                 ->where('semester', $semester)
@@ -96,12 +98,12 @@ class UktController extends Controller
                 $exam_uts = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', "UTS")->exists();
                 $exam_uas = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', "UAS")->exists();
                 if (!$exam_uts && !$exam_uas) {
-                    $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, "2023");
-                    $payment->exam_uas_id = $this->createExamCard($student_id, "UAS", $semester, "2023");
+                    $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, $currentYear);
+                    $payment->exam_uas_id = $this->createExamCard($student_id, "UAS", $semester, $currentYear);
                 }elseif (!$exam_uas && $exam_uts) {
-                    $payment->exam_uas_id = $this->createExamCard($student_id, "UAS", $semester, "2023");
+                    $payment->exam_uas_id = $this->createExamCard($student_id, "UAS", $semester, $currentYear);
                 }elseif (!$exam_uts && $exam_uas) {
-                    $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, "2023");
+                    $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, $currentYear);
                 }
             } elseif ($setTotalStatus[1] == "Belum Lunas") {
                 if ($ukt->sum('amount') >= ( $student_type->krs + $student_type->uts )) {
@@ -109,7 +111,7 @@ class UktController extends Controller
                         ->where('semester', $semester)->where('type', "UTS")->exists();
                     if (empty($card)) {
                         $payment->keterangan = 'UTS';
-                        $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, "2023");
+                        $payment->exam_uts_id = $this->createExamCard($student_id, "UTS", $semester, $currentYear);
                     } else{
                         $payment->keterangan = 'Menunggu Dispensasi UAS';
                     }

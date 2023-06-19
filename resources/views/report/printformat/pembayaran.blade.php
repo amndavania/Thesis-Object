@@ -39,17 +39,17 @@
             <tbody>
                 @foreach ($ukt as $row)
                      <tr>
-                        <th>{{ $loop->iteration }}</th>
-                        <td>{{ $row['tanggal']->format('d-m-Y') }}</td>
-                          <td>{{ $row['semester'] }}</td>
-                          <td>{{ $row['jenis'] }}</td>
-                          <td>{{ 'Rp ' . number_format($row['total'], 0, ',', '.') }}</td>
-                          <td>{{ $row['status'] }}</td>
+                        <th style="text-align: center;">{{ $loop->iteration }}</th>
+                        <td style="text-align: center;">{{ $row['tanggal']->format('d-m-Y') }}</td>
+                          <td style="text-align: center;">{{ $row['semester'] }}</td>
+                          <td style="text-align: center;">{{ $row['jenis'] }}</td>
+                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['total'], 2, ',', '.') }}</td>
+                          <td style="text-align: center;">{{ $row['status'] }}</td>
                      </tr>
                 @endforeach
            </tbody>
             <tfoot class="total">
-            
+
             </tfoot>
             </div>
         </table>
