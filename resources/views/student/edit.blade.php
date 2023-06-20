@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
                <label for="force">Tahun Masuk</label>
-               <input type="text" class="form-control" id="name" name="force" placeholder="Angkatan..." value="{{ old('force', $student->force) }}">
+               <input type="number" class="form-control" id="name" name="force" placeholder="Angkatan..." value="{{ old('force', $student->force) }}">
           </div>
           <div class="form-group">
           <label for="study_program_id">Program Studi</label>

@@ -19,12 +19,11 @@ class NeracaController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.neraca')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+            'aktivaLancar' => $getData[0],
+            'aktivaTetap' => $getData[1],
+            'hutangLancar' => $getData[2],
+            'hutangJangkaPanjang' => $getData[3],
+            'modal' => $getData[4],
             'datepicker' => $getDate[1],
         ]);
     }
@@ -39,12 +38,11 @@ class NeracaController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.printformat.neraca')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+            'aktivaLancar' => $getData[0],
+            'aktivaTetap' => $getData[1],
+            'hutangLancar' => $getData[2],
+            'hutangJangkaPanjang' => $getData[3],
+            'modal' => $getData[4],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Neraca"
@@ -71,26 +69,23 @@ class NeracaController extends Controller
     public function getData($date)
     {
 
-        $arusKasMasuk = TransactionAccount::where('accounting_group_id', 1)
+        $aktivaLancar = TransactionAccount::where('accounting_group_id', 6)
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
             ->get();
-        $arusKasKeluar = TransactionAccount::where('accounting_group_id', 2)
+        $aktivaTetap = TransactionAccount::where('accounting_group_id', 7)
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
             ->get();
-        $penjualanAset = TransactionAccount::where('accounting_group_id', 3)
+        $hutangLancar = TransactionAccount::where('accounting_group_id', 8)
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
             ->get();
-        $pembelianAset = TransactionAccount::where('accounting_group_id', 4)
+        $hutangJangkaPanjang = TransactionAccount::where('accounting_group_id', 9)
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
             ->get();
-        $penambahanDana = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penguranganDana = TransactionAccount::where('accounting_group_id', 5)
+        $modal = TransactionAccount::where('accounting_group_id', 10)
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
             ->get();
 
-        return [$arusKasMasuk, $arusKasKeluar, $penjualanAset, $pembelianAset, $penambahanDana, $penguranganDana];
+        return [$aktivaLancar, $aktivaTetap, $hutangLancar, $hutangJangkaPanjang, $modal];
     }
 
 }

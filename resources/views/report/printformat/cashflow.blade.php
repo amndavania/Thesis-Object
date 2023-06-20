@@ -43,7 +43,7 @@
                 @php
                 $totalArusKasMasuk = 0;
                 @endphp
-                     @foreach ($dataA as $row)
+                     @foreach ($arusKasMasuk as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -89,7 +89,7 @@
                 @php
                 $totalArusKasKeluar = 0;
                 @endphp
-                     @foreach ($dataB as $row)
+                     @foreach ($arusKasKeluar as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -159,7 +159,7 @@
                 @php
                 $totalPenjualanAset = 0;
                 @endphp
-                     @foreach ($dataC as $row)
+                     @foreach ($penjualanAset as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -205,7 +205,7 @@
                 @php
                 $totalPembelianAset = 0;
                 @endphp
-                     @foreach ($dataD as $row)
+                     @foreach ($pembelianAset as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -275,7 +275,7 @@
                 @php
                 $totalPenambahanDana = 0;
                 @endphp
-                     @foreach ($dataE as $row)
+                     @foreach ($penambahanDana as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -321,7 +321,7 @@
                 @php
                 $totalPenguranganDana = 0;
                 @endphp
-                     @foreach ($dataF as $row)
+                     @foreach ($penguranganDana as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>

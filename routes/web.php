@@ -82,6 +82,8 @@ Route::middleware('auth')->group(function () {
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
 
+        Route::get('examcard/show', [ExamCardController::class, 'show']);
+
         // Route::post('ukt/detail', [UktController::class, 'detail']);
 
         // Route::get('bukubesar/search', [BukuBesarController::class, 'search']);

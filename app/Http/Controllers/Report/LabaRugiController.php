@@ -19,11 +19,11 @@ class LabaRugiController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.labarugi')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
+            'pendapatan' => $getData[0],
+            'pengeluaran' => $getData[1],
+            'penyusutanAmortisasi' => $getData[2],
+            'bungaPajak' => $getData[3],
+            'pendapatanPengeluaranLain' => $getData[4],
             'datepicker' => $getDate[1],
         ]);
     }
@@ -38,11 +38,11 @@ class LabaRugiController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.printformat.labarugi')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
+            'pendapatan' => $getData[0],
+            'pengeluaran' => $getData[1],
+            'penyusutanAmortisasi' => $getData[2],
+            'bungaPajak' => $getData[3],
+            'pendapatanPengeluaranLain' => $getData[4],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Laba Rugi"
