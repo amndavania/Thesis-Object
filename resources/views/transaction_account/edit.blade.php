@@ -34,6 +34,7 @@
            </select>
           </div>
           <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('transaction_account.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

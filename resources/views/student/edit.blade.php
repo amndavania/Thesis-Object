@@ -42,8 +42,10 @@
           </select>
           </div>
           <div class="d-flex justify-content-end">
-               <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('student.index') }}'">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
+          
           </form>
      </div>
     </div>

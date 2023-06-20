@@ -24,7 +24,7 @@ class TransactionUpdateRequest extends FormRequest
         return [
             'description'=>'required',
             'type'=>'required',
-            'amount'=>'required',
+            'amount'=>'required|numeric|min:0',
         ];
     }
 
@@ -34,6 +34,7 @@ class TransactionUpdateRequest extends FormRequest
             'description.required'=>'Deskripsi harus diisi',
             'type.required'=>'Tipe harus diisi',
             'amount.required'=>'Nominal harus diisi',
+            'amount.min'=>'Nominal tidak boleh Negatif'
         ];
     }
 }

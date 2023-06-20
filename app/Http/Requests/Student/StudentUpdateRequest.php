@@ -25,8 +25,8 @@ class StudentUpdateRequest extends FormRequest
 
         return [
             'name'=>'required',
-            'nim'=>'required|numeric|unique:students,nim,'.$student_id,
-            'force'=>'required|numeric',
+            'nim'=>'required|numeric|unique:students,nim,'.$student_id. '|min:0',
+            'force'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'student_types_id'=>'required',
         ];
@@ -38,8 +38,11 @@ class StudentUpdateRequest extends FormRequest
             'name.required'=>'Nama mahasiswa harus diisi',
             'nim.required'=>'NIM harus diisi',
             'nim.numeric'=>'NIM harus berupa angka',
+            'nim.unique'=>'NIM suda ada!',
+            'nim.min'=>'NIM tidak boleh Negatif!',
             'force.required'=>'Tahun masuk harus diisi',
             'force.numeric'=>'Tahun masuk harus berupa angka',
+            'force.min'=>'Tahun masuk tidak boleh Negatif!',
             'study_program_id.required'=>'Program Studi harus diisi',
             'student_types_id.required'=>'Jenis Beasiswa harus diisi',
         ];

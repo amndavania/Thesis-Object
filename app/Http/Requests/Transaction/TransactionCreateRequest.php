@@ -24,7 +24,7 @@ class TransactionCreateRequest extends FormRequest
         return [
             'description'=>'required',
             'type'=>'required',
-            'amount'=>'required',
+            'amount'=>'required||numeric|min:0',
             'transaction_accounts_id'=>'required',
         ];
     }
@@ -35,6 +35,7 @@ class TransactionCreateRequest extends FormRequest
             'description.required'=>'Deskripsi harus diisi',
             'type.required'=>'Tipe harus diisi',
             'amount.required'=>'Nominal harus diisi',
+            'amount.min'=>'Nominal tidak boleh Negatif!',
             'transaction_accounts_id.required'=>'Akun Transaksi harus diisi'
         ];
     }
