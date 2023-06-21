@@ -30,11 +30,6 @@ class TransactionAccount extends Model
         return $this->belongsToMany(AccountingGroup::class, 'accounting_group_transaction_account', 'transaction_account_id', 'accounting_group_id');
     }
 
-    // public function accountinggroup(): BelongsTo
-    // {
-    //     return $this->belongsTo(AccountingGroup::class, 'accounting_group_id');
-    // }
-
     public function transaction(): HasMany
     {
         return $this->hasMany(Transaction::class);
@@ -43,5 +38,10 @@ class TransactionAccount extends Model
     public function Ukt(): HasMany
     {
         return $this->hasMany(Ukt::class);
+    }
+
+    public function historyreport(): HasMany
+    {
+        return $this->hasMany(HistoryReport::class);
     }
 }
