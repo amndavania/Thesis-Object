@@ -24,6 +24,7 @@ class TransactionUpdateRequest extends FormRequest
         return [
             'description'=>'required',
             'type'=>'required',
+            'reference_number'=>'numeric|min:0',
             'amount'=>'required|numeric|min:0',
         ];
     }
@@ -33,6 +34,7 @@ class TransactionUpdateRequest extends FormRequest
         return[
             'description.required'=>'Deskripsi harus diisi',
             'type.required'=>'Tipe harus diisi',
+            'reference_number'=>'Nomor referensi tidak boleh Negatif!',
             'amount.required'=>'Nominal harus diisi',
             'amount.min'=>'Nominal tidak boleh Negatif'
         ];

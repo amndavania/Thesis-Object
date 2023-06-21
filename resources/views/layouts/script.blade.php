@@ -93,4 +93,10 @@
     }
   </script>
 
+<script>
+    $(document).ready(function() {
+      $('#accounting_group_id').select2();
+    });
+</script>
+
 
