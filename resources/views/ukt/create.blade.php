@@ -14,11 +14,6 @@
                @csrf
           <div class="form-group">
                <label for="students_id">Mahasiswa</label>
-               {{-- <select class="form-control" id="students_id" name="students_id">
-                    @foreach ($student as $item)
-                         <option value="{{ $item->id }}">{{ $item->nim }} {{ $item->name }}</option>
-                    @endforeach
-               </select> --}}
                <select class="form-control selectpicker" name="students_id" id="students_id" data-live-search="true">
                 <option value="">Pilih Mahasiswa</option>
                 @foreach ($student as $student)

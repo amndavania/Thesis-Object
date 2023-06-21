@@ -1,4 +1,4 @@
-<!-- Main content -->
+{{-- <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -42,4 +42,4 @@
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </section>
-  <!-- /.content -->
+  <!-- /.content --> --}}

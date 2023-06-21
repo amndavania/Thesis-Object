@@ -32,17 +32,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'admin penerimaan',
-            'email' => 'adminpenerimaan@example.com',
+            'name' => 'admin keuangan',
+            'email' => 'adminkeuangan@example.com',
             'password'  => bcrypt('admin'),
-            'role' => 'admin penerimaan'
+            'role' => 'admin keuangan'
         ]);
-
         User::factory()->create([
-            'name' => 'admin pengeluaran',
-            'email' => 'adminpengeluaran@example.com',
+            'name' => 'admin keuangan 2',
+            'email' => 'adminkeuangan2@example.com',
             'password'  => bcrypt('admin'),
-            'role' => 'admin pengeluaran'
+            'role' => 'admin keuangan'
         ]);
 
         AccountingGroup::factory()->create(['name'=> 'grup akun pendapatan','description' => 'grup akun pendapatan']);
@@ -87,11 +86,11 @@ class DatabaseSeeder extends Seeder
         AccountingGroup::factory(10)->create();
         TransactionAccount::factory(28)->create();
         Transaction::factory(100)->create();
-        StudentType::factory(30)->create();
-        Report::factory(30)->create();
         Faculty::factory(30)->create();
         StudyProgram::factory(30)->create();
+        StudentType::factory(30)->create();
         Student::factory(250)->create();
+        Report::factory(30)->create();
         Ukt::factory(40)->create();
     }
 }
