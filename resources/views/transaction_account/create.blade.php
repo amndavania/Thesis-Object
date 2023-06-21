@@ -26,8 +26,8 @@
           </div>
           <div class="form-group">
             <label for="accounting_group_id">Grup</label>
-            {{-- <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple> --}}
-            <select class="form-control" id="accounting_group_id" name="accounting_group_id">
+            <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple>
+            {{-- <select class="form-control" id="accounting_group_id" name="accounting_group_id"> --}}
                 @foreach ($accounting_group as $item)
                      <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach

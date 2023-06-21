@@ -40,7 +40,17 @@ class TransactionAccountController extends Controller
      */
     public function store(TransactionAccountCreateRequest $request)
     {
-        TransactionAccount::create($request->all());
+        $transactionAccount = TransactionAccount::create($request->except('accounting_group_id'));
+
+        // Mengambil nilai accounting_group_id dari input form
+        $accountingGroupIds = $request->input('accounting_group_id', []);
+
+        // Menyimpan nilai accounting_group_id ke dalam relasi many-to-many
+        if (!empty($accountingGroupIds)) {
+            $transactionAccount->accountinggroup()->sync($accountingGroupIds);
+        }
+
+        // TransactionAccount::create($request->all());
         return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil Disimpan']);
     }
 
