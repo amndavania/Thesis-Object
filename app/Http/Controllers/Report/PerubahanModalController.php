@@ -65,15 +65,15 @@ class PerubahanModalController extends Controller
     public function getData($date)
     {
 
-        $modaldiAwal = TransactionAccount::where('accounting_group_id', 17)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penambahanModal = TransactionAccount::where('accounting_group_id', 18)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penguranganModal = TransactionAccount::where('accounting_group_id', 19)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $modaldiAwal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 17);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penambahanModal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 18);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penguranganModal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 19);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
         return [$modaldiAwal, $penambahanModal, $penguranganModal];
     }

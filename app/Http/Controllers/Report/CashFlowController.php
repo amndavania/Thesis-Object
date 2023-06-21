@@ -71,24 +71,24 @@ class CashFlowController extends Controller
     public function getData($date)
     {
 
-        $arusKasMasuk = TransactionAccount::where('accounting_group_id', 11)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $arusKasKeluar = TransactionAccount::where('accounting_group_id', 12)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penjualanAset = TransactionAccount::where('accounting_group_id', 13)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $pembelianAset = TransactionAccount::where('accounting_group_id', 14)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penambahanDana = TransactionAccount::where('accounting_group_id', 15)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penguranganDana = TransactionAccount::where('accounting_group_id', 16)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $arusKasMasuk = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 11);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $arusKasKeluar = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 12);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penjualanAset = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 13);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $pembelianAset = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 14);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penambahanDana = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 15);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penguranganDana = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 16);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
         return [$arusKasMasuk, $arusKasKeluar, $penjualanAset, $pembelianAset, $penambahanDana, $penguranganDana];
     }

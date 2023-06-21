@@ -24,7 +24,7 @@ class TransactionCreateRequest extends FormRequest
         return [
             'description'=>'required',
             'type'=>'required',
-            'reference_number'=>'numeric|min:0',
+            'reference_number'=>'nullable|numeric|min:0',
             'amount'=>'required|numeric|min:0',
             'transaction_accounts_id'=>'required',
         ];

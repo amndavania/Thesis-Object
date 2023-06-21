@@ -27,9 +27,11 @@
           </div>
           <div class="form-group">
             <label for="accounting_group_id">Grup</label>
-            <select class="form-control" id="accounting_group_id" name="accounting_group_id">
+            <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple>
                 @foreach ($accounting_group as $item)
-                <option value="{{ $item->id }}" {{ $transaction_account->accounting_group_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                <option value="{{ $item->id }}" {{ in_array($item->id, $transaction_account->accountinggroup->pluck('id')->toArray()) ? 'selected' : '' }}>
+                    {{ $item->name }}
+                </option>
                 @endforeach
            </select>
           </div>

@@ -69,21 +69,21 @@ class NeracaController extends Controller
     public function getData($date)
     {
 
-        $aktivaLancar = TransactionAccount::where('accounting_group_id', 6)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $aktivaTetap = TransactionAccount::where('accounting_group_id', 7)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $hutangLancar = TransactionAccount::where('accounting_group_id', 8)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $hutangJangkaPanjang = TransactionAccount::where('accounting_group_id', 9)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $modal = TransactionAccount::where('accounting_group_id', 10)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $aktivaLancar = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 6);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $aktivaTetap = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 7);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $hutangLancar = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 8);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $hutangJangkaPanjang = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 9);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $modal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 10);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
         return [$aktivaLancar, $aktivaTetap, $hutangLancar, $hutangJangkaPanjang, $modal];
     }

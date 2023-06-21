@@ -41,16 +41,12 @@ class TransactionAccountController extends Controller
     public function store(TransactionAccountCreateRequest $request)
     {
         $transactionAccount = TransactionAccount::create($request->except('accounting_group_id'));
-
-        // Mengambil nilai accounting_group_id dari input form
         $accountingGroupIds = $request->input('accounting_group_id', []);
 
-        // Menyimpan nilai accounting_group_id ke dalam relasi many-to-many
         if (!empty($accountingGroupIds)) {
             $transactionAccount->accountinggroup()->sync($accountingGroupIds);
         }
 
-        // TransactionAccount::create($request->all());
         return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil Disimpan']);
     }
 
@@ -77,12 +73,21 @@ class TransactionAccountController extends Controller
      * Update the specified resource in storage.
      */
     // controller
-    public function update(TransactionAccountUpdateRequest $request, string $id):RedirectResponse
+    public function update(TransactionAccountUpdateRequest $request, string $id): RedirectResponse
     {
-        $transaction_account = TransactionAccount::findOrFail($id);
-        $transaction_account->update($request->all());
+        $transactionAccount = TransactionAccount::findOrFail($id);
+        
+        $transactionAccount->update($request->except('accounting_group_id'));
+
+        $accountingGroupIds = $request->input('accounting_group_id', []);
+
+        if (!empty($accountingGroupIds)) {
+            $transactionAccount->accountinggroup()->sync($accountingGroupIds);
+        }
+
         return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil diupdate']);
     }
+
 
     /**
      * Remove the specified resource from storage.
