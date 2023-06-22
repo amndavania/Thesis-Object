@@ -19,12 +19,12 @@ class CashFlowController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.cashflow')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+            'arusKasMasuk' => $getData[0],
+            'arusKasKeluar' => $getData[1],
+            'penjualanAset' => $getData[2],
+            'pembelianAset' => $getData[3],
+            'penambahanDana' => $getData[4],
+            'penguranganDana' => $getData[5],
             'datepicker' => $getDate[1],
         ]);
     }
@@ -39,12 +39,12 @@ class CashFlowController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.printformat.cashflow')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+            'arusKasMasuk' => $getData[0],
+            'arusKasKeluar' => $getData[1],
+            'penjualanAset' => $getData[2],
+            'pembelianAset' => $getData[3],
+            'penambahanDana' => $getData[4],
+            'penguranganDana' => $getData[5],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Cash FLow"
@@ -71,24 +71,24 @@ class CashFlowController extends Controller
     public function getData($date)
     {
 
-        $arusKasMasuk = TransactionAccount::where('accounting_group_id', 1)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $arusKasKeluar = TransactionAccount::where('accounting_group_id', 2)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penjualanAset = TransactionAccount::where('accounting_group_id', 3)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $pembelianAset = TransactionAccount::where('accounting_group_id', 4)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penambahanDana = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penguranganDana = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $arusKasMasuk = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 11);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $arusKasKeluar = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 12);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penjualanAset = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 13);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $pembelianAset = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 14);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penambahanDana = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 15);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penguranganDana = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 16);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
         return [$arusKasMasuk, $arusKasKeluar, $penjualanAset, $pembelianAset, $penambahanDana, $penguranganDana];
     }

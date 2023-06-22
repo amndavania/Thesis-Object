@@ -19,8 +19,13 @@ class AccountingGroup extends Model
 
     protected $hidden = [];
 
-    public function transactionaccount(): HasMany
+    // public function transactionaccount(): HasMany
+    // {
+    //     return $this->hasMany(TransactionAccount::class);
+    // }
+
+    public function transactionaccount()
     {
-        return $this->hasMany(TransactionAccount::class);
+        return $this->belongsToMany(TransactionAccount::class, 'accounting_group_transaction_account', 'transaction_account_id', 'accounting_group_id');
     }
 }

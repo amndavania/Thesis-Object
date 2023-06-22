@@ -19,11 +19,11 @@ class LabaRugiController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.labarugi')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
+            'pendapatan' => $getData[0],
+            'pengeluaran' => $getData[1],
+            'penyusutanAmortisasi' => $getData[2],
+            'bungaPajak' => $getData[3],
+            'pendapatanPengeluaranLain' => $getData[4],
             'datepicker' => $getDate[1],
         ]);
     }
@@ -38,11 +38,11 @@ class LabaRugiController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.printformat.labarugi')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
+            'pendapatan' => $getData[0],
+            'pengeluaran' => $getData[1],
+            'penyusutanAmortisasi' => $getData[2],
+            'bungaPajak' => $getData[3],
+            'pendapatanPengeluaranLain' => $getData[4],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Laba Rugi"
@@ -66,21 +66,21 @@ class LabaRugiController extends Controller
     }
 
     public function getData($date){
-        $pendapatan = TransactionAccount::where('accounting_group_id', 1)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $pengeluaran = TransactionAccount::where('accounting_group_id', 2)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penyusutanAmortisasi = TransactionAccount::where('accounting_group_id', 3)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $bungaPajak = TransactionAccount::where('accounting_group_id', 4)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $pendapatanPengeluaranLain = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $pendapatan = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 1);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $pengeluaran = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 2);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penyusutanAmortisasi = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 3);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $bungaPajak = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 4);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $pendapatanPengeluaranLain = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 5);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
         return [$pendapatan, $pengeluaran, $penyusutanAmortisasi, $bungaPajak, $pendapatanPengeluaranLain];
     }

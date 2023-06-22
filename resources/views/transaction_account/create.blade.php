@@ -14,19 +14,20 @@
                @csrf
           <div class="form-group">
                <label for="id">ID Akun</label>
-               <input type="text" class="form-control" id="id" name="id" placeholder="ID Akun..." value="{{ old('id') }}">
+               <input type="text" class="form-control" id="id" name="id" placeholder="Masukkan ID akun" value="{{ old('id') }}">
           </div>
           <div class="form-group">
                <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama Akun..." value="{{ old('name') }}">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama akun" value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description') }}">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Masukkan deskripsi" value="{{ old('description') }}">
           </div>
           <div class="form-group">
             <label for="accounting_group_id">Grup</label>
-            <select class="form-control" id="accounting_group_id" name="accounting_group_id">
+            <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple>
+            {{-- <select class="form-control" id="accounting_group_id" name="accounting_group_id"> --}}
                 @foreach ($accounting_group as $item)
                      <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
@@ -35,6 +36,7 @@
           <input type="hidden" name="ammount_kredit" value="0">
           <input type="hidden" name="ammount_debit" value="0">
           <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('transaction_account.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

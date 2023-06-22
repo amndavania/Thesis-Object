@@ -41,7 +41,7 @@
                 @php
                 $totalModalAwal = 0;
                 @endphp
-                     @foreach ($dataA as $row)
+                     @foreach ($modaldiAwal as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -87,7 +87,7 @@
                 @php
                 $totalPenambahanModal = 0;
                 @endphp
-                     @foreach ($dataB as $row)
+                     @foreach ($penambahanModal as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>
@@ -132,7 +132,7 @@
                 @php
                 $totalPenguranganModal = 0;
                 @endphp
-                     @foreach ($dataC as $row)
+                     @foreach ($penguranganModal as $row)
                           <tr>
                                <td style="text-align: center;">{{ $row->id }}</td>
                                <td>{{ $row->name }}</td>

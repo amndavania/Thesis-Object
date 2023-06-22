@@ -18,6 +18,7 @@
                <input type="text" class="form-control" id="name" name="name" placeholder="Nama Fakultas..." value="{{ old('name', $faculty->name) }}">
           </div>
           <div class="d-flex justify-content-end">
+               <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('faculty.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

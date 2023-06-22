@@ -22,7 +22,7 @@ class TransactionAccountCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'=>'required|numeric|unique:transaction_accounts,id',
+            'id'=>'required|numeric|min:0|unique:transaction_accounts,id',
             'name'=>'required|unique:transaction_accounts,name',
             'accounting_group_id'=>'required',
         ];
@@ -34,6 +34,7 @@ class TransactionAccountCreateRequest extends FormRequest
             'id.required'=>'Id Akun harus diisi',
             'id.unique'=>'Id Akun sudah ada',
             'id.numeric'=>'Id Akun harus berupa angka',
+            'id.min'=>'Id tidak boleh Negatif!',
             'name.required'=>'Nama Akun harus diisi',
             'name.unique'=>'Nama Akun sudah ada',
             'accounting_group_id.required'=>'Grup Akun Transaksi harus diisi',

@@ -38,7 +38,7 @@
            @php
            $totalPendapatan = 0;
            @endphp
-                @foreach ($dataA as $row)
+                @foreach ($pendapatan as $row)
                      <tr>
                           <td style="text-align: center;">{{ $row->id }}</td>
                           <td>{{ $row->name }}</td>
@@ -83,7 +83,7 @@
            @php
            $totalPengeluaran = 0;
            @endphp
-                @foreach ($dataB as $row)
+                @foreach ($pengeluaran as $row)
                      <tr>
                           <td style="text-align: center;">{{ $row->id }}</td>
                           <td>{{ $row->name }}</td>
@@ -145,7 +145,7 @@
            @php
            $totalPenyusutan = 0;
            @endphp
-                @foreach ($dataC as $row)
+                @foreach ($penyusutanAmortisasi as $row)
                      <tr>
                           <td style="text-align: center;">{{ $row->id }}</td>
                           <td>{{ $row->name }}</td>
@@ -207,7 +207,7 @@
            @php
            $totalBungaPajak = 0;
            @endphp
-                @foreach ($dataD as $row)
+                @foreach ($bungaPajak as $row)
                      <tr>
                           <td style="text-align: center;">{{ $row->id }}</td>
                           <td>{{ $row->name }}</td>
@@ -269,7 +269,7 @@
            @php
            $totalPendapatanPengeluaranLain = 0;
            @endphp
-                @foreach ($dataE as $row)
+                @foreach ($pendapatanPengeluaranLain as $row)
                      <tr>
                           <td style="text-align: center;">{{ $row->id }}</td>
                           <td>{{ $row->name }}</td>

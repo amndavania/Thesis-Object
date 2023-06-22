@@ -15,11 +15,13 @@
   <!-- Theme style -->
   <link rel="stylesheet" href={{asset('vendor/dist/css/adminlte.min.css')}}>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/1.0.0-beta.1/select2-bootstrap.min.css">
+  <link rel="stylesheet" href={{asset('vendor/dist/css/select2.min.css')}}>
+
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/1.0.0-beta.1/select2-bootstrap.min.css"> --}}
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" /> --}}
 
 
 

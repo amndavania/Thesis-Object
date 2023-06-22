@@ -35,7 +35,7 @@
                               <th>{{ $row->id }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description ? $row->description : '-' }}</td>
-                              <td>{{ $row->accountinggroup->name}}</td>
+                              <td>{{ $row->accountinggroup->pluck('name')->implode(', ') }}</td>
                               <td>{{ 'Rp ' . number_format($row->ammount_debit, 2, ',', '.') }}</td>
                               <td>{{ 'Rp ' . number_format($row->ammount_kredit, 2, ',', '.') }}</td>
                               <td>
