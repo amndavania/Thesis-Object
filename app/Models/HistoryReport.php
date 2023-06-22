@@ -12,6 +12,13 @@ class HistoryReport extends Model
 
     protected $table = 'history_report';
 
+    protected $fillable = [
+        'transaction_accounts_id',
+        'type',
+        'kredit',
+        'debit'
+    ];
+
     public function transactionaccount(): BelongsTo
     {
         return $this->belongsTo(TransactionAccount::class,'transaction_accounts_id');
