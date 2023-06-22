@@ -44,53 +44,55 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin keuangan'
         ]);
 
-        AccountingGroup::factory()->create(['name'=> 'grup akun pendapatan','description' => 'grup akun pendapatan']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun pengeluaran','description' => 'grup akun pengeluaran']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun penyusutan/amortisasi','description' => 'grup akun penyusutan/amortisasi']);      
-        AccountingGroup::factory()->create(['name'=> 'grup akun bunga/pajak','description' => 'grup akun bunga/pajak']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun pendapatan atau pengeluaran lain2','description' => 'grup akun pendapatan atau pengeluaran lain2']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun aktiva lancar','description' => 'grup akun aktiva lancar']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun aktiva tetap','description' => 'grup akun aktiva tetap']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun hutang lancar','description' => 'grup akun hutang lancar']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun utang jangka panjang','description' => 'grup akun utang jangka panjang']);        
-        AccountingGroup::factory()->create(['name'=> 'grup akun modal','description' => 'grup akun modal']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun kas masuk','description' => 'grup akun kas masuk']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun kas keluar','description' => 'grup akun kas keluar']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun penjualan aset','description' => 'grup akun penjualan aset']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun pembelian aset','description' => 'grup akun pembelian aset']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun penambahan dana','description' => 'grup akun penambahan dana']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun pengurangan dana','description' => 'grup akun pengurangan dana']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun modal di awal','description' => 'grup akun modal di awal']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun penambahan modal','description' => 'grup akun penambahan modal']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun pengurangan modal','description' => 'grup akun pengurangan modal']);
-        AccountingGroup::factory()->create(['name'=> 'grup akun bank','description' => 'grup akun bank']);
+        AccountingGroup::factory()->create(['name'=> 'Pendapatan','description' => 'grup akun pendapatan']);
+        AccountingGroup::factory()->create(['name'=> 'Pengeluaran','description' => 'grup akun pengeluaran']);
+        AccountingGroup::factory()->create(['name'=> 'Penyusutan/Amortisasi','description' => 'grup akun penyusutan/amortisasi']);      
+        AccountingGroup::factory()->create(['name'=> 'Bunga/Pajak','description' => 'grup akun bunga/pajak']);
+        AccountingGroup::factory()->create(['name'=> 'Pendapatan atau Pengeluaran lain','description' => 'grup akun pendapatan atau pengeluaran lain2']);
+        AccountingGroup::factory()->create(['name'=> 'Aktiva Lancar','description' => 'grup akun aktiva lancar']);
+        AccountingGroup::factory()->create(['name'=> 'Aktiva Tetap','description' => 'grup akun aktiva tetap']);
+        AccountingGroup::factory()->create(['name'=> 'Hutang Lancar','description' => 'grup akun hutang lancar']);
+        AccountingGroup::factory()->create(['name'=> 'Utang Jangka Panjang','description' => 'grup akun utang jangka panjang']);        
+        AccountingGroup::factory()->create(['name'=> 'Modal','description' => 'grup akun modal']);
+        AccountingGroup::factory()->create(['name'=> 'Arus Kas Masuk','description' => 'grup akun kas masuk']);
+        AccountingGroup::factory()->create(['name'=> 'Arus Kas Keluar','description' => 'grup akun kas keluar']);
+        AccountingGroup::factory()->create(['name'=> 'Penjualan Aset','description' => 'grup akun penjualan aset']);
+        AccountingGroup::factory()->create(['name'=> 'Pembelian Aset','description' => 'grup akun pembelian aset']);
+        AccountingGroup::factory()->create(['name'=> 'Penambahan Dana','description' => 'grup akun penambahan dana']);
+        AccountingGroup::factory()->create(['name'=> 'Pengurangan Dana','description' => 'grup akun pengurangan dana']);
+        AccountingGroup::factory()->create(['name'=> 'Modal di Awal','description' => 'grup akun modal di awal']);
+        AccountingGroup::factory()->create(['name'=> 'Penambahan Modal','description' => 'grup akun penambahan modal']);
+        AccountingGroup::factory()->create(['name'=> 'Pengurangan Modal','description' => 'grup akun pengurangan modal']);
+        AccountingGroup::factory()->create(['name'=> 'Bank','description' => 'grup akun bank']);
         
         TransactionAccount::factory()->create([
-            'name'=> 'akun transaksi pendapatan',
+            'id' => 1120,
+            'name'=> 'Kas Operasional',
             'description' => 'pendapatan',
             'ammount_kredit' => 0,
             'ammount_debit' => 0,
-            'accounting_group_id' => 1,
+            'accounting_group_id' => 6,
         ]);
         TransactionAccount::factory()->create([
-            'name'=> 'akun transaksi bank',
+            'id' => 1130,
+            'name'=> 'Bank BRI Ibrahimy',
             'description' => 'bank',
             'ammount_kredit' => 0,
             'ammount_debit' => 0,
-            'accounting_group_id' => 20,
+            'accounting_group_id' => 6,
         ]);
 
 
 
-        User::factory(7)->create();
-        AccountingGroup::factory(10)->create();
-        TransactionAccount::factory(28)->create();
-        Transaction::factory(100)->create();
-        Faculty::factory(30)->create();
-        StudyProgram::factory(30)->create();
-        StudentType::factory(30)->create();
-        Student::factory(250)->create();
-        Report::factory(30)->create();
-        Ukt::factory(40)->create();
+        // User::factory(7)->create();
+        // AccountingGroup::factory(10)->create();
+        // TransactionAccount::factory(28)->create();
+        // Transaction::factory(100)->create();
+        // StudentType::factory(30)->create();
+        // Report::factory(30)->create();
+        // Faculty::factory(30)->create();
+        // StudyProgram::factory(30)->create();
+        // Student::factory(250)->create();
+        // Ukt::factory(40)->create();
     }
 }

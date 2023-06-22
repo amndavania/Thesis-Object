@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
                <label for="force">Tahun Masuk</label>
-               <input type="text" class="form-control" id="name" name="force" placeholder="Angkatan..." value="{{ old('force', $student->force) }}">
+               <input type="number" class="form-control" id="name" name="force" placeholder="Angkatan..." value="{{ old('force', $student->force) }}">
           </div>
           <div class="form-group">
           <label for="study_program_id">Program Studi</label>
@@ -42,8 +42,10 @@
           </select>
           </div>
           <div class="d-flex justify-content-end">
-               <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('student.index') }}'">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
+          
           </form>
      </div>
     </div>

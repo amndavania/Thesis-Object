@@ -19,12 +19,9 @@ class PerubahanModalController extends Controller
         $getData = $this->getData($getDate[0]);
 
         return view('report.perubahanmodal')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+            'modaldiAwal' => $getData[0],
+            'penambahanModal' => $getData[1],
+            'penguranganModal' => $getData[2],
             'datepicker' => $getDate[1],
         ]);
     }
@@ -38,13 +35,10 @@ class PerubahanModalController extends Controller
         $getDate = $this->getDate($date);
         $getData = $this->getData($getDate[0]);
 
-        return view('report.printformat.cashflow')->with([
-            'dataA' => $getData[0],
-            'dataB' => $getData[1],
-            'dataC' => $getData[2],
-            'dataD' => $getData[3],
-            'dataE' => $getData[4],
-            'dataF' => $getData[5],
+        return view('report.printformat.perubahanmodal')->with([
+            'modaldiAwal' => $getData[0],
+            'penambahanModal' => $getData[1],
+            'penguranganModal' => $getData[2],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Perubahan Modal"
@@ -71,25 +65,16 @@ class PerubahanModalController extends Controller
     public function getData($date)
     {
 
-        $arusKasMasuk = TransactionAccount::where('accounting_group_id', 1)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $arusKasKeluar = TransactionAccount::where('accounting_group_id', 2)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penjualanAset = TransactionAccount::where('accounting_group_id', 3)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $pembelianAset = TransactionAccount::where('accounting_group_id', 4)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penambahanDana = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
-        $penguranganDana = TransactionAccount::where('accounting_group_id', 5)
-            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
-            ->get();
+        $modaldiAwal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 17);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penambahanModal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 18);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+        $penguranganModal = TransactionAccount::whereHas('accountinggroup', function ($query) {
+            $query->where('id', 19);
+        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
 
-        return [$arusKasMasuk, $arusKasKeluar, $penjualanAset, $pembelianAset, $penambahanDana, $penguranganDana];
+        return [$modaldiAwal, $penambahanModal, $penguranganModal];
     }
 }

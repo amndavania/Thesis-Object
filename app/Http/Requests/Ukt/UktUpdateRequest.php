@@ -23,7 +23,7 @@ class UktUpdateRequest extends FormRequest
     {
         return [
             'semester'=>'required|numeric',
-            'amount'=>'required',
+            'amount'=>'required|numeric|min:0',
         ];
     }
 
@@ -33,6 +33,7 @@ class UktUpdateRequest extends FormRequest
             'semester.required'=>'Semester harus diisi',
             'semester.numeric'=>'Semester harus berupa angka',
             'amount.required'=>'Jumlah harus diisi',
+            'amount.min'=>'Jumlah tidak boleh Negatif!',
         ];
     }
 }

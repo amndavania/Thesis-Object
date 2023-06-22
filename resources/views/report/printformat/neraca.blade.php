@@ -42,7 +42,7 @@
             @php
             $totalAktivaLancar = 0;
             @endphp
-                 @foreach ($dataA as $row)
+                 @foreach ($aktivaLancar as $row)
                       <tr>
                            <td style="text-align: center;">{{ $row->id }}</td>
                            <td>{{ $row->name }}</td>
@@ -72,7 +72,7 @@
             @php
             $totalAktivaTetap = 0;
             @endphp
-                 @foreach ($dataB as $row)
+                 @foreach ($aktivaTetap as $row)
                       <tr>
                            <td style="text-align: center;">{{ $row->id }}</td>
                            <td>{{ $row->name }}</td>
@@ -126,7 +126,7 @@
             @php
             $totalHutangLancar = 0;
             @endphp
-                 @foreach ($dataC as $row)
+                 @foreach ($hutangLancar as $row)
                       <tr>
                            <td style="text-align: center;">{{ $row->id }}</td>
                            <td>{{ $row->name }}</td>
@@ -156,7 +156,7 @@
             @php
             $totalHutangJangkaPanjang = 0;
             @endphp
-                 @foreach ($dataD as $row)
+                 @foreach ($hutangJangkaPanjang as $row)
                       <tr>
                            <td style="text-align: center;">{{ $row->id }}</td>
                            <td>{{ $row->name }}</td>
@@ -204,7 +204,7 @@
             @php
             $totalModal = 0;
             @endphp
-                 @foreach ($dataE as $row)
+                 @foreach ($modal as $row)
                       <tr>
                            <td style="text-align: center;">{{ $row->id }}</td>
                            <td>{{ $row->name }}</td>

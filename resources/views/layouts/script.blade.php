@@ -87,4 +87,16 @@
   }
 </script>
 
+<script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+<script>
+    $(document).ready(function() {
+      $('#accounting_group_id').select2();
+    });
+</script>
+
 

@@ -37,6 +37,7 @@
         <input type="text" class="form-control" id="transaction_accounts_id" name="transaction_accounts_id" placeholder="{{ $transaction->transactionaccount->name }}" readonly>
       </div>
           <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('transaction.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

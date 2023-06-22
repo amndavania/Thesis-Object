@@ -89,7 +89,7 @@ class StudentController extends Controller
             $student->delete();
             return redirect()->route('student.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
-            return redirect()->route('student.index')->with(['warning' => 'Mahasiswa masih terhubung dengan UKT Mahasiswa']);
+            return redirect()->route('student.index')->with(['warning' => 'Mahasiswa masih terhubung dengan Pembayaran Mahasiswa']);
         }
     }
 }

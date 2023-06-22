@@ -102,10 +102,11 @@ Route::middleware('auth')->group(function () {
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
 
+        Route::get('examcard/show', [ExamCardController::class, 'show']);
+
         Route::resource('pengguna', PenggunaController::class)->except((['show','update','edit']));
 
-        Route::get('register', [RegisteredUserController::class, 'create'])
-                    ->name('register');
+        Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 
         Route::post('register', [RegisteredUserController::class, 'store']);
 
