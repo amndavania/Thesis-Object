@@ -102,9 +102,6 @@
               <a href="{{ route('password.request') }}">{{ __('Lupa Password?') }}</a>
             </p>
             @endif
-            <p class="mb-0">
-              <a href="{{ route('register') }}" class="text-center">{{ __('Daftar') }}</a>
-            </p>
           </div>
           <!-- /.card-body -->
         </div>

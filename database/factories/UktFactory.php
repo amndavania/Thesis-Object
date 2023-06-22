@@ -20,10 +20,12 @@ class UktFactory extends Factory
             'reference_number'=>fake()->randomNumber(5, true),
             'amount'=>fake()->numberBetween(100000, 1000000),
             'total'=>fake()->numberBetween(100000, 1000000),
-            'status'=>fake()->word(),
-            'transaction_accounts_id'=>mt_rand(1,10),
+            'status'=>fake()->randomElement(['Lunas','Belum Lunas']),
+            'transaction_debit_id'=>mt_rand(1,10),
+            'transaction_kredit_id'=>mt_rand(1,10),
             'students_id'=>mt_rand(1,10),
             'semester'=>fake()->randomDigitNotNull(),
+            'type'=>fake()->randomElement(['UKT','DPP','WISUDA'])
         ];
     }
 }

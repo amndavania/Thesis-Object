@@ -32,17 +32,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'admin penerimaan',
-            'email' => 'adminpenerimaan@example.com',
+            'name' => 'admin keuangan',
+            'email' => 'adminkeuangan@example.com',
             'password'  => bcrypt('admin'),
-            'role' => 'admin penerimaan'
+            'role' => 'admin keuangan'
         ]);
-
         User::factory()->create([
-            'name' => 'admin pengeluaran',
-            'email' => 'adminpengeluaran@example.com',
+            'name' => 'admin keuangan 2',
+            'email' => 'adminkeuangan2@example.com',
             'password'  => bcrypt('admin'),
-            'role' => 'admin pengeluaran'
+            'role' => 'admin keuangan'
         ]);
 
         AccountingGroup::factory()->create(['name'=> 'Pendapatan','description' => 'grup akun pendapatan']);

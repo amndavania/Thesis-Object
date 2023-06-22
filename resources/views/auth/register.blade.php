@@ -55,10 +55,13 @@
     <div class="register-box">
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
-            <a href="index2.html" class="h1"><b>Admin</b>LTE</a>
+            {{-- <a href="index2.html" class="h1"><b>Admin</b>LTE</a> --}}
+             <div class="text-center">
+              <img src='../../img/logo.webp' class="rounded shadow" alt="IAI IBRAHIMY" style="max-height: 150px;">
+            </div>
           </div>
           <div class="card-body">
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Membuat pengguna baru</p>
             <form method="POST" action="{{ route('register') }}" novalidate>
               @csrf
               <div class="input-group mb-3">
@@ -70,6 +73,13 @@
                 <x-text-input id="email" placeholder="Email" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-icon-input icon="fas fa-envelope"/>
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
+              </div>
+              <div class="input-group mb-3">
+               <select class="form-control" id="role" name="role">
+                  <option>Role</option>
+                  <option value="super admin">Super Admin</option>
+                  <option value="admin keuangan">Admin Keuangan</option>
+               </select>
               </div>
               <div class="input-group mb-3">
                 <x-text-input id="password" placeholder="Password" type="password" name="password" required autocomplete="new-password" />
@@ -86,21 +96,21 @@
                   <div class="icheck-primary">
                     <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                     <label for="agreeTerms">
-                    I agree to the <a href="#">terms</a>
+                    Yakin ingin membuat akun ini?
                     </label>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
                   <x-primary-button>
-                    {{ __('Register') }}
+                    {{ __('Daftar') }}
                 </x-primary-button>
                 </div>
                 <!-- /.col -->
               </div>
             </form>
             <a class="text-center" href="{{ route('login') }}">
-              {{ __('I already have a membership') }}
+              {{ __('Kembali ke Dashboard') }}
           </a>
           </div>
           <!-- /.form-box -->

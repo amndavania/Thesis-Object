@@ -22,7 +22,7 @@
           </li>
           @endif
 
-          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin penerimaan')
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin keuangan')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
@@ -139,12 +139,9 @@
               </li>
             </ul>
           </li>
-        @endif
-
-        {{-- menu sub--}}
-        <li class="nav-item has-treeview menu-closed">
+          <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-graduate"></i>
+              <i class="nav-icon fas fa-school"></i>
               <p>
                 Kemahasiswaan
                 <i class="right fas fa-angle-left"></i>
@@ -181,19 +178,31 @@
         {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-user-graduate"></i>
               <p>
                 Dasbor Mahasiswa
               </p>
             </a>
           </li>
+        {{-- menu --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ route('pengguna.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Pengguna
+              </p>
+            </a>
+          </li>
+        @endif
 
+        {{-- menu sub--}}
+        
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('profile.edit') }}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Pengguna
+                Profile
               </p>
             </a>
           </li>
