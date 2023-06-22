@@ -26,6 +26,7 @@
                <input type="text" class="form-control" name="description" id="description" placeholder="Deskripsi..." value="{{ old('description', $accounting_group->description) }}">
           </div>
           <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('accounting_group.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

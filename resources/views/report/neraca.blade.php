@@ -23,238 +23,238 @@
                     </tr>
                </thead>
                <tbody>
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                         <strong>AKTIVA</strong>
-                    </td>
-                </tr>
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                         <strong>Aktiva Lancar</strong>
-                    </td>
-                </tr>
-               @php
-               $totalAktivaLancar = 0;
-               @endphp
-                    @foreach ($dataA as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              @php
-                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
-                              @endphp
-                              <td>
-                                @if ($saldo < 0)
-                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                @elseif ($saldo > 0)
-                                    Rp {{ number_format($saldo, 2, ',', '.') }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                         </tr>
-                         @php
-                         $totalAktivaLancar += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                    <strong>Aktiva Tetap</strong>
-                    </td>
-                </tr>
-               @php
-               $totalAktivaTetap = 0;
-               @endphp
-                    @foreach ($dataB as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              @php
-                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
-                              @endphp
-                              <td>
-                                @if ($saldo < 0)
-                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                @elseif ($saldo > 0)
-                                    Rp {{ number_format($saldo, 2, ',', '.') }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                         </tr>
-                         @php
-                         $totalAktivaTetap += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                <td></td>
-                    <td colspan="1">
-                         <strong>TOTAL AKTIVA</strong>
-                    </td>
-                    @php
-                        $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
-                    @endphp
-                    <td>
-                        @if ($totalAktiva < 0)
-                            (Rp {{ number_format(abs($totalAktiva), 2, ',', '.') }})
-                        @elseif ($totalAktiva > 0)
-                            Rp {{ number_format($totalAktiva, 2, ',', '.') }}
-                        @else
-                            -
-                        @endif
-                    </td>
-                </tr>
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                    <strong>PASIVA</strong>
-                    </td>
-                </tr>
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                    <strong>Hutang Lancar</strong>
-                    </td>
-                </tr>
-               @php
-               $totalHutangLancar = 0;
-               @endphp
-                    @foreach ($dataC as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              @php
-                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
-                              @endphp
-                              <td>
-                                @if ($saldo < 0)
-                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                @elseif ($saldo > 0)
-                                    Rp {{ number_format($saldo, 2, ',', '.') }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                         </tr>
-                         @php
-                         $totalHutangLancar += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                    <strong>Hutang Jangka Panjang</strong>
-                    </td>
-                </tr>
-               @php
-               $totalHutangJangkaPanjang = 0;
-               @endphp
-                    @foreach ($dataD as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              @php
-                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
-                              @endphp
-                              <td>
-                                @if ($saldo < 0)
-                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                @elseif ($saldo > 0)
-                                    Rp {{ number_format($saldo, 2, ',', '.') }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                         </tr>
-                         @php
-                         $totalHutangJangkaPanjang += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                <td></td>
-                    <td colspan="1">
-                         <strong>Total Hutang</strong>
-                    </td>
-                    @php
-                        $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang;
-                    @endphp
-                    <td>
-                        @if ($totalHutang < 0)
-                            (Rp {{ number_format(abs($totalHutang), 2, ',', '.') }})
-                        @elseif ($totalHutang > 0)
-                            Rp {{ number_format($totalHutang, 2, ',', '.') }}
-                        @else
-                            -
-                        @endif
-                    </td>
-                </tr>
-               <tr>
-                <td></td>
-                    <td colspan="2">
-                    <strong>Modal</strong>
-                    </td>
-                </tr>
-               @php
-               $totalModal = 0;
-               @endphp
-                    @foreach ($dataE as $row)
-                         <tr>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              @php
-                                  $saldo = $row->ammount_debit - $row->ammount_kredit;
-                              @endphp
-                              <td>
-                                @if ($saldo < 0)
-                                    (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                @elseif ($saldo > 0)
-                                    Rp {{ number_format($saldo, 2, ',', '.') }}
-                                @else
-                                    -
-                                @endif
-                            </td>
-                         </tr>
-                         @php
-                         $totalModal += $row->ammount_debit - $row->ammount_kredit;
-                         @endphp
-                    @endforeach
-               <tr>
-                <td></td>
-                    <td colspan="1">
-                         <strong>Total Modal</strong>
-                    </td>
-                    <td>
-                        @if ($totalModal < 0)
-                            (Rp {{ number_format(abs($totalModal), 2, ',', '.') }})
-                        @elseif ($totalModal > 0)
-                            Rp {{ number_format($totalModal, 2, ',', '.') }}
-                        @else
-                            -
-                        @endif
-                    </td>
-                </tr>
                 <tr>
-                    <td></td>
-                        <td colspan="1">
-                             <strong>TOTAL PASIVA</strong>
-                        </td>
-                        @php
-                            $totalPasiva = $totalHutang + $totalModal;
-                        @endphp
-                        <td>
-                            @if ($totalPasiva < 0)
-                                (Rp {{ number_format(abs($totalPasiva), 2, ',', '.') }})
-                            @elseif ($totalPasiva > 0)
-                                Rp {{ number_format($totalPasiva, 2, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
+                 <td></td>
+                     <td colspan="2">
+                          <strong>AKTIVA</strong>
+                     </td>
+                 </tr>
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                          <strong>Aktiva Lancar</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalAktivaLancar = 0;
+                @endphp
+                     @foreach ($aktivaLancar as $row)
+                          <tr>
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
+                                 @else
+                                     -
+                                 @endif
+                             </td>
+                          </tr>
+                          @php
+                          $totalAktivaLancar += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>Aktiva Tetap</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalAktivaTetap = 0;
+                @endphp
+                     @foreach ($aktivaTetap as $row)
+                          <tr>
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
+                                 @else
+                                     -
+                                 @endif
+                             </td>
+                          </tr>
+                          @php
+                          $totalAktivaTetap += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                 <td></td>
+                     <td colspan="1">
+                          <strong>TOTAL AKTIVA</strong>
+                     </td>
+                     @php
+                         $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
+                     @endphp
+                     <td style="text-align: right; @if ($totalAktiva < 0) color: red; @endif">
+                         @if ($totalAktiva < 0)
+                             (Rp {{ number_format(abs($totalAktiva), 2, ',', '.') }})
+                         @elseif ($totalAktiva > 0)
+                             Rp {{ number_format($totalAktiva, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>PASIVA</strong>
+                     </td>
+                 </tr>
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>Hutang Lancar</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalHutangLancar = 0;
+                @endphp
+                     @foreach ($hutangLancar as $row)
+                          <tr>
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
+                                 @else
+                                     -
+                                 @endif
+                             </td>
+                          </tr>
+                          @php
+                          $totalHutangLancar += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>Hutang Jangka Panjang</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalHutangJangkaPanjang = 0;
+                @endphp
+                     @foreach ($hutangJangkaPanjang as $row)
+                          <tr>
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
+                                 @else
+                                     -
+                                 @endif
+                             </td>
+                          </tr>
+                          @php
+                          $totalHutangJangkaPanjang += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                 <td></td>
+                     <td colspan="1">
+                          <strong>Total Hutang</strong>
+                     </td>
+                     @php
+                         $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang;
+                     @endphp
+                     <td style="text-align: right; @if ($totalHutang < 0) color: red; @endif">
+                         @if ($totalHutang < 0)
+                             (Rp {{ number_format(abs($totalHutang), 2, ',', '.') }})
+                         @elseif ($totalHutang > 0)
+                             Rp {{ number_format($totalHutang, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                <tr>
+                 <td></td>
+                     <td colspan="2">
+                     <strong>Modal</strong>
+                     </td>
+                 </tr>
+                @php
+                $totalModal = 0;
+                @endphp
+                     @foreach ($modal as $row)
+                          <tr>
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
+                                 @else
+                                     -
+                                 @endif
+                             </td>
+                          </tr>
+                          @php
+                          $totalModal += $row->ammount_debit - $row->ammount_kredit;
+                          @endphp
+                     @endforeach
+                <tr>
+                 <td></td>
+                     <td colspan="1">
+                          <strong>Total Modal</strong>
+                     </td>
+                     <td style="text-align: right; @if ($totalModal < 0) color: red; @endif">
+                         @if ($totalModal < 0)
+                             (Rp {{ number_format(abs($totalModal), 2, ',', '.') }})
+                         @elseif ($totalModal > 0)
+                             Rp {{ number_format($totalModal, 2, ',', '.') }}
+                         @else
+                             -
+                         @endif
+                     </td>
+                 </tr>
+                 <tr>
+                     <td></td>
+                         <td colspan="1">
+                              <strong>TOTAL PASIVA</strong>
+                         </td>
+                         @php
+                             $totalPasiva = $totalHutang + $totalModal;
+                         @endphp
+                         <td style="text-align: right; @if ($totalPasiva < 0) color: red; @endif">
+                             @if ($totalPasiva < 0)
+                                 (Rp {{ number_format(abs($totalPasiva), 2, ',', '.') }})
+                             @elseif ($totalPasiva > 0)
+                                 Rp {{ number_format($totalPasiva, 2, ',', '.') }}
+                             @else
+                                 -
+                             @endif
+                         </td>
+                     </tr>
+                 </tbody>
           </table>
      </div>
     </div>

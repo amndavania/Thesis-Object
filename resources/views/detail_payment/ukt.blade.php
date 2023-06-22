@@ -47,7 +47,7 @@
                               <td>{{ $row->keterangan }}</td>
                               @if ($row->keterangan == 'Menunggu Dispensasi UTS' || $row->keterangan == 'Menunggu Dispensasi UAS')
                                     <td>
-                                        <button type="button" onclick="updateData('{{ $row->id }}', '{{ $row->keterangan }}', '{{ $student_id }}')" class="btn btn-sm btn-outline-danger">Dispensasi</button>
+                                        <button type="button" onclick="updateData('{{ $row->id }}', '{{ $row->keterangan }}', '{{ $choice->id }}')" class="btn btn-sm btn-outline-danger">Dispensasi</button>
                                     </td>
                                 @else
                                 <td></td>

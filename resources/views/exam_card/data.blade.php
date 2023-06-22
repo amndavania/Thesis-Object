@@ -6,9 +6,9 @@
      <div class="card-header">
           <div class="d-flex">
             @include('message.flash-message')
-               <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('ukt/create') }}'">
+               {{-- <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('ukt/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
-               </button>
+               </button> --}}
           </div>
      </div>
      <div class="card-body">
@@ -36,7 +36,7 @@
                               <td>{{ $row->year }}</td>
                               <td>
                                    <div class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Cetak</button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('examcard/show') }}?id={{ $row->id }}'" >Cetak</button>
                                    </div>
                               </td>
                          </tr>

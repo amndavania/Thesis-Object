@@ -25,9 +25,9 @@ class TransactionAccount extends Model
 
     protected $hidden = [];
 
-    public function accountinggroup(): BelongsTo
+    public function accountinggroup()
     {
-        return $this->belongsTo(AccountingGroup::class, 'accounting_group_id');
+        return $this->belongsToMany(AccountingGroup::class, 'accounting_group_transaction_account', 'transaction_account_id', 'accounting_group_id');
     }
 
     public function transaction(): HasMany
@@ -38,5 +38,10 @@ class TransactionAccount extends Model
     public function Ukt(): HasMany
     {
         return $this->hasMany(Ukt::class);
+    }
+
+    public function historyreport(): HasMany
+    {
+        return $this->hasMany(HistoryReport::class);
     }
 }

@@ -50,6 +50,7 @@
                <input type="number" class="form-control" id="wisuda" name="wisuda" placeholder="Biaya Wisuda..."  value="{{ old('wisuda', $student_type->wisuda) }}">
           </div>
           <div class="d-flex justify-content-end">
+               <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('student_type.index') }}'">Batal</button>
                <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           </form>

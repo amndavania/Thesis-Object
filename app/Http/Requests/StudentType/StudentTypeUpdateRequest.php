@@ -25,8 +25,12 @@ class StudentTypeUpdateRequest extends FormRequest
 
         return [
             'type'=>'required|unique:student_types,type,'.$student_type_id,
-            'year'=>'required',
-            'study_program_id'=>'required'
+            'year'=>'required|numeric|min:0',
+            'study_program_id'=>'required',
+            'dpp'=>'numeric|min:0',
+            'krs'=>'numeric|min:0',
+            'uts'=>'numeric|min:0',
+            'uas'=>'numeric|min:0'
         ];
     }
 
@@ -36,7 +40,16 @@ class StudentTypeUpdateRequest extends FormRequest
             'type.required'=>'Nama beasiswa harus diisi',
             'type.unique'=>'Nama beasiswa sudah ada',
             'year.required'=>'Tahun masuk harus diisi',
-            'study_program_id'=>'Program Studi harus diisi'
+            'year.min'=>'Tahun masuk tidak boleh Negatif!',
+            'study_program_id'=>'Program Studi harus diisi',
+            'dpp.numeric'=>'DPP harus berupa angka',
+            'dpp.min'=>'DPP tidak boleh Negatif!',
+            'krs.numeric'=>'KRS harus berupa angka',
+            'krs.min'=>'KRS tidak boleh Negatif!',
+            'uts.numeric'=>'UTS harus berupa angka',
+            'uts.min'=>'UTS tidak boleh Negatif!',
+            'uas.numeric'=>'UAS harus berupa angka',
+            'uas.min'=>'UAS tidak boleh Negatif!',
         ];
     }
 }

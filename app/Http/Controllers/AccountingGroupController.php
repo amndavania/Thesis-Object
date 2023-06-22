@@ -52,37 +52,37 @@ class AccountingGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id):View
-    {
-        //
-        $accounting_group = AccountingGroup::findOrFail($id);
-        return view('accounting_group.edit',compact('accounting_group'));
-    }
+    // public function edit(string $id):View
+    // {
+    //     //
+    //     $accounting_group = AccountingGroup::findOrFail($id);
+    //     return view('accounting_group.edit',compact('accounting_group'));
+    // }
 
     /**
      * Update the specified resource in storage.
      */
     // controller
-    public function update(AccountingGroupUpdateRequest $request, string $id):RedirectResponse
-    {
-        $accounting_group = AccountingGroup::findOrFail($id);
-        $accounting_group->update($request->all());
-        return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil diupdate']);
-    }
+    // public function update(AccountingGroupUpdateRequest $request, string $id):RedirectResponse
+    // {
+    //     $accounting_group = AccountingGroup::findOrFail($id);
+    //     $accounting_group->update($request->all());
+    //     return redirect()->route('accounting_group.index')->with(['success' => 'Data berhasil diupdate']);
+    // }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id):RedirectResponse
-    {
-        $transaction_account = TransactionAccount::where('accounting_group_id', $id)->exists();
+    // public function destroy($id):RedirectResponse
+    // {
+    //     $transaction_account = TransactionAccount::where('accounting_group_id', $id)->exists();
 
-        if (!$transaction_account) {
-            $accounting_group = AccountingGroup::findOrFail($id);
-            $accounting_group->delete();
-            return redirect()->route('accounting_group.index')->with(['success' => 'Data telah dihapus']);
-        } else {
-            return redirect()->route('accounting_group.index')->with(['warning' => 'Grup Akun Transaksi sedang dipakai di Akun Transaksi']);
-        }
-    }
+    //     if (!$transaction_account) {
+    //         $accounting_group = AccountingGroup::findOrFail($id);
+    //         $accounting_group->delete();
+    //         return redirect()->route('accounting_group.index')->with(['success' => 'Data telah dihapus']);
+    //     } else {
+    //         return redirect()->route('accounting_group.index')->with(['warning' => 'Grup Akun Transaksi sedang dipakai di Akun Transaksi']);
+    //     }
+    // }
 }

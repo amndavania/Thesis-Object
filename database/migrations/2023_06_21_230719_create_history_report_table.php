@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaction_accounts', function (Blueprint $table) {
+        Schema::create('history_report', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->decimal('ammount_kredit', 14, 2);
-            $table->decimal('ammount_debit', 14, 2);
-            // $table->foreignId('accounting_group_id')->constrained();
+            $table->foreignId('transaction_accounts_id')->constrained();
+            $table->enum('type', ['annual', 'monthly']);
+            $table->decimal('kredit', 14, 2);
+            $table->decimal('debit', 14, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_accounts');
+        Schema::dropIfExists('history_report');
     }
 };
