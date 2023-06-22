@@ -1,4 +1,7 @@
-{{-- <x-guest-layout>
+<x-guest-layout>
+  <div class="text-center mt-4">
+        <img src='../../img/logo.webp' class="rounded shadow" alt="IAI IBRAHIMY" style="max-height: 200px;">
+      </div>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,16 +39,20 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout> --}}
+</x-guest-layout>
 
+{{-- adminLTE --}}
+{{-- <x-guest-layout>
 <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Admin</b>LTE</a>
+      <div class="text-center">
+        <img src='../../img/logo.webp' class="rounded shadow" alt="IAI IBRAHIMY" style="max-height: 200px;">
+      </div>
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+        <p class="login-box-msg">Anda hanya selangkah lagi dari kata sandi baru Anda, pulihkan kata sandi Anda sekarang.</p>
   
         <form method="POST" action="{{ route('password.store') }}">
             @csrf
@@ -64,7 +71,7 @@
           <div class="row">
             <div class="col-12">
                 <x-primary-button>
-                    {{ __('Change password') }}
+                    {{ __('Ubah password') }}
                 </x-primary-button>
             </div>
             <!-- /.col -->
@@ -72,9 +79,11 @@
         </form>
   
         <p class="mt-3 mb-1">
-            <a href="{{ route('login') }}">{{ __('Login') }}</a>
+            <a href="{{ route('login') }}">{{ __('Masuk') }}</a>
         </p>
       </div>
       <!-- /.login-card-body -->
     </div>
-  </div>
+</div>
+
+  </x-guest-layout> --}}

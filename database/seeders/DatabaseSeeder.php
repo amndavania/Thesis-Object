@@ -38,10 +38,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin keuangan'
         ]);
         User::factory()->create([
-            'name' => 'admin keuangan 2',
-            'email' => 'adminkeuangan2@example.com',
+            'name' => 'zidny',
+            'email' => 'azzidti34@gmail.com',
             'password'  => bcrypt('admin'),
-            'role' => 'admin keuangan'
+            'role' => 'super admin'
         ]);
 
         AccountingGroup::factory()->create(['name'=> 'grup akun pendapatan','description' => 'grup akun pendapatan']);
