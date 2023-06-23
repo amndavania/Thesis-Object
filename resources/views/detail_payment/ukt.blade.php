@@ -17,11 +17,17 @@
 
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
               </form>
-            <button onclick="window.open('{{ url('uktdetail/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
-          </div>
+              @if (!empty($choice))
+              <button onclick="window.open('{{ url('uktdetail/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+              @endif
+            </div>
      </div>
      <div class="card-body">
+        @if (!empty($choice))
         <h5>Mahasiswa: {{ $choice->nim . ' | ' . $choice->name }}</h5>
+        @else
+        <h5>Mahasiswa: -</h5>
+        @endif
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

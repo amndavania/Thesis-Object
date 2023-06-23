@@ -19,9 +19,11 @@
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
               </form>
 
+              @if (!empty($account))
               <button onclick="window.open('{{ url('bukubesar/export') }}?search_account={{ $account->id }}&datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
                 <i class="fas fa-print"></i> Export PDF
             </button>
+              @endif
           </div>
      </div>
          <div class="card-body">

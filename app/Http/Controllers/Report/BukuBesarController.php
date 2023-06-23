@@ -63,19 +63,25 @@ class BukuBesarController extends Controller
     public function getData($search_account, $datepicker)
     {
         $account = TransactionAccount::first();
-        if (empty($search_account) && empty($datepicker)) {
-            $search_account = $account->id;
+        if (!empty($account)) {
+            if (empty($search_account) && empty($datepicker)) {
+                $search_account = $account->id;
+                $date = date('Y-m');
+            }elseif(empty($search_account)) {
+                $search_account = $account->id;
+                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+                $date = $parsedDate->format('Y-m');
+            }elseif(empty($datepicker)) {
+                $date = date('Y-m');
+            }else{
+                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+                $date = $parsedDate->format('Y-m');
+            }
+        } else {
+            $search_account = 0;
             $date = date('Y-m');
-        }elseif(empty($search_account)) {
-            $search_account = $account->id;
-            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-            $date = $parsedDate->format('Y-m');
-        }elseif(empty($datepicker)) {
-            $date = date('Y-m');
-        }else{
-            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-            $date = $parsedDate->format('Y-m');
         }
+        
 
         $dateTime = new DateTime($date);
         $formattedDate = $dateTime->format('F Y');
