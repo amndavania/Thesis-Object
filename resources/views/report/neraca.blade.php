@@ -9,7 +9,9 @@
                     <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
-                <button onclick="window.open('{{ url('neraca/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button>
+                <button onclick="window.open('{{ url('neraca/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
+                    <i class="fas fa-print"></i> Export PDF
+                </button>
             </div>
        </div>
          <div class="card-body">

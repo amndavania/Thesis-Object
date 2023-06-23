@@ -47,7 +47,7 @@
     
                 <div class="card">
                   <div class="card-header border-0">
-                    <h3 class="card-title">Products</h3>
+                    <h3 class="card-title">Pembayaran Mahasiswa</h3>
                     <div class="card-tools">
                       <a href="#" class="btn btn-tool btn-sm">
                         <i class="fas fa-download"></i>
@@ -61,10 +61,10 @@
                     <table class="table table-striped table-valign-middle">
                       <thead>
                       <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Sales</th>
-                        <th>More</th>
+                        <th>Mahasiswa</th>
+                        <th>Jenis</th>
+                        <th>Nominal</th>
+                        <th>Status</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -194,7 +194,7 @@
     
                 <div class="card">
                   <div class="card-header border-0">
-                    <h3 class="card-title">Online Store Overview</h3>
+                    <h3 class="card-title">Transaksi Terbaru</h3>
                     <div class="card-tools">
                       <a href="#" class="btn btn-sm btn-tool">
                         <i class="fas fa-download"></i>

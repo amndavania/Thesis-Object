@@ -44,7 +44,7 @@ class StudentUpdateRequest extends FormRequest
             'force.numeric'=>'Tahun masuk harus berupa angka',
             'force.min'=>'Tahun masuk tidak boleh Negatif!',
             'study_program_id.required'=>'Program Studi harus diisi',
-            'student_types_id.required'=>'Jenis Beasiswa harus diisi',
+            'student_types_id.required'=>'Skema Pembayaran harus diisi',
         ];
     }
 }

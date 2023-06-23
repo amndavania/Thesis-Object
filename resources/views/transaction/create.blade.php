@@ -14,28 +14,30 @@
                @csrf
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description') }}">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Transaksinya untuk apa?" value="{{ old('description') }}">
           </div>
           <div class="form-group">
                <label for="reference_number">Nomor Referensi</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Nomor Referensi..." value="{{ old('reference_number') }}">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Masukkan nomor referensi" value="{{ old('reference_number') }}">
           </div>
           <div class="form-group">
                <label for="amount">Nominal</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Masukkan nominal uang" value="{{ old('amount') }}">
           </div>
           <div class="form-group">
             <label for="type">Tipe</label>
             <select class="form-control" id="type" name="type">
-                <option value="debit">Debit</option>
-                <option value="kredit">Kredit</option>
+                <option value="">Pilih Tipe Transaksi</option>
+                <option value="debit" {{ old('type') == "debit" ? 'selected' : '' }}>Debit</option>
+                <option value="kredit" {{ old('type') == "kredit" ? 'selected' : '' }}>Kredit</option>
             </select>
        </div>
           <div class="form-group">
                <label for="transaction_accounts_id">Akun Transaksi</label>
                <select class="form-control" id="transaction_accounts_id" name="transaction_accounts_id">
+                <option value="">Pilih Akun Transaksi</option>
                     @foreach ($transaction_account as $item)
-                         <option value="{{ $item->id }}">{{ $item->name }}</option>
+                         <option value="{{ $item->id }}" {{ old('transaction_accounts_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                </select>
           </div>

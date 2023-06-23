@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Study\StudyProgramCreateRequest;
 use App\Http\Requests\Study\StudyProgramUpdateRequest;
+use App\Models\StudentType;
 
 class StudyProgramController extends Controller
 {
@@ -82,8 +83,9 @@ class StudyProgramController extends Controller
     {
 
         $student = Student::where('study_program_id', $id)->exists();
+        $student_type = StudentType::where('study_program_id', $id)->exists();
 
-        if (!$student) {
+        if (!$student && !$student_type) {
             $study_program = StudyProgram::findOrFail($id);
             $study_program->delete();
             return redirect()->route('study_program.index')->with(['success' => 'Data telah dihapus']);

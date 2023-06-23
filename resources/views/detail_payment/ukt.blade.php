@@ -43,7 +43,15 @@
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
-                              <td>{{ $row->status }}</td>
+                              <td>
+                                @if ($row->status == "Lunas")
+                                    <span class="badge bg-success">Lunas</span>
+                                @elseif ($row->status == "Belum Lunas")
+                                    <span class="badge bg-danger">Belum Lunas</span>
+                                @else
+                                    <span class="badge bg-warning">Lebih</span>
+                                @endif
+                              </td>
                               <td>{{ $row->keterangan }}</td>
                               @if ($row->keterangan == 'Menunggu Dispensasi UTS' || $row->keterangan == 'Menunggu Dispensasi UAS')
                                     <td>

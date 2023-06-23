@@ -27,11 +27,11 @@
        </div>
           <div class="form-group">
                <label for="reference_number">Reference Number</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" value="{{ old('reference_number', $ukt->reference_number) }}">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Masukkan reference number" value="{{ old('reference_number', $ukt->reference_number) }}">
           </div>
           <div class="form-group">
-               <label for="amount">Jumlah</label>
-               <input type="number" class="form-control" id="amount" name="amount" value="{{ old('amount', $ukt->amount) }}">
+               <label for="amount">Nominal</label>
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Masukkan nominal yang dibayarkan" value="{{ old('amount', $ukt->amount) }}">
           </div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('ukt.index') }}'">Batal</button>

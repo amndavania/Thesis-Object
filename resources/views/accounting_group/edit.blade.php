@@ -19,11 +19,11 @@
                @method('put')
           <div class="form-group">
                <label for="name">Nama Grup</label>
-               <input type="text" class="form-control" name="name" id="name" placeholder="Nama Grup..." value="{{ old('name', $accounting_group->name) }}">
+               <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan nama grup" value="{{ old('name', $accounting_group->name) }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" name="description" id="description" placeholder="Deskripsi..." value="{{ old('description', $accounting_group->description) }}">
+               <input type="text" class="form-control" name="description" id="description" placeholder="Masukkan deskripsi" value="{{ old('description', $accounting_group->description) }}">
           </div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('accounting_group.index') }}'">Batal</button>

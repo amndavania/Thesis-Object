@@ -21,7 +21,7 @@
                          <td>Semester</td>
                          <td>Jenis</td>
                          {{-- <td>Nomor Referensi</td> --}}
-                         <td>Jumlah</td>
+                         <td>Nominal</td>
                          {{-- <td>Total</td> --}}
                          <td>Status</td>
                          {{-- <td>Akun Transaksi</td> --}}
@@ -42,7 +42,16 @@
                               {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
                               {{-- <td>{{ 'Rp ' . number_format($row->total, 2, ',', '.') }}</td> --}}
-                              <td>{{ $row->status }}</td>
+                              {{-- <td>{{ $row->status }}</td> --}}
+                              <td>
+                                @if ($row->status == "Lunas")
+                                    <span class="badge bg-success">Lunas</span>
+                                @elseif ($row->status == "Belum Lunas")
+                                    <span class="badge bg-danger">Belum Lunas</span>
+                                @else
+                                    <span class="badge bg-warning">Lebih</span>
+                                @endif
+                              </td>
                               {{-- <td>{{ $row->transactionaccount->name }}</td> --}}
                               <td>
                                    <div class="d-flex">

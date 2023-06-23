@@ -17,44 +17,46 @@
                <select class="form-control selectpicker" name="students_id" id="students_id" data-live-search="true">
                 <option value="">Pilih Mahasiswa</option>
                 @foreach ($student as $student)
-                    <option value="{{ $student->id }}">{{ $student->nim . ' / ' . $student->name }}</option>
+                    <option value="{{ $student->id }}" {{ old('students_id') == $student->id ? 'selected' : '' }}>{{ $student->nim . ' / ' . $student->name }}</option>
                 @endforeach
             </select>
           </div>
           <div class="form-group">
                <label for="semester">Semester</label>
                <select class="form-control" id="semester" name="semester">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
+                <option value="">Pilih Semester</option>
+                    <option value="1" {{ old('semester') == '1' ? 'selected' : '' }}>1</option>
+                    <option value="2" {{ old('semester') == '2' ? 'selected' : '' }}>2</option>
+                    <option value="3" {{ old('semester') == '3' ? 'selected' : '' }}>3</option>
+                    <option value="4" {{ old('semester') == '4' ? 'selected' : '' }}>4</option>
+                    <option value="5" {{ old('semester') == '5' ? 'selected' : '' }}>5</option>
+                    <option value="6" {{ old('semester') == '6' ? 'selected' : '' }}>6</option>
+                    <option value="7" {{ old('semester') == '7' ? 'selected' : '' }}>7</option>
+                    <option value="8" {{ old('semester') == '8' ? 'selected' : '' }}>8</option>
+                    <option value="9" {{ old('semester') == '9' ? 'selected' : '' }}>9</option>
+                    <option value="10" {{ old('semester') == '10' ? 'selected' : '' }}>10</option>
+                    <option value="11" {{ old('semester') == '11' ? 'selected' : '' }}>11</option>
+                    <option value="12" {{ old('semester') == '12' ? 'selected' : '' }}>12</option>
+                    <option value="13" {{ old('semester') == '13' ? 'selected' : '' }}>13</option>
+                    <option value="14" {{ old('semester') == '14' ? 'selected' : '' }}>14</option>
                </select>
           </div>
           <div class="form-group">
-               <label for="type">Jenis</label>
+               <label for="type">Jenis Pembayaran</label>
                <select class="form-control" id="type" name="type">
-                    <option value="DPP">DPP</option>
-                    <option value="UKT">UKT</option>
-                    <option value="WISUDA">WISUDA</option>
+                <option value="">Pilih Jenis Pembayaran</option>
+                    <option value="DPP" {{ old('type') == 'DPP' ? 'selected' : '' }}>DPP</option>
+                    <option value="UKT" {{ old('type') == 'UKT' ? 'selected' : '' }}>UKT</option>
+                    <option value="WISUDA" {{ old('type') == 'WISUDA' ? 'selected' : '' }}>WISUDA</option>
                </select>
           </div>
           <div class="form-group">
                <label for="reference_number">Reference Number</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Reference Number..." value="{{ old('reference_number') }}">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Masukkan reference number" value="{{ old('reference_number') }}">
           </div>
           <div class="form-group">
-               <label for="amount">Jumlah</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount') }}">
+               <label for="amount">Nominal</label>
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Masukkan nominal yang dibayarkan" value="{{ old('amount') }}">
           </div>
           {{-- <div class="form-group">
                <label for="total">Total</label>

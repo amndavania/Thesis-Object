@@ -20,7 +20,7 @@
                          <td>NIM</td>
                          <td>Tahun Masuk</td>
                          <td>Prodi</td>
-                         <td>Tipe</td>
+                         <td>Program</td>
                          <td>Aksi</td>
                     </tr>
                </thead>

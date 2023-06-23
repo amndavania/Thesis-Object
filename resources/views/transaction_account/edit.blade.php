@@ -15,15 +15,15 @@
                @method('put')
           <div class="form-group">
                <label for="id">ID Akun</label>
-               <input type="text" class="form-control" name="id" id="id" placeholder="ID Akun..." value="{{ old('id', $transaction_account->id) }}" readonly>
+               <input type="text" class="form-control" name="id" id="id" placeholder="Masukkan ID Akun" value="{{ old('id', $transaction_account->id) }}" readonly>
           </div>
           <div class="form-group">
                <label for="name">Nama Akun</label>
-               <input type="text" class="form-control" name="name" id="name" placeholder="Nama Akun..." value="{{ old('name', $transaction_account->name) }}">
+               <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan nama akun" value="{{ old('name', $transaction_account->name) }}">
           </div>
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" name="description" id="description" placeholder="Deskripsi..." value="{{ old('description', $transaction_account->description) }}">
+               <input type="text" class="form-control" name="description" id="description" placeholder="Masukkan deskripsi" value="{{ old('description', $transaction_account->description) }}">
           </div>
           <div class="form-group">
             <label for="accounting_group_id">Grup</label>

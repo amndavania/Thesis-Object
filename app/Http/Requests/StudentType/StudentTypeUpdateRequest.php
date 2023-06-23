@@ -24,23 +24,25 @@ class StudentTypeUpdateRequest extends FormRequest
         $student_type_id = $this->route('student_type');
 
         return [
-            'type'=>'required|unique:student_types,type,'.$student_type_id,
+            // 'type'=>'required|unique:student_types,type,'.$student_type_id,
+            'type'=>'required',
             'year'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'dpp'=>'numeric|min:0',
             'krs'=>'numeric|min:0',
             'uts'=>'numeric|min:0',
-            'uas'=>'numeric|min:0'
+            'uas'=>'numeric|min:0',
+            'wisuda'=>'nullable|numeric|min:0'
         ];
     }
 
     public function messages()
     {
         return [
-            'type.required'=>'Nama beasiswa harus diisi',
-            'type.unique'=>'Nama beasiswa sudah ada',
-            'year.required'=>'Tahun masuk harus diisi',
-            'year.min'=>'Tahun masuk tidak boleh Negatif!',
+            'type.required'=>'Nama program harus diisi',
+            // 'type.unique'=>'Nama program sudah ada',
+            'year.required'=>'Tahun harus diisi',
+            'year.min'=>'Tahun tidak boleh Negatif!',
             'study_program_id'=>'Program Studi harus diisi',
             'dpp.numeric'=>'DPP harus berupa angka',
             'dpp.min'=>'DPP tidak boleh Negatif!',
@@ -50,6 +52,8 @@ class StudentTypeUpdateRequest extends FormRequest
             'uts.min'=>'UTS tidak boleh Negatif!',
             'uas.numeric'=>'UAS harus berupa angka',
             'uas.min'=>'UAS tidak boleh Negatif!',
+            'wisuda.numeric'=>'Nominal WISUDA harus berupa angka',
+            'wisuda.min'=>'Nominal WISUDA tidak boleh Negatif!',
         ];
     }
 }

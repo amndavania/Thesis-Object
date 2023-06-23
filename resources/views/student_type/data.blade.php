@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Skema Pembayaran Beasiswa/Reguler
+        Skema Pembayaran
     </x-slot>
     <div class="card">
      <div class="card-header">
@@ -16,7 +16,7 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <td>Nama</td>
+                         <td>Program</td>
                          <td>Tahun Masuk</td>
                          <td>Prodi</td>
                          <td>DPP</td>

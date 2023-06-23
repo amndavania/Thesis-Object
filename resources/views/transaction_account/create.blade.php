@@ -29,7 +29,7 @@
             <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple>
             {{-- <select class="form-control" id="accounting_group_id" name="accounting_group_id"> --}}
                 @foreach ($accounting_group as $item)
-                     <option value="{{ $item->id }}">{{ $item->name }}</option>
+                     <option value="{{ $item->id }}" {{ in_array($item->id, old('accounting_group_id', [])) ? 'selected' : '' }}>{{ $item->name }}</option>
                 @endforeach
            </select>
           </div>

@@ -15,19 +15,20 @@
                @method('PUT')
           <div class="form-group">
                <label for="description">Deskripsi</label>
-               <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi..." value="{{ old('description', $transaction->description) }}">
+               <input type="text" class="form-control" id="description" name="description" placeholder="Transaksinya untuk apa?" value="{{ old('description', $transaction->description) }}">
           </div>
            <div class="form-group">
                <label for="reference_number">Nomor Referensi</label>
-               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Nomor Referensi..." value="{{ old('reference_number', $transaction->reference_number) }}">
+               <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Masukkan nomor referensi" value="{{ old('reference_number', $transaction->reference_number) }}">
           </div>
           <div class="form-group">
                <label for="amount">Nominal</label>
-               <input type="number" class="form-control" id="amount" name="amount" placeholder="Jumlah..." value="{{ old('amount', $transaction->amount) }}">
+               <input type="number" class="form-control" id="amount" name="amount" placeholder="Masukkan nominal uang" value="{{ old('amount', $transaction->amount) }}">
           </div>
           <div class="form-group">
             <label for="type">Tipe</label>
             <select class="form-control" id="type" name="type">
+                <option value="">Pilih Tipe Transaksi</option>
                 <option value="debit" {{ $transaction->type == 'debit' ? 'selected' : '' }}>Debit</option>
                 <option value="kredit" {{ $transaction->type == 'kredit' ? 'selected' : '' }}>Kredit</option>
             </select>

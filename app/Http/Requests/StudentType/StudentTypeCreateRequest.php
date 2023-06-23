@@ -22,32 +22,36 @@ class StudentTypeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type'=>'required|unique:student_types,type',
+            // 'type'=>'required|unique:student_types,type',
+            'type'=>'required',
             'year'=>'required|numeric|min:0',
             'study_program_id'=>'required',
-            'dpp'=>'numeric|min:0',
-            'krs'=>'numeric|min:0',
-            'uts'=>'numeric|min:0',
-            'uas'=>'numeric|min:0'
+            'dpp'=>'nullable|numeric|min:0',
+            'krs'=>'nullable|numeric|min:0',
+            'uts'=>'nullable|numeric|min:0',
+            'uas'=>'nullable|numeric|min:0',
+            'wisuda'=>'nullable|numeric|min:0'
         ];
     }
 
     public function messages()
     {
         return [
-            'type.required'=>'Nama beasiswa harus diisi',
-            'type.unique'=>'Nama beasiswa sudah ada',
-            'year.required'=>'Tahun masuk harus diisi',
-            'year.min'=>'Tahun masuk tidak boleh Negatif!',
+            'type.required'=>'Nama program harus diisi',
+            // 'type.unique'=>'Nama program sudah ada',
+            'year.required'=>'Tahun harus diisi',
+            'year.min'=>'Tahun tidak boleh Negatif!',
             'study_program_id'=>'Program Studi harus diisi',
-            'dpp.numeric'=>'DPP harus berupa angka',
-            'dpp.min'=>'DPP tidak boleh Negatif!',
-            'krs.numeric'=>'KRS harus berupa angka',
-            'krs.min'=>'KRS tidak boleh Negatif!',
-            'uts.numeric'=>'UTS harus berupa angka',
-            'uts.min'=>'UTS tidak boleh Negatif!',
-            'uas.numeric'=>'UAS harus berupa angka',
-            'uas.min'=>'UAS tidak boleh Negatif!',
+            'dpp.numeric'=>'Nominal DPP harus berupa angka',
+            'dpp.min'=>'Nominal DPP tidak boleh Negatif!',
+            'krs.numeric'=>'Nominal KRS harus berupa angka',
+            'krs.min'=>'Nominal KRS tidak boleh Negatif!',
+            'uts.numeric'=>'Nominal UTS harus berupa angka',
+            'uts.min'=>'Nominal UTS tidak boleh Negatif!',
+            'uas.numeric'=>'Nominal UAS harus berupa angka',
+            'uas.min'=>'Nominal UAS tidak boleh Negatif!',
+            'wisuda.numeric'=>'Nominal WISUDA harus berupa angka',
+            'wisuda.min'=>'Nominal WISUDA tidak boleh Negatif!',
 
         ];
     }

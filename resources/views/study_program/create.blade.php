@@ -14,13 +14,14 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama Program Studi</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Nama..." value="{{ old('name') }}">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama program studi" value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="faculty_id">Fakultas</label>
                <select class="form-control" id="faculty_id" name="faculty_id">
+                <option value="">Pilih Fakultas</option>
                     @foreach ($faculty as $item)
-                         <option value="{{ $item->id }}">{{ $item->name }}</option>
+                         <option value="{{ $item->id }}" {{ old('faculty_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                     @endforeach
                </select>
           </div>
