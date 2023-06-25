@@ -20,57 +20,60 @@ class JurnalController extends Controller
     public function index(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $getDate = $this->getDate($datepicker);
-        $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->paginate(20);
-        $transactions = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
-
-        $totalDebit = 0;
-        $totalKredit = 0;
-        foreach ($transactions as $row){
-            if ($row->type == 'debit') {
-                $totalDebit += $row->amount;
-            } elseif ($row->type == 'kredit') {
-                $totalKredit += $row->amount;
-            }
-        };
+        $filter = $request->input('filter');
+        $getData = $this->getData($datepicker, $filter);       
 
         return view('report.jurnal')->with([
-            'data' => $transaction,
-            'datepicker' => $getDate[1],
-            'totalDebit' => $totalDebit,
-            'totalKredit' => $totalKredit,
+            'data' => $getData[0],
+            'datepicker' => $getData[1],
+            'filter' => $filter
         ]);
     }
 
     public function export(Request $request)
-{
-    $datepicker = $request->input('datepicker');
-    $dateTime = DateTime::createFromFormat('F Y', $datepicker);
-    $date = $dateTime->format('m-Y');
-
-    $getDate = $this->getDate($date);
-    $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getDate[0])->get();
-
-    return view('report.printformat.jurnal')->with([
-        'data' => $transaction,
-        'datepicker' => $getDate[1],
-        'today' => date('d F Y', strtotime(date('Y-m-d'))),
-        'title' => "Laporan Jurnal"
-    ]);
-}
-
-    public function getDate($datepicker)
     {
-        if (empty($datepicker)) {
+        $datepicker = $request->input('datepicker');
+        $filter = $request->input('filter');
+        if ($filter == 'year') {
+            $dateTime = DateTime::createFromFormat('Y', $datepicker);
+            $date = $dateTime->format('Y');
+        } else {
+            $dateTime = DateTime::createFromFormat('F Y', $datepicker);
+            $date = $dateTime->format('m-Y');
+        }
+
+        $getData = $this->getData($date, $filter);
+        
+
+        return view('report.printformat.jurnal')->with([
+            'data' => $getData[0],
+            'datepicker' => $getData[1],
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'title' => "Laporan Jurnal"
+        ]);
+    }
+
+    public function getData($datepicker, $filter)
+    {
+        if (empty($datepicker) || empty($filter)) {
             $date = date('Y-m');
             $dateTime = new DateTime($date);
             $formattedDate = $dateTime->format('F Y');
+            $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate(20);
         }else {
-            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-            $formattedDate = $parsedDate->format('F Y');
-            $date = $parsedDate->format('Y-m');
+            if ($filter == 'month') {
+                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+                $formattedDate = $parsedDate->format('F Y');
+                $date = $parsedDate->format('Y-m');
+                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate(20);
+            } elseif ($filter == 'year') {
+                $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
+                $formattedDate = $parsedDate->format('Y');
+                $date = $parsedDate->format('Y');
+                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date)->paginate(20);
+            }
         }
 
-        return [$date, $formattedDate];
+        return [$transaction, $formattedDate];
     }
 }

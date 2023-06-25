@@ -6,7 +6,14 @@
         <div class="card-header">
             <div class="d-flex">
               <form class="form-inline" action="{{ route('neraca.index') }}" method="GET">
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
+                <div class="mb-2 mr-sm-2">
+                    <select class="form-control selectpicker" name="filter" id="filter" data-live-search="true" onchange="handleFilterChange()">
+                        <option value="">Filter by</option>
+                        <option value="month">Bulan</option>
+                        <option value="year">Tahun</option>
+                    </select>
+                </div>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
                 <button onclick="window.open('{{ url('neraca/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
@@ -15,7 +22,13 @@
             </div>
        </div>
          <div class="card-body">
-            <h5>Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
+            <h5>
+                @if (!empty($datepicker))
+                    <span class="badge bg-warning">{{ $datepicker }}</span>
+                @else
+                    '-'
+                @endif
+            </h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

@@ -20,35 +20,57 @@
 
 </script>
 
-<script>
+{{-- <script>
     $("#datepicker").datepicker( {
         format: "mm-yyyy",
         startView: "months",
         minViewMode: "months"
     });
-</script>
+</script> --}}
 
 <script>
-    function exportToPDF() {
-      fetch('<?php echo url("jurnal/export"); ?>')
-        .then(response => response.json())
-        .then(data => {
-          const datepicker = data.datepicker;
-          const html = data.html;
-          const options = {
-            filename: 'myPDF.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-          };
-
-          const element = document.createElement('div');
-          element.innerHTML = html;
-
-          html2pdf().from(element).set(options).save();
-        });
+    function handleFilterChange() {
+        var filter = document.getElementById('filter').value;
+        var datepicker = document.getElementById('datepicker');
+        
+        if (filter === 'year') {
+            // Hanya izinkan pengguna memilih tahun\
+            $(datepicker).datepicker('destroy');
+            $(datepicker).datepicker({
+                format: 'yyyy',
+                startView: 'years',
+                minViewMode: 'years',
+                autoclose: true
+            });
+            datepicker.value = ''
+            datepicker.setAttribute('placeholder', 'Pilih Tahun');
+        } else if (filter === 'month') {
+            // Izinkan pengguna memilih bulan dan tahun
+            $(datepicker).datepicker('destroy');
+            $(datepicker).datepicker({
+                format: 'mm-yyyy',
+                startView: 'months',
+                minViewMode: 'months',
+                autoclose: true
+            });
+            datepicker.value = ''
+            datepicker.setAttribute('placeholder', 'Pilih Bulan');
+        } else {
+            // Reset datepicker jika filter tidak dipilih
+            datepicker.value = '';
+        }
     }
-    </script>
+    
+    // Inisialisasi datepicker saat halaman dimuat
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            format: 'mm-yyyy',
+            startView: 'months',
+            minViewMode: 'months',
+            autoclose: true
+        });
+    });
+</script>
 
 <script>
     const semesterSelect = document.getElementById('semester');

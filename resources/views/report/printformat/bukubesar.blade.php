@@ -44,11 +44,40 @@
                 </tr>
             </thead>
             <tbody>
-            @php
-               $totalKredit = 0;
-               $totalDebit = 0;
-               $totalSaldo = 0;
-            @endphp
+                @php
+                if (!empty($history)) {
+                    $totalKredit = $history->kredit;
+                    $totalDebit = $history->debit;
+                    $totalSaldo = $totalDebit - $totalKredit;
+                } else {
+                    $totalKredit = 0;
+                    $totalDebit = 0;
+                    $totalSaldo = 0;
+                }
+                @endphp
+                @if (!empty($history))
+                <tr>
+                    <td colspan="3">
+                        @if ($history->type == 'monthly')
+                            <strong>Saldo Akhir Bulan Sebelumnya</strong>
+                        @elseif ($history->type == 'annual')
+                            <strong>Saldo Akhir Tahun Sebelumnya</strong>
+                        @endif
+                         
+                    </td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                    <td style="text-align: right; @if ($totalSaldo < 0) color: red; @endif">
+                        @if ($totalSaldo < 0)
+                            (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
+                        @elseif ($totalSaldo > 0 || $totalSaldo == 0)
+                            Rp {{ number_format($totalSaldo, 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                </tr>
+                @endif
             @foreach ($data as $row)
                  <tr>
                       <td style="text-align: center;">{{ $loop->iteration }}</td>

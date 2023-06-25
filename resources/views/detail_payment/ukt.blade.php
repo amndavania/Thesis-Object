@@ -23,11 +23,13 @@
             </div>
      </div>
      <div class="card-body">
-        @if (!empty($choice))
-        <h5>Mahasiswa: {{ $choice->nim . ' | ' . $choice->name }}</h5>
-        @else
-        <h5>Mahasiswa: -</h5>
-        @endif
+        <h5>
+            @if (!empty($choice))
+                <span class="badge bg-warning">{{ $choice->nim . ' | ' . $choice->name }}</span>
+            @else
+            <span class="badge bg-warning">Tidak ada mahasiswa</span>
+            @endif
+        </h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>

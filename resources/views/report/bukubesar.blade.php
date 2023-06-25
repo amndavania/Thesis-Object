@@ -14,24 +14,35 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="mb-2 mr-sm-2">
+                    <select class="form-control selectpicker" name="filter" id="filter" data-live-search="true" onchange="handleFilterChange()">
+                        <option value="month">Filter by</option>
+                        <option value="month">Bulan</option>
+                        <option value="year">Tahun</option>
+                    </select>
+                </div>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
 
                 <button type="submit" class="btn btn-primary mb-2">Cari</button>
               </form>
 
-              @if (!empty($account))
-              <button onclick="window.open('{{ url('bukubesar/export') }}?search_account={{ $account->id }}&datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
+              @if (!empty($account) && $data->count() > 0)
+              <button onclick="window.open('{{ url('bukubesar/export') }}?search_account={{ $account->id }}&datepicker={{ $datepicker }}&filter={{ $filter }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
                 <i class="fas fa-print"></i> Export PDF
             </button>
               @endif
           </div>
      </div>
          <div class="card-body">
-          {{-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-info btn-md mb-3 ">Download Buku Besar</a> --}}
-          <div class="d-flex align-items-center">
-            <h5>Akun : {{ !empty($account) ? $account->name : '-' }}</h5>
-            <h5 class="ml-auto p-2">Periode : {{ !empty($datepicker) ? $datepicker : '-' }}</h5>
-          </div>
+            <h5>
+                @if (empty($account))
+                    <span class="badge bg-warning">{{ $datepicker . ' | Tidak ada akun transaksi'  }}</span>
+                @elseif (empty($datepicker))
+                <span class="badge bg-warning">{{ 'Tidak ada tanggal | ' . $account->name }}</span>
+                @else
+                <span class="badge bg-warning">{{ $datepicker . ' | ' . $account->name }}</span>
+                @endif
+            </h5>
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
@@ -45,16 +56,41 @@
                </thead>
                <tbody>
                     @php
+                    if (!empty($history)) {
+                        $totalKredit = $history->kredit;
+                        $totalDebit = $history->debit;
+                        $totalSaldo = $totalDebit - $totalKredit;
+                    } else {
                         $totalKredit = 0;
                         $totalDebit = 0;
                         $totalSaldo = 0;
+                    }
                     @endphp
-                    @foreach ($data as $index => $row)
-                    @php
-                        $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
-                    @endphp
+                    @if (!empty($history))
+                    <tr>
+                        <td colspan="3">
+                            @if ($history->type == 'monthly')
+                                <strong>Saldo Akhir Bulan Sebelumnya</strong>
+                            @elseif ($history->type == 'annual')
+                                <strong>Saldo Akhir Tahun Sebelumnya</strong>
+                            @endif
+                        </td>
+                        <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
+                        <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
+                        <td style="@if ($totalSaldo < 0) color: red; @endif">
+                            @if ($totalSaldo < 0)
+                                (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
+                            @elseif ($totalSaldo > 0 || $totalSaldo == 0)
+                                Rp {{ number_format($totalSaldo, 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
+                    @endif
+                    @foreach ($data as $row)
                          <tr>
-                              <th>{{ $number }}</th>
+                              <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->description }}</td>
                               <td>{{ $row->type == 'debit' ? 'Rp ' . number_format($row->amount, 2, ',', '.') : '-' }}</td>
@@ -71,10 +107,10 @@
                                     }
                                     $totalSaldo += ($debit - $kredit);
                                 @endphp
-                                <td>
+                                <td style="@if ($totalSaldo < 0) color: red; @endif">
                                     @if ($totalSaldo < 0)
                                         (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
-                                    @elseif ($totalSaldo > 0)
+                                    @elseif ($totalSaldo > 0 || $totalSaldo == 0)
                                         Rp {{ number_format($totalSaldo, 2, ',', '.') }}
                                     @else
                                         -
@@ -90,10 +126,10 @@
                         </td>
                         <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
                         <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
-                        <td>
+                        <td style="@if ($totalSaldo < 0) color: red; @endif">
                             @if ($totalSaldo < 0)
                                 (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})
-                            @elseif ($totalSaldo > 0)
+                            @elseif ($totalSaldo > 0 || $totalSaldo == 0)
                                 Rp {{ number_format($totalSaldo, 2, ',', '.') }}
                             @else
                                 -
@@ -102,9 +138,9 @@
                     </tr>
                 </tfoot>
           </table>
-          <div class="d-flex justify-content-center align-items-center text-center">
+          {{-- <div class="d-flex justify-content-center align-items-center text-center">
             {{ $data->links() }}
-        </div>
+        </div> --}}
      </div>
     </div>
 </x-app-layout>
