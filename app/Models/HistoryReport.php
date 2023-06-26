@@ -15,8 +15,7 @@ class HistoryReport extends Model
     protected $fillable = [
         'transaction_accounts_id',
         'type',
-        'kredit',
-        'debit'
+        'saldo',
     ];
 
     public function transactionaccount(): BelongsTo

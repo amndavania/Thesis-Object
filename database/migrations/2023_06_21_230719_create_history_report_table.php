@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_accounts_id')->constrained();
             $table->enum('type', ['annual', 'monthly']);
-            $table->decimal('kredit', 14, 2);
-            $table->decimal('debit', 14, 2);
+            $table->decimal('saldo', 14, 2);
             $table->timestamps();
         });
     }

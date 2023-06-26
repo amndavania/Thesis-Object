@@ -45,19 +45,17 @@
             </thead>
             <tbody>
                 @php
-                if (!empty($history)) {
-                    $totalKredit = $history->kredit;
-                    $totalDebit = $history->debit;
-                    $totalSaldo = $totalDebit - $totalKredit;
-                } else {
                     $totalKredit = 0;
                     $totalDebit = 0;
-                    $totalSaldo = 0;
-                }
-                @endphp
+                    if (!empty($history)) {
+                        $totalSaldo = $history->saldo;
+                    } else {
+                        $totalSaldo = 0;
+                    }
+                    @endphp
                 @if (!empty($history))
                 <tr>
-                    <td colspan="3">
+                    <td colspan="5">
                         @if ($history->type == 'monthly')
                             <strong>Saldo Akhir Bulan Sebelumnya</strong>
                         @elseif ($history->type == 'annual')
@@ -65,8 +63,6 @@
                         @endif
                          
                     </td>
-                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
-                    <td style="text-align: right;">{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
                     <td style="text-align: right; @if ($totalSaldo < 0) color: red; @endif">
                         @if ($totalSaldo < 0)
                             (Rp {{ number_format(abs($totalSaldo), 2, ',', '.') }})

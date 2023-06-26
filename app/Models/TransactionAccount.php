@@ -32,7 +32,7 @@ class TransactionAccount extends Model
 
     public function transaction(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'transaction_accounts_id');
     }
 
     public function Ukt(): HasMany
