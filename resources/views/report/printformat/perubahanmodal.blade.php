@@ -41,25 +41,22 @@
                 @php
                 $totalModalAwal = 0;
                 @endphp
-                     @foreach ($modaldiAwal as $row)
+                     @foreach ($modaldiAwal as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $row->id }}</td>
-                               <td>{{ $row->name }}</td>
-                               @php
-                               $saldo = $row->ammount_debit - $row->ammount_kredit;
-                                 @endphp
-                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
-                                     @if ($saldo < 0)
-                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                     @elseif ($saldo > 0)
-                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                               <td style="text-align: center;">{{ $accountId }}</td>
+                               <td>{{ $row['name'] }}</td>
+                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
+                                     @if ($row['saldo'] < 0)
+                                         (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
+                                     @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
+                                         Rp {{ number_format($row['saldo'], 2, ',', '.') }}
                                      @else
                                          -
                                      @endif
                                  </td>
                           </tr>
                           @php
-                          $totalModalAwal += ($row->ammount_debit - $row->ammount_kredit);
+                          $totalModalAwal += $row['saldo'];
                           @endphp
                      @endforeach
                 <tr>
@@ -70,7 +67,7 @@
                      <td style="text-align: right; @if ($totalModalAwal < 0) color: red; @endif">
                          @if ($totalModalAwal < 0)
                              (Rp {{ number_format(abs($totalModalAwal), 2, ',', '.') }})
-                         @elseif ($totalModalAwal > 0)
+                         @elseif ($totalModalAwal > 0 || $totalModalAwal == 0)
                              Rp {{ number_format($totalModalAwal, 2, ',', '.') }}
                          @else
                              -
@@ -87,25 +84,22 @@
                 @php
                 $totalPenambahanModal = 0;
                 @endphp
-                     @foreach ($penambahanModal as $row)
+                     @foreach ($penambahanModal as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $row->id }}</td>
-                               <td>{{ $row->name }}</td>
-                               @php
-                               $saldo = $row->ammount_debit - $row->ammount_kredit;
-                                 @endphp
-                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
-                                     @if ($saldo < 0)
-                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                     @elseif ($saldo > 0)
-                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                               <td style="text-align: center;">{{ $accountId }}</td>
+                               <td>{{ $row['name'] }}</td>
+                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
+                                     @if ($row['saldo'] < 0)
+                                         (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
+                                     @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
+                                         Rp {{ number_format($row['saldo'], 2, ',', '.') }}
                                      @else
                                          -
                                      @endif
                                  </td>
                           </tr>
                           @php
-                          $totalPenambahanModal += ($row->ammount_debit - $row->ammount_kredit);
+                          $totalPenambahanModal += $row['saldo'];
                           @endphp
                      @endforeach
                 <tr>
@@ -116,7 +110,7 @@
                      <td style="text-align: right; @if ($totalPenambahanModal < 0) color: red; @endif">
                          @if ($totalPenambahanModal < 0)
                              (Rp {{ number_format(abs($totalPenambahanModal), 2, ',', '.') }})
-                         @elseif ($totalPenambahanModal > 0)
+                         @elseif ($totalPenambahanModal > 0 || $totalPenambahanModal == 0)
                              Rp {{ number_format($totalPenambahanModal, 2, ',', '.') }}
                          @else
                              -
@@ -132,25 +126,22 @@
                 @php
                 $totalPenguranganModal = 0;
                 @endphp
-                     @foreach ($penguranganModal as $row)
+                     @foreach ($penguranganModal as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $row->id }}</td>
-                               <td>{{ $row->name }}</td>
-                               @php
-                               $saldo = $row->ammount_debit - $row->ammount_kredit;
-                                 @endphp
-                                 <td style="text-align: right; @if ($saldo < 0) color: red; @endif">
-                                     @if ($saldo < 0)
-                                         (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
-                                     @elseif ($saldo > 0)
-                                         Rp {{ number_format($saldo, 2, ',', '.') }}
+                               <td style="text-align: center;">{{ $accountId }}</td>
+                               <td>{{ $row['name'] }}</td>
+                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
+                                     @if ($row['saldo'] < 0)
+                                         (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
+                                     @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
+                                         Rp {{ number_format($row['saldo'], 2, ',', '.') }}
                                      @else
                                          -
                                      @endif
                                  </td>
                           </tr>
                           @php
-                          $totalPenguranganModal += $row->ammount_debit - $row->ammount_kredit;
+                          $totalPenguranganModal += $row['saldo'];
                           @endphp
                      @endforeach
                 <tr>
@@ -161,7 +152,7 @@
                      <td style="text-align: right; @if ($totalPenguranganModal < 0) color: red; @endif">
                          @if ($totalPenguranganModal < 0)
                              (Rp {{ number_format(abs($totalPenguranganModal), 2, ',', '.') }})
-                         @elseif ($totalPenguranganModal > 0)
+                         @elseif ($totalPenguranganModal > 0 || $totalPenguranganModal == 0)
                              Rp {{ number_format($totalPenguranganModal, 2, ',', '.') }}
                          @else
                              -
@@ -179,7 +170,7 @@
                      <td style="text-align: right; @if ($modalAkhir < 0) color: red; @endif">
                          @if ($modalAkhir < 0)
                              (Rp {{ number_format(abs($modalAkhir), 2, ',', '.') }})
-                         @elseif ($modalAkhir > 0)
+                         @elseif ($modalAkhir > 0 || $modalAkhir == 0)
                              Rp {{ number_format($modalAkhir, 2, ',', '.') }}
                          @else
                              -

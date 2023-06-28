@@ -28,8 +28,6 @@
             <h5>
                 @if (!empty($datepicker))
                     <span class="badge bg-warning">{{ $datepicker }}</span>
-                @else
-                    '-'
                 @endif
             </h5>
           <table class="table table-striped ">

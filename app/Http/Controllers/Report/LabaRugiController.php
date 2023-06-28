@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use App\Models\HistoryReport;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Session;
 use App\Models\TransactionAccount;
 use DateTime;
@@ -15,73 +17,154 @@ class LabaRugiController extends Controller
     public function index(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $getDate = $this->getDate($datepicker);
-        $getData = $this->getData($getDate[0]);
+        $filter = $request->input('filter');
+
+        $getDate = $this->getDate($datepicker, $filter);
+
+        $accounting_group = [
+            'pendapatan' => 1,
+            'pengeluaran' => 2,
+            'penyusutanAmortisasi' => 3,
+            'bungaPajak' => 4,
+            'pendapatanPengeluaranLain' => 5,
+        ];
+
+        $results = $this->setResults($filter, $getDate[0], $accounting_group);
 
         return view('report.labarugi')->with([
-            'pendapatan' => $getData[0],
-            'pengeluaran' => $getData[1],
-            'penyusutanAmortisasi' => $getData[2],
-            'bungaPajak' => $getData[3],
-            'pendapatanPengeluaranLain' => $getData[4],
+            'pendapatan' => $results['pendapatan'],
+            'pengeluaran' => $results['pengeluaran'],
+            'penyusutanAmortisasi' => $results['penyusutanAmortisasi'],
+            'bungaPajak' => $results['bungaPajak'],
+            'pendapatanPengeluaranLain' => $results['pendapatanPengeluaranLain'],
             'datepicker' => $getDate[1],
+            'filter' => $filter,
         ]);
     }
 
     public function export(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $dateTime = DateTime::createFromFormat('F Y', $datepicker);
-        $date = $dateTime->format('m-Y');
+        $filter = $request->input('filter');
 
-        $getDate = $this->getDate($date);
-        $getData = $this->getData($getDate[0]);
+        if ($filter == 'year') {
+            $dateTime = DateTime::createFromFormat('Y', $datepicker);
+            $date = $dateTime->format('Y');
+        } else {
+            $dateTime = DateTime::createFromFormat('F Y', $datepicker);
+            $date = $dateTime->format('m-Y');
+        }
+
+        $getDate = $this->getDate($date, $filter);
+        
+        $accounting_group = [
+            'pendapatan' => 1,
+            'pengeluaran' => 2,
+            'penyusutanAmortisasi' => 3,
+            'bungaPajak' => 4,
+            'pendapatanPengeluaranLain' => 5,
+        ];
+
+        $results = $this->setResults($filter, $getDate[0], $accounting_group);
 
         return view('report.printformat.labarugi')->with([
-            'pendapatan' => $getData[0],
-            'pengeluaran' => $getData[1],
-            'penyusutanAmortisasi' => $getData[2],
-            'bungaPajak' => $getData[3],
-            'pendapatanPengeluaranLain' => $getData[4],
+            'pendapatan' => $results['pendapatan'],
+            'pengeluaran' => $results['pengeluaran'],
+            'penyusutanAmortisasi' => $results['penyusutanAmortisasi'],
+            'bungaPajak' => $results['bungaPajak'],
+            'pendapatanPengeluaranLain' => $results['pendapatanPengeluaranLain'],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
-            'title' => "Laporan Laba Rugi"
+            'title' => "Laporan Neraca"
         ]);
     }
 
-    public function getDate($datepicker)
+    public function getDate($datepicker, $filter)
     {
         
-        if (empty($datepicker)) {
+        if (empty($datepicker) || empty($filter)) {
             $date = date('Y-m');
             $dateTime = new DateTime($date);
             $formattedDate = $dateTime->format('F Y');
         }else {
-            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-            $formattedDate = $parsedDate->format('F Y');
-            $date = $parsedDate->format('Y-m');
+            if ($filter == 'month') {
+                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+                $formattedDate = $parsedDate->format('F Y');
+                $date = $parsedDate->format('Y-m');
+            } elseif ($filter == 'year') {
+                $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
+                $formattedDate = $parsedDate->format('Y');
+                $date = $parsedDate->format('Y');
+            }
         }
 
         return [$date, $formattedDate];
     }
 
-    public function getData($date){
-        $pendapatan = TransactionAccount::whereHas('accountinggroup', function ($query) {
-            $query->where('id', 1);
-        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
-        $pengeluaran = TransactionAccount::whereHas('accountinggroup', function ($query) {
-            $query->where('id', 2);
-        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
-        $penyusutanAmortisasi = TransactionAccount::whereHas('accountinggroup', function ($query) {
-            $query->where('id', 3);
-        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
-        $bungaPajak = TransactionAccount::whereHas('accountinggroup', function ($query) {
-            $query->where('id', 4);
-        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
-        $pendapatanPengeluaranLain = TransactionAccount::whereHas('accountinggroup', function ($query) {
-            $query->where('id', 5);
-        })->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->get();
+    public function getTransaction($date, $filter, $accounting_group_id)
+    {
 
-        return [$pendapatan, $pengeluaran, $penyusutanAmortisasi, $bungaPajak, $pendapatanPengeluaranLain];
+        $transactions = Transaction::whereHas('transactionaccount.accountinggroup', function ($query) use ($accounting_group_id) {
+            $query->where('accounting_groups.id', $accounting_group_id);
+        })->when($filter == 'month', function ($query) use ($date) {
+            $query->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date);
+        })->when($filter == 'year', function ($query) use ($date) {
+            $query->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date);
+        })->get();
+        
+        return $transactions;
+    }
+
+    public function getHistory($filter, $transaction_account, $date)
+    {
+        if ($filter == 'year') {
+            $history = HistoryReport::where('transaction_accounts_id', $transaction_account)
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date)
+                    ->where('type', 'annual')->first();
+        } else {
+            $history = HistoryReport::where('transaction_accounts_id', $transaction_account)
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
+                    ->where('type', 'monthly')->first();
+        }
+
+        return $history;
+    }
+
+    public function setResults($filter, $date, $accounting_group)
+    {
+        $results = [];
+
+        foreach ($accounting_group as $key => $value) {
+            $getTransaction = $this->getTransaction($date, $filter, $value);
+            $transaction_accounts = TransactionAccount::whereHas('transaction', function ($query) use ($getTransaction) {
+                $transactionAccountsIds = $getTransaction->pluck('transaction_accounts_id')->toArray();
+                $query->whereIn('transaction_accounts_id', $transactionAccountsIds);
+            })->get();
+
+            $summary = [];
+            foreach ($transaction_accounts as $item) {
+                $debit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'debit')->sum('amount');
+                $kredit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'kredit')->sum('amount');
+
+                $getHistory = $this->getHistory($filter, $item->id, $date);
+
+                if (!empty($getHistory)) {
+                    $saldo = $getHistory->saldo + ($debit - $kredit);
+                } else {
+                    $saldo = $debit - $kredit;
+                }
+
+                $summary[$item->id] = [
+                    'name' => $item->name,
+                    'debit' => $debit,
+                    'kredit' => $kredit,
+                    'saldo' => $saldo
+                ];
+            }
+
+            $results[$key] = $summary;
+        }
+
+        return $results;
     }
 }
