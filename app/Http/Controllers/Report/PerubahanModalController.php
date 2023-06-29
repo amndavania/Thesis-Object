@@ -129,10 +129,15 @@ class PerubahanModalController extends Controller
 
         foreach ($accounting_group as $key => $value) {
             $getTransaction = $this->getTransaction($date, $filter, $value);
-            $transaction_accounts = TransactionAccount::whereHas('transaction', function ($query) use ($getTransaction) {
-                $transactionAccountsIds = $getTransaction->pluck('transaction_accounts_id')->toArray();
-                $query->whereIn('transaction_accounts_id', $transactionAccountsIds);
+
+            $transaction_accounts = TransactionAccount::whereHas('accountinggroup', function ($query) use ($value) {
+                $query->whereIn('id', [$value]);
             })->get();
+
+            // $transaction_accounts = TransactionAccount::whereHas('transaction', function ($query) use ($getTransaction) {
+            //     $transactionAccountsIds = $getTransaction->pluck('transaction_accounts_id')->toArray();
+            //     $query->whereIn('transaction_accounts_id', $transactionAccountsIds);
+            // })->get();
 
             $summary = [];
             foreach ($transaction_accounts as $item) {
@@ -147,10 +152,12 @@ class PerubahanModalController extends Controller
                     $saldo = $debit - $kredit;
                 }
 
-                $summary[$item->id] = [
-                    'name' => $item->name,
-                    'saldo' => $saldo
-                ];
+                if ($saldo != 0) {
+                    $summary[$item->id] = [
+                        'name' => $item->name,
+                        'saldo' => $saldo
+                    ];
+                }
             }
 
             $results[$key] = $summary;
