@@ -21,7 +21,8 @@ class JurnalController extends Controller
     {
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');
-        $getData = $this->getData($datepicker, $filter);       
+        $getData = $this->getData($datepicker, $filter);   
+        $perPage = $request->input('per_page', 30);    
 
         return view('report.jurnal')->with([
             'data' => $getData[0],

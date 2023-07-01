@@ -17,7 +17,7 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>mt_rand(1,10),
+            'user_id'=>mt_rand(1,3),
             'reference_number'=>fake()->randomNumber(7, true),
             'amount'=>fake()->numberBetween(1000, 1000000),
             'type'=>fake()->randomElement(['kredit','debit']),

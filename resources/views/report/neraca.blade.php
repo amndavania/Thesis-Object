@@ -56,13 +56,16 @@
                 @endphp
                      @foreach ($aktivaLancar as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $accountId }}</td>
-                               <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: center;">{{ $row->id }}</td>
+                               <td>{{ $row->name }}</td>
+                               @php
+                                   $saldo = $row->ammount_debit - $row->ammount_kredit;
+                               @endphp
+                               <td style="text-align: center; @if ($saldo < 0) color: red; @endif">
+                                 @if ($saldo < 0)
+                                     (Rp {{ number_format(abs($saldo), 2, ',', '.') }})
+                                 @elseif ($saldo > 0)
+                                     Rp {{ number_format($saldo, 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
@@ -107,7 +110,7 @@
                      @php
                          $totalAktiva = $totalAktivaLancar + $totalAktivaTetap;
                      @endphp
-                     <td style="text-align: right; @if ($totalAktiva < 0) color: red; @endif">
+                     <td style="text-align: center; @if ($totalAktiva < 0) color: red; @endif">
                          @if ($totalAktiva < 0)
                              (Rp {{ number_format(abs($totalAktiva), 2, ',', '.') }})
                          @elseif ($totalAktiva > 0 || $totalAktiva == 0)
@@ -185,7 +188,7 @@
                      @php
                          $totalHutang = $totalHutangLancar + $totalHutangJangkaPanjang;
                      @endphp
-                     <td style="text-align: right; @if ($totalHutang < 0) color: red; @endif">
+                     <td style="text-align: center; @if ($totalHutang < 0) color: red; @endif">
                          @if ($totalHutang < 0)
                              (Rp {{ number_format(abs($totalHutang), 2, ',', '.') }})
                          @elseif ($totalHutang > 0 || $totalHutang == 0)
@@ -198,7 +201,7 @@
                 <tr>
                  <td></td>
                      <td colspan="2">
-                     <strong>Modal</strong>
+                     <strong>MODAL</strong>
                      </td>
                  </tr>
                 @php
@@ -227,7 +230,7 @@
                      <td colspan="1">
                           <strong>Total Modal</strong>
                      </td>
-                     <td style="text-align: right; @if ($totalModal < 0) color: red; @endif">
+                     <td style="text-align: center; @if ($totalModal < 0) color: red; @endif">
                          @if ($totalModal < 0)
                              (Rp {{ number_format(abs($totalModal), 2, ',', '.') }})
                          @elseif ($totalModal > 0 || $totalModal == 0)
@@ -240,12 +243,12 @@
                  <tr>
                      <td></td>
                          <td colspan="1">
-                              <strong>TOTAL PASIVA</strong>
+                              <strong>Total Pasiva</strong>
                          </td>
                          @php
                              $totalPasiva = $totalHutang + $totalModal;
                          @endphp
-                         <td style="text-align: right; @if ($totalPasiva < 0) color: red; @endif">
+                         <td style="text-align: center; @if ($totalPasiva < 0) color: red; @endif">
                              @if ($totalPasiva < 0)
                                  (Rp {{ number_format(abs($totalPasiva), 2, ',', '.') }})
                              @elseif ($totalPasiva > 0 || $totalPasiva == 0)

@@ -24,7 +24,7 @@ class StudentTypeFactory extends Factory
             'uas'=>fake()->numberBetween(100000, 1000000),
             'wisuda'=>fake()->numberBetween(100000, 1000000),
             'year'=>fake()->numberBetween(1996,2023),
-            'study_program_id' => mt_rand(1,29),
+            'study_program_id' => mt_rand(1,13),
         ];
     }
 }

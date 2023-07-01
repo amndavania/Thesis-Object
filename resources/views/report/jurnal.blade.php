@@ -30,7 +30,7 @@
             @endif
         </h5>
           <table class="table table-striped ">
-               <thead class="table-dark">
+               <thead class="table-dark" style="text-align: center;">
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
@@ -42,15 +42,21 @@
                          <td>Kredit</td>
                     </tr>
                </thead>
-               <tbody>
+               @php
+               $totalDebit = 0;
+               $totalKredit = 0;
+               @endphp
+               <tbody style="text-align: center;">
                     @foreach ($data as $index => $row)
                     @php
                         $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
+                        $totalDebit += $row->type == 'debit' ? $row->amount : 0;
+                        $totalKredit += $row->type == 'kredit' ? $row->amount : 0; 
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                              <td>{{ $row->description }}</td>
+                              <td style="text-align: left;">{{ $row->description }}</td>
                               <td>{{ $row->transactionaccount->id }}</td>
                               <td>{{ $row->transactionaccount->name }}</td>
                               <td>{{ $row->reference_number }}</td>
@@ -60,7 +66,7 @@
                     @endforeach
                </tbody>
 
-                {{-- <tfoot class="table-dark">
+                <tfoot class="table-dark">
                     <tr>
                         <td colspan="6">
                             <strong>Total</strong>
@@ -68,7 +74,7 @@
                         <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
                         <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
                     </tr>
-                </tfoot> --}}
+                </tfoot>
           </table>
           <div class="d-flex justify-content-center align-items-center text-center">
                {{ $data->links() }}
