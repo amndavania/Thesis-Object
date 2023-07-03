@@ -109,16 +109,13 @@ class TransactionController extends Controller
         $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
 
         if (empty($transactions)){
-            $total_debit = 0;
-            $total_kredit = 0;
+            $ammount = 0;
         }else {
-            $total_debit = $transactions->where('type', 'debit')->sum('amount');
-            $total_kredit = $transactions->where('type', 'kredit')->sum('amount');            
+            $ammount = $transactions->sum('amount');         
         }
 
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
-        $account->fill(['ammount_debit' => $total_debit]);
-        $account->fill(['ammount_kredit' => $total_kredit]);
+        $account->fill(['balance' => $ammount]);
 
         $account->save();
     }

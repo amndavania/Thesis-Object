@@ -14,6 +14,7 @@
                         </select>
                     </div>
                     <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
+                    <input type="number" name="per_page" id="per_page" min="30" max="100" value="30" class="form-control mb-2 mr-sm-2">
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
                 @if ($data->count() > 0)
@@ -30,7 +31,7 @@
             @endif
         </h5>
           <table class="table table-striped ">
-               <thead class="table-dark">
+               <thead class="table-dark" style="text-align: center;">
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
@@ -42,15 +43,21 @@
                          <td>Kredit</td>
                     </tr>
                </thead>
-               <tbody>
+               @php
+               $totalDebit = 0;
+               $totalKredit = 0;
+               @endphp
+               <tbody style="text-align: center;">
                     @foreach ($data as $index => $row)
                     @php
                         $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
+                        $totalDebit += $row->type == 'debit' ? $row->amount : 0;
+                        $totalKredit += $row->type == 'kredit' ? $row->amount : 0; 
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                              <td>{{ $row->description }}</td>
+                              <td style="text-align: left;">{{ $row->description }}</td>
                               <td>{{ $row->transactionaccount->id }}</td>
                               <td>{{ $row->transactionaccount->name }}</td>
                               <td>{{ $row->reference_number }}</td>
@@ -60,7 +67,7 @@
                     @endforeach
                </tbody>
 
-                {{-- <tfoot class="table-dark">
+                <tfoot class="table-dark">
                     <tr>
                         <td colspan="6">
                             <strong>Total</strong>
@@ -68,7 +75,7 @@
                         <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
                         <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
                     </tr>
-                </tfoot> --}}
+                </tfoot>
           </table>
           <div class="d-flex justify-content-center align-items-center text-center">
                {{ $data->links() }}

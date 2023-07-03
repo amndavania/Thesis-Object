@@ -18,8 +18,7 @@ class TransactionAccount extends Model
         'id',
         'name',
         'description',
-        'ammount_kredit',
-        'ammount_debit',
+        'balance',
         'accounting_group_id',
     ];
 

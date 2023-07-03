@@ -24,8 +24,8 @@ class AccountingGroup extends Model
     //     return $this->hasMany(TransactionAccount::class);
     // }
 
-    public function transactionaccount()
+    public function transactionAccounts()
     {
-        return $this->belongsToMany(TransactionAccount::class, 'accounting_group_transaction_account', 'transaction_account_id', 'accounting_group_id');
+        return $this->belongsToMany(TransactionAccount::class, 'accounting_group_transaction_account', 'accounting_group_id', 'transaction_account_id');
     }
 }

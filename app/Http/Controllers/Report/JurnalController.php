@@ -21,7 +21,8 @@ class JurnalController extends Controller
     {
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');
-        $getData = $this->getData($datepicker, $filter);       
+        $perPage = $request->input('per_page', 30);    
+        $getData = $this->getData($datepicker, $filter, $perPage);   
 
         return view('report.jurnal')->with([
             'data' => $getData[0],
@@ -42,7 +43,7 @@ class JurnalController extends Controller
             $date = $dateTime->format('m-Y');
         }
 
-        $getData = $this->getData($date, $filter);
+        $getData = $this->getData($date, $filter, 10000);
         
 
         return view('report.printformat.jurnal')->with([
@@ -53,24 +54,24 @@ class JurnalController extends Controller
         ]);
     }
 
-    public function getData($datepicker, $filter)
+    public function getData($datepicker, $filter, $perPage)
     {
         if (empty($datepicker) || empty($filter)) {
             $date = date('Y-m');
             $dateTime = new DateTime($date);
             $formattedDate = $dateTime->format('F Y');
-            $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate(20);
+            $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate($perPage);
         }else {
             if ($filter == 'month') {
                 $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
                 $formattedDate = $parsedDate->format('F Y');
                 $date = $parsedDate->format('Y-m');
-                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate(20);
+                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)->paginate($perPage);
             } elseif ($filter == 'year') {
                 $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
                 $formattedDate = $parsedDate->format('Y');
                 $date = $parsedDate->format('Y');
-                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date)->paginate(20);
+                $transaction = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date)->paginate($perPage);
             }
         }
 

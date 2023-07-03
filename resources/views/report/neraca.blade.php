@@ -35,7 +35,7 @@
                     <tr>
                          <td style="text-align: center;">Kode Akun</td>
                          <td>Nama Akun</td>
-                         <td>Saldo</td>
+                         <td style="text-align: right;">Saldo</td>
                     </tr>
                </thead>
                <tbody>
@@ -56,12 +56,12 @@
                 @endphp
                      @foreach ($aktivaLancar as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $accountId }}</td>
+                               <td style="text-align: center;">{{ $$accountId }}</td>
                                <td>{{ $row['name'] }}</td>
                                <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                  @if ($row['saldo'] < 0)
                                      (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
+                                 @elseif ($row['saldo'] > 0)
                                      Rp {{ number_format($row['saldo'], 2, ',', '.') }}
                                  @else
                                      -
@@ -198,7 +198,7 @@
                 <tr>
                  <td></td>
                      <td colspan="2">
-                     <strong>Modal</strong>
+                     <strong>MODAL</strong>
                      </td>
                  </tr>
                 @php
@@ -240,7 +240,7 @@
                  <tr>
                      <td></td>
                          <td colspan="1">
-                              <strong>TOTAL PASIVA</strong>
+                              <strong>Total Pasiva</strong>
                          </td>
                          @php
                              $totalPasiva = $totalHutang + $totalModal;

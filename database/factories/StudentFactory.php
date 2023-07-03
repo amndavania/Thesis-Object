@@ -20,8 +20,8 @@ class StudentFactory extends Factory
             'name'=>fake()->name(),
             'nim'=>fake()->randomNumber(8, true),
             'force'=>fake()->numberBetween(1990, 2023),
-            'study_program_id'=>mt_rand(1,10),
-            'student_types_id'=>mt_rand(1,10),
+            'study_program_id'=>mt_rand(1,13),
+            'student_types_id'=>mt_rand(1,5),
         ];
     }
 }

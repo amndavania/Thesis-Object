@@ -163,8 +163,6 @@ class LabaRugiController extends Controller
                 if ($saldo != 0) {
                     $summary[$item->id] = [
                         'name' => $item->name,
-                        'debit' => $debit,
-                        'kredit' => $kredit,
                         'saldo' => $saldo
                     ];
                 }

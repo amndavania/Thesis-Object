@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StudentTypeController;
 use App\Http\Controllers\Report\JurnalController;
 use App\Http\Controllers\Report\BukuBesarController;
+use App\Http\Controllers\Report\BukuBesarRekapController;
 use App\Http\Controllers\Report\CashFlowController;
 use App\Http\Controllers\Report\NeracaController;
 use App\Http\Controllers\Report\PerubahanModalController;
@@ -53,26 +54,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware(['admin:admin keuangan', 'admin:super admin'])->group(function () {
 
-        Route::resource('jurnal', JurnalController::class)->except(['show']);
-        Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
-        Route::resource('cashflow', CashFlowController::class)->except(['show']);
-        Route::resource('labarugi', LabaRugiController::class)->except(['show']);
-        Route::resource('neraca', NeracaController::class)->except(['show']);
-        Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
-        Route::resource('uktdetail', UktDetailController::class)->except(['show']);
-        Route::resource('examcard', ExamCardController::class)->except(['show']);
+    Route::resource('jurnal', JurnalController::class)->except(['show']);
+    Route::resource('bukubesarrekap', BukuBesarRekapController::class)->except(['show']);
+    Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
+    Route::resource('cashflow', CashFlowController::class)->except(['show']);
+    Route::resource('labarugi', LabaRugiController::class)->except(['show']);
+    Route::resource('neraca', NeracaController::class)->except(['show']);
+    Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
+    Route::resource('uktdetail', UktDetailController::class)->except(['show']);
+    Route::resource('examcard', ExamCardController::class)->except(['show']);
 
-        Route::get('jurnal/export', [JurnalController::class, 'export']);
-        Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
-        Route::get('cashflow/export', [CashFlowController::class, 'export']);
-        Route::get('labarugi/export', [LabaRugiController::class, 'export']);
-        Route::get('neraca/export', [NeracaController::class, 'export']);
-        Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
-        Route::get('uktdetail/export', [UktDetailController::class, 'export']);
+    Route::get('jurnal/export', [JurnalController::class, 'export']);
+    Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
+    Route::get('bukubesarrekap/export', [BukuBesarRekapController::class, 'export']);
+    Route::get('cashflow/export', [CashFlowController::class, 'export']);
+    Route::get('labarugi/export', [LabaRugiController::class, 'export']);
+    Route::get('neraca/export', [NeracaController::class, 'export']);
+    Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
+    Route::get('uktdetail/export', [UktDetailController::class, 'export']);
 
-    });
 
     // Route::middleware(['admin:admin pengeluaran', 'admin:super admin'])->group(function () {
 
@@ -87,23 +88,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('ukt', UktController::class)->except(['show']);
         Route::resource('transaction', TransactionController::class)->except(['show']);
         Route::resource('transaction_account', TransactionAccountController::class)->except(['show']);
-
-        Route::resource('jurnal', JurnalController::class)->except(['show']);
-        Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
-        Route::resource('cashflow', CashFlowController::class)->except(['show']);
-        Route::resource('labarugi', LabaRugiController::class)->except(['show']);
-        Route::resource('neraca', NeracaController::class)->except(['show']);
-        Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
-        Route::resource('uktdetail', UktDetailController::class)->except(['show']);
-        Route::resource('examcard', ExamCardController::class)->except(['show']);
-
-        Route::get('jurnal/export', [JurnalController::class, 'export']);
-        Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
-        Route::get('cashflow/export', [CashFlowController::class, 'export']);
-        Route::get('labarugi/export', [LabaRugiController::class, 'export']);
-        Route::get('neraca/export', [NeracaController::class, 'export']);
-        Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
-        Route::get('uktdetail/export', [UktDetailController::class, 'export']);
 
         Route::get('examcard/show', [ExamCardController::class, 'show']);
 

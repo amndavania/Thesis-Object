@@ -21,17 +21,15 @@
         <table class="content">
             <thead>
                 <tr>
-                    <th style="width: 10%;">Kode Akun</th>
-                    <th style="width: 30%;">Nama Akun</th>
-                    <th style="width: 20%;">Kredit</th>
-                    <th style="width: 20%;">Debit</th>
-                    <th style="width: 20%;">Saldo</th>
+                    <th style="width: 15%;">Kode Akun</th>
+                    <th style="width: 60%;">Nama Akun</th>
+                    <th style="width: 25%;">Saldo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td></td>
-                    <td colspan="4">
+                    <td colspan="2">
                         <strong>PENDAPATAN</strong>
                     </td>
                 </tr>
@@ -42,8 +40,6 @@
                      <tr>
                           <td style="text-align: center;">{{ $accountId }}</td>
                           <td>{{ $row['name'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['debit'], 2, ',', '.') }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
                             <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
@@ -60,7 +56,7 @@
                 @endforeach
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Total Pendapatan</strong>
                 </td>
                 <td style="text-align: right; @if ($totalPendapatan < 0) color: red; @endif">
@@ -76,7 +72,7 @@
 
            <tr>
             <td></td>
-                <td colspan="4">
+                <td colspan="2">
                 <strong>PENGELUARAN</strong>
                 </td>
             </tr>
@@ -87,8 +83,6 @@
                      <tr>
                           <td style="text-align: center;">{{ $accountId }}</td>
                           <td>{{ $row['name'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['debit'], 2, ',', '.') }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
                             <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
@@ -105,7 +99,7 @@
                 @endforeach
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Total Pengeluaran</strong>
                 </td>
                 <td style="text-align: right; @if ($totalPengeluaran < 0) color: red; @endif">
@@ -120,7 +114,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Laba / Rugi Kotor</strong>
                 </td>
                 @php
@@ -138,7 +132,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="4">
+                <td colspan="2">
                 <strong>PENYUSUTAN / AMORTISASI</strong>
                 </td>
             </tr>
@@ -149,8 +143,6 @@
                      <tr>
                           <td style="text-align: center;">{{ $accountId }}</td>
                           <td>{{ $row['name'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['debit'], 2, ',', '.') }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
                             <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
@@ -165,7 +157,7 @@
                 @endforeach
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Total Penyusutan dan Amortisasi</strong>
                 </td>
                 <td style="text-align: right; @if ($totalPenyusutan < 0) color: red; @endif">
@@ -180,7 +172,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Ebit</strong>
                 </td>
                 @php
@@ -198,7 +190,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="4">
+                <td colspan="2">
                 <strong>BUNGA / PAJAK</strong>
                 </td>
             </tr>
@@ -209,8 +201,6 @@
                      <tr>
                           <td style="text-align: center;">{{ $accountId }}</td>
                           <td>{{ $row['name'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['debit'], 2, ',', '.') }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
                             <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
@@ -225,7 +215,7 @@
                 @endforeach
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Total Pembelian Aset</strong>
                 </td>
                 <td style="text-align: right; @if ($totalBungaPajak < 0) color: red; @endif">
@@ -240,7 +230,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Laba / Rugi Kotor</strong>
                 </td>
                 @php
@@ -258,7 +248,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="4">
+                <td colspan="2">
                 <strong>PENDAPATAN / PENGELUARAN LAIN-LAIN</strong>
                 </td>
             </tr>
@@ -269,8 +259,6 @@
                      <tr>
                           <td style="text-align: center;">{{ $accountId }}</td>
                           <td>{{ $row['name'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['debit'], 2, ',', '.') }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['kredit'], 2, ',', '.') }}</td>
                             <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
@@ -285,7 +273,7 @@
                 @endforeach
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>Total Pendapatan / Pengeluaran Lain</strong>
                 </td>
                 <td style="text-align: right; @if ($totalPendapatanPengeluaranLain < 0) color: red; @endif">
@@ -300,7 +288,7 @@
             </tr>
            <tr>
             <td></td>
-                <td colspan="3">
+                <td colspan="1">
                      <strong>LABA / RUGI BERSIH</strong>
                 </td>
                 @php
