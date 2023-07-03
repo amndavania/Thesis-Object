@@ -14,6 +14,7 @@
                         </select>
                     </div>
                     <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
+                    <input type="number" name="per_page" id="per_page" min="30" max="100" value="30" class="form-control mb-2 mr-sm-2">
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
                 @if ($data->count() > 0)

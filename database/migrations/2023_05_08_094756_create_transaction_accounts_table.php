@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->decimal('ammount_kredit', 14, 2);
-            $table->decimal('ammount_debit', 14, 2);
+            $table->decimal('balance', 14, 2);
             // $table->foreignId('accounting_group_id')->constrained();
             $table->timestamps();
         });

@@ -1,5 +1,9 @@
 <div class="sidebar" style="position: fixed;">
     <!-- Sidebar user panel (optional) -->
+    <a href="/" class="brand-link">
+  <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+  <h5 class="font-weight-light">IAI Ibrahimy</h5>
+</a>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
         <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
@@ -76,7 +80,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('bukubesar.index') }}" class="nav-link">
+                <a href="{{ route('bukubesarrekap.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buku Besar</p>
                 </a>

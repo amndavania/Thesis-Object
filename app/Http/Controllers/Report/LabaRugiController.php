@@ -156,8 +156,6 @@ class LabaRugiController extends Controller
 
                 $summary[$item->id] = [
                     'name' => $item->name,
-                    'debit' => $debit,
-                    'kredit' => $kredit,
                     'saldo' => $saldo
                 ];
             }

@@ -99,15 +99,13 @@ class DatabaseSeeder extends Seeder
             'id' => 1120,
             'name'=> 'Kas Operasional',
             'description' => 'pendapatan',
-            'ammount_kredit' => 0,
-            'ammount_debit' => 0,
+            'balance' => -2000000,
         ]);
         TransactionAccount::factory()->create([
             'id' => 1130,
             'name'=> 'Bank BRI Ibrahimy',
             'description' => 'bank',
-            'ammount_kredit' => 0,
-            'ammount_debit' => 0,
+            'balance' => -100000000,
         ]);
 
 
