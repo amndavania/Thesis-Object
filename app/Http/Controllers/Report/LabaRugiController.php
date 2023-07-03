@@ -29,7 +29,7 @@ class LabaRugiController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-        $results = $this->setResults($filter, $getDate[0], $accounting_group);
+        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
 
         return view('report.labarugi')->with([
             'pendapatan' => $results['pendapatan'],
@@ -38,7 +38,7 @@ class LabaRugiController extends Controller
             'bungaPajak' => $results['bungaPajak'],
             'pendapatanPengeluaranLain' => $results['pendapatanPengeluaranLain'],
             'datepicker' => $getDate[1],
-            'filter' => $filter,
+            'filter' => $getDate[2],
         ]);
     }
 
@@ -65,7 +65,7 @@ class LabaRugiController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-        $results = $this->setResults($filter, $getDate[0], $accounting_group);
+        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
 
         return view('report.printformat.labarugi')->with([
             'pendapatan' => $results['pendapatan'],
@@ -86,6 +86,7 @@ class LabaRugiController extends Controller
             $date = date('Y-m');
             $dateTime = new DateTime($date);
             $formattedDate = $dateTime->format('F Y');
+            $filter = 'month';
         }else {
             if ($filter == 'month') {
                 $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
@@ -98,7 +99,7 @@ class LabaRugiController extends Controller
             }
         }
 
-        return [$date, $formattedDate];
+        return [$date, $formattedDate, $filter];
     }
 
     public function getTransaction($date, $filter, $accounting_group_id)
