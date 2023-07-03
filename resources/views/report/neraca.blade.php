@@ -56,7 +56,7 @@
                 @endphp
                      @foreach ($aktivaLancar as $accountId => $row)
                           <tr>
-                               <td style="text-align: center;">{{ $$accountId }}</td>
+                               <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
                                <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
                                  @if ($row['saldo'] < 0)
