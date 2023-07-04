@@ -8,7 +8,7 @@
                 <form class="form-inline" action="{{ route('cashflow.index') }}" method="GET">
                     <div class="mb-2 mr-sm-2">
                         <select class="form-control selectpicker" name="filter" id="filter" data-live-search="true" onchange="handleFilterChange()">
-                            <option value="">Filter by</option>
+                            <option value="month">Filter by</option>
                             <option value="month">Bulan</option>
                             <option value="year">Tahun</option>
                         </select>
@@ -66,7 +66,6 @@
                                          -
                                      @endif
                                  </td>
-                                 <td></td>
                           </tr>
                           @php
                           $totalArusKasMasuk += $row['saldo'];
@@ -109,7 +108,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalArusKasKeluar += $row['saldo'];
@@ -176,7 +174,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPenjualanAset += $row['saldo'];
@@ -210,7 +207,7 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                                 <td style="text-align: right @if ($row['saldo'] < 0) color: red; @endif;">
+                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif;">
                                      @if ($row['saldo'] < 0)
                                          (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
                                      @elseif ($row['saldo'] > 0)
@@ -219,7 +216,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPembelianAset += $row['saldo'];
@@ -328,7 +324,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPenguranganDana += $row['saldo'];

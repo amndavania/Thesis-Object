@@ -30,8 +30,8 @@ class CashFlowController extends Controller
             'penguranganDana' => 16,
         ];
 
-        $results = $this->setResults($filter, $getDate[0], $accounting_group);
-        $saldoAwal = $this->getSaldoAwal($filter, $getDate[0]);
+        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
+        $saldoAwal = $this->getSaldoAwal($getDate[2], $getDate[0]);
 
         return view('report.cashflow')->with([
             'arusKasMasuk' => $results['arusKasMasuk'],
@@ -71,8 +71,8 @@ class CashFlowController extends Controller
             'penguranganDana' => 16,
         ];
 
-        $results = $this->setResults($filter, $getDate[0], $accounting_group);
-        $saldoAwal = $this->getSaldoAwal($filter, $getDate[0]);
+        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
+        $saldoAwal = $this->getSaldoAwal($getDate[2], $getDate[0]);
 
         return view('report.printformat.cashflow')->with([
             'arusKasMasuk' => $results['arusKasMasuk'],
@@ -95,6 +95,7 @@ class CashFlowController extends Controller
             $date = date('Y-m');
             $dateTime = new DateTime($date);
             $formattedDate = $dateTime->format('F Y');
+            $filter = 'month';
         }else {
             if ($filter == 'month') {
                 $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
@@ -107,7 +108,7 @@ class CashFlowController extends Controller
             }
         }
 
-        return [$date, $formattedDate];
+        return [$date, $formattedDate, $filter];
     }
 
     public function getTransaction($date, $filter, $accounting_group_id)
@@ -176,18 +177,10 @@ class CashFlowController extends Controller
     }
 
     public function getSaldoAwal($filter, $date){
-        if ($filter == 'month') {
-            $previousDate = date('Y-m', strtotime($date . ' -1 month'));
-        } elseif ($filter == 'year') {
-            $previousDate = date('Y', strtotime($date . ' -1 year'));
-        } else {
-            $previousDate = null;
-        }
-
-        $saldoAwal = HistoryReport::when($filter == 'month', function ($query) use ($previousDate) {
-            $query->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $previousDate);
-        })->when($filter == 'year', function ($query) use ($previousDate) {
-            $query->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $previousDate);
+        $saldoAwal = HistoryReport::when($filter == 'month', function ($query) use ($date) {
+            $query->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date);
+        })->when($filter == 'year', function ($query) use ($date) {
+            $query->where('type', 'annual')->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $date);
         })->sum('saldo');
         
         return $saldoAwal;

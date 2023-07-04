@@ -165,7 +165,9 @@
                                 @endif
                             </td>
                      </tr>
+                     @php
                      $totalPenyusutan += $row['saldo'];
+                     @endphp
                 @endforeach
            <tr>
             <td></td>
@@ -223,7 +225,9 @@
                                 @endif
                             </td>
                      </tr>
+                     @php
                      $totalBungaPajak += $row['saldo'];
+                     @endphp
                 @endforeach
            <tr>
             <td></td>
@@ -281,7 +285,9 @@
                                 @endif
                             </td>
                      </tr>
+                     @php
                      $totalPendapatanPengeluaranLain += $row['saldo'];
+                     @endphp
                 @endforeach
            <tr>
             <td></td>

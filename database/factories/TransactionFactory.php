@@ -21,7 +21,7 @@ class TransactionFactory extends Factory
             'reference_number'=>fake()->randomNumber(7, true),
             'amount'=>fake()->numberBetween(1000, 1000000),
             'type'=>fake()->randomElement(['kredit','debit']),
-            'transaction_accounts_id'=>mt_rand(1,10),
+            'transaction_accounts_id'=>mt_rand(1,58),
             'description'=>fake()->sentence(),
         ];
     }
