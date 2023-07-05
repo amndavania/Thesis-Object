@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Report\CashFlowController;
 use App\Http\Controllers\Report\LabaRugiController;
 use App\Http\Controllers\Report\NeracaController;
 use App\Models\HistoryReport;
@@ -16,18 +17,19 @@ class DashboardController extends Controller
 {
     public function index():View
     {
-        $neracaController = new NeracaController;
+        $cashflowController = new CashFlowController;
         $labarugiController = new LabaRugiController;
 
         $date = date('Y-m');
         $filter = 'month';
 
-        $neraca_group = [
-            'aktivaLancar' => 6,
-            'aktivaTetap' => 7,
-            'hutangLancar' => 8,
-            'hutangJangkaPanjang' => 9,
-            'modal' => 10,
+        $cashflow_group = [
+            'arusKasMasuk' => 11,
+            'arusKasKeluar' => 12,
+            'penjualanAset' => 13,
+            'pembelianAset' => 14,
+            'penambahanDana' => 15,
+            'penguranganDana' => 16,
         ];
 
         $labarugi_group = [
@@ -38,10 +40,11 @@ class DashboardController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-        $neraca = $neracaController->setResults($filter, $date, $neraca_group);
-        $saldoNeraca = array_sum(array_map(function ($group) {
+        $cashflow = $cashflowController->setResults($filter, $date, $cashflow_group);
+        $saldoAwal = $cashflowController->getSaldoAwal($filter, $date);
+        $saldoAkhir = array_sum(array_map(function ($group) {
             return array_sum(array_column($group, 'saldo'));
-        }, $neraca));
+        }, $cashflow)) + $saldoAwal;
 
         $labarugi = $labarugiController->setResults($filter, $date, $labarugi_group);
         $saldoLabaRugi = array_sum(array_map(function ($group) {
@@ -51,7 +54,7 @@ class DashboardController extends Controller
         $students = Student::all();
 
         return view('dashboard')->with([
-            'saldo' => $saldoNeraca,
+            'saldo' => $saldoAkhir,
             'labarugi' => $saldoLabaRugi,
             'students' => $students->count(),
         ]);
