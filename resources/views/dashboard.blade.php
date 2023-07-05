@@ -28,7 +28,7 @@
                     @else
                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-arrow-up"></i></span>
                     @endif
-                    
+
                     <div class="info-box-content">
                       <span class="info-box-text">Laba / Rugi</span>
                       <span class="info-box-number text-lg">
@@ -54,7 +54,7 @@
                 </div>
                 <!-- /.col -->
               </div>
-            
+
                 <div class="card">
                   <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
@@ -65,22 +65,30 @@
                   <div class="card-body">
                     <div class="d-flex">
                       <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">$18,230.00</span>
+                        <span class="text-bold text-lg">Rp {{ number_format($saldoBulanLalu, 2, ',', '.') }}</span>
                         <span>Perkembangan keuangan</span>
                       </p>
                       <p class="ml-auto d-flex flex-column text-right">
                         <span class="text-success">
-                          <i class="fas fa-arrow-up"></i> 33.1%
+                            @if ($growPercentage[0] > $growPercentage[1])
+                                <i class="fas fa-arrow-up"></i> {{$growPercentage[0]}}%
+                            @else
+                                <i class="fas fa-arrow-down"></i> {{$growPercentage[0]}}%
+                            @endif
                         </span>
-                        <span class="text-muted">Sejak bulan lalu</span>
+                        <span class="text-muted">Bulan lalu</span>
                       </p>
                     </div>
                     <!-- /.d-flex -->
 
                     <div class="position-relative mb-4">
-                      <canvas id="balance-chart" height="200"></canvas>
+                        <canvas id="balance-chart" height="200"></canvas>
                     </div>
-
+                    
+                    <script>
+                        var trendKeuangan = {!! json_encode($trendKeuangan) !!};
+                    </script>
+                    
                     <div class="d-flex flex-row justify-content-end">
                       <span class="mr-2">
                         <i class="fas fa-square text-primary"></i> Tahun ini
@@ -144,6 +152,10 @@
                             <canvas id="pieChart" height="150"></canvas>
                           </div>
 
+                          <script>
+                            var statusUKT = {!! json_encode($statusUKT) !!};
+                        </script>
+
                           <!-- ./chart-responsive -->
                         </div>
                         <!-- /.col -->
@@ -159,35 +171,6 @@
                       <!-- /.row -->
                     </div>
                     <!-- /.card-body -->
-                    {{-- <div class="card-footer p-0">
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            United States of America
-                            <span class="float-right text-danger">
-                              <i class="fas fa-arrow-down text-sm"></i>
-                              12%</span>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            India
-                            <span class="float-right text-success">
-                              <i class="fas fa-arrow-up text-sm"></i> 4%
-                            </span>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a href="#" class="nav-link">
-                            China
-                            <span class="float-right text-warning">
-                              <i class="fas fa-arrow-left text-sm"></i> 0%
-                            </span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div> --}}
-                    <!-- /.footer -->
                   </div>
                 <!-- /.card -->
               </div>

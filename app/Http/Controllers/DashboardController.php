@@ -26,7 +26,8 @@ class DashboardController extends Controller
         $financeThisYear = $this->setTrendKeuangan('ThisYear');
         $financeLastYear = $this->setTrendKeuangan('LastYear');
 
-        // dd($financeThisYear);
+        $growPercentagePreviousMonth = $this->setPersen(intval(substr($date, 5, 2)), $financeThisYear);
+        $growPercentagePreviousMonth2 = $this->setPersen(intval(substr($date, 5, 2))-1, $financeThisYear);
 
         $cashflow_group = [
             'arusKasMasuk' => 11,
@@ -56,7 +57,10 @@ class DashboardController extends Controller
             'labarugi' => $saldoLabaRugi,
             'students' => $students->count(),
             'trendKeuangan' => [$financeThisYear, $financeLastYear],
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'growPercentage' => [$growPercentagePreviousMonth, $growPercentagePreviousMonth2],
+            'saldoBulanLalu' => $financeThisYear[intval(substr($date, 5, 2))-2],
+            'statusUKT' => [200, 100, 50]
         ]);
     }
 
@@ -121,6 +125,29 @@ class DashboardController extends Controller
         return [$jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec];
 
     }
+
+    public function setPersen($thisMonth, $finance) {
+        $previousMonth = $thisMonth-1;
+        if ($thisMonth == 0 || $previousMonth == 0) {
+            $keuanganBulanLalu = 0;
+            $keuanganBulanLaluLagi = 0;
+        }else {
+            $keuanganBulanLalu = $finance[$thisMonth-2];
+            $keuanganBulanLaluLagi = $finance[$previousMonth-2];
+        }
+
+        $difference = $keuanganBulanLalu - $keuanganBulanLaluLagi;
+
+        if ($difference != 0 && $keuanganBulanLaluLagi != 0) {
+            $growthPercentage = ($difference / $keuanganBulanLaluLagi) * 100;
+        }else {
+            $growthPercentage = 0;
+        }
+
+        return $growthPercentage;
+    }
+
+    
 
 
 

@@ -24,7 +24,7 @@
     function handleFilterChange() {
         var filter = document.getElementById('filter').value;
         var datepicker = document.getElementById('datepicker');
-        
+
         if (filter === 'year') {
             // Hanya izinkan pengguna memilih tahun\
             $(datepicker).datepicker('destroy');
@@ -52,7 +52,7 @@
             datepicker.value = '';
         }
     }
-    
+
     // Inisialisasi datepicker saat halaman dimuat
     $(document).ready(function() {
         $('#datepicker').datepicker({
@@ -119,8 +119,9 @@
         var mode = 'index'
         var intersect = true
 
-        var $salesChart = $('#balance-chart')
-        var salesChart = new Chart($salesChart, {
+        var $balanceChart = $('#balance-chart');
+
+        var balanceChart = new Chart($balanceChart, {
             type: 'bar',
             data: {
                 labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
@@ -152,7 +153,6 @@
                 },
                 scales: {
                     yAxes: [{
-                        // display: false,
                         gridLines: {
                             display: true,
                             lineWidth: '4px',
@@ -161,15 +161,11 @@
                         },
                         ticks: $.extend({
                             beginAtZero: true,
-
-                            // Include a dollar sign in the ticks
                             callback: function (value) {
                                 if (value >= 1000000) {
                                     value /= 1000000
                                     value += 'jt'
                                 }
-
-                                // return 'Rp' + value
                                 return value
                             }
                         }, ticksStyle)
@@ -187,6 +183,7 @@
     })
 </script>
 
+
 <script>
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
     var pieData = {
@@ -197,7 +194,7 @@
         ],
         datasets: [
         {
-            data: [700, 500, 400],
+            data: statusUKT,
             backgroundColor: ['#28a745', '#ffc107', '#dc3545']
         }
         ]
