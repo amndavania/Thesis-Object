@@ -52,6 +52,9 @@
 </x-guest-layout> --}}
 
 <x-guest-layout>
+    <x-slot name="title">
+      Membuat Akun Baru
+    </x-slot>
     <div class="register-box">
         <div class="card card-outline card-primary">
           <div class="card-header text-center">

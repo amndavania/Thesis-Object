@@ -23,6 +23,7 @@ use App\Http\Controllers\Report\LabaRugiController;
 use App\Http\Controllers\Report\UktDetailController;
 use App\Http\Controllers\ExamCardController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\CekPembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,17 +36,10 @@ use App\Http\Controllers\PenggunaController;
 |
 */
 
-// Route::redirect('/', 'dashboard');
-Route::get('/', [DashboardController::class, 'index']);
+Route::redirect('/', 'dashboard');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('cekpembayaran', [CekPembayaranController::class, 'index'])->name('cekpembayaran.index');
+Route::get('databayar', [CekPembayaranController::class, 'data'])->name('cekpembayaran.data');
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');

@@ -128,7 +128,16 @@ class DatabaseSeeder extends Seeder
         StudyProgram::factory(13)->create();
         StudentType::factory(5)->create();
         // Report::factory(30)->create();
-        Student::factory(2000)->create();
-        Ukt::factory(4000)->create();
+
+        Student::factory()->create([
+            'name' => 'Ahmad Izaz Nur Fikri',
+            'nim'=> 192410102020,
+            'force'=> 2019,
+            'study_program_id'=>mt_rand(1,13),
+            'student_types_id'=>mt_rand(1,5),
+        ]);
+
+        Student::factory(1999)->create();
+        Ukt::factory(12000)->create();
     }
 }
