@@ -53,7 +53,7 @@
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
-          <div class="card-header text-center bg-dark">
+          <div class="card-header text-center bg-light">
             {{-- <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a> --}}
             {{-- bug here --}}
             <div class="text-center">

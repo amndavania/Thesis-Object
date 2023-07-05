@@ -40,6 +40,7 @@ Route::redirect('/', 'dashboard');
 
 Route::get('cekpembayaran', [CekPembayaranController::class, 'index'])->name('cekpembayaran.index');
 Route::get('databayar', [CekPembayaranController::class, 'data'])->name('cekpembayaran.data');
+Route::get('databayar/export', [CekPembayaranController::class, 'export'])->name('cekpembayaran.export');
 
 Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
