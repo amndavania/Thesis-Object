@@ -23,7 +23,7 @@ class UktFactory extends Factory
             'status'=>fake()->randomElement(['Lunas','Belum Lunas']),
             'transaction_debit_id'=>mt_rand(1,10),
             'transaction_kredit_id'=>mt_rand(1,10),
-            'students_id'=>mt_rand(1,10),
+            'students_id'=>mt_rand(1,1999),
             'semester'=>fake()->randomDigitNotNull(),
             'type'=>fake()->randomElement(['UKT','DPP','WISUDA'])
         ];

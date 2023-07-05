@@ -47,6 +47,9 @@
 </x-guest-layout> --}}
 
 <x-guest-layout>
+    <x-slot name="title">
+        Masuk Sistem
+    </x-slot>
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
