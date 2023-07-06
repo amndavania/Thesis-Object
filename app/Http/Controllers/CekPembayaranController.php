@@ -74,74 +74,74 @@ class CekPembayaranController extends Controller
         
     }
 
-    // public function export(Request $request)
-    // {
-    //     $ukt = $this->setData($request->student);
-    //     $student = Student::where('id', $request->student)->first();
+    public function export(Request $request)
+    {
+        $ukt = $this->setData($request->student);
+        $student = Student::where('id', $request->student)->first();
 
-    //     return view('report.printformat.pembayaran')->with([
-    //         'ukt' => $ukt,
-    //         'name' => $student->name,
-    //         'nim' => $student->nim,
-    //         'today' => date('d F Y', strtotime(date('Y-m-d'))),
-    //         'title' => "Laporan Pembayaran Mahasiswa"
-    //     ]);
+        return view('report.printformat.pembayaran')->with([
+            'ukt' => $ukt,
+            'name' => $student->name,
+            'nim' => $student->nim,
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+            'title' => "Laporan Pembayaran Mahasiswa"
+        ]);
 
-    // }
+    }
 
-    // public function setData($student_id)
-    // {
+    public function setData($student_id)
+    {
 
-    //     $dpp = Ukt::where('students_id', $student_id)->where('type', 'DPP')->latest('created_at')->get();
-    //     $ukt = Ukt::where('students_id', $student_id)->where('type', 'UKT')->latest('created_at')->get();
-    //     $wisuda = Ukt::where('students_id', $student_id)->where('type', 'WISUDA')->latest('created_at')->get();
+        $dpp = Ukt::where('students_id', $student_id)->where('type', 'DPP')->latest('created_at')->get();
+        $ukt = Ukt::where('students_id', $student_id)->where('type', 'UKT')->latest('created_at')->get();
+        $wisuda = Ukt::where('students_id', $student_id)->where('type', 'WISUDA')->latest('created_at')->get();
 
-    //     $detail = [];
+        $detail = [];
 
-    //     if (!$dpp->isEmpty()) {
-    //         $data = [
-    //             'tanggal' => $dpp->first()->created_at,
-    //             'semester' => $dpp->first()->semester,
-    //             'jenis' => $dpp->first()->type,
-    //             'total' => $dpp->sum('amount'),
-    //             'status' => $dpp->first()->status,
-    //         ];
-    //         array_push($detail, $data);
-    //     }
+        if (!$dpp->isEmpty()) {
+            $data = [
+                'tanggal' => $dpp->first()->created_at,
+                'semester' => $dpp->first()->semester,
+                'jenis' => $dpp->first()->type,
+                'total' => $dpp->sum('amount'),
+                'status' => $dpp->first()->status,
+            ];
+            array_push($detail, $data);
+        }
 
-    //     if (!$ukt->isEmpty()) {
-    //         for ($i=0; $i < Ukt::max('semester'); $i++) {
-    //             $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
-    //             $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
-    //             $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
-    //             $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
+        if (!$ukt->isEmpty()) {
+            for ($i=0; $i < Ukt::max('semester'); $i++) {
+                $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
+                $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
+                $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
+                $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
 
-    //             $data = [
-    //                 'tanggal' => $uktsemester_tanggal,
-    //                 'semester' => $i + 1,
-    //                 'jenis' => $uktsemester_jenis,
-    //                 'total' => $uktsemester_total,
-    //                 'status' => $uktsemester_status,
-    //             ];
+                $data = [
+                    'tanggal' => $uktsemester_tanggal,
+                    'semester' => $i + 1,
+                    'jenis' => $uktsemester_jenis,
+                    'total' => $uktsemester_total,
+                    'status' => $uktsemester_status,
+                ];
 
-    //             array_push($detail, $data);
-    //         };
-    //     }
+                array_push($detail, $data);
+            };
+        }
 
-    //     if (!$wisuda->isEmpty()) {
-    //         $data = [
-    //             'tanggal' => $wisuda->first()->created_at,
-    //             'semester' => $wisuda->first()->semester,
-    //             'jenis' => $wisuda->first()->type,
-    //             'total' => $wisuda->sum('amount'),
-    //             'status' => $wisuda->first()->status,
-    //         ];
+        if (!$wisuda->isEmpty()) {
+            $data = [
+                'tanggal' => $wisuda->first()->created_at,
+                'semester' => $wisuda->first()->semester,
+                'jenis' => $wisuda->first()->type,
+                'total' => $wisuda->sum('amount'),
+                'status' => $wisuda->first()->status,
+            ];
 
-    //         array_push($detail, $data);
-    //     }
+            array_push($detail, $data);
+        }
 
 
-    //     return $detail;
+        return $detail;
 
-    // }
+    }
 }

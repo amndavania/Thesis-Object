@@ -60,8 +60,9 @@
                </tbody>
           </table>
           @if (!empty($choice))
-          <button onclick="window.open('{{ url('uktdetail/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-block btn-primary ml-auto p-2">Export PDF</button>
-         
+          <button onclick="window.open('{{ url('databayar/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-block btn-primary ml-auto p-2">Export PDF</button>
+        {{-- <button onclick="window.open('{{ url('uktdetail/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">Export PDF</button> --}}
+              
           @endif
           {{-- <button onclick="window.open('{{ url('uktdetail/export') }}?student={{ $choice->id}}', '_blank')" class="btn btn-block btn-primary ml-auto p-2">Export PDF</button> --}}
      </div>
