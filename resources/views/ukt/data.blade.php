@@ -18,6 +18,7 @@
                          <th>No</th>
                          <td>Tanggal</td>
                          <td>Mahasiswa</td>
+                         <td>Tahun Ajaran</td>
                          <td>Semester</td>
                          <td>Jenis</td>
                          {{-- <td>Nomor Referensi</td> --}}

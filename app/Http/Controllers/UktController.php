@@ -288,7 +288,7 @@ class UktController extends Controller
         }
 
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
-        $account->fill(['balance' => $ammount]);
+        $account->fill(['amount' => $ammount]);
 
         $account->save();
     }
