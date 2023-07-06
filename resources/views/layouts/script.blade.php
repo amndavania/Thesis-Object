@@ -20,6 +20,8 @@
 
 </script>
 
+{{-- Script Laporan --}}
+
 <script>
     function handleFilterChange() {
         var filter = document.getElementById('filter').value;
@@ -64,28 +66,69 @@
     });
 </script>
 
+{{-- Script UKT --}}
+
 <script>
-    const semesterSelect = document.getElementById('semester');
-    const typeSelect = document.getElementById('type');
+    function handleStudentChange() {
+      var selectedStudent = document.getElementById("mahasiswaID");
+      var tahunAjaranInput = document.getElementById("tahunAjaran");
+    
+      var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
+    
+      $(tahunAjaranInput).datepicker('destroy');
+      $(tahunAjaranInput).datepicker({
+        format: 'yyyy',
+        startView: 'years',
+        minViewMode: 'years',
+        autoclose: true,
+        startDate: new Date(selectedForce, 0, 1)
+      });
+      
+      $(tahunAjaranInput).val('');
+      $(tahunAjaranInput).attr('placeholder', 'Pilih Tahun Ajaran');
 
-    semesterSelect.addEventListener('change', function() {
-         const selectedSemester = parseInt(semesterSelect.value);
+    }
 
-         if (selectedSemester !== 1 && selectedSemester !== 2) {
-              const dppOption = typeSelect.querySelector('option[value="DPP"]');
-              if (dppOption) {
-                   dppOption.remove();
-              }
-         } else {
-              const dppOption = typeSelect.querySelector('option[value="DPP"]');
-              if (!dppOption) {
-                   const option = document.createElement('option');
-                   option.value = 'DPP';
-                   option.text = 'DPP';
-                   typeSelect.appendChild(option);
-              }
-         }
+    var semesterSelect = document.getElementById('semester');
+    semesterSelect.addEventListener('change', function()  {
+        var selectedStudent = document.getElementById("mahasiswaID");
+        var tahunAjaranInput = document.getElementById("tahunAjaran");
+        var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
+    
+        var typeSelect = document.getElementById('type');
+
+        var selectedSemester = parseInt(semesterSelect.value);
+
+        var semester = ((parseInt(tahunAjaranInput.value) - parseInt(selectedForce)) * 2) + (selectedSemester === "GENAP" ? 0 : 1)
+
+        if (semester > 2) {
+            var dppOption = typeSelect.querySelector('option[value="DPP"]');
+            if (dppOption) {
+                dppOption.remove();
+            }
+        } else {
+            var dppOption = typeSelect.querySelector('option[value="DPP"]');
+            if (!dppOption) {
+                var option = document.createElement('option');
+                option.value = 'DPP';
+                option.text = 'DPP';
+                typeSelect.appendChild(option);
+            }
+        }
     });
+
+    function handleYearChange() {
+        var tahunAjaranInput = document.getElementById("tahunAjaran");
+        var semesterSelect = document.getElementById('semester');
+        var typeSelect = document.getElementById('type');
+
+        semesterSelect.value = '';
+        semesterSelect.setAttribute('placeholder', 'Pilih Semester');
+
+        typeSelect.value = '';
+        typeSelect.setAttribute('placeholder', 'Pilih Jenis Pembayaran');
+    }
+
 </script>
 
 <script>
@@ -107,6 +150,7 @@
     });
 </script>
 
+{{-- Script Dashboar --}}
 <script>
     $(function () {
         'use strict'

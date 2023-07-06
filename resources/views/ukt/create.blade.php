@@ -14,32 +14,26 @@
                @csrf
           <div class="form-group">
                <label for="students_id">Mahasiswa</label>
-               <select class="form-control selectpicker" name="students_id" id="students_id" data-live-search="true">
+               <select class="form-control selectpicker" name="students_id" id="mahasiswaID" data-live-search="true" onchange="handleStudentChange()">
                 <option value="">Pilih Mahasiswa</option>
                 @foreach ($student as $student)
-                    <option value="{{ $student->id }}" {{ old('students_id') == $student->id ? 'selected' : '' }}>{{ $student->nim . ' / ' . $student->name }}</option>
+                    <option value="{{ $student->id }}" {{ old('students_id') == $student->id ? 'selected' : '' }} data-force="{{ $student->force }}">{{ $student->nim . ' / ' . $student->name }}</option>
                 @endforeach
             </select>
           </div>
-          <div class="form-group">
-               <label for="semester">Semester</label>
-               <select class="form-control" id="semester" name="semester">
+          <div class="d-flex">
+            <div class="form-group mr-3">
+              <label for="year">Tahun Ajaran</label>
+              <input type="text" class="form-control mb-2" id="tahunAjaran" name="year" placeholder="Pilih Tahun Ajaran" onchange="handleYearChange()" readonly>
+            </div>
+            <div class="form-group">
+              <label for="semester">Semester</label>
+              <select class="form-control" id="semester" name="semester">
                 <option value="">Pilih Semester</option>
-                    <option value="1" {{ old('semester') == '1' ? 'selected' : '' }}>1</option>
-                    <option value="2" {{ old('semester') == '2' ? 'selected' : '' }}>2</option>
-                    <option value="3" {{ old('semester') == '3' ? 'selected' : '' }}>3</option>
-                    <option value="4" {{ old('semester') == '4' ? 'selected' : '' }}>4</option>
-                    <option value="5" {{ old('semester') == '5' ? 'selected' : '' }}>5</option>
-                    <option value="6" {{ old('semester') == '6' ? 'selected' : '' }}>6</option>
-                    <option value="7" {{ old('semester') == '7' ? 'selected' : '' }}>7</option>
-                    <option value="8" {{ old('semester') == '8' ? 'selected' : '' }}>8</option>
-                    <option value="9" {{ old('semester') == '9' ? 'selected' : '' }}>9</option>
-                    <option value="10" {{ old('semester') == '10' ? 'selected' : '' }}>10</option>
-                    <option value="11" {{ old('semester') == '11' ? 'selected' : '' }}>11</option>
-                    <option value="12" {{ old('semester') == '12' ? 'selected' : '' }}>12</option>
-                    <option value="13" {{ old('semester') == '13' ? 'selected' : '' }}>13</option>
-                    <option value="14" {{ old('semester') == '14' ? 'selected' : '' }}>14</option>
-               </select>
+                <option value="GASAL" {{ old('semester') == 'GASAL' ? 'selected' : '' }}>GASAL</option>
+                <option value="GENAP" {{ old('semester') == 'GENAP' ? 'selected' : '' }}>GENAP</option>
+              </select>
+            </div>
           </div>
           <div class="form-group">
                <label for="type">Jenis Pembayaran</label>
