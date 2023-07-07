@@ -49,7 +49,7 @@
                          <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                            <td>{{ $row->year }}</td>
+                            <td>{{ $row->year . "/" . ($row->year + 1) }}</td>
                             <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>

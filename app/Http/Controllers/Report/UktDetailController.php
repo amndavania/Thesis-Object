@@ -14,7 +14,7 @@ class UktDetailController extends Controller
 {
     public function index(Request $request)
     {
-        $currentYear = date('Y');
+        $uktController = new UktController;
 
         $student_id = $request->input('students_id');
         $payment_id = $request->input('id');
@@ -25,13 +25,15 @@ class UktDetailController extends Controller
 
             if ($dispensasi == "Menunggu Dispensasi UTS") {
                 $payment->keterangan = "UTS";
-                $payment->exam_uts_id = UktController::createExamCard($student_id, "UTS", $payment->semester, $currentYear);
+                $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
             } elseif ($dispensasi == "Menunggu Dispensasi UAS") {
-                $payment->keterangan = "ALL";
-                $payment->exam_uas_id = UktController::createExamCard($student_id, "UAS", $payment->semester, $currentYear);
+                $payment->keterangan = "UAS";
+                $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+            } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+                $payment->keterangan = "KRS";
+                $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
             }
             $payment->save();
-
 
         }
 
@@ -63,72 +65,19 @@ class UktDetailController extends Controller
 
     public function export(Request $request)
     {
-        $ukt = $this->setData($request->student);
+        $ukt = Ukt::where('students_id', $request->student)->get();
         $student = Student::where('id', $request->student)->first();
+
+        $totalUkt = $ukt->sum('amount');
 
         return view('report.printformat.pembayaran')->with([
             'ukt' => $ukt,
             'name' => $student->name,
             'nim' => $student->nim,
+            'totalUkt' => $totalUkt,
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Pembayaran Mahasiswa"
         ]);
-
-    }
-
-    public function setData($student_id)
-    {
-
-        $dpp = Ukt::where('students_id', $student_id)->where('type', 'DPP')->latest('created_at')->get();
-        $ukt = Ukt::where('students_id', $student_id)->where('type', 'UKT')->latest('created_at')->get();
-        $wisuda = Ukt::where('students_id', $student_id)->where('type', 'WISUDA')->latest('created_at')->get();
-
-        $detail = [];
-
-        if (!$dpp->isEmpty()) {
-            $data = [
-                'tanggal' => $dpp->first()->created_at,
-                'semester' => $dpp->first()->semester,
-                'jenis' => $dpp->first()->type,
-                'total' => $dpp->sum('amount'),
-                'status' => $dpp->first()->status,
-            ];
-            array_push($detail, $data);
-        }
-
-        if (!$ukt->isEmpty()) {
-            for ($i=0; $i < Ukt::max('semester'); $i++) {
-                $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
-                $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
-                $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
-                $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
-
-                $data = [
-                    'tanggal' => $uktsemester_tanggal,
-                    'semester' => $i + 1,
-                    'jenis' => $uktsemester_jenis,
-                    'total' => $uktsemester_total,
-                    'status' => $uktsemester_status,
-                ];
-
-                array_push($detail, $data);
-            };
-        }
-
-        if (!$wisuda->isEmpty()) {
-            $data = [
-                'tanggal' => $wisuda->first()->created_at,
-                'semester' => $wisuda->first()->semester,
-                'jenis' => $wisuda->first()->type,
-                'total' => $wisuda->sum('amount'),
-                'status' => $wisuda->first()->status,
-            ];
-
-            array_push($detail, $data);
-        }
-
-
-        return $detail;
 
     }
 }

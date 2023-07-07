@@ -56,21 +56,21 @@ class UktController extends Controller
         if ($semester == "GASAL") {
             $semester_student = (($year - $studentData[0]->force) * 2) + 1;
             $yearPrevious = $year-1;
+            $semesterPrevious = "GENAP";
         }elseif ($semester == "GENAP") {
             $semester_student = (($year - $studentData[0]->force) * 2);
             $yearPrevious = $year;
+            $semesterPrevious = "GASAL";
         }
 
         $dataUkt = Ukt::where('students_id', $student_id);
-        $statusDPP = $dataUkt->where('type', 'DPP')->get('status')->last();
-        $statusUKT = $dataUkt->where('type', 'UKT')->where('year', ($yearPrevious))->where('semester', $semester)->get('status')->last();
+        $statusDPP = $dataUkt->where('type', 'DPP')->orderBy('id', 'desc')->first();
+        $statusUKT = $dataUkt->where('type', 'UKT')->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
 
-        if (empty($statusDPP)) {
-            return redirect()->route('ukt.index')->with(['error' => 'Gagal disimpan! Harap lunasi DPP terlrbih dahulu']);
-        }elseif ($semester_student > 2 && $statusDPP === "Belum Lunas") {
-            return redirect()->route('ukt.index')->with(['error' => 'Gagal disimpan! Harap lunasi DPP terlrbih dahulu']);
-        }elseif ($semester_student != 1 && $statusUKT === "Belum Lunas") {
-            return redirect()->route('ukt.index')->with(['error' => 'Gagal disimpan! Harap lunasi UKT semester lalu terlebih dahulu']);
+        if (($semester_student > 2 && $statusDPP->status == "Belum Lunas") || ($semester_student > 2 && empty($statusDPP))) {
+            return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi DPP terlebih dahulu']);
+        }elseif (($semester_student != 1 && $statusUKT->status == "Belum Lunas") || (($semester_student != 1 && empty($statusUKT)))) {
+            return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi UKT semester lalu terlebih dahulu']);
         }else {
             // Add Transaction on debit
             $user_id = $request->user()->id;
@@ -323,14 +323,18 @@ class UktController extends Controller
                 }
             } elseif ($status == "Belum Lunas") {
                 if ($totalPayment >= $totalUTS) {
-                    $payment->keterangan = 'UTS';
                     if (!$bimbinganStudy) {
+                        $payment->keterangan = 'UTS';
                         $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                    } else {
+                        $payment->keterangan = 'Menunggu Dispensasi UAS';
                     }
                 } elseif ($totalPayment >= $totalKRS) {
-                    $payment->keterangan = 'KRS';
                     if (!$bimbinganStudy) {
+                        $payment->keterangan = 'KRS';
                         $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                    } else {
+                        $payment->keterangan = 'Menunggu Dispensasi UTS';
                     }
                 } elseif ($totalPayment < $totalKRS) {
                     $payment->keterangan = 'Menunggu Dispensasi KRS';
@@ -341,7 +345,7 @@ class UktController extends Controller
         $payment->save();
     }
 
-    public static function createExamCard($student_id, $type, $semester, $year)
+    public function createExamCard($student_id, $type, $semester, $year)
     {
         $examcard = [
             'students_id' => $student_id,

@@ -88,7 +88,7 @@
             <h2>UJIAN AKHIR SEMESTER</h2>
           @endif
           <h2>INSTITUT AGAMA ISLAM IBRAHIMY</h2>
-          <h2>TAHUN {{$examcard->year}}</h2>
+          <h2>TAHUN {{ $examcard->year . "/" . ($examcard->year + 1) }}</h2>
         </div>
       </div>
       <table class="table">

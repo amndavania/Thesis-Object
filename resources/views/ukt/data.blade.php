@@ -38,7 +38,7 @@
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->student_id->nim }} | {{ $row->student_id->name }}</td>
-                              <td>{{ $row->year }}</td>
+                              <td>{{ $row->year . "/" . ($row->year + 1) }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
                               {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
