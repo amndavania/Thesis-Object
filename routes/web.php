@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\DpaController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudyProgramController;
@@ -76,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin:super admin')->group(function () {
         Route::resource('faculty', FacultyController::class)->except(['show']);
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
+        Route::resource('dpa', DpaController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
         Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);

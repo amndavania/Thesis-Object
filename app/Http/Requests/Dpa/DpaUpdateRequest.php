@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Requests\Dpa;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class DpaUpdateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     */
+    public function rules(): array
+    {
+        $student_id = $this->route('dpa');
+
+        return [
+            'name'=>'required',
+            'email'=>'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'=>'Nama mahasiswa harus diisi',
+            'email.required'=>'Email harus diisi',
+        ];
+    }
+}

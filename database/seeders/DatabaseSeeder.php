@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\AccountingGroup;
+use App\Models\Dpa;
 use App\Models\Faculty;
 use App\Models\Report;
 use App\Models\Student;
@@ -127,6 +128,11 @@ class DatabaseSeeder extends Seeder
         Faculty::factory(5)->create();
         StudyProgram::factory(13)->create();
         StudentType::factory(5)->create();
+        
+        // DPA
+        User::factory(40)->create();
+        Dpa::factory(40)->create();
+
         // Report::factory(30)->create();
 
         Student::factory()->create([
@@ -135,6 +141,7 @@ class DatabaseSeeder extends Seeder
             'force'=> 2019,
             'study_program_id'=>mt_rand(1,13),
             'student_types_id'=>mt_rand(1,5),
+            'dpa_id'=>mt_rand(1,40),
         ]);
 
         Student::factory(1999)->create();

@@ -124,6 +124,12 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
+                    <a href="{{ route('dpa.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>DPA</p>
+                    </a>
+                  </li>
+                <li class="nav-item">
                     <a href="{{ route('faculty.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Fakultas</p>

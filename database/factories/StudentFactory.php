@@ -22,6 +22,7 @@ class StudentFactory extends Factory
             'force'=>fake()->numberBetween(1990, 2023),
             'study_program_id'=>mt_rand(1,13),
             'student_types_id'=>mt_rand(1,5),
+            'dpa_id'=>mt_rand(1,40),
         ];
     }
 }

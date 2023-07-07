@@ -18,6 +18,7 @@ class Student extends Model
         'force',
         'student_types_id',
         'study_program_id',
+        'dpa_id',
     ];
 
     protected $hidden = [];
@@ -25,6 +26,11 @@ class Student extends Model
     public function ukt(): HasMany
     {
         return $this->hasMany(Ukt::class);
+    }
+
+    public function dpa(): BelongsTo
+    {
+        return $this->belongsTo(Dpa::class, 'dpa_id');
     }
 
     public function studyprogram(): BelongsTo
