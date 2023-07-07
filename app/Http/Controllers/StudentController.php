@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Student\StudentCreateRequest;
 use App\Http\Requests\Student\StudentUpdateRequest;
+use App\Models\Dpa;
 use App\Models\Ukt;
 
 class StudentController extends Controller
@@ -32,7 +33,8 @@ class StudentController extends Controller
     {
         $study_program = StudyProgram::all();
         $student_type = StudentType::all();
-        return view('student.create', compact('study_program', 'student_type'));
+        $dpa = Dpa::all();
+        return view('student.create', compact('study_program', 'student_type', 'dpa'));
     }
 
     /**
@@ -63,6 +65,7 @@ class StudentController extends Controller
             'student' => Student::findOrFail($id),
             "study_program" => StudyProgram::all(),
             "student_type" => StudentType::all(),
+           "dpa" => Dpa::all()
         ]);
     }
 

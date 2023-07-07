@@ -20,6 +20,7 @@
                          <td>NIM</td>
                          <td>Tahun Masuk</td>
                          <td>Prodi</td>
+                         <td>DPA</td>
                          <td>Program</td>
                          <td>Aksi</td>
                     </tr>
@@ -35,6 +36,7 @@
                               <td>{{ $row->nim }}</td>
                               <td>{{ $row->force }}</td>
                               <td>{{ $row->studyprogram->name }}</td>
+                              <td>{{ $row->dpa->name }}</td>
                               <td>{{ $row->studenttype->type }}</td>
                               <td>
                                    <div class="d-flex">

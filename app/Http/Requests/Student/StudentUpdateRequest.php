@@ -29,6 +29,7 @@ class StudentUpdateRequest extends FormRequest
             'force'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'student_types_id'=>'required',
+            'dpa_id'=>'required',
         ];
     }
 
@@ -44,6 +45,7 @@ class StudentUpdateRequest extends FormRequest
             'force.numeric'=>'Tahun masuk harus berupa angka',
             'force.min'=>'Tahun masuk tidak boleh Negatif!',
             'study_program_id.required'=>'Program Studi harus diisi',
+            'dpa_id.required'=>'DPA harus diisi',
             'student_types_id.required'=>'Skema Pembayaran harus diisi',
         ];
     }
