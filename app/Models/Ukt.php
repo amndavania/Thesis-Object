@@ -15,11 +15,11 @@ class Ukt extends Model
 
     protected $fillable = [
         'students_id',
+        'year',
         'semester',
         'type',
         'reference_number',
         'amount',
-        'total',
         'status',
         'transaction_debit_id',
         'transaction_kredit_id',

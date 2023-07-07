@@ -35,6 +35,7 @@
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
+                         <td>Tahun Ajaran</td>
                          <td>Semester</td>
                          <td>Jenis Tagihan</td>
                          <td>Nominal</td>
@@ -48,7 +49,8 @@
                          <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                              <td>{{ $row->semester }}</td>
+                            <td>{{ $row->year }}</td>
+                            <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
                               <td>
@@ -61,7 +63,7 @@
                                 @endif
                               </td>
                               <td>{{ $row->keterangan }}</td>
-                              @if ($row->keterangan == 'Menunggu Dispensasi UTS' || $row->keterangan == 'Menunggu Dispensasi UAS')
+                              @if ($row->keterangan == 'Menunggu Dispensasi UTS' || $row->keterangan == 'Menunggu Dispensasi UAS' || $row->keterangan == 'Menunggu Dispensasi KRS')
                                     <td>
                                         <button type="button" onclick="updateData('{{ $row->id }}', '{{ $row->keterangan }}', '{{ $choice->id }}')" class="btn btn-sm btn-outline-danger">Dispensasi</button>
                                     </td>

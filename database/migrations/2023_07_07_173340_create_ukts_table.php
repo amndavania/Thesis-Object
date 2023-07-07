@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('students_id')->constrained();
             $table->string('year');
-            $table->string('semester');
+            $table->enum('semester', ['GASAL', 'GENAP']);
             $table->enum('type', ['DPP','UKT', 'WISUDA']);
             $table->string('reference_number')->nullable();
             $table->decimal('amount', 14, 2);
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->integer('transaction_debit_id');
             $table->integer('transaction_kredit_id');
+            $table->integer('lbs_id')->nullable();
             $table->integer('exam_uts_id')->nullable();
             $table->integer('exam_uas_id')->nullable();
             $table->timestamps();
