@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
         StudentType::factory(5)->create();
         
         // DPA
-        User::factory(40)->create();
+        User::factory(44)->create();
         Dpa::factory(40)->create();
 
         // Report::factory(30)->create();
