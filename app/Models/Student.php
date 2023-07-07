@@ -47,4 +47,9 @@ class Student extends Model
     {
         return $this->hasMany(ExamCard::class);
     }
+
+    public function bimbinganStudy(): HasMany
+    {
+        return $this->hasMany(BimbinganStudy::class);
+    }
 }

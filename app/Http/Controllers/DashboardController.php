@@ -9,6 +9,7 @@ use App\Models\HistoryReport;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
+use App\Models\Ukt;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -49,13 +50,15 @@ class DashboardController extends Controller
         $saldoAkhir = $this->setSaldoAkhir($cashflowController, $filter, $date, $cashflow_group);
         $saldoLabaRugi = $this->setLabaRugi($labarugiController, $filter, $date, $labarugi_group);
 
-        $students = Student::all();
+        $students = Student::all()->count();
         $transactions = Transaction::latest()->take(5)->get();
+
+        // $statusUKT = $this->setStatusUKT($students, $date);
 
         return view('dashboard')->with([
             'saldo' => $saldoAkhir,
             'labarugi' => $saldoLabaRugi,
-            'students' => $students->count(),
+            'students' => $students,
             'trendKeuangan' => [$financeThisYear, $financeLastYear],
             'transactions' => $transactions,
             'growPercentage' => [$growPercentagePreviousMonth, $growPercentagePreviousMonth2],
@@ -147,7 +150,17 @@ class DashboardController extends Controller
         return $growthPercentage;
     }
 
-    
+    public function setStatusUKT($jumlahMahasiswa, $month) {
+        $students = Student::all('id');
+
+        $lunas = Ukt::where('status', 'Lunas')->get();
+        $belumLunas = Ukt::where('status', 'Belum Lunas')->get();
+        $belumBayar = $jumlahMahasiswa - ($lunas + $belumLunas);
+
+        return [$lunas, $belumLunas, $belumBayar];
+    }
+
+
 
 
 

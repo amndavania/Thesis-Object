@@ -23,7 +23,8 @@ class UktCreateRequest extends FormRequest
     {
         return [
             'students_id'=>'required',
-            'semester'=>'required|numeric',
+            'year'=>'required',
+            'semester'=>'required',
             'type'=>'required',
             'amount'=>'required|numeric|min:0',
         ];
@@ -33,8 +34,8 @@ class UktCreateRequest extends FormRequest
     {
         return [
             'students_id.required'=>'Mahasiswa harus diisi',
+            'year.required'=>'Tahun Ajaran harus diisi',
             'semester.required'=>'Semester harus diisi',
-            'semester.numeric'=>'Semester harus berupa angka',
             'type.required'=>'Status harus diisi',
             'amount.required'=>'Jumlah harus diisi',
             'amount.min'=>'Jumlah tidak boleh Negatif!'

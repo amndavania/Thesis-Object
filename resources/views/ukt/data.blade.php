@@ -18,6 +18,7 @@
                          <th>No</th>
                          <td>Tanggal</td>
                          <td>Mahasiswa</td>
+                         <td>Tahun Ajaran</td>
                          <td>Semester</td>
                          <td>Jenis</td>
                          {{-- <td>Nomor Referensi</td> --}}
@@ -37,6 +38,7 @@
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
                               <td>{{ $row->student_id->nim }} | {{ $row->student_id->name }}</td>
+                              <td>{{ $row->year }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
                               {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
