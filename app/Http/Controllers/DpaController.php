@@ -118,4 +118,11 @@ class DpaController extends Controller
             'role' => $role,
         ]);
     }
+
+    public function getMahasiswa():View
+    {
+        return view('dpa.daftarmahasiswa')->with([
+            'data' => Dpa::paginate(30),
+        ]);
+    }
 }

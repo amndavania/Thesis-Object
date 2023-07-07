@@ -18,21 +18,20 @@ class BukuBesarRekapController extends Controller
     public function index(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $filter = $request->input('filter');
 
-        $getData = $this->getData($datepicker, $filter);
+        $currentMonthYear = date('m-Y');
 
-        if ($filter == 'year') {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $getData[1])->get();
+
+        if ($datepicker === $currentMonthYear) {
+            // Ambil data dari tabel TransactionAccount
+            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get();
         } else {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
+            $data = HistoryReport::whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get();
         }
-
 
         return view('report.bukubesarrekap')->with([
             'data' => $data,
-            'datepicker' => $getData[2],
-            'filter' => $filter,
+            'datepicker' => $datepicker,
         ]);
     }
 
@@ -41,52 +40,30 @@ class BukuBesarRekapController extends Controller
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');
 
-        if ($filter == 'year') {
-            $dateTime = DateTime::createFromFormat('Y', $datepicker);
-            $date = $dateTime->format('Y');
-        } else {
-            $dateTime = DateTime::createFromFormat('F Y', $datepicker);
-            $date = $dateTime->format('m-Y');
-        }
+        $currentMonthYear = date('Y-m');
 
-        $getData = $this->getData($date, $filter);
-        
-        if ($filter == 'year') {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $getData[1])->get();
+        if ($datepicker === $currentMonthYear) {
+            // Ambil data dari tabel TransactionAccount
+            if ($filter == 'year') {
+                $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $datepicker)->get();
+            } else {
+                $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get();
+            }
         } else {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
+            // Ambil data dari tabel HistoryReport
+            if ($filter == 'year') {
+                $data = HistoryReport::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $datepicker)->get();
+            } else {
+                $data = HistoryReport::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get();
+            }
         }
 
         return view('report.printformat.bukubesarrekap')->with([
             'data' => $data,
-            'datepicker' => $getData[2],
+            'datepicker' => $datepicker,
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Buku Besar",
         ]);
 
-    }
-
-    public function getData($datepicker, $filter)
-    {
-        if (empty($search_account)){
-            $account = TransactionAccount::first();
-            $search_account = !empty($account) ? $account->id : 0;
-        }
-        $date = date('Y-m');
-        $formattedDate = date('F Y');
-
-        if (!empty($datepicker)) {
-            if ($filter == 'month') {
-                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-                $date = $parsedDate->format('Y-m');
-                $formattedDate = $parsedDate->format('F Y');
-            } elseif ($filter == 'year') {
-                $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
-                $date = $parsedDate->format('Y');
-                $formattedDate = $parsedDate->format('Y');
-            }
-        }
-
-        return [$search_account, $date, $formattedDate];
     }
 }

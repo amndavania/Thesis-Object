@@ -6,18 +6,12 @@
      <div class="card-header">
           <div class="d-flex align-items-center">
           <form class="form-inline" action="{{ route('bukubesarrekap.index') }}" method="GET">
-    <div class="mb-2 mr-sm-2">
-        <select class="form-control selectpicker" name="filter" id="filter" data-live-search="true" onchange="handleFilterChange()">
-            <option value="month">Filter by</option>
-            <option value="month">Bulan</option>
-            <option value="year">Tahun</option>
-        </select>
-    </div>
+
     <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
     <button type="submit" class="btn btn-primary mb-2">Cari</button>
 </form>
 @if (!empty($data))
-              <button onclick="window.open('{{ url('bukubesarrekap/export') }}?datepicker={{ $datepicker }}&filter={{ $filter }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
+              <button onclick="window.open('{{ url('bukubesarrekap/export') }}?datepicker={{ $datepicker }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
                 <i class="fas fa-print"></i> Export PDF
             </button>
               @endif
@@ -45,7 +39,7 @@
                                 
                                 @endphp
                     @foreach ($data as $row)
-                         <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row->id }}&datepicker={{ $datepicker }}&filter={{ $filter }}', '_blank')" 
+                         <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row->id }}&datepicker={{ $datepicker }}', '_blank')" 
                          style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
                               <th>{{ $loop->iteration }}</th>
                               <td>{{ $row->id }}</td>

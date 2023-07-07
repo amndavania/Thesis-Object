@@ -185,6 +185,35 @@
             </ul>
           </li>
 
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'dpa')
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-closed">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-coins"></i>
+              <p>
+                DPA
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('transaction.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Daftar Mahasiswa</p>
+                    </a>
+                  </li>
+                <li class="nav-item">
+                    <a href="{{ route('transaction_account.index') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                      <p>
+                        Detail Mahasiswa
+                      </p>
+                    </a>
+                  </li>
+            </ul>
+          </li>
+          @endif
+
         {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
