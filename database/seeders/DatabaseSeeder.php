@@ -66,35 +66,34 @@ class DatabaseSeeder extends Seeder
         // AccountingGroup::factory()->create(['name'=> 'Pengurangan Modal','description' => 'grup akun pengurangan modal']);
         // AccountingGroup::factory()->create(['name'=> 'Bank','description' => 'grup akun bank']);
         
-        $accountingGroups = [
-            ['name' => 'Pendapatan', 'description' => 'grup akun pendapatan'],
-            ['name' => 'Pengeluaran', 'description' => 'grup akun pengeluaran'],
-            ['name' => 'Penyusutan/Amortisasi', 'description' => 'grup akun penyusutan/amortisasi'],
-            ['name' => 'Bunga/Pajak', 'description' => 'grup akun bunga/pajak'],
-            ['name' => 'Pendapatan atau Pengeluaran lain', 'description' => 'grup akun pendapatan atau pengeluaran lain2'],
-            ['name' => 'Aktiva Lancar', 'description' => 'grup akun aktiva lancar'],
-            ['name' => 'Aktiva Tetap', 'description' => 'grup akun aktiva tetap'],
-            ['name' => 'Hutang Lancar', 'description' => 'grup akun hutang lancar'],
-            ['name' => 'Utang Jangka Panjang', 'description' => 'grup akun utang jangka panjang'],
-            ['name' => 'Modal', 'description' => 'grup akun modal'],
-            ['name' => 'Arus Kas Masuk', 'description' => 'grup akun kas masuk'],
-            ['name' => 'Arus Kas Keluar', 'description' => 'grup akun kas keluar'],
-            ['name' => 'Penjualan Aset', 'description' => 'grup akun penjualan aset'],
-            ['name' => 'Pembelian Aset', 'description' => 'grup akun pembelian aset'],
-            ['name' => 'Penambahan Dana', 'description' => 'grup akun penambahan dana'],
-            ['name' => 'Pengurangan Dana', 'description' => 'grup akun pengurangan dana'],
-            ['name' => 'Modal di Awal', 'description' => 'grup akun modal di awal'],
-            ['name' => 'Penambahan Modal', 'description' => 'grup akun penambahan modal'],
-            ['name' => 'Pengurangan Modal', 'description' => 'grup akun pengurangan modal'],
-            ['name' => 'Bank', 'description' => 'grup akun bank'],
-        ];
+        // $accountingGroups = [
+        //     ['name' => 'Pendapatan', 'description' => 'grup akun pendapatan'],
+        //     ['name' => 'Pengeluaran', 'description' => 'grup akun pengeluaran'],
+        //     ['name' => 'Penyusutan/Amortisasi', 'description' => 'grup akun penyusutan/amortisasi'],
+        //     ['name' => 'Bunga/Pajak', 'description' => 'grup akun bunga/pajak'],
+        //     ['name' => 'Pendapatan atau Pengeluaran lain', 'description' => 'grup akun pendapatan atau pengeluaran lain2'],
+        //     ['name' => 'Aktiva Lancar', 'description' => 'grup akun aktiva lancar'],
+        //     ['name' => 'Aktiva Tetap', 'description' => 'grup akun aktiva tetap'],
+        //     ['name' => 'Hutang Lancar', 'description' => 'grup akun hutang lancar'],
+        //     ['name' => 'Utang Jangka Panjang', 'description' => 'grup akun utang jangka panjang'],
+        //     ['name' => 'Modal', 'description' => 'grup akun modal'],
+        //     ['name' => 'Arus Kas Masuk', 'description' => 'grup akun kas masuk'],
+        //     ['name' => 'Arus Kas Keluar', 'description' => 'grup akun kas keluar'],
+        //     ['name' => 'Penjualan Aset', 'description' => 'grup akun penjualan aset'],
+        //     ['name' => 'Pembelian Aset', 'description' => 'grup akun pembelian aset'],
+        //     ['name' => 'Penambahan Dana', 'description' => 'grup akun penambahan dana'],
+        //     ['name' => 'Pengurangan Dana', 'description' => 'grup akun pengurangan dana'],
+        //     ['name' => 'Modal di Awal', 'description' => 'grup akun modal di awal'],
+        //     ['name' => 'Penambahan Modal', 'description' => 'grup akun penambahan modal'],
+        //     ['name' => 'Pengurangan Modal', 'description' => 'grup akun pengurangan modal'],
+        //     ['name' => 'Bank', 'description' => 'grup akun bank'],
+        // ];
 
 
         // User::factory(7)->create();
-
         // AccountingGroup::factory(10)->create();
 
-        $transactionAccounts = TransactionAccount::factory()->count(58)->create();
+        // $transactionAccounts = TransactionAccount::factory()->count(58)->create();
 
         TransactionAccount::factory()->create([
             'id' => 1120,
@@ -111,40 +110,40 @@ class DatabaseSeeder extends Seeder
 
 
 
-        $groupTransactions = collect($accountingGroups)->map(function ($group) {
-            return AccountingGroup::factory()->create($group);
-        });
+        // $groupTransactions = collect($accountingGroups)->map(function ($group) {
+        //     return AccountingGroup::factory()->create($group);
+        // });
 
-        foreach ($groupTransactions as $groupTransaction) {
-            $randomTransactionAccounts = $transactionAccounts->random(3);
+        // foreach ($groupTransactions as $groupTransaction) {
+        //     $randomTransactionAccounts = $transactionAccounts->random(3);
     
-            $groupTransaction->transactionAccounts()->attach(
-                $randomTransactionAccounts->pluck('id')->toArray()
-            );
-        }
+        //     $groupTransaction->transactionAccounts()->attach(
+        //         $randomTransactionAccounts->pluck('id')->toArray()
+        //     );
+        // }
 
 
-        Transaction::factory(1000)->create();
-        Faculty::factory(5)->create();
-        StudyProgram::factory(13)->create();
-        StudentType::factory(5)->create();
+        // Transaction::factory(1000)->create();
+        // Faculty::factory(5)->create();
+        // StudyProgram::factory(13)->create();
+        // StudentType::factory(5)->create();
         
         // DPA
-        User::factory(40)->create();
-        Dpa::factory(40)->create();
+        // User::factory(40)->create();
+        // Dpa::factory(40)->create();
 
         // Report::factory(30)->create();
 
-        Student::factory()->create([
-            'name' => 'Ahmad Izaz Nur Fikri',
-            'nim'=> 192410102020,
-            'force'=> 2019,
-            'study_program_id'=>mt_rand(1,13),
-            'student_types_id'=>mt_rand(1,5),
-            'dpa_id'=>mt_rand(1,40),
-        ]);
+        // Student::factory()->create([
+        //     'name' => 'Ahmad Izaz Nur Fikri',
+        //     'nim'=> 192410102020,
+        //     'force'=> 2019,
+        //     'study_program_id'=>mt_rand(1,13),
+        //     'student_types_id'=>mt_rand(1,5),
+        //     'dpa_id'=>mt_rand(1,40),
+        // ]);
 
-        Student::factory(1999)->create();
-        Ukt::factory(12000)->create();
+        // Student::factory(1999)->create();
+        // Ukt::factory(12000)->create();
     }
 }
