@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\Ukt;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -43,10 +45,23 @@ public function index():View
         // $saldoAkhir = $this->setSaldoAkhir($cashflowController, $filter, $date, $cashflow_group);
         // $saldoLabaRugi = $this->setLabaRugi($labarugiController, $filter, $date, $labarugi_group);
 
-        $students = Student::all();
-        $transactions = Transaction::latest()->take(5)->get();
+        // $students = Student::all();
+        // $transactions = Transaction::latest()->take(5)->get();
+        $currentYear = Carbon::now()->year;
 
-        return view('dashboard')->with([
+        $uktLunasSemua = Ukt::where('status','LUNAS')->count();
+        $uktLunasTahunIni = Ukt::where('status','LUNAS')
+                            ->where('year', $currentYear)
+                            ->count();
+        $uktBelumLunasSemua = Ukt::where('status','BELUM LUNAS')->count();
+        $uktBelumLunasTahunIni = Ukt::where('status','BELUM LUNAS')
+                            ->where('year', $currentYear)
+                            ->count();
+
+        return view('dashboardMahasiswa')->with([
+            'uktLunas' => $uktLunasTahunIni,
+            'uktBelumLunas' => $uktBelumLunasTahunIni,
+            'totalUktBelumLunas' => 1000000,
             // 'saldo' => $saldoAkhir,
             // 'labarugi' => $saldoLabaRugi,
             // 'students' => $students->count(),

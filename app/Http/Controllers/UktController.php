@@ -319,7 +319,7 @@ class UktController extends Controller
             if ($status == "Lunas") {
                 $payment->keterangan = 'UAS';
                 if (!$bimbinganStudy) {
-                    $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                    $payment->  _id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
                 }
             } elseif ($status == "Belum Lunas") {
                 if ($totalPayment >= $totalUTS) {

@@ -8,13 +8,16 @@
             <div class="row justify-content-between">
                 <div class="col d-flex">
                   <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-coins"></i></span>
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-arrow-up"></i></span>
 
                     <div class="info-box-content">
-                      <span class="info-box-text">Total Saldo</span>
+                      <span class="info-box-text">UKT telah lunas</span>
                       <span class="info-box-number text-lg">
-                        {{ 'Rp ' . number_format($saldo, 2, ',', '.') }}
+                        {{ $uktLunas }}
                       </span>
+                      {{-- <span class="info-box-number text-lg">
+                        {{ 'Rp ' . number_format(10000000, 2, ',', '.') }}
+                      </span> --}}
                     </div>
                     <!-- /.info-box-content -->
                   </div>
@@ -23,16 +26,17 @@
                 <!-- /.col -->
                 <div class="col d-flex">
                   <div class="info-box mb-3">
-                    @if ($labarugi < 0)
+                    {{-- @if ($labarugi < 0)
                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-arrow-down"></i></span>
                     @else
                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-arrow-up"></i></span>
-                    @endif
-
+                    @endif --}}
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-arrow-down"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Laba / Rugi</span>
+                      <span class="info-box-text">UKT Belum Lunas</span>
                       <span class="info-box-number text-lg">
-                        {{ 'Rp ' . number_format($labarugi, 2, ',', '.') }}
+                        {{-- {{ 'Rp ' . number_format($labarugi, 2, ',', '.') }} --}}
+                        {{ $uktBelumLunas }}
                       </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -46,7 +50,7 @@
 
                     <div class="info-box-content">
                       <span class="info-box-text">Jumlah Mahasiswa</span>
-                      <span class="info-box-number text-lg">{{ $students }}</span>
+                      {{-- <span class="info-box-number text-lg">{{ $students }}</span> --}}
                     </div>
                     <!-- /.info-box-content -->
                   </div>

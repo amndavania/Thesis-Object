@@ -19,13 +19,19 @@ class UktFactory extends Factory
         return [
             'reference_number'=>fake()->randomNumber(5, true),
             'amount'=>fake()->numberBetween(100000, 1000000),
-            'total'=>fake()->numberBetween(100000, 1000000),
+            // 'total'=>fake()->numberBetween(100000, 1000000),
             'status'=>fake()->randomElement(['Lunas','Belum Lunas']),
             'transaction_debit_id'=>mt_rand(1,10),
             'transaction_kredit_id'=>mt_rand(1,10),
-            'students_id'=>mt_rand(1,1999),
-            'semester'=>fake()->randomDigitNotNull(),
-            'type'=>fake()->randomElement(['UKT','DPP','WISUDA'])
+            'students_id'=>mt_rand(1,999),
+            'semester'>fake()->randomElement(['GASAL','GENAP']),
+            'type'=>fake()->randomElement(['UKT','DPP','WISUDA']),
+            'year' => fake()->numberBetween(1996, 2023),
+            'keterangan'=>fake()->text(),
+            // not set up yet
+            'lbs_id'=> 1,
+            'exam_uts_id'=> 1,
+            'exam_uas_id'=> 1,
         ];
     }
 }

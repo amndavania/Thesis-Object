@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\AccountingGroup;
 use App\Models\Dpa;
+use App\Models\ExamCard;
 use App\Models\Faculty;
 use App\Models\Report;
 use App\Models\Student;
@@ -130,7 +131,7 @@ class DatabaseSeeder extends Seeder
         StudentType::factory(5)->create();
         
         // DPA
-        User::factory(40)->create();
+        User::factory(45)->create();
         Dpa::factory(40)->create();
 
         // Report::factory(30)->create();
@@ -144,7 +145,8 @@ class DatabaseSeeder extends Seeder
             'dpa_id'=>mt_rand(1,40),
         ]);
 
-        Student::factory(1999)->create();
-        Ukt::factory(12000)->create();
+        Student::factory(999)->create();
+        ExamCard::factory(100)->create();
+        Ukt::factory(3000)->create();
     }
 }
