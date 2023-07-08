@@ -26,6 +26,7 @@ use App\Http\Controllers\ExamCardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\CekPembayaranController;
 use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\KrsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('perubahanmodal', PerubahanModalController::class)->except(['show']);
         Route::resource('uktdetail', UktDetailController::class)->except(['show']);
         Route::resource('examcard', ExamCardController::class)->except(['show']);
+        Route::resource('bimbinganstudi', KrsController::class)->except(['show']);
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
         Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
@@ -115,8 +117,7 @@ Route::middleware('auth')->group(function () {
         Route::get('neraca/export', [NeracaController::class, 'export']);
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
-
-
+        Route::get('bimbinganstudi/export', [KrsController::class, 'export']);
 
         Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa']);
     });

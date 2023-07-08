@@ -63,13 +63,12 @@ class UktController extends Controller
             $semesterPrevious = "GASAL";
         }
 
-        $dataUkt = Ukt::where('students_id', $student_id);
-        $statusDPP = $dataUkt->where('type', 'DPP')->orderBy('id', 'desc')->first();
-        $statusUKT = $dataUkt->where('type', 'UKT')->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
 
-        if (($semester_student > 2 && $statusDPP->status == "Belum Lunas") || ($semester_student > 2 && empty($statusDPP))) {
+        if (($semester_student > 2 && empty($statusDPP)) || ($semester_student > 2 && $statusDPP->status == "Belum Lunas")) {
             return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi DPP terlebih dahulu']);
-        }elseif (($semester_student != 1 && $statusUKT->status == "Belum Lunas") || (($semester_student != 1 && empty($statusUKT)))) {
+        }elseif ((($semester_student != 1 && empty($statusUKT))) || ($semester_student != 1 && $statusUKT->status == "Belum Lunas")) {
             return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi UKT semester lalu terlebih dahulu']);
         }else {
             // Add Transaction on debit

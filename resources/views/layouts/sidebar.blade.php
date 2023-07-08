@@ -177,6 +177,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="{{ route('bimbinganstudi.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lembar Bimbingan Studi</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="{{ route('examcard.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kartu Ujian</p>
