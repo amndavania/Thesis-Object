@@ -31,6 +31,11 @@ class Dpa extends Model
         return $this->hasMany(User::class, 'student_id');
     }
 
+    public function studyprogram(): BelongsTo
+    {
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
+    }
+
     // public function transactionaccount(): BelongsTo
     // {
     //     return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
