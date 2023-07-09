@@ -172,23 +172,24 @@ class DashboardController extends Controller
         $belumLunas = 0;
         $belumBayar = 0;
 
-        foreach ($students as $item) {
-            $dataUkt = Ukt::where('type', 'UKT')
-                ->where('year', $lastUkt->year)
-                ->where('semester', $lastUkt->semester)
-                ->where('students_id', $item->id)
-                ->latest()
-                ->first('status');
-
-            if (empty($dataUkt)) {
-                $belumBayar += 1;
-            }elseif ($dataUkt->status == "Lunas") {
-                $lunas += 1;
-            } elseif ($dataUkt->status == "Belum Lunas") {
-                $belumLunas += 1;
+        if (!empty($lastUkt)){
+            foreach ($students as $item) {
+                $dataUkt = Ukt::where('type', 'UKT')
+                    ->where('year', $lastUkt->year)
+                    ->where('semester', $lastUkt->semester)
+                    ->where('students_id', $item->id)
+                    ->latest()
+                    ->first('status');
+    
+                if (empty($dataUkt)) {
+                    $belumBayar += 1;
+                }elseif ($dataUkt->status == "Lunas") {
+                    $lunas += 1;
+                } elseif ($dataUkt->status == "Belum Lunas") {
+                    $belumLunas += 1;
+                }
             }
         }
-
         return [$lunas, $belumLunas, $belumBayar];
     }
 
