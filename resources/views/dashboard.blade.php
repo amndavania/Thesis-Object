@@ -143,7 +143,7 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Pembayaran UKT Mahasiswa</h3>
-                            <span>2023 | GASAL</span>
+                            <span>{{$tahunAjaran[0] . "/" . ($tahunAjaran[0] + 1) . " | " . $tahunAjaran[1]}}</span>
                           </div>
                     </div>
                     <!-- /.card-header -->
