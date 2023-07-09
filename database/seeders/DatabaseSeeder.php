@@ -92,7 +92,6 @@ class DatabaseSeeder extends Seeder
 
 
         // User::factory(7)->create();
-
         // AccountingGroup::factory(10)->create();
 
         $transactionAccounts = TransactionAccount::factory()->count(58)->create();
@@ -131,10 +130,10 @@ class DatabaseSeeder extends Seeder
         StudentType::factory(5)->create();
         
         // DPA
-        User::factory(45)->create();
+        User::factory(40)->create();
         Dpa::factory(40)->create();
 
-        // Report::factory(30)->create();
+        Report::factory(30)->create();
 
         Student::factory()->create([
             'name' => 'Ahmad Izaz Nur Fikri',
@@ -145,8 +144,7 @@ class DatabaseSeeder extends Seeder
             'dpa_id'=>mt_rand(1,40),
         ]);
 
-        Student::factory(999)->create();
-        ExamCard::factory(100)->create();
-        Ukt::factory(3000)->create();
+        Student::factory(1999)->create();
+        Ukt::factory(12000)->create();
     }
 }

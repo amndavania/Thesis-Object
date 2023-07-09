@@ -14,12 +14,18 @@ class StudyProgram extends Model
     protected $table = 'study_programs';
     protected $fillable = [
         'name',
+        'kaprodi_name',
         'faculty_id',
     ];
 
     protected $hidden = [];
 
     public function student(): HasMany
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    public function dpa(): HasMany
     {
         return $this->hasMany(Student::class);
     }

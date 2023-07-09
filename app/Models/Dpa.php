@@ -21,14 +21,19 @@ class Dpa extends Model
     ];
 
 
-    public function user(): HasMany
+    public function user(): HasOne
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->hasOne(User::class, 'user_id');
     }
 
     public function student(): HasMany
     {
         return $this->hasMany(User::class, 'student_id');
+    }
+
+    public function studyprogram(): BelongsTo
+    {
+        return $this->belongsTo(StudyProgram::class, 'study_program_id');
     }
 
     // public function transactionaccount(): BelongsTo

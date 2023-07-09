@@ -18,6 +18,7 @@ class StudyProgramFactory extends Factory
     {
         return [
             'name' => "Ilmu ".fake()->word(),
+            'kaprodi_name' => fake()->name(),
             'faculty_id' => mt_rand(1,5),
         ];
     }

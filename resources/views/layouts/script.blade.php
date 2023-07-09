@@ -20,6 +20,18 @@
 
 </script>
 
+<!-- DPA -->
+<script>
+    $(document).ready(function() {
+        $('#dpatahunajaran').datepicker({
+            format: 'yyyy',
+            startView: 'years',
+            minViewMode: 'years',
+            autoclose: true
+        });
+    });
+</script>
+
 {{-- Script Laporan --}}
 
 <script>
@@ -143,6 +155,13 @@
       window.location.href = url;
   }
 </script>
+
+<script>
+    function updateKrs(id) {
+        var url = '{{ url('daftar_mahasiswa') }}?id=' + encodeURIComponent(id);
+        window.location.href = url;
+    }
+  </script>
 
 <script>
     $(document).ready(function() {

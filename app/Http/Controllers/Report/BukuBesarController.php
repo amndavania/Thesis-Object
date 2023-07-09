@@ -13,9 +13,6 @@ use PDF;
 
 class BukuBesarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $select = TransactionAccount::pluck('name', 'id');
