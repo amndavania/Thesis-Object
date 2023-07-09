@@ -1,4 +1,250 @@
-@include('report.kop')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{$title}}</title>
+    <style>
+        .a4-container {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 10mm;
+            box-sizing: border-box;
+            position: relative;
+        }
+        table {
+            font-size: 12px;
+        }
+        .title {
+            text-align: center;
+            font-size: larger;
+        }
+        .title h2 {
+            padding-top: 10px;
+            font-size: large;
+            margin: 0px;
+        }
+        .logo {
+            width: 100px;
+            margin-right: 20px;
+        }
+
+        .header-content {
+            flex-grow: 1;
+        }
+
+        .header-content h2,
+        .header-content p {
+            margin: 0;
+            text-align: center;
+        }
+        .header-content h2{
+            font-size: 18px;
+        }
+        .header-content p {
+            font-size: 16px;
+        }
+        .signature-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            /* padding-top: 70px; */
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .signature {
+            width: 100%;
+        }
+
+        .signature-placeholder {
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            padding-bottom: 100px;
+        }
+
+        .signature-bottom {
+            text-align: center;
+        }
+
+        .signature-placeholder p {
+            text-align: center;
+            margin: 0px;
+        }
+        .signature2-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.signature2-center {
+  text-align: center;
+}
+
+.signature2-placeholder {
+  margin-bottom: 10px;
+}
+
+.signature2-placeholder p {
+  margin: 0;
+}
+
+.signature2-placeholder {
+            border-bottom: 1px solid #000;
+            margin-bottom: 10px;
+            padding-bottom: 100px;
+        }
+
+.signature-left {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+.signature-right {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+        img {
+            width: 100px;
+            padding-bottom: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #000;
+        }
+        hr {
+            border-bottom: 2px solid #000;
+            margin-top: 2px;
+        }
+        .contact-info {
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .contact-info span {
+            display: block;
+        }
+        .total td {
+            background-color: rgba(128, 128, 128, 0.4);
+        }
+        .keterangan {
+            padding-bottom: 20px;
+        }
+        .content {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: auto;
+        }
+        .content th {
+            background-color: rgba(128, 128, 128, 0.7);
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #000000;
+        }
+        .content td {
+            padding: 8px;
+            width: 100px;
+            text-align: left;
+            border: 1px solid #000000;
+        }
+        .content tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .content tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        /* .currency::after {
+            content: ",00";
+        } */
+        @media print {
+            .a4-container {
+                margin: 0;
+                box-shadow: none;
+                padding: 0;
+            }
+            .title {
+                position: sticky;
+                text-align: center;
+            }
+            .content {
+                position: sticky;
+            }
+            .th {
+                background-color: rgba(128, 128, 128, 0.8) !important;
+            }
+            .header {
+                position: sticky;
+            }
+            .contact-info {
+                position: sticky;
+            }
+        }
+        .left-column {
+            float: left;
+            width: 50%;
+        }
+
+        .right-column {
+            float: left;
+            width: 50%;
+        }
+        .catatan {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.catatandosen {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.catatandosen th {
+  border: 1px solid black;
+  padding: 50px;
+  text-align: left;
+}
+
+.catatandosen td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.horizontal-line {
+  border-top: 1px solid black;
+}
+    </style>
+
+    <title>Lembar Bimbingan Studi</title>
+</head>
+<body>
+    <div class="a4-container">
+        <div class="header">
+            <table>
+                <tr>
+                  <td>
+                    <img src="{{asset('img/logouniv.png')}}" alt="Logo" class="logo">
+                  </td>
+                  <td>
+                    <div class="header-content">
+                        <h2>KEMENTERIAN AGAMA</h2>
+                        <h2>INSTITUT AGAMA ISLAM IBRAHIMY</h2>
+                        <div class="contact-info">
+                            <span>Jl. KH. Hasyim Asy'ari No.01, Dusun Krajan, Kembiritan Kec. Genteng, Kabupaten Banyuwangi, Jawa Timur 68465</span>
+                            <span>Phone:0333-845654&nbsp;Email: admin@iaiibrahimy.ac.id</span>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>            
+        </div>
+        <hr>
 <h2 class="title">
     Lembar Bimbingan Studi
 </h2>
@@ -46,7 +292,7 @@
     </tr>
     <tr>
         <td>
-            Tahun Angkatan
+            Tahun Ajaran
         </td>
         <td>:</td>
         <td>2019</td> 
@@ -71,39 +317,12 @@
     </thead>
     <tbody>
         @for ($i = 1; $i <= 10; $i++)
-            <tr>
+            <tr style="height: 30px;">
                 @for ($j = 1; $j <= 7; $j++)
                     <td></td>
                 @endfor
             </tr>
         @endfor
-        <?php
-        $data = [
-            ['1', 'MKU1001', 'Pancasila', '2', 'Maududi', 'Selasa', '09.00'],
-            ['2', 'MKU1002', 'Kewarganegaraan', '2', 'luhut', 'Selasa', '09.00'],
-        ];
-
-        foreach ($data as $row) {
-            $No = $row[0];
-            $Kode_Mata_Kuliah = $row[1];
-            $Nama_Mata_Kuliah = $row[2];
-            $SKS = $row[3];
-            $Dosen_Pembimbing = $row[4];
-            $Hari = $row[5];
-            $Jam = $row[6];
-
-
-            echo '<tr>';
-            echo '<td>' . $No . '</td>';
-            echo '<td>' . $Kode_Mata_Kuliah . '</td>';
-            echo '<td>' . $Nama_Mata_Kuliah . '</td>';
-            echo '<td>' . $SKS . '</td>';
-            echo '<td>' . $Dosen_Pembimbing . '</td>';
-            echo '<td>' . $Hari . '</td>';
-            echo '<td>' . $Jam . '</td>';
-            echo '</tr>';
-        }
-        ?>
     </tbody>            
     </div>
 </table>

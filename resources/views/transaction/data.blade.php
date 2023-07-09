@@ -18,7 +18,6 @@
                          <th>No</th>
                          <td>Tanggal</td>
                          <td>Deskripsi</td>
-                         {{-- <td>Nomor Referensi</td> --}}
                          <td>Nominal</td>
                          <td>Tipe</td>
                          <td>Akun Transaksi</td>

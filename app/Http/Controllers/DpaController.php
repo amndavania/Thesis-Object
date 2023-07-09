@@ -20,7 +20,7 @@ class DpaController extends Controller
     public function index():View
     {
         return view('dpa.data')->with([
-            'dpa' => Dpa::paginate(30),
+            'dpa' => Dpa::latest()->paginate(20),
         ]);
     }
 

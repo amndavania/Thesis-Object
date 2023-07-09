@@ -32,9 +32,9 @@
           <table class="table table-striped ">
                <thead class="table-dark">
                     <tr>
-                         <td>Kode Akun</td>
+                         <td style="text-align: center;">Kode Akun</td>
                          <td>Nama Akun</td>
-                         <td>Saldo</td>
+                         <td style="text-align: right;">Saldo</td>
                     </tr>
                </thead>
                <tbody>

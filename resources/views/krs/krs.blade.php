@@ -35,7 +35,7 @@
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->student->nim }} | {{ $row->student->name }}</td>
-                              <td>{{ $row->year . "/" . ($row->year + 1) . " | " . $row->semester}}</td>
+                              <td>{{ $row->year . "/" . ($row->year + 1)}}</td>
                               <td>{{ $semester }}</td>
                               <td>{{ $row->status }}</td>
                               <td>

@@ -21,7 +21,7 @@ class TransactionAccountController extends Controller
     {
         //
         return view('transaction_account.data')->with([
-            'transaction_account' => TransactionAccount::paginate(20)
+            'transaction_account' => TransactionAccount::latest()->paginate(20)
         ]);
     }
 
@@ -40,6 +40,7 @@ class TransactionAccountController extends Controller
      */
     public function store(TransactionAccountCreateRequest $request)
     {
+        $request['balance'] = 0;
         $transactionAccount = TransactionAccount::create($request->except('accounting_group_id'));
         $accountingGroupIds = $request->input('accounting_group_id', []);
 

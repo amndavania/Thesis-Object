@@ -53,7 +53,20 @@ class DashboardController extends Controller
         $students = Student::all()->count();
         $transactions = Transaction::latest()->take(5)->get();
 
-        // $statusUKT = $this->setStatusUKT($students, $date);
+        $dataStudents = Student::all('id');
+        $statusUKT = $this->setStatusUKT($dataStudents);
+
+        $dataUkt = Ukt::latest()->first();
+        
+        if (empty($dataUkt)) {
+            $year = date('Y');
+            $semester = "GASAL";
+        } else {
+            $year = $dataUkt->year;
+            $semester = $dataUkt->semester;
+        }
+
+
 
         return view('dashboard')->with([
             'saldo' => $saldoAkhir,
@@ -63,7 +76,8 @@ class DashboardController extends Controller
             'transactions' => $transactions,
             'growPercentage' => [$growPercentagePreviousMonth, $growPercentagePreviousMonth2],
             'saldoBulanLalu' => $financeThisYear[intval(substr($date, 5, 2))-2],
-            'statusUKT' => [200, 100, 50]
+            'statusUKT' => $statusUKT,
+            'tahunAjaran' => [$year, $semester]
         ]);
     }
 
@@ -150,13 +164,32 @@ class DashboardController extends Controller
         return $growthPercentage;
     }
 
-    public function setStatusUKT($jumlahMahasiswa, $month) {
-        $students = Student::all('id');
+    public function setStatusUKT($students) {
 
-        $lunas = Ukt::where('status', 'Lunas')->get();
-        $belumLunas = Ukt::where('status', 'Belum Lunas')->get();
-        $belumBayar = $jumlahMahasiswa - ($lunas + $belumLunas);
+        $lastUkt = Ukt::latest()->first();
 
+        $lunas = 0;
+        $belumLunas = 0;
+        $belumBayar = 0;
+
+        if (!empty($lastUkt)){
+            foreach ($students as $item) {
+                $dataUkt = Ukt::where('type', 'UKT')
+                    ->where('year', $lastUkt->year)
+                    ->where('semester', $lastUkt->semester)
+                    ->where('students_id', $item->id)
+                    ->latest()
+                    ->first('status');
+    
+                if (empty($dataUkt)) {
+                    $belumBayar += 1;
+                }elseif ($dataUkt->status == "Lunas") {
+                    $lunas += 1;
+                } elseif ($dataUkt->status == "Belum Lunas") {
+                    $belumLunas += 1;
+                }
+            }
+        }
         return [$lunas, $belumLunas, $belumBayar];
     }
 
