@@ -30,9 +30,10 @@ class SaveTransactionMonthly extends Command
     public function handle()
     {
         //
-
         $dateToday = Carbon::today();
         $month = $dateToday->subMonth()->format('Y-m');
+        $totalDebit = 0;
+        $totalKredit = 0;
 
         $transaction_accounts = TransactionAccount::all();
         foreach ($transaction_accounts as $transaction_account) {

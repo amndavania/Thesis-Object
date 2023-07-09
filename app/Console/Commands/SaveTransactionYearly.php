@@ -33,6 +33,8 @@ class SaveTransactionYearly extends Command
 
         $dateToday = Carbon::today();
         $year = $dateToday->subMonth()->format('Y');
+        $totalDebit = 0;
+        $totalKredit = 0;
 
         $transaction_accounts = TransactionAccount::all();
         foreach ($transaction_accounts as $transaction_account) {
