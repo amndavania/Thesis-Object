@@ -50,12 +50,19 @@
                               <td>{{ $row->year }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->status }}</td>
-                              <td>
+                              @if ($row->status == 'Tunda')
+                                    <td>
+                                        <button type="button" onclick="updateKrs('{{ $row->id }}')" class="btn btn-sm btn-outline-danger">Setujui KRS</button>
+                                    </td>
+                                @else
+                                <td></td>
+                                @endif
+                              {{-- <td>
                                    <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('dpa.setujuKrs',$row->id) }}'">Setujui KRS</button>
                                    </div>
 
-                              </td>
+                              </td> --}}
                          </tr>
                     @endforeach
                </tbody>

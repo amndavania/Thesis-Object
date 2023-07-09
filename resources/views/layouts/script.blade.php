@@ -145,6 +145,13 @@
 </script>
 
 <script>
+    function updateKrs(id) {
+        var url = '{{ url('daftar_mahasiswa') }}?id=' + encodeURIComponent(id);
+        window.location.href = url;
+    }
+  </script>
+
+<script>
     $(document).ready(function() {
       $('#accounting_group_id').select2();
     });

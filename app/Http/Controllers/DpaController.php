@@ -111,11 +111,16 @@ class DpaController extends Controller
         ]);
     }
 
-    public function getMahasiswa(): View
+    public function getMahasiswa(Request $request): View
     {
+        $id = $request->input('id');
         $years = BimbinganStudy::select('year')
             ->distinct()
             ->get();
+        
+        if (!empty($id)) {
+            $this->setujuKrs($id);
+        }
     
         return view('dpa.daftarmahasiswa')->with([
             'data' => BimbinganStudy::paginate(30),
@@ -123,17 +128,21 @@ class DpaController extends Controller
         ]);
     }
 
-    public function setujuKrs(Request $request, string $id):RedirectResponse
+    public function setujuKrs($id)
     {
-        $dpa = Dpa::findOrFail($id);
-        $dpa->update($request->all());
+        $uktController = new UktController;
 
-        $user_id = $dpa['user_id'];
-        $user = User::findOrFail($user_id);
-        $user->update([
-            'status' => 'Aktif',
-        ]);
+        $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
+        $bimbinganStudy->status = "Aktif";
+        $bimbinganStudy->save();
         
-        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
+        $payment = Ukt::where('lbs_id', $id)->first();
+        if ($payment->keterangan == "UTS") {
+            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+        } elseif ($payment->keterangan == "UAS") {
+            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+            $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
+        }
+        $payment->save();
     }
 }
