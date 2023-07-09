@@ -320,7 +320,7 @@ class UktController extends Controller
             if ($status == "Lunas") {
                 if (!$bimbinganStudy) {
                     $payment->keterangan = 'UAS';
-                    $payment->  _id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                    $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
                 } else {
                     $payment->keterangan = 'UAS';
                     $exam_uts = ExamCard::where('students_id', $studentData[0]->id)->where('semester', $semester)->where('type', "UTS")->exists();
