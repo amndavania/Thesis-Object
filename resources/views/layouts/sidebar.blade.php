@@ -202,12 +202,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ url('daftar_mahasiswa') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Daftar Mahasiswa</p>
                     </a>
-                  </li>
+                  </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('transaction_account.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>

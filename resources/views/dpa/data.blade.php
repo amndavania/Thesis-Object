@@ -26,7 +26,7 @@
                     @php
                         $number = ($dpa->currentPage() - 1) * $dpa->perPage() + $index + 1;
                     @endphp
-                         <tr onclick="window.open('{{ route('daftar_mahasiswa', ['dpa_id' => $row->id]) }}', '_blank')" 
+                         <tr onclick="window.open('{{ url('daftar_mahasiswa') }}?dpa_id={{ $row->id }}', '_blank')" 
                          style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">     
                          <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>

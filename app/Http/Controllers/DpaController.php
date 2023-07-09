@@ -114,18 +114,51 @@ class DpaController extends Controller
 
     public function getMahasiswa(Request $request): View
     {
+        $dpa_id = $request->dpa_id;
+        $tahunAjaran = $request->year;
+        $semester = $request->semester;
         $id = $request->input('id');
-        $years = BimbinganStudy::select('year')
-            ->distinct()
-            ->get();
+
+        $dpa = Dpa::where('id', $dpa_id)->first();
+        $students = Student::where('dpa_id', $dpa_id)->get();
+
+        if (empty($tahunAjaran) || empty($semester)) {
+            $tahunAjaran = date('Y');
+            $semester = "GASAL";
+        }
+
+        $data = [];
+        foreach ($students as $item) {
+            $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
+            if (empty($bimbinganStudy)) {
+                $status = "Belum Bayar";
+            } else {
+                $status = $bimbinganStudy->status;
+            }
+
+            if ($semester == "GASAL") {
+                $semesterStudent = (($tahunAjaran - $item->force) * 2) + 1;
+            } elseif ($semester == "GENAP") {
+                $semesterStudent = (($tahunAjaran - $item->force) * 2);
+            }
+
+            $data[$item->id] = [
+                'id' => $item->id,
+                'nim' => $item->nim,
+                'name' => $item->name,
+                'semester' => $semesterStudent,
+                'status' => $status
+            ];
+        }
         
         if (!empty($id)) {
             $this->setujuKrs($id);
         }
     
         return view('dpa.daftarmahasiswa')->with([
-            'data' => BimbinganStudy::paginate(30),
-            'years' => $years,
+            'data' => $data,
+            'tahunAjaran' => [$tahunAjaran, $semester],
+            'dpa' => $dpa,
 
         ]);
     }
