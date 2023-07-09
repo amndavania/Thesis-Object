@@ -56,7 +56,17 @@ class DashboardController extends Controller
         $dataStudents = Student::all('id');
         $statusUKT = $this->setStatusUKT($dataStudents);
 
-        $year = Ukt::latest()->first();
+        $dataUkt = Ukt::latest()->first();
+        
+        if (empty($dataUkt)) {
+            $year = date('Y');
+            $semester = "GASAL";
+        } else {
+            $year = $dataUkt->year;
+            $semester = $dataUkt->semester;
+        }
+
+
 
         return view('dashboard')->with([
             'saldo' => $saldoAkhir,
@@ -67,7 +77,7 @@ class DashboardController extends Controller
             'growPercentage' => [$growPercentagePreviousMonth, $growPercentagePreviousMonth2],
             'saldoBulanLalu' => $financeThisYear[intval(substr($date, 5, 2))-2],
             'statusUKT' => $statusUKT,
-            'tahunAjaran' => [$year->year, $year->semester]
+            'tahunAjaran' => [$year, $semester]
         ]);
     }
 
