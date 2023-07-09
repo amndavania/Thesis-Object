@@ -20,7 +20,7 @@ class StudyProgramController extends Controller
     {
         //
         return view('study_program.data')->with([
-            'study_program' => StudyProgram::paginate(20),
+            'study_program' => StudyProgram::latest()->paginate(20),
         ]);
     }
 

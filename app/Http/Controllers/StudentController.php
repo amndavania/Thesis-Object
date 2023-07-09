@@ -22,7 +22,7 @@ class StudentController extends Controller
     {
         //
         return view('student.data')->with([
-            'student' => Student::paginate(20),
+            'student' => Student::latest()->paginate(20),
         ]);
     }
 

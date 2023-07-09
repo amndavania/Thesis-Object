@@ -16,7 +16,7 @@ class TransactionController extends Controller
     public function index()
     {
         return view('transaction.data')->with([
-            'transaction' => Transaction::paginate(20),
+            'transaction' => Transaction::latest()->paginate(20),
         ]);
     }
 
@@ -53,7 +53,7 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $ukt_debit = Ukt::where('transaction_debit_id', $id)->exists();
         $ukt_kredit = Ukt::where('transaction_kredit_id', $id)->exists();

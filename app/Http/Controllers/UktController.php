@@ -24,7 +24,7 @@ class UktController extends Controller
     public function index()
     {
         return view('ukt.data')->with([
-            'ukt' => Ukt::paginate(20),
+            'ukt' => Ukt::latest()->paginate(20),
         ]);
     }
 
