@@ -46,14 +46,14 @@
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description }}</td>
                               <td style="@if (($row->balance) < 0) color: red; @endif; text-align: center; width:20%" colspan="2">
-                            @if (($row->balance) < 0)
-                                (Rp {{ number_format(abs(($row->balance)), 2, ',', '.') }})
-                            @elseif (($row->balance) > 0 || ($row->balance) == 0)
-                                Rp {{ number_format(($row->balance), 2, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </td>
+                                @if (($row->balance) < 0)
+                                    (Rp {{ number_format(abs(($row->balance)), 2, ',', '.') }})
+                                @elseif (($row->balance) > 0 || ($row->balance) == 0)
+                                    Rp {{ number_format(($row->balance), 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                                </td>
                          </tr>                              
                          @php
                     $totalSaldo += $row->balance;

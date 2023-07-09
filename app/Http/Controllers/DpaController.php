@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\dpa\DpaCreateRequest;
 use App\Http\Requests\dpa\DpaUpdateRequest;
+use App\Models\Student;
 use App\Models\Ukt;
 
 class DpaController extends Controller
@@ -19,7 +20,7 @@ class DpaController extends Controller
     public function index():View
     {
         return view('dpa.data')->with([
-            'dpa' => Dpa::paginate(20),
+            'dpa' => Dpa::paginate(30),
         ]);
     }
 
@@ -125,6 +126,7 @@ class DpaController extends Controller
         return view('dpa.daftarmahasiswa')->with([
             'data' => BimbinganStudy::paginate(30),
             'years' => $years,
+
         ]);
     }
 
@@ -144,5 +146,39 @@ class DpaController extends Controller
             $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
         }
         $payment->save();
+    }
+
+    public function getDetailDpa(Request $request, string $id):RedirectResponse
+    {
+        $dpa = Dpa::findOrFail($id);
+        $dpa->update($request->all());
+
+        $user_id = $dpa['user_id'];
+        $user = User::findOrFail($user_id);
+        $user->update([
+            'status' => 'Aktif',
+        ]);
+        
+        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
+    }
+
+    public function getData($datepicker, $filter)
+    {
+        $date = date('Y-m');
+        $formattedDate = date('F Y');
+
+        if (!empty($datepicker)) {
+            if ($filter == 'month') {
+                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+                $date = $parsedDate->format('Y-m');
+                $formattedDate = $parsedDate->format('F Y');
+            } elseif ($filter == 'year') {
+                $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
+                $date = $parsedDate->format('Y');
+                $formattedDate = $parsedDate->format('Y');
+            }
+        }
+
+        return [$date, $formattedDate];
     }
 }

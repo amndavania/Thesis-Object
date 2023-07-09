@@ -5,17 +5,17 @@
     <div class="card">
      <div class="card-header">
      <div class="d-flex align-items-center">
-          <form class="form-inline" action="{{ route('bukubesar.index') }}" method="GET">
-    <div class="mb-2 mr-sm-2">
-    <select class="form-control selectpicker" name="search_account" id="search_account" data-live-search="true">
-          <option value="">Pilih Tahun Ajaran</option>
-          @foreach ($years as $year)
-               <option value="{{ $year->year }}">{{ $year->year }}</option>
-          @endforeach
-     </select>
-    </div>
-    <button type="submit" class="btn btn-primary mb-2">Cari</button>
-</form>
+     <form class="form-inline" action="{{ route('bukubesar.index') }}" method="GET">
+     <input type="text" class="form-control mb-2" id="dpatahunajaran" name="year" placeholder="Pilih Tahun Ajaran" readonly>
+     <div class="mb-2 mr-sm-2">
+              <select class="form-control" id="semester" name="semester">
+                <option value="">Pilih Semester</option>
+                <option value="GASAL" {{ old('semester') == 'GASAL' ? 'selected' : '' }}>GASAL</option>
+                <option value="GENAP" {{ old('semester') == 'GENAP' ? 'selected' : '' }}>GENAP</option>
+              </select>
+     </div>
+              <button type="submit" class="btn btn-primary mb-2">Cari</button>
+     </form>
 
 
               @if (!empty($account) && $data->count() > 0)

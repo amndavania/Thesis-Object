@@ -20,6 +20,18 @@
 
 </script>
 
+<!-- DPA -->
+<script>
+    $(document).ready(function() {
+        $('#dpatahunajaran').datepicker({
+            format: 'yyyy',
+            startView: 'years',
+            minViewMode: 'years',
+            autoclose: true
+        });
+    });
+</script>
+
 {{-- Script Laporan --}}
 
 <script>
