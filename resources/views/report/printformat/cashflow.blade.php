@@ -55,7 +55,6 @@
                                          -
                                      @endif
                                  </td>
-                                 <td></td>
                           </tr>
                           @php
                           $totalArusKasMasuk += $row['saldo'];
@@ -98,7 +97,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalArusKasKeluar += $row['saldo'];
@@ -165,7 +163,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPenjualanAset += $row['saldo'];
@@ -208,7 +205,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPembelianAset += $row['saldo'];
@@ -317,7 +313,6 @@
                                          -
                                      @endif
                                  </td>
-                               <td></td>
                           </tr>
                           @php
                           $totalPenguranganDana += $row['saldo'];

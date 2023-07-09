@@ -27,7 +27,7 @@
                <thead class="table-dark">
                <tr style="text-align: center;">
                          <th>No</th>
-                         <td>ID Akun</td>
+                         <td>Kode Akun</td>
                          <td>Nama</td>
                          <td>Deskripsi</td>
                          <td>Saldo</td>
@@ -39,24 +39,24 @@
                                 
                                 @endphp
                     @foreach ($data as $row)
-                         <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row->id }}&datepicker={{ $datepicker }}', '_blank')" 
+                         <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')" 
                          style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
                               <th>{{ $loop->iteration }}</th>
-                              <td>{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
-                              <td style="@if (($row->balance) < 0) color: red; @endif; text-align: center; width:20%" colspan="2">
-                            @if (($row->balance) < 0)
-                                (Rp {{ number_format(abs(($row->balance)), 2, ',', '.') }})
-                            @elseif (($row->balance) > 0 || ($row->balance) == 0)
-                                Rp {{ number_format(($row->balance), 2, ',', '.') }}
+                              <td>{{ $row['id'] }}</td>
+                              <td>{{ $row['name'] }}</td>
+                              <td>{{ $row['description'] }}</td>
+                              <td style="@if (($row['balance']) < 0) color: red; @endif; text-align: right; width:20%" colspan="2">
+                            @if (($row['balance']) < 0)
+                                (Rp {{ number_format(abs(($row['balance'])), 2, ',', '.') }})
+                            @elseif (($row['balance']) > 0 || ($row['balance']) == 0)
+                                Rp {{ number_format(($row['balance']), 2, ',', '.') }}
                             @else
                                 -
                             @endif
                         </td>
                          </tr>                              
                          @php
-                    $totalSaldo += $row->balance;
+                    $totalSaldo += $row['balance'];
                     @endphp
                     @endforeach
                </tbody>
