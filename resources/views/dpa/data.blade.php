@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">
-        Mahasiswa
+        Dosen Pembimbing Akademik
     </x-slot>
     <div class="card">
      <div class="card-header">

@@ -7,12 +7,12 @@
      <div class="d-flex align-items-center">
           <form class="form-inline" action="{{ route('bukubesar.index') }}" method="GET">
     <div class="mb-2 mr-sm-2">
-        <select class="form-control selectpicker" name="search_account" id="search_account" data-live-search="true">
-            <option value="">Pilih Tahun Ajaran</option>
-            @foreach ($selects as $id => $name)
-                <option value="{{ $id }}">{{ $name }}</option>
-            @endforeach
-        </select>
+    <select class="form-control selectpicker" name="search_account" id="search_account" data-live-search="true">
+          <option value="">Pilih Tahun Ajaran</option>
+          @foreach ($years as $year)
+               <option value="{{ $year->year }}">{{ $year->year }}</option>
+          @endforeach
+     </select>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Cari</button>
 </form>
@@ -39,25 +39,20 @@
                     </tr>
                </thead>
                <tbody>
-                    @foreach ($transaction as $index => $row)
+                    @foreach ($data as $index => $row)
                     @php
-                        $number = ($transaction->currentPage() - 1) * $transaction->perPage() + $index + 1;
+                        $number = ($data->currentPage() - 1) * $data->perPage() + $index + 1;
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
-                              <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
-                              <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
-                              <td>{{ $row->type }}</td>
-                              <td>{{ $row->transactionaccount->name }}</td>
+                              <td>{{ $row->student->name }}</td>
+                              <td>{{ $row->student->nim }}</td>
+                              <td>{{ $row->year }}</td>
+                              <td>{{ $row->semester }}</td>
+                              <td>{{ $row->status }}</td>
                               <td>
                                    <div class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('transaction.edit',$row->id) }}'">Edit</button>
-                                        <form action="{{ route('transaction.destroy',$row->id) }}" method="post" class="m-1">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
-                                        @csrf
-                                        @method('delete')
-                                        </form>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('dpa.setujuKrs',$row->id) }}'">Setujui KRS</button>
                                    </div>
 
                               </td>
@@ -65,9 +60,6 @@
                     @endforeach
                </tbody>
           </table>
-          <div class="d-flex justify-content-center align-items-center text-center">
-               {{ $transaction->links() }}
-          </div>
      </div>
     </div>
 </x-app-layout>

@@ -20,7 +20,8 @@ class DpaFactory extends Factory
          return [
             'name' => "Dosen ".fake()->word(),
             'email' => fake()->unique()->safeEmail(),
-            'user_id'=>mt_rand(4,44),
-        ];
+            'user_id'=> fake()->unique()->numberBetween(4,43),
+            'study_program_id'=>mt_rand(1,13),
+        ];  
     }
 }

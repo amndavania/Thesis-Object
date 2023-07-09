@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dpa;
 use App\Models\User;
+use App\Models\BimbinganStudy;
 use Illuminate\Http\Request;
 use App\Models\StudentType;
 use App\Models\StudyProgram;
@@ -15,9 +16,6 @@ use App\Models\Ukt;
 
 class DpaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index():View
     {
         return view('dpa.data')->with([
@@ -25,17 +23,11 @@ class DpaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create():View
     {
         return view('dpa.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(DpaCreateRequest $request):RedirectResponse
     {
         
@@ -119,10 +111,29 @@ class DpaController extends Controller
         ]);
     }
 
-    public function getMahasiswa():View
+    public function getMahasiswa(): View
     {
+        $years = BimbinganStudy::select('year')
+            ->distinct()
+            ->get();
+    
         return view('dpa.daftarmahasiswa')->with([
-            'data' => Dpa::paginate(30),
+            'data' => BimbinganStudy::paginate(30),
+            'years' => $years,
         ]);
+    }
+
+    public function setujuKrs(Request $request, string $id):RedirectResponse
+    {
+        $dpa = Dpa::findOrFail($id);
+        $dpa->update($request->all());
+
+        $user_id = $dpa['user_id'];
+        $user = User::findOrFail($user_id);
+        $user->update([
+            'status' => 'Aktif',
+        ]);
+        
+        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
     }
 }
