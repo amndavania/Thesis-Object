@@ -52,9 +52,8 @@
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
-            /* padding-top: 70px; */
             font-size: 12px;
-            text-align: left;
+            height: 150px;
         }
 
         .signature {
@@ -63,7 +62,7 @@
 
         .signature-placeholder {
             border-bottom: 1px solid #000;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding-bottom: 100px;
         }
 
@@ -77,9 +76,11 @@
         }
         .signature2-container {
   display: flex;
+  margin-top: 20px;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 150px;
+  font-size: 12px;
 }
 
 .signature2-center {
@@ -96,18 +97,18 @@
 
 .signature2-placeholder {
             border-bottom: 1px solid #000;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding-bottom: 100px;
         }
 
-.signature-left {
-    padding-right: 60px;
-    padding-left: 60px;
-}
-.signature-right {
-    padding-right: 60px;
-    padding-left: 60px;
-}
+        .signature-left {
+            padding-right: 80px;
+            padding-left: 80px;
+        }
+        .signature-right {
+            padding-right: 80px;
+            padding-left: 80px;
+        }
 
         img {
             width: 100px;
@@ -185,18 +186,14 @@
                 position: sticky;
             }
         }
-        .left-column {
-            float: left;
-            width: 50%;
-        }
-
-        .right-column {
-            float: left;
-            width: 50%;
+        .table-keterangan {
+            display: flex;
+            justify-content: space-between;
         }
         .catatan {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
+  font-size: 12px;
 }
 
 .catatandosen {
@@ -249,55 +246,53 @@
     Lembar Bimbingan Studi
 </h2>
 <div class="container">
-<div class="left-column">
-<table class="keterangan">
-    <tr>
-        <td>
-            Nama
-        </td>
-        <td>:</td>
-        <td>Putra Kencana</td>                   
-    </tr>
-    <tr>
-        <td>
-            NIM
-        </td>
-        <td>:</td>
-        <td>1924101028</td> 
-    </tr>
-    <tr>
-        <td>
-            Semester
-        </td>
-        <td>:</td>
-        <td>7</td> 
-    </tr>
-</table>
-</div>
-<div class="right-column">
-<table class="keterangan">
-    <tr>
-        <td>
-            Prodi
-        </td>
-        <td>:</td>
-        <td>Teknologi Informasi</td>                   
-    </tr>
-    <tr>
-        <td>
-            Fakultas
-        </td>
-        <td>:</td>
-        <td>Ilmu Komputer</td> 
-    </tr>
-    <tr>
-        <td>
-            Tahun Ajaran
-        </td>
-        <td>:</td>
-        <td>2019</td> 
-    </tr>
-</table>
+<div class="table-keterangan">
+    <table class="keterangan">
+        <tr>
+            <td>
+                Nama
+            </td>
+            <td>:</td>
+            <td>{{ $student->name }}</td>                   
+        </tr>
+        <tr>
+            <td>
+                NIM
+            </td>
+            <td>:</td>
+            <td>{{ $student->nim }}</td> 
+        </tr>
+        <tr>
+            <td>
+                Semester
+            </td>
+            <td>:</td>
+            <td>{{ $student->force }}</td> 
+        </tr>
+    </table>
+    <table class="keterangan">
+        <tr>
+            <td>
+                Program Studi
+            </td>
+            <td>:</td>
+            <td>{{ $student->studyprogram->name }}</td>                   
+        </tr>
+        <tr>
+            <td>
+                Fakultas
+            </td>
+            <td>:</td>
+            <td>{{ $student->studyprogram->faculty->name }}</td> 
+        </tr>
+        <tr>
+            <td>
+                Tahun Ajaran
+            </td>
+            <td>:</td>
+            <td>{{ $bimbinganstudi->year . "/" . $bimbinganstudi->year + 1 }}</td> 
+        </tr>
+    </table>
 </div>
 </div>
 <table class="content">
@@ -335,27 +330,27 @@
 <div class="signature-container">
     <div class="signature signature-left">
         <div class="signature-placeholder">
-            <p>Mengetahui,</p>
-            <p id="warek">Mahasiswa</p>
+            <p style="margin-top: 15px;">Mahasiswa</p>
             
         </div>
-            <p style="text-align: center; margin: 2px;">name</p>
+            <p style="text-align: center; margin: 0px;">{{ $student->name }}</p>
     </div>
     <div class="signature signature-right">
         <div class="signature-placeholder">
             <p id="date">Banyuwangi, 24-05-2023</p>
             <p id="kabak-keuangan">Dosen Pembimbing Akademik</p>                        
         </div>
-            <p style="text-align: center; margin: 2px;">name</p>
+            <p style="text-align: center; margin: 0px;">{{ $student->dpa->name }}</p>
     </div>
 </div>
 <div class="signature2-container">
 <div class="signature2-center">
         <div class="signature2-placeholder">
-            <p id="date">Banyuwangi, 24-05-2023</p>
-            <p id="kabak-keuangan">Kaprodi</p>                        
+            <p>Mengetahui,</p>
+            <p id="kabak-keuangan">Ketua Program Studi</p> 
+            <p id="kabak-keuangan">{{ $student->studyprogram->name }}</p>                        
         </div>
-            <p style="text-align: center; margin: 2px;">name</p>
+            <p style="text-align: center; margin: 0px;">name</p>
     </div>
 </div>
 

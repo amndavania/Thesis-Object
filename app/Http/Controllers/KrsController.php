@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BimbinganStudy;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -19,7 +20,13 @@ class KrsController extends Controller
     public function export(Request $request)
     {
         $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
-        $student = BimbinganStudy::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+        // if ($bimbinganstudi->semester == "GASAL") {
+        //     $semesterStudent = (($))
+        // } elseif ($bimbinganstudi->semester == "GENAP") {
+        //     # code...
+        // }
 
         return view('report.printformat.krs')->with([
             'bimbinganstudi' => $bimbinganstudi,
