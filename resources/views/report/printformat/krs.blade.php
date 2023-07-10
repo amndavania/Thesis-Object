@@ -267,7 +267,7 @@
                 Semester
             </td>
             <td>:</td>
-            <td>{{ $student->force }}</td> 
+            <td>{{ $semester }}</td> 
         </tr>
     </table>
     <table class="keterangan">
@@ -337,7 +337,7 @@
     </div>
     <div class="signature signature-right">
         <div class="signature-placeholder">
-            <p id="date">Banyuwangi, 24-05-2023</p>
+            <p id="date">Banyuwangi, {{ $today }}</p>
             <p id="kabak-keuangan">Dosen Pembimbing Akademik</p>                        
         </div>
             <p style="text-align: center; margin: 0px;">{{ $student->dpa->name }}</p>
@@ -350,12 +350,15 @@
             <p id="kabak-keuangan">Ketua Program Studi</p> 
             <p id="kabak-keuangan">{{ $student->studyprogram->name }}</p>                        
         </div>
-            <p style="text-align: center; margin: 0px;">name</p>
+            <p style="text-align: center; margin: 0px;">{{ $student->studyprogram->kaprodi_name }}</p>
     </div>
 </div>
 
 </div>
 </div>       
 </div>
+<script type="text/javascript">
+    window.print();
+</script>
 </body>
 </html>
