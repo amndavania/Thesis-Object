@@ -32,6 +32,36 @@
     });
 </script>
 
+{{-- Script Student --}}
+{{-- <script>
+    var studyProgramSelect = document.getElementById('study_program');
+    var dpaSelect = document.getElementById('dpa');
+
+    studyProgramSelect.addEventListener('change', function() {
+        var selectedProgramId = this.value;
+
+        dpaSelect.innerHTML = '';
+
+        for (var i = 0; i < dpaSelect.options.length; i++) {
+            var option = dpaSelect.options[i];
+            var programId = option.getAttribute('data-program-id');
+
+            if (programId === selectedProgramId || selectedProgramId === '') {
+                dpaSelect.options.add(new Option(option.text, option.value));
+            }
+        }
+
+        // Menambahkan nilai default
+        dpaSelect.value = '';
+        dpaSelect.setAttribute('placeholder', 'Pilih DPA');
+    });
+
+    // Memanggil perubahan saat halaman dimuat
+    studyProgramSelect.dispatchEvent(new Event('change'));
+
+</script> --}}
+
+
 {{-- Script Laporan --}}
 
 <script>
@@ -146,6 +176,12 @@
 <script>
     $(document).ready(function() {
         $('#students_id').select2();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#dpa_id').select2();
     });
 </script>
 

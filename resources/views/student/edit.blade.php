@@ -36,11 +36,11 @@
           </div>
           <div class="form-group">
             <label for="dpa_id">DPA</label>
-            <select class="form-control" id="dpa_id" name="dpa_id">
-             <option value="">Pilih DPA</option>
-                 @foreach ($dpa as $item)
-                      <option value="{{ $item->id }}" {{ $student->dpa_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-                 @endforeach
+            <select class="form-control selectpicker" id="dpa_id" name="dpa_id" data-live-search="true">
+                <option value="">Pilih DPA</option>
+                @foreach ($dpa as $item)
+                    <option value="{{ $item->id }}" {{ $student->dpa_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
             </select>
        </div>
           <div class="form-group">
