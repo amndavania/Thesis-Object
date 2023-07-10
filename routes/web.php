@@ -119,7 +119,7 @@ Route::middleware('auth')->group(function () {
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
         Route::get('bimbinganstudi/export', [KrsController::class, 'export']);
 
-        Route::get('daftar_mahasiswa/{dpa_id}', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');;
+        Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');;
     });
 });
 
