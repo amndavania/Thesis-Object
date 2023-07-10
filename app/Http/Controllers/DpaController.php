@@ -21,7 +21,7 @@ class DpaController extends Controller
     public function index():View
     {
         return view('dpa.data')->with([
-            'dpa' => Dpa::latest()->paginate(20),
+            'dpa' => Dpa::latest()->paginate(30),
         ]);
     }
 
@@ -102,10 +102,18 @@ class DpaController extends Controller
     {
         $dpa = Dpa::findOrFail($id);
         $student = Student::where('dpa_id', $id)->exists();
-        $user_id = $dpa['user_id'];
-        $user = User::findOrFail($user_id);
-        $dpa->delete();
-        $user->delete();
+
+        if (!$student) {
+            $user_id = $dpa['user_id'];
+            $user = User::findOrFail($user_id);
+            $dpa->delete();
+            $user->delete();
+        } else{
+            return redirect()->route('dpa.index')->with(['warning' => 'Data DPA masih terhubung dengan data Mahasiswa']);
+        }
+        return view('dpa.data')->with([
+            'dpa' => Dpa::latest()->paginate(30),
+        ]);
     }
 
     public function addUser($name, $email, $password, $role)
