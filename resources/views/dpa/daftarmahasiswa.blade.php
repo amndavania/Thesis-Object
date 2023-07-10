@@ -61,7 +61,7 @@
                               <td>{{ $row['status'] }}</td>
                               @if ($row['status'] == 'Tunda')
                                     <td>
-                                        <button type="button" onclick="updateKrs('{{ $row->id }}')" class="btn btn-sm btn-outline-danger">Setujui KRS</button>
+                                        <button type="button" onclick="updateKrs('{{ $row['id'] }}')" class="btn btn-sm btn-outline-danger">Setujui KRS</button>
                                     </td>
                                 @else
                                 <td></td>

@@ -142,13 +142,15 @@ class DpaController extends Controller
                 $semesterStudent = (($tahunAjaran - $item->force) * 2);
             }
 
-            $data[$item->id] = [
-                'id' => $item->id,
-                'nim' => $item->nim,
-                'name' => $item->name,
-                'semester' => $semesterStudent,
-                'status' => $status
-            ];
+            if ($semesterStudent >= 1) {
+                $data[$item->id] = [
+                    'id' => $item->id,
+                    'nim' => $item->nim,
+                    'name' => $item->name,
+                    'semester' => $semesterStudent,
+                    'status' => $status
+                ];
+            }
         }
         
         if (!empty($id)) {
