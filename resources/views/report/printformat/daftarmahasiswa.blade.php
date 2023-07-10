@@ -234,10 +234,10 @@
                 <div class="signature-placeholder">
                     <p>Mengetahui,</p>
                     <p id="warek">Ketua Program Studi</p>
-                    <p id="warek">Nama Program Studi</p>
+                    <p id="warek">{{ $dpa->studyprogram->name }}</p>
                     
                 </div>
-                    <p>Zidniyati, M.Pd.</p>
+                    <p>{{ $dpa->studyprogram->kaprodi_name }}</p>
             </div>
             <div class="signature signature-right">
                 <div class="signature-placeholder">
