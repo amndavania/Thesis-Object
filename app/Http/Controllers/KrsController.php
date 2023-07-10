@@ -22,16 +22,18 @@ class KrsController extends Controller
         $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
         $student = Student::where('id', $bimbinganstudi->students_id)->first();
 
-        // if ($bimbinganstudi->semester == "GASAL") {
-        //     $semesterStudent = (($))
-        // } elseif ($bimbinganstudi->semester == "GENAP") {
-        //     # code...
-        // }
+        if ($bimbinganstudi->semester == "GASAL") {
+            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2) + 1;
+        } elseif ($bimbinganstudi->semester == "GENAP") {
+            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2);
+        }
 
         return view('report.printformat.krs')->with([
             'bimbinganstudi' => $bimbinganstudi,
             'student' => $student,
-            'title' => "Lembar Bimbingan Studi"
+            'semester' => $semesterStudent,
+            'title' => "Lembar Bimbingan Studi",
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
         ]);
     }
 }

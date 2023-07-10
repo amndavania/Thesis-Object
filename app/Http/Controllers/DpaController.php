@@ -101,6 +101,7 @@ class DpaController extends Controller
     public function destroy($id)
     {
         $dpa = Dpa::findOrFail($id);
+        $student = Student::where('dpa_id', $id)->exists();
         $user_id = $dpa['user_id'];
         $user = User::findOrFail($user_id);
         $dpa->delete();
@@ -130,22 +131,89 @@ class DpaController extends Controller
             $dpa_id = $dpa->id;
         }
         
+        if (empty($tahunAjaran) || empty($semester)) {
+            $tahunAjaran = date('Y');
+            $semester = "GASAL";
+        }
+
+        // if (empty($dpa_id)) {
+        //     $dpa_id = Dpa::first()->id;
+        // }
 
         $dpa = Dpa::where('id', $dpa_id)->first();
         $students = Student::where('dpa_id', $dpa_id)->get();
+
+        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
+        
+        if (!empty($id)) {
+            $this->setujuKrs($id);
+        }
+    
+        return view('dpa.daftarmahasiswa')->with([
+            'data' => $data,
+            'tahunAjaran' => [$tahunAjaran, $semester],
+            'dpa' => $dpa,
+
+        ]);
+    }
+
+    public function export(Request $request) 
+    {
+        $dpa_id = $request->dpa_id;
+        $tahunAjaran = $request->year;
+        $semester = $request->semester;
+        $id = $request->input('id');
 
         if (empty($tahunAjaran) || empty($semester)) {
             $tahunAjaran = date('Y');
             $semester = "GASAL";
         }
 
+        if (empty($dpa_id)) {
+            $user_id = Auth::user()->id;
+            $dpa = Dpa::where('user_id', $user_id)->first();
+            $dpa_id = $dpa->id;
+        }
 
+        $dpa = Dpa::where('id', $dpa_id)->first();
+        $students = Student::where('dpa_id', $dpa_id)->get();
 
+        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
+    
+        return view('report.printformat.daftarmahasiswa')->with([
+            'data' => $data,
+            'tahunAjaran' => [$tahunAjaran, $semester],
+            'dpa' => $dpa,
+            'title' => "Lembar Bimbingan Studi",
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+        ]);
+    }
+
+    public function setujuKrs($id)
+    {
+        $uktController = new UktController;
+
+        $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
+        $bimbinganStudy->status = "Aktif";
+        $bimbinganStudy->save();
+        
+        $payment = Ukt::where('lbs_id', $id)->first();
+        if ($payment->keterangan == "UTS") {
+            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+        } elseif ($payment->keterangan == "UAS") {
+            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+            $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
+        }
+        $payment->save();
+    }
+
+    public function getBimbinganStudi($students, $tahunAjaran, $semester)
+    {
         $data = [];
         foreach ($students as $item) {
             $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
             if (empty($bimbinganStudy)) {
-                $status = "Belum Bayar";
+                $status = "Tidak Aktif";
             } else {
                 $status = $bimbinganStudy->status;
             }
@@ -166,35 +234,8 @@ class DpaController extends Controller
                 ];
             }
         }
-        
-        if (!empty($id)) {
-            $this->setujuKrs($id);
-        }
-    
-        return view('dpa.daftarmahasiswa')->with([
-            'data' => $data,
-            'tahunAjaran' => [$tahunAjaran, $semester],
-            'dpa' => $dpa,
 
-        ]);
-    }
-
-    public function setujuKrs($id)
-    {
-        $uktController = new UktController;
-
-        $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
-        $bimbinganStudy->status = "Aktif";
-        $bimbinganStudy->save();
-        
-        $payment = Ukt::where('lbs_id', $id)->first();
-        if ($payment->keterangan == "UTS") {
-            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-        } elseif ($payment->keterangan == "UAS") {
-            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-            $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
-        }
-        $payment->save();
+        return $data;
     }
 
     public function getDetailDpa(Request $request, string $id):RedirectResponse

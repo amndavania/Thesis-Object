@@ -75,7 +75,8 @@ Route::middleware('auth')->group(function () {
     }); 
 
     Route::middleware('admin:super admin,DPA')->group(function () {
-        Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');;
+        Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');
+        Route::get('daftar_mahasiswa/export', [DpaController::class, 'export']);
     });
 
     Route::middleware('admin:super admin')->group(function () {
@@ -96,6 +97,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('bimbinganstudi', KrsController::class)->except(['show']);
         Route::get('bimbinganstudi/export', [KrsController::class, 'export']);
+
     });
 });
 
