@@ -118,6 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
         Route::get('bimbinganstudi/export', [KrsController::class, 'export']);
+        Route::get('daftar_mahasiswa/export', [DpaController::class, 'export']);
 
         Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');;
     });
