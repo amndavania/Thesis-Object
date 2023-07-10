@@ -247,24 +247,10 @@
                     <p>{{ $dpa->name }}</p>
             </div>
         </div>
-        {{-- <div class="signature-container">
-            <div class="signature signature-left">
-                <div class="signature-placeholder">
-                    <p id="warek" style="margin-top: 27px;">Dosen Pembimbing Akademik</p>
-                    
-                </div>
-                    <p style="text-align: center; margin: 2px;">{{ $dpa->name }}</p>
-            </div>
-            <div class="signature signature-right">
-                <div class="signature-placeholder">
-                    <p id="date">Banyuwangi, {{ $today }}</p>
-                    <p id="kabak-keuangan">Ketua Program Studi</p> 
-                    <p id="kabak-keuangan">nama program studi</p>                        
-                </div>
-                    <p style="text-align: center; margin: 2px;">Samsuri, M.Si.</p>
-            </div>
-        </div> --}}
     </div>       
     </div>
+    <script type="text/javascript">
+        window.print();
+    </script>
 </body>
 </html>
