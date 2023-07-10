@@ -17,6 +17,7 @@ class Dpa extends Model
         'id',
         'name',
         'email',
+        'study_program_id',
         'user_id',
     ];
 

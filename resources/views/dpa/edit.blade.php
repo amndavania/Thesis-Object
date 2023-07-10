@@ -21,6 +21,15 @@
                <label for="email">Email</label>
                <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email" value="{{ old('email', $dpa->email) }}">
           </div>
+          <div class="form-group">
+          <label for="study_program_id">Program Studi</label>
+          <select class="form-control" id="study_program_id" name="study_program_id">
+            <option value="">Pilih Program Studi</option>
+               @foreach ($study_program as $item)
+                    <option value="{{ $item->id }}" {{ $dpa->study_program_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+               @endforeach
+          </select>
+          </div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('dpa.index') }}'">Batal</button>
             <button type="submit" class="btn btn-primary">Simpan</button>

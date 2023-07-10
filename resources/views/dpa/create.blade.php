@@ -14,11 +14,20 @@
                @csrf
           <div class="form-group">
                <label for="name">Nama DPA</label>
-               <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama mahasiswa" value="{{ old('name') }}">
+               <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama DPA" value="{{ old('name') }}">
           </div>
           <div class="form-group">
                <label for="email">Email</label>
                <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email" value="{{ old('email') }}">
+          </div>
+          <div class="form-group">
+               <label for="study_program_id">Program Studi</label>
+               <select class="form-control" id="study_program_id" name="study_program_id">
+                <option value="">Pilih Program Studi</option>
+                    @foreach ($study_program as $item)
+                         <option value="{{ $item->id }}" {{ old('study_program_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                    @endforeach
+               </select>
           </div>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-danger mr-2" onclick="window.location='{{ route('student.index') }}'">Batal</button>

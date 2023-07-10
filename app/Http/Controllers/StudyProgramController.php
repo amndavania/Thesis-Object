@@ -92,7 +92,5 @@ class StudyProgramController extends Controller
         } else {
             return redirect()->route('study_program.index')->with(['warning' => 'Program Studi masih terhubung dengan Mahasiswa']);
         }
-
-        
     }
 }

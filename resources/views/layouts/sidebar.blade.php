@@ -63,6 +63,7 @@
           </li>
           @endif
 
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin keuangan')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
@@ -111,6 +112,7 @@
               </li>
             </ul>
           </li>
+          @endif
 
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
@@ -149,6 +151,10 @@
               </li>
             </ul>
           </li>
+          @endif
+
+          @if(Auth::user()->role == 'super admin')
+          {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-school"></i>
@@ -190,35 +196,20 @@
                   </li>
             </ul>
           </li>
+          @endif
 
-          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'dpa')
-          {{-- menu sub--}}
-          <li class="nav-item has-treeview menu-closed">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-coins"></i>
+          @if(Auth::user()->role == 'DPA')
+        {{-- menu --}}
+          <li class="nav-item has-treeview">
+          <a href="{{ url('daftar_mahasiswa') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                DPA
-                <i class="right fas fa-angle-left"></i>
+                Daftar Mahasiswa
               </p>
             </a>
-            <ul class="nav nav-treeview">
-                {{-- <li class="nav-item">
-                    <a href="{{ url('daftar_mahasiswa') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Daftar Mahasiswa</p>
-                    </a>
-                  </li> --}}
-                <li class="nav-item">
-                    <a href="{{ route('transaction_account.index') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                      <p>
-                        Detail Mahasiswa
-                      </p>
-                    </a>
-                  </li>
-            </ul>
           </li>
           @endif
+          
 
         {{-- menu --}}
           <li class="nav-item has-treeview">
@@ -229,6 +220,8 @@
               </p>
             </a>
           </li>
+
+          @if(Auth::user()->role == 'super admin')
         {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('pengguna.index') }}" class="nav-link">
@@ -238,10 +231,9 @@
               </p>
             </a>
           </li>
-        @endif
+          @endif
 
         {{-- menu sub--}}
-        
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('profile.edit') }}" class="nav-link">

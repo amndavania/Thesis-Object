@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dpa;
 use App\Models\Report;
+use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -67,9 +69,18 @@ class PenggunaController extends Controller
         $report = Report::where('user_id', $id)->exists();
         $transaction = Transaction::where('user_id', $id)->exists();
 
+
         if (!$report && !$transaction) {
-            $student = User::findOrFail($id);
-            $student->delete();
+            $user = User::findOrFail($id);
+            $data_dpa = Dpa::where('user_id',$id)->exists();
+            $student = Student::where('dpa_id', $id)->exists();
+            if ($data_dpa && !$student) {
+                $dpa = Dpa::where('user_id',$id);
+                $dpa->delete();
+            } else if ($student) {
+                return redirect()->route('pengguna.index')->with(['warning' => 'Data DPA masih terhubung dengan data Mahasiswa']);
+            }
+            $user->delete();
             return redirect()->route('pengguna.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
             return redirect()->route('pengguna.index')->with(['warning' => 'Data pengguna masih terhubung dengan data Laporan dan Transaksi']);

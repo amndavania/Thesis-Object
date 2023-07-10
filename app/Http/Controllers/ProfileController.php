@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Dpa;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,9 +12,6 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,9 +19,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -31,6 +26,16 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        $name = $request->user()->name;
+        $email = $request->user()->email;
+        $user_id = $request->user()->id;
+
+        $dpa = Dpa::findOrFail($user_id);
+        $dpa->update([
+        'name' => $name,
+        'email' => $email,
+    ]);
 
         $request->user()->save();
 
@@ -48,9 +53,13 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        $user_id = $request->user()->id;
+        $dpa = Dpa::findOrFail($user_id);
+
         Auth::logout();
 
         $user->delete();
+        $dpa->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

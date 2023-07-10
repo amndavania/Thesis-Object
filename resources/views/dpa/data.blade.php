@@ -18,6 +18,7 @@
                          <th>No</th>
                          <td>Nama</td>
                          <td>Email</td>
+                         <td>Program Studi</td>
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -31,6 +32,7 @@
                          <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->email }}</td>
+                              <td>{{ $row->studyprogram->name }}</td>
                               <td>
                                    <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('dpa.edit',$row->id) }}'">Edit</button>

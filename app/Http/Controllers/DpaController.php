@@ -14,6 +14,7 @@ use App\Http\Requests\dpa\DpaCreateRequest;
 use App\Http\Requests\dpa\DpaUpdateRequest;
 use App\Models\Student;
 use App\Models\Ukt;
+use Illuminate\Support\Facades\Auth;
 
 class DpaController extends Controller
 {
@@ -26,7 +27,8 @@ class DpaController extends Controller
 
     public function create():View
     {
-        return view('dpa.create');
+        $study_program = StudyProgram::all();
+        return view('dpa.create',  compact('study_program'));
     }
 
     public function store(DpaCreateRequest $request):RedirectResponse
@@ -35,6 +37,7 @@ class DpaController extends Controller
         // Simpan akun user DPA
         $name = $request->name;
         $email = $request->email;
+        $study_program = $request->study_program_id;
         $password = bcrypt('admin');
         $role = 'DPA';
         $this->addUser($name, $email, $password, $role);
@@ -44,6 +47,7 @@ class DpaController extends Controller
         Dpa::create([
             'name' => $name,
             'email' => $email,
+            'study_program_id' => $study_program,
             'user_id' => $user_id['id'],
         ]);
 
@@ -66,6 +70,7 @@ class DpaController extends Controller
         //
         return view('dpa.edit')->with([
             'dpa' => Dpa::findOrFail($id),
+            "study_program" => StudyProgram::all(),
         ]);
     }
 
@@ -119,6 +124,13 @@ class DpaController extends Controller
         $semester = $request->semester;
         $id = $request->input('id');
 
+        if (empty($dpa_id)) {
+            $user_id = Auth::user()->id;
+            $dpa = Dpa::where('user_id', $user_id)->first();
+            $dpa_id = $dpa->id;
+        }
+        
+
         $dpa = Dpa::where('id', $dpa_id)->first();
         $students = Student::where('dpa_id', $dpa_id)->get();
 
@@ -126,6 +138,8 @@ class DpaController extends Controller
             $tahunAjaran = date('Y');
             $semester = "GASAL";
         }
+
+
 
         $data = [];
         foreach ($students as $item) {
