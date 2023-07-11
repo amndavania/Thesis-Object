@@ -48,12 +48,13 @@ class CekPembayaranController extends Controller
 
         $student = Student::where('nim', $request['nim'])->first();
 
-        if (!empty($student) && $student->name == $request['name']) {
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
             $isValid = true;
         } else {
             $isValid = false;
             $student = [];
         }
+
      
         if (!empty($student)) {
             return view('cek_detail_payment.data')->with([
