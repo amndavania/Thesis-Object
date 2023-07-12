@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UktController;
 use App\Models\BimbinganStudy;
-use Illuminate\Support\Facades\Session;
 use App\Models\Student;
 use App\Models\Ukt;
 use Illuminate\Http\Request;
-use PDF;
 
 class UktDetailController extends Controller
 {
@@ -50,13 +48,13 @@ class UktDetailController extends Controller
 
         if (!empty($student)) {
             return view('detail_payment.ukt')->with([
-                'ukt' => Ukt::where('students_id', $student->id)->get(),
+                'ukt' => Ukt::where('students_id', $student->id)->latest()->get(),
                 'students' => Student::select('name', 'id', 'nim')->get(),
                 'choice' => $student,
             ]);
         } else{
             return view('detail_payment.ukt')->with([
-                'ukt' => Ukt::where('students_id', 0)->get(),
+                'ukt' => Ukt::where('students_id', 1)->latest()->get(),
                 'students' => Student::select('name', 'id', 'nim')->get(),
                 'choice' => $student,
             ]);

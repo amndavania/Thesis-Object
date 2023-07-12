@@ -6,7 +6,6 @@ use App\Models\Dpa;
 use App\Models\User;
 use App\Models\BimbinganStudy;
 use Illuminate\Http\Request;
-use App\Models\StudentType;
 use App\Models\StudyProgram;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -144,10 +143,6 @@ class DpaController extends Controller
             $semester = "GASAL";
         }
 
-        // if (empty($dpa_id)) {
-        //     $dpa_id = Dpa::first()->id;
-        // }
-
         $dpa = Dpa::where('id', $dpa_id)->first();
         $students = Student::where('dpa_id', $dpa_id)->get();
 
@@ -218,14 +213,7 @@ class DpaController extends Controller
     {
         $data = [];
         foreach ($students as $item) {
-            $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
-            if (empty($bimbinganStudy)) {
-                $status = "Tidak Aktif";
-                $lbs_id = null;
-            } else {
-                $lbs_id = $bimbinganStudy->id;
-                $status = $bimbinganStudy->status;
-            }
+            $wisuda = Ukt::where('students_id', $item->id)->where('type', "WISUDA")->exists();
 
             if ($semester == "GASAL") {
                 $semesterStudent = (($tahunAjaran - $item->force) * 2) + 1;
@@ -233,7 +221,16 @@ class DpaController extends Controller
                 $semesterStudent = (($tahunAjaran - $item->force) * 2);
             }
 
-            if ($semesterStudent >= 1) {
+            if ($semesterStudent >= 1 && !$wisuda) {
+                $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
+                if (empty($bimbinganStudy)) {
+                    $status = "Tidak Aktif";
+                    $lbs_id = null;
+                } else {
+                    $lbs_id = $bimbinganStudy->id;
+                    $status = $bimbinganStudy->status;
+                }
+
                 $data[$item->id] = [
                     'id' => $item->id,
                     'nim' => $item->nim,

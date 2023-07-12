@@ -13,7 +13,7 @@ class KrsController extends Controller
     {
         //
         return view('krs.krs')->with([
-            'bimbinganstudi' => BimbinganStudy::paginate(20)
+            'bimbinganstudi' => BimbinganStudy::latest()->paginate(20)
         ]);
     }
 

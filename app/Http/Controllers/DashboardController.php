@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Report\CashFlowController;
 use App\Http\Controllers\Report\LabaRugiController;
-use App\Http\Controllers\Report\NeracaController;
 use App\Models\HistoryReport;
 use App\Models\Student;
 use App\Models\Transaction;
-use App\Models\TransactionAccount;
 use App\Models\Ukt;
-use DateTime;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -57,7 +53,7 @@ class DashboardController extends Controller
         $statusUKT = $this->setStatusUKT($dataStudents);
 
         $dataUkt = Ukt::latest()->first();
-        
+
         if (empty($dataUkt)) {
             $year = date('Y');
             $semester = "GASAL";
@@ -180,7 +176,7 @@ class DashboardController extends Controller
                     ->where('students_id', $item->id)
                     ->latest()
                     ->first('status');
-    
+
                 if (empty($dataUkt)) {
                     $belumBayar += 1;
                 }elseif ($dataUkt->status == "Lunas") {

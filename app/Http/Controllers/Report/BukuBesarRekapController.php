@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\HistoryReport;
 use App\Models\TransactionAccount;
-use Illuminate\Support\Facades\Session;
 use DateTime;
 use Illuminate\Http\Request;
-use PDF;
 
 class BukuBesarRekapController extends Controller
 {

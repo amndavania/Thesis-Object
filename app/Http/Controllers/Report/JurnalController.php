@@ -5,12 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use DateTime;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
-use PDF;
-use Spatie\Browsershot\Browsershot;
 
 class JurnalController extends Controller
 {
@@ -21,8 +16,8 @@ class JurnalController extends Controller
     {
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');
-        $perPage = $request->input('per_page', 30);    
-        $getData = $this->getData($datepicker, $filter, $perPage);   
+        $perPage = $request->input('per_page', 30);
+        $getData = $this->getData($datepicker, $filter, $perPage);
 
         return view('report.jurnal')->with([
             'data' => $getData[0],
@@ -44,7 +39,7 @@ class JurnalController extends Controller
         }
 
         $getData = $this->getData($date, $filter, 10000);
-        
+
 
         return view('report.printformat.jurnal')->with([
             'data' => $getData[0],
