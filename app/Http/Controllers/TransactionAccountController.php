@@ -7,9 +7,7 @@ use App\Http\Requests\TransactionAccount\TransactionAccountUpdateRequest;
 use App\Models\AccountingGroup;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
-use App\Models\Ukt;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TransactionAccountController extends Controller
@@ -77,7 +75,7 @@ class TransactionAccountController extends Controller
     public function update(TransactionAccountUpdateRequest $request, string $id): RedirectResponse
     {
         $transactionAccount = TransactionAccount::findOrFail($id);
-        
+
         $transactionAccount->update($request->except('accounting_group_id'));
 
         $accountingGroupIds = $request->input('accounting_group_id', []);
@@ -97,11 +95,13 @@ class TransactionAccountController extends Controller
     {
         $transaction = Transaction::where('transaction_accounts_id', $id)->exists();
 
-        if (!$transaction) {
+        if ($id == 1130 || $id == 1120) {
+            return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi tidak dapat dihapus']);
+        } elseif (!$transaction) {
             $transaction_account = TransactionAccount::findOrFail($id);
             $transaction_account->delete();
             return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
-        } else {
+        } else{
             return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di Data Transaksi']);
         }
     }
