@@ -114,9 +114,9 @@
     function handleStudentChange() {
       var selectedStudent = document.getElementById("mahasiswaID");
       var tahunAjaranInput = document.getElementById("tahunAjaran");
-    
+
       var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
-    
+
       $(tahunAjaranInput).datepicker('destroy');
       $(tahunAjaranInput).datepicker({
         format: 'yyyy',
@@ -125,7 +125,7 @@
         autoclose: true,
         startDate: new Date(selectedForce, 0, 1)
       });
-      
+
       $(tahunAjaranInput).val('');
       $(tahunAjaranInput).attr('placeholder', 'Pilih Tahun Ajaran');
 
@@ -136,7 +136,7 @@
         var selectedStudent = document.getElementById("mahasiswaID");
         var tahunAjaranInput = document.getElementById("tahunAjaran");
         var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
-    
+
         var typeSelect = document.getElementById('type');
 
         var selectedSemester = parseInt(semesterSelect.value);
@@ -176,6 +176,12 @@
 <script>
     $(document).ready(function() {
         $('#students_id').select2();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#mahasiswaID').select2();
     });
 </script>
 
