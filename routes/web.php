@@ -49,6 +49,8 @@ Route::get('/', function () {
 Route::get('cekpembayaran', [CekPembayaranController::class, 'index'])->name('cekpembayaran.index');
 Route::get('databayar', [CekPembayaranController::class, 'data'])->name('cekpembayaran.data');
 Route::get('databayar/export', [CekPembayaranController::class, 'export'])->name('cekpembayaran.export');
+Route::get('databayar/exportLBS', [CekPembayaranController::class, 'exportLBS'])->name('cekpembayaran.exportLBS');
+Route::get('databayar/lihatKartu', [CekPembayaranController::class, 'lihatKartu'])->name('cekpembayaran.lihatKartu');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

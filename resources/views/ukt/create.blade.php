@@ -17,7 +17,7 @@
                <select class="form-control selectpicker" name="students_id" id="mahasiswaID" data-live-search="true" onchange="handleStudentChange()">
                 <option value="">Pilih Mahasiswa</option>
                 @foreach ($student as $student)
-                    <option value="{{ $student->id }}" {{ old('students_id') == $student->id ? 'selected' : '' }} data-force="{{ $student->force }}">{{ $student->nim . ' / ' . $student->name }}</option>
+                    <option value="{{ $student->id }}"  data-force="{{ $student->force }}">{{ $student->nim . ' / ' . $student->name }}</option>
                 @endforeach
             </select>
           </div>
