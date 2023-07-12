@@ -199,10 +199,11 @@
 </script>
 
 <script>
-    function updateKrs(id) {
-        var url = '{{ url('daftar_mahasiswa') }}?id=' + encodeURIComponent(id);
-        window.location.href = url;
-    }
+    function updateKrs(dpa_id, id) {
+    var url = '{{ url('daftar_mahasiswa') }}?dpa_id=' + encodeURIComponent(dpa_id) + '&id=' + encodeURIComponent(id);
+    window.location.href = url;
+}
+
   </script>
 
 <script>

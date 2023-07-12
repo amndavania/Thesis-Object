@@ -59,19 +59,13 @@
                               <td>{{ $row['name'] }}</td>
                               <td>{{ $row['semester'] }}</td>
                               <td>{{ $row['status'] }}</td>
-                              @if ($row['status'] == 'Tunda')
+                              @if ($row['status'] == 'Tunda' && !empty($row['lbs_id']))
                                     <td>
-                                        <button type="button" onclick="updateKrs('{{ $row['id'] }}')" class="btn btn-sm btn-outline-danger">Setujui KRS</button>
+                                        <button type="button" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}')" class="btn btn-sm btn-outline-danger">Setujui KRS</button>
                                     </td>
                                 @else
                                 <td></td>
                                 @endif
-                              {{-- <td>
-                                   <div class="d-flex">
-                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('dpa.setujuKrs',$row->id) }}'">Setujui KRS</button>
-                                   </div>
-
-                              </td> --}}
                          </tr>
                     @endforeach
                </tbody>

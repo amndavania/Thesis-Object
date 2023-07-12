@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UktController;
+use App\Models\BimbinganStudy;
 use Illuminate\Support\Facades\Session;
 use App\Models\Student;
 use App\Models\Ukt;
@@ -22,11 +23,12 @@ class UktDetailController extends Controller
 
         if (!empty($payment_id) && !empty($dispensasi)) {
             $payment = Ukt::where('id', $payment_id)->first();
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
 
-            if ($dispensasi == "Menunggu Dispensasi UTS") {
+            if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
                 $payment->keterangan = "UTS";
                 $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
-            } elseif ($dispensasi == "Menunggu Dispensasi UAS") {
+            } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
                 $payment->keterangan = "UAS";
                 $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
             } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
@@ -60,7 +62,7 @@ class UktDetailController extends Controller
             ]);
         }
 
-        
+
     }
 
     public function export(Request $request)

@@ -33,7 +33,7 @@ class DpaController extends Controller
 
     public function store(DpaCreateRequest $request):RedirectResponse
     {
-        
+
         // Simpan akun user DPA
         $name = $request->name;
         $email = $request->email;
@@ -91,7 +91,7 @@ class DpaController extends Controller
             'name' => $name,
             'email' => $email,
         ]);
-        
+
         return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
@@ -131,14 +131,14 @@ class DpaController extends Controller
         $dpa_id = $request->dpa_id;
         $tahunAjaran = $request->year;
         $semester = $request->semester;
-        $id = $request->input('id');
+        $lbs_id = $request->input('id');
 
         if (empty($dpa_id)) {
             $user_id = Auth::user()->id;
             $dpa = Dpa::where('user_id', $user_id)->first();
             $dpa_id = $dpa->id;
         }
-        
+
         if (empty($tahunAjaran) || empty($semester)) {
             $tahunAjaran = date('Y');
             $semester = "GASAL";
@@ -151,12 +151,12 @@ class DpaController extends Controller
         $dpa = Dpa::where('id', $dpa_id)->first();
         $students = Student::where('dpa_id', $dpa_id)->get();
 
-        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
-        
-        if (!empty($id)) {
-            $this->setujuKrs($id);
+        if (!empty($lbs_id)) {
+            $this->setujuKrs($lbs_id);
         }
-    
+
+        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
+
         return view('dpa.daftarmahasiswa')->with([
             'data' => $data,
             'tahunAjaran' => [$tahunAjaran, $semester],
@@ -165,12 +165,11 @@ class DpaController extends Controller
         ]);
     }
 
-    public function export(Request $request) 
+    public function export(Request $request)
     {
         $dpa_id = $request->dpa_id;
         $tahunAjaran = $request->year;
         $semester = $request->semester;
-        $id = $request->input('id');
 
         if (empty($tahunAjaran) || empty($semester)) {
             $tahunAjaran = date('Y');
@@ -187,7 +186,7 @@ class DpaController extends Controller
         $students = Student::where('dpa_id', $dpa_id)->get();
 
         $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
-    
+
         return view('report.printformat.daftarmahasiswa')->with([
             'data' => $data,
             'tahunAjaran' => [$tahunAjaran, $semester],
@@ -204,7 +203,7 @@ class DpaController extends Controller
         $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
         $bimbinganStudy->status = "Aktif";
         $bimbinganStudy->save();
-        
+
         $payment = Ukt::where('lbs_id', $id)->first();
         if ($payment->keterangan == "UTS") {
             $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
@@ -222,7 +221,9 @@ class DpaController extends Controller
             $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
             if (empty($bimbinganStudy)) {
                 $status = "Tidak Aktif";
+                $lbs_id = null;
             } else {
+                $lbs_id = $bimbinganStudy->id;
                 $status = $bimbinganStudy->status;
             }
 
@@ -238,6 +239,7 @@ class DpaController extends Controller
                     'nim' => $item->nim,
                     'name' => $item->name,
                     'semester' => $semesterStudent,
+                    'lbs_id' => $lbs_id,
                     'status' => $status
                 ];
             }
@@ -256,7 +258,7 @@ class DpaController extends Controller
         $user->update([
             'status' => 'Aktif',
         ]);
-        
+
         return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
