@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Ukt\UktCreateRequest;
-use App\Http\Requests\Ukt\UktUpdateRequest;
 use App\Models\BimbinganStudy;
 use App\Models\ExamCard;
 use App\Models\Student;
@@ -12,9 +11,6 @@ use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isEmpty;
 
 class UktController extends Controller
 {
@@ -118,69 +114,6 @@ class UktController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit(String $id)
-    // {
-    //     return view('ukt.edit')->with([
-    //         'ukt' => Ukt::findOrFail($id),
-    //         'transaction_account' => TransactionAccount::all(),
-    //     ]);
-
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UktUpdateRequest $request, String $id):RedirectResponse
-    // {
-    //     $ukt = Ukt::findOrFail($id);
-    //     $request['students_id'] = $ukt->students_id;
-    //     $request['type'] = $ukt->type;
-
-    //     $student_id = $request->students_id;
-    //     $semester = $request->semester;
-    //     $payment_type = $request->type;
-    //     $amount = $request->amount;
-
-    //     //Get student and student type
-    //     $student_type = $this->getStudentType($request->students_id);
-
-    //     //Update Transaction on debit
-    //     $student = Student::where('id', $request->students_id)->first();
-    //     $user_id = $request->user()->id;
-    //     $description = "Pembayaran " . $request->type . " " . $student->nim . " " . $student->name;
-    //     $reference_number = $request->reference_number;
-    //     $amount = $request->amount;
-    //     $transaction_accounts_id = 1130;
-
-    //     $this->updateTransaction($user_id, $description, $reference_number, $amount, $ukt->transaction_debit_id);
-    //     $this->updateTransactionAccount($transaction_accounts_id);
-
-    //     //Update Transaction on kredit
-    //     $description = "Pendapatan " . $request->type . " " . $student->nim . " " . $student->name;
-    //     $amount = $request->amount;
-    //     $transaction_accounts_id = 1120;
-
-    //     $this->updateTransaction($user_id, $description, $reference_number, $amount,  $ukt->transaction_kredit_id);
-    //     $this->updateTransactionAccount($transaction_accounts_id);
-
-    //     $request['total'] = 0;
-    //     $request['status'] = '-';
-    //     $request['transaction_accounts_id'] = 1130;
-    //     $ukt->update($request->all());
-
-    //     //Set total and payment status
-    //     $setTotalStatus = $this->setTotalStatus($student_id, $semester, $payment_type, $student_type);
-    //     $ukt->total = $setTotalStatus[0];
-    //     $ukt->status = $setTotalStatus[1];
-    //     $ukt->save();
-
-    //     // $ukt->update($request->all());
-    //     return redirect()->route('ukt.index')->with(['success' => 'Data berhasil diupdate']);
-    // }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(String $id):RedirectResponse
@@ -214,22 +147,6 @@ class UktController extends Controller
             'transaction_accounts_id' => $transaction_accounts_id
         ]);
     }
-
-    // public function updateTransaction($user_id, $description, $reference_number, $amount, $transaction_id)
-    // {
-
-    //     $transaction = Transaction::where('id', $transaction_id)->first();
-
-    //     if (!empty($transaction)) {
-    //         $transaction->user_id = $user_id;
-    //         $transaction->description = $description;
-    //         $transaction->reference_number = $reference_number;
-    //         $transaction->amount = $amount;
-
-    //         $transaction->save();
-    //     }
-
-    // }
 
     public function deleteTransaction($transaction_id)
     {
