@@ -209,17 +209,6 @@
             </a>
           </li>
           @endif
-          
-
-        {{-- menu --}}
-          <li class="nav-item has-treeview">
-            <a href="{{ route('dashboardmhs') }}" class="nav-link">
-              <i class="nav-icon fas fa-user-graduate"></i>
-              <p>
-                Dasbor Mahasiswa
-              </p>
-            </a>
-          </li>
 
           @if(Auth::user()->role == 'super admin')
         {{-- menu --}}

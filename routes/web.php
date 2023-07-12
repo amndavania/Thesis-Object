@@ -25,7 +25,6 @@ use App\Http\Controllers\Report\UktDetailController;
 use App\Http\Controllers\ExamCardController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\CekPembayaranController;
-use App\Http\Controllers\DashboardMahasiswaController;
 use App\Http\Controllers\KrsController;
 
 /*
@@ -39,19 +38,22 @@ use App\Http\Controllers\KrsController;
 |
 */
 
-Route::redirect('/', 'dashboard');
+Route::get('/', function () {
+    if (!Auth::check()) {
+        return redirect('/cekpembayaran');
+    } else {
+        return redirect('/dashboard');
+    }
+});
 
 Route::get('cekpembayaran', [CekPembayaranController::class, 'index'])->name('cekpembayaran.index');
 Route::get('databayar', [CekPembayaranController::class, 'data'])->name('cekpembayaran.data');
 Route::get('databayar/export', [CekPembayaranController::class, 'export'])->name('cekpembayaran.export');
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboardmhs', [DashboardMahasiswaController::class, 'index'])->name('dashboardmhs');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('admin:super admin,admin keuangan')->group(function () {
         Route::resource('jurnal', JurnalController::class)->except(['show']);
