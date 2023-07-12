@@ -1,9 +1,11 @@
-<div class="sidebar" style="position: fixed;">
+<div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <a href="/" class="brand-link">
-  <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-  <h5 class="font-weight-light">IAI Ibrahimy</h5>
-</a>
+    <div class="d-flex align-items-start">
+    <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <h5 class="font-weight-light brand-text">IAI Ibrahimy</h5>
+  </div>
+    </a>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
         <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
@@ -13,6 +15,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
 
         @if(Auth::user()->role == 'super admin')
           {{-- menu --}}
@@ -232,8 +235,9 @@
               </p>
             </a>
           </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
 
-  </div>
+</div>
