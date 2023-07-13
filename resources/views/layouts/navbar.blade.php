@@ -15,11 +15,6 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-      <li class="nav-item">
         <form method="POST" action="{{ route('logout') }}">
           @csrf
           <a class="nav-link" href="#" onclick="event.preventDefault(); this.closest('form').submit();">

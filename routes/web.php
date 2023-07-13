@@ -41,6 +41,8 @@ use App\Http\Controllers\KrsController;
 Route::get('/', function () {
     if (!Auth::check()) {
         return redirect('/cekpembayaran');
+    } elseif (Auth::user()->role == 'DPA'){
+        return redirect('/daftar_mahasiswa');
     } else {
         return redirect('/dashboard');
     }
@@ -53,11 +55,12 @@ Route::get('databayar/exportLBS', [CekPembayaranController::class, 'exportLBS'])
 Route::get('databayar/lihatKartu', [CekPembayaranController::class, 'lihatKartu'])->name('cekpembayaran.lihatKartu');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::middleware('admin:super admin,admin keuangan')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         Route::resource('jurnal', JurnalController::class)->except(['show']);
         Route::resource('bukubesarrekap', BukuBesarRekapController::class)->except(['show']);
         Route::resource('bukubesar', BukuBesarController::class)->except(['show']);

@@ -267,7 +267,10 @@
                 Semester
             </td>
             <td>:</td>
-            <td>{{ $semester }}</td> 
+            <td>
+                {{ $semester }}
+        
+            </td> 
         </tr>
     </table>
     <table class="keterangan">
