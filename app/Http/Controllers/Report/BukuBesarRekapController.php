@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\HistoryReport;
 use App\Models\TransactionAccount;
-use Illuminate\Support\Facades\Session;
 use DateTime;
 use Illuminate\Http\Request;
-use PDF;
 
 class BukuBesarRekapController extends Controller
 {
@@ -17,76 +15,76 @@ class BukuBesarRekapController extends Controller
      */
     public function index(Request $request)
     {
+        $currentMonthYear = date('Y-m');
         $datepicker = $request->input('datepicker');
-        $filter = $request->input('filter');
 
-        $getData = $this->getData($datepicker, $filter);
+        $date = $this->getDate($datepicker, $currentMonthYear);
 
-        if ($filter == 'year') {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $getData[1])->get();
-        } else {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
-        }
-
+        $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.bukubesarrekap')->with([
             'data' => $data,
-            'datepicker' => $getData[2],
-            'filter' => $filter,
+            'datepicker' => $date[1],
         ]);
     }
 
     public function export(Request $request)
     {
         $datepicker = $request->input('datepicker');
-        $filter = $request->input('filter');
+        $currentMonthYear = date('Y-m');
 
-        if ($filter == 'year') {
-            $dateTime = DateTime::createFromFormat('Y', $datepicker);
-            $date = $dateTime->format('Y');
-        } else {
-            $dateTime = DateTime::createFromFormat('F Y', $datepicker);
-            $date = $dateTime->format('m-Y');
-        }
+        $dateTime = DateTime::createFromFormat('F Y', $datepicker);
+        $date = $dateTime->format('m-Y');
 
-        $getData = $this->getData($date, $filter);
-        
-        if ($filter == 'year') {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $getData[1])->get();
-        } else {
-            $data = TransactionAccount::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $getData[1])->get();
-        }
+        $date = $this->getDate($date, $currentMonthYear);
+
+        $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.printformat.bukubesarrekap')->with([
             'data' => $data,
-            'datepicker' => $getData[2],
+            'datepicker' => $date[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Buku Besar",
         ]);
 
     }
 
-    public function getData($datepicker, $filter)
+    public function getDate($datepicker, $currentMonthYear)
     {
-        if (empty($search_account)){
-            $account = TransactionAccount::first();
-            $search_account = !empty($account) ? $account->id : 0;
-        }
-        $date = date('Y-m');
-        $formattedDate = date('F Y');
-
         if (!empty($datepicker)) {
-            if ($filter == 'month') {
-                $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
-                $date = $parsedDate->format('Y-m');
-                $formattedDate = $parsedDate->format('F Y');
-            } elseif ($filter == 'year') {
-                $parsedDate = \DateTime::createFromFormat('Y', $datepicker);
-                $date = $parsedDate->format('Y');
-                $formattedDate = $parsedDate->format('Y');
+            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+            $date = $parsedDate->format('Y-m');
+            $formattedDate = $parsedDate->format('F Y');
+        } else {
+            $datepicker = $currentMonthYear;
+            $date = date('Y-m');
+            $formattedDate = date('F Y');
+        }
+
+        return [$date, $formattedDate];
+    }
+
+    public function getData($datepicker, $currentMonthYear)
+    {
+        $transactionAccount = TransactionAccount::all();
+
+        if ($datepicker === $currentMonthYear) {
+            $data = $transactionAccount;
+        } else {
+            $data = [];
+            foreach ($transactionAccount as $item) {
+                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get('saldo');
+
+                $balance = empty($history->saldo) ? 0 : $history->saldo;
+                $data[$item->id] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'description' => $item->description,
+                    'balance' => $balance
+                ];
             }
         }
 
-        return [$search_account, $date, $formattedDate];
+        return $data;
     }
 }

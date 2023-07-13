@@ -30,6 +30,7 @@
                 <tr>
                     <th style="width: 3%;">No</th>
                     <th style="width: 12%;">Tanggal</th>
+                    <th style="width: 12%;">Tahun Ajaran</th>
                     <th style="width: 5%;">Semester</th>
                     <th style="width: 12%;">Jenis Tagihan</th>
                     <th style="width: 20%;">Nominal</th>
@@ -40,16 +41,23 @@
                 @foreach ($ukt as $row)
                      <tr>
                         <th style="text-align: center;">{{ $loop->iteration }}</th>
-                        <td style="text-align: center;">{{ $row['tanggal']->format('d-m-Y') }}</td>
-                          <td style="text-align: center;">{{ $row['semester'] }}</td>
-                          <td style="text-align: center;">{{ $row['jenis'] }}</td>
-                          <td style="text-align: right;">{{ 'Rp ' . number_format($row['total'], 2, ',', '.') }}</td>
-                          <td style="text-align: center;">{{ $row['status'] }}</td>
+                        <td style="text-align: center;">{{ $row->created_at->format('d-m-Y') }}</td>
+                        <td style="text-align: center;">{{ $row->year . "/" . ($row->year + 1) }}</td>
+                          <td style="text-align: center;">{{ $row->semester }}</td>
+                          <td style="text-align: center;">{{ $row->type }}</td>
+                          <td style="text-align: right;">{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
+                          <td style="text-align: center;">{{ $row->status }}</td>
                      </tr>
                 @endforeach
            </tbody>
-            <tfoot class="total">
-
+            <tfoot>
+                <tr>
+                    <th colspan="5">
+                         <strong>Total</strong>
+                    </th>
+                    <th style="text-align: right;">Rp {{ number_format(($totalUkt), 2, ',', '.') }}</th>
+                    <th></th>
+                </tr>
             </tfoot>
             </div>
         </table>

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UktController;
+use App\Models\BimbinganStudy;
+use App\Models\ExamCard;
 use App\Models\Student;
 use App\Models\Ukt;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;    
 
 class CekPembayaranController extends Controller
@@ -16,9 +19,7 @@ class CekPembayaranController extends Controller
     }
     public function data(Request $request)
     {
-        // dd($request);
-
-        $currentYear = date('Y');
+        $uktController = new UktController;
 
         $student_id = $request->input('students_id');
         $payment_id = $request->input('id');
@@ -26,16 +27,19 @@ class CekPembayaranController extends Controller
 
         if (!empty($payment_id) && !empty($dispensasi)) {
             $payment = Ukt::where('id', $payment_id)->first();
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
 
-            if ($dispensasi == "Menunggu Dispensasi UTS") {
+            if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
                 $payment->keterangan = "UTS";
-                $payment->exam_uts_id = UktController::createExamCard($student_id, "UTS", $payment->semester, $currentYear);
-            } elseif ($dispensasi == "Menunggu Dispensasi UAS") {
-                $payment->keterangan = "ALL";
-                $payment->exam_uas_id = UktController::createExamCard($student_id, "UAS", $payment->semester, $currentYear);
+                $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+            } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+                $payment->keterangan = "UAS";
+                $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+            } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+                $payment->keterangan = "KRS";
+                $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
             }
             $payment->save();
-
 
         }
 
@@ -48,16 +52,17 @@ class CekPembayaranController extends Controller
 
         $student = Student::where('nim', $request['nim'])->first();
 
-        if (!empty($student) && $student->name == $request['name']) {
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
             $isValid = true;
         } else {
             $isValid = false;
             $student = [];
         }
+
      
         if (!empty($student)) {
             return view('cek_detail_payment.data')->with([
-                'ukt' => Ukt::where('students_id', $student->id)->get(),
+                'ukt' => Ukt::where('students_id', $student->id)->latest()->get(),
                 'students' => Student::select('name', 'id', 'nim')->get(),
                 'choice' => $student,
                 'isValid' => $isValid,
@@ -65,7 +70,7 @@ class CekPembayaranController extends Controller
         } else{
             return view('cek_detail_payment.data')->with([
                 'ukt' => Ukt::where('students_id', 0)->get(),
-                'students' => Student::select('name', 'id', 'nim')->get(),
+                'students' => Student::select('name', 'id', 'nim')->latest()->get(),
                 'choice' => $student,
                 'isValid' => $isValid,
             ]);
@@ -76,72 +81,51 @@ class CekPembayaranController extends Controller
 
     public function export(Request $request)
     {
-        $ukt = $this->setData($request->student);
+        $ukt = Ukt::where('students_id', $request->student)->get();
         $student = Student::where('id', $request->student)->first();
+
+        $totalUkt = $ukt->sum('amount');
 
         return view('report.printformat.pembayaran')->with([
             'ukt' => $ukt,
             'name' => $student->name,
             'nim' => $student->nim,
+            'totalUkt' => $totalUkt,
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Pembayaran Mahasiswa"
         ]);
 
     }
 
-    public function setData($student_id)
+    public function exportLBS(Request $request)
     {
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
 
-        $dpp = Ukt::where('students_id', $student_id)->where('type', 'DPP')->latest('created_at')->get();
-        $ukt = Ukt::where('students_id', $student_id)->where('type', 'UKT')->latest('created_at')->get();
-        $wisuda = Ukt::where('students_id', $student_id)->where('type', 'WISUDA')->latest('created_at')->get();
-
-        $detail = [];
-
-        if (!$dpp->isEmpty()) {
-            $data = [
-                'tanggal' => $dpp->first()->created_at,
-                'semester' => $dpp->first()->semester,
-                'jenis' => $dpp->first()->type,
-                'total' => $dpp->sum('amount'),
-                'status' => $dpp->first()->status,
-            ];
-            array_push($detail, $data);
+        if ($bimbinganstudi->semester == "GASAL") {
+            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2) + 1;
+        } elseif ($bimbinganstudi->semester == "GENAP") {
+            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2);
         }
 
-        if (!$ukt->isEmpty()) {
-            for ($i=0; $i < Ukt::max('semester'); $i++) {
-                $uktsemester_total = $ukt->where('semester', $i+1)->sum('amount');
-                $uktsemester_status = $ukt->where('semester', $i+1)->first()->status;
-                $uktsemester_tanggal = $ukt->where('semester', $i+1)->first()->created_at;
-                $uktsemester_jenis = $ukt->where('semester', $i+1)->first()->type;
+        return view('report.printformat.krs')->with([
+            'bimbinganstudi' => $bimbinganstudi,
+            'student' => $student,
+            'semester' => $semesterStudent,
+            'title' => "Lembar Bimbingan Studi",
+            'today' => date('d F Y', strtotime(date('Y-m-d'))),
+        ]);
+    }
 
-                $data = [
-                    'tanggal' => $uktsemester_tanggal,
-                    'semester' => $i + 1,
-                    'jenis' => $uktsemester_jenis,
-                    'total' => $uktsemester_total,
-                    'status' => $uktsemester_status,
-                ];
+    public function lihatKartu(Request $request):View
+    {
+        $card = ExamCard::where('id', $request->id)->first();
 
-                array_push($detail, $data);
-            };
-        }
+        $student = Student::where('id', $card->students_id)->first();
 
-        if (!$wisuda->isEmpty()) {
-            $data = [
-                'tanggal' => $wisuda->first()->created_at,
-                'semester' => $wisuda->first()->semester,
-                'jenis' => $wisuda->first()->type,
-                'total' => $wisuda->sum('amount'),
-                'status' => $wisuda->first()->status,
-            ];
-
-            array_push($detail, $data);
-        }
-
-
-        return $detail;
-
+        return view('report.printformat.examcard')->with([
+            'examcard' => $card,
+            'student' => $student,
+        ]);
     }
 }

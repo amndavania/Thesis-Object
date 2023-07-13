@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('ukts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('students_id')->constrained();
-            $table->string('semester');
-            $table->string('type');
+            $table->string('year');
+            $table->enum('semester', ['GASAL', 'GENAP']);
+            $table->enum('type', ['DPP','UKT', 'WISUDA']);
             $table->string('reference_number')->nullable();
             $table->decimal('amount', 14, 2);
-            $table->decimal('total', 14, 2);
             $table->string('status');
             $table->string('keterangan')->nullable();
             $table->integer('transaction_debit_id');
             $table->integer('transaction_kredit_id');
+            $table->integer('lbs_id')->nullable();
             $table->integer('exam_uts_id')->nullable();
             $table->integer('exam_uas_id')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@
      <div class="card-body">
         <h5>
             @if (!empty($choice))
-                <span class="badge bg-warning">{{ $choice->nim . ' - ' . $choice->name }}</span>
+                <span class="badge bg-dark">{{ $choice->nim . ' - ' . $choice->name }}</span>
             @else
             <span class="badge bg-warning">Tidak ada mahasiswa</span>
             @endif
@@ -35,6 +35,7 @@
                          <td>Nominal</td>
                          <td>Status</td>
                          <td>Keterangan</td>
+                         <td></td>
                     </tr>
                </thead>
                <tbody>
@@ -55,6 +56,25 @@
                                 @endif
                               </td>
                               <td>{{ $row->keterangan }}</td>
+                              <td>
+                                @if ($row->keterangan == 'KRS')
+                                    <a href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
+                                @elseif ($row->keterangan == 'UTS')
+                                    <a href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}">Lihat Kartu</a>
+                                @elseif ($row->keterangan == 'UAS')
+                                    @if (is_null($row->lbs_id) && is_null($row->exam_uts_id) && !is_null($row->exam_uas_id))
+                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}">Lihat Kartu UAS</a>
+                                    @elseif (!is_null($row->lbs_id) && is_null($row->exam_uts_id) && is_null($row->exam_uas_id))
+                                        <a class="d-block" href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
+                                        <a class="d-block" href="#" disable>Kartu belum tersedia</a>
+                                    @elseif (!is_null($row->lbs_id) && !is_null($row->exam_uts_id) && !is_null($row->exam_uas_id))
+                                        <a class="d-block" href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
+                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}">Lihat Kartu UTS</a>
+                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}">Lihat Kartu UAS</a>
+                                    @endif
+
+                                @endif
+                              </td>
                          </tr>
                     @endforeach
                </tbody>

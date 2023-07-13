@@ -17,6 +17,10 @@
                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama program studi" value="{{ old('name') }}">
           </div>
           <div class="form-group">
+               <label for="name">Nama Kaprodi</label>
+               <input type="text" class="form-control" id="kaprodi_name" name="kaprodi_name" placeholder="Masukkan nama kepala program studi" value="{{ old('kaprodi_name') }}">
+          </div>
+          <div class="form-group">
                <label for="faculty_id">Fakultas</label>
                <select class="form-control" id="faculty_id" name="faculty_id">
                 <option value="">Pilih Fakultas</option>

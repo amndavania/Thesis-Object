@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dpas', function (Blueprint $table) {
+        Schema::create('bimbingan_study', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('study_program_id')->constrained();
+            $table->foreignId('students_id')->constrained();
+            $table->string('year');
+            $table->string('semester');
+            $table->enum('status', ['Aktif','Tunda']);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dpas');
+        Schema::dropIfExists('bimbingan_study');
     }
 };

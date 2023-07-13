@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Report\CashFlowController;
 use App\Http\Controllers\Report\LabaRugiController;
-use App\Http\Controllers\Report\NeracaController;
 use App\Models\HistoryReport;
 use App\Models\Student;
 use App\Models\Transaction;
-use App\Models\TransactionAccount;
-use DateTime;
-use Illuminate\Http\Request;
+use App\Models\Ukt;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -49,18 +46,34 @@ class DashboardController extends Controller
         $saldoAkhir = $this->setSaldoAkhir($cashflowController, $filter, $date, $cashflow_group);
         $saldoLabaRugi = $this->setLabaRugi($labarugiController, $filter, $date, $labarugi_group);
 
-        $students = Student::all();
+        $students = Student::all()->count();
         $transactions = Transaction::latest()->take(5)->get();
+
+        $dataStudents = Student::all('id');
+        $statusUKT = $this->setStatusUKT($dataStudents);
+
+        $dataUkt = Ukt::latest()->first();
+
+        if (empty($dataUkt)) {
+            $year = date('Y');
+            $semester = "GASAL";
+        } else {
+            $year = $dataUkt->year;
+            $semester = $dataUkt->semester;
+        }
+
+
 
         return view('dashboard')->with([
             'saldo' => $saldoAkhir,
             'labarugi' => $saldoLabaRugi,
-            'students' => $students->count(),
+            'students' => $students,
             'trendKeuangan' => [$financeThisYear, $financeLastYear],
             'transactions' => $transactions,
             'growPercentage' => [$growPercentagePreviousMonth, $growPercentagePreviousMonth2],
             'saldoBulanLalu' => $financeThisYear[intval(substr($date, 5, 2))-2],
-            'statusUKT' => [200, 100, 50]
+            'statusUKT' => $statusUKT,
+            'tahunAjaran' => [$year, $semester]
         ]);
     }
 
@@ -147,7 +160,36 @@ class DashboardController extends Controller
         return $growthPercentage;
     }
 
-    
+    public function setStatusUKT($students) {
+
+        $lastUkt = Ukt::latest()->first();
+
+        $lunas = 0;
+        $belumLunas = 0;
+        $belumBayar = 0;
+
+        if (!empty($lastUkt)){
+            foreach ($students as $item) {
+                $dataUkt = Ukt::where('type', 'UKT')
+                    ->where('year', $lastUkt->year)
+                    ->where('semester', $lastUkt->semester)
+                    ->where('students_id', $item->id)
+                    ->latest()
+                    ->first('status');
+
+                if (empty($dataUkt)) {
+                    $belumBayar += 1;
+                }elseif ($dataUkt->status == "Lunas") {
+                    $lunas += 1;
+                } elseif ($dataUkt->status == "Belum Lunas") {
+                    $belumLunas += 1;
+                }
+            }
+        }
+        return [$lunas, $belumLunas, $belumBayar];
+    }
+
+
 
 
 

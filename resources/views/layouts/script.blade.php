@@ -20,6 +20,50 @@
 
 </script>
 
+<!-- DPA -->
+<script>
+    $(document).ready(function() {
+        $('#dpatahunajaran').datepicker({
+            format: 'yyyy',
+            startView: 'years',
+            minViewMode: 'years',
+            autoclose: true
+        });
+    });
+</script>
+
+{{-- Script Student --}}
+{{-- <script>
+    var studyProgramSelect = document.getElementById('study_program');
+    var dpaSelect = document.getElementById('dpa');
+
+    studyProgramSelect.addEventListener('change', function() {
+        var selectedProgramId = this.value;
+
+        dpaSelect.innerHTML = '';
+
+        for (var i = 0; i < dpaSelect.options.length; i++) {
+            var option = dpaSelect.options[i];
+            var programId = option.getAttribute('data-program-id');
+
+            if (programId === selectedProgramId || selectedProgramId === '') {
+                dpaSelect.options.add(new Option(option.text, option.value));
+            }
+        }
+
+        // Menambahkan nilai default
+        dpaSelect.value = '';
+        dpaSelect.setAttribute('placeholder', 'Pilih DPA');
+    });
+
+    // Memanggil perubahan saat halaman dimuat
+    studyProgramSelect.dispatchEvent(new Event('change'));
+
+</script> --}}
+
+
+{{-- Script Laporan --}}
+
 <script>
     function handleFilterChange() {
         var filter = document.getElementById('filter').value;
@@ -64,33 +108,86 @@
     });
 </script>
 
+{{-- Script UKT --}}
+
 <script>
-    const semesterSelect = document.getElementById('semester');
-    const typeSelect = document.getElementById('type');
+    function handleStudentChange() {
+      var selectedStudent = document.getElementById("mahasiswaID");
+      var tahunAjaranInput = document.getElementById("tahunAjaran");
 
-    semesterSelect.addEventListener('change', function() {
-         const selectedSemester = parseInt(semesterSelect.value);
+      var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
 
-         if (selectedSemester !== 1 && selectedSemester !== 2) {
-              const dppOption = typeSelect.querySelector('option[value="DPP"]');
-              if (dppOption) {
-                   dppOption.remove();
-              }
-         } else {
-              const dppOption = typeSelect.querySelector('option[value="DPP"]');
-              if (!dppOption) {
-                   const option = document.createElement('option');
-                   option.value = 'DPP';
-                   option.text = 'DPP';
-                   typeSelect.appendChild(option);
-              }
-         }
+      $(tahunAjaranInput).datepicker('destroy');
+      $(tahunAjaranInput).datepicker({
+        format: 'yyyy',
+        startView: 'years',
+        minViewMode: 'years',
+        autoclose: true,
+        startDate: new Date(selectedForce, 0, 1)
+      });
+
+      $(tahunAjaranInput).val('');
+      $(tahunAjaranInput).attr('placeholder', 'Pilih Tahun Ajaran');
+
+    }
+
+    var semesterSelect = document.getElementById('semester');
+    semesterSelect.addEventListener('change', function()  {
+        var selectedStudent = document.getElementById("mahasiswaID");
+        var tahunAjaranInput = document.getElementById("tahunAjaran");
+        var selectedForce = selectedStudent.options[selectedStudent.selectedIndex].getAttribute("data-force");
+
+        var typeSelect = document.getElementById('type');
+
+        var selectedSemester = parseInt(semesterSelect.value);
+
+        var semester = ((parseInt(tahunAjaranInput.value) - parseInt(selectedForce)) * 2) + (selectedSemester === "GENAP" ? 0 : 1)
+
+        if (semester > 2) {
+            var dppOption = typeSelect.querySelector('option[value="DPP"]');
+            if (dppOption) {
+                dppOption.remove();
+            }
+        } else {
+            var dppOption = typeSelect.querySelector('option[value="DPP"]');
+            if (!dppOption) {
+                var option = document.createElement('option');
+                option.value = 'DPP';
+                option.text = 'DPP';
+                typeSelect.appendChild(option);
+            }
+        }
     });
+
+    function handleYearChange() {
+        var tahunAjaranInput = document.getElementById("tahunAjaran");
+        var semesterSelect = document.getElementById('semester');
+        var typeSelect = document.getElementById('type');
+
+        semesterSelect.value = '';
+        semesterSelect.setAttribute('placeholder', 'Pilih Semester');
+
+        typeSelect.value = '';
+        typeSelect.setAttribute('placeholder', 'Pilih Jenis Pembayaran');
+    }
+
 </script>
 
 <script>
     $(document).ready(function() {
         $('#students_id').select2();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#mahasiswaID').select2();
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#dpa_id').select2();
     });
 </script>
 
@@ -102,11 +199,20 @@
 </script>
 
 <script>
+    function updateKrs(dpa_id, id) {
+    var url = '{{ url('daftar_mahasiswa') }}?dpa_id=' + encodeURIComponent(dpa_id) + '&id=' + encodeURIComponent(id);
+    window.location.href = url;
+}
+
+  </script>
+
+<script>
     $(document).ready(function() {
       $('#accounting_group_id').select2();
     });
 </script>
 
+{{-- Script Dashboar --}}
 <script>
     $(function () {
         'use strict'

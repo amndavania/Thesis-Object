@@ -17,6 +17,7 @@
                     <tr>
                          <th>No</th>
                          <td>Nama</td>
+                         <td>Kaprodi</td>
                          <td>Fakultas</td>
                          <td>Aksi</td>
                     </tr>
@@ -29,6 +30,7 @@
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->name }}</td>
+                              <td>{{ $row->kaprodi_name }}</td>
                               <td>{{ $row->faculty->name }}</td>
                               <td>
                                 <div class="d-flex">

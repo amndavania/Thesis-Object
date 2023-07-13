@@ -141,7 +141,10 @@
               <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Pembayaran UKT Mahasiswa</h3>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="card-title">Pembayaran UKT Mahasiswa</h3>
+                            <span>{{$tahunAjaran[0] . "/" . ($tahunAjaran[0] + 1) . " | " . $tahunAjaran[1]}}</span>
+                          </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

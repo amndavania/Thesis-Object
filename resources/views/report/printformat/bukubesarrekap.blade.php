@@ -22,38 +22,39 @@
             <thead>
                 <tr>
                     <th style="width: 5%;">No</th>
-                    <th style="width: 10%;">ID</th>
+                    <th style="width: 10%;">Kode Akun</th>
                     <th style="width: 20%;">Nama</th>
                     <th style="width: 50%;">Deskripsi</th>
                     <th style="width: 15%;">Saldo</th>
                 </tr>
             </thead>
             <tbody>
-               @php
-                                $totalSaldo = 0;
-                                
-                                @endphp
-                    @foreach ($data as $row)
-                         <tr>
-                              <th>{{ $loop->iteration }}</th>
-                              <td style="text-align: center;">{{ $row->id }}</td>
-                              <td>{{ $row->name }}</td>
-                              <td>{{ $row->description }}</td>
-                              <td style="@if (($row->balance) < 0) color: red; @endif; text-align: center; width:20%" colspan="2">
-                            @if (($row->balance) < 0)
-                                (Rp {{ number_format(abs(($row->balance)), 2, ',', '.') }})
-                            @elseif (($row->balance) > 0 || ($row->balance) == 0)
-                                Rp {{ number_format(($row->balance), 2, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                         </tr>                              
-                         @php
-                    $totalSaldo += $row->balance;
-                    @endphp
-                    @endforeach
-               </tbody>
+                @php
+                                 $totalSaldo = 0;
+                                 
+                                 @endphp
+                     @foreach ($data as $row)
+                          <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')" 
+                          style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
+                               <th>{{ $loop->iteration }}</th>
+                               <td style="text-align: center;">{{ $row['id'] }}</td>
+                               <td>{{ $row['name'] }}</td>
+                               <td>{{ $row['description'] }}</td>
+                               <td style="@if (($row['balance']) < 0) color: red; @endif; text-align: right; width:20%" colspan="2">
+                             @if (($row['balance']) < 0)
+                                 (Rp {{ number_format(abs(($row['balance'])), 2, ',', '.') }})
+                             @elseif (($row['balance']) > 0 || ($row['balance']) == 0)
+                                 Rp {{ number_format(($row['balance']), 2, ',', '.') }}
+                             @else
+                                 -
+                             @endif
+                         </td>
+                          </tr>                              
+                          @php
+                     $totalSaldo += $row['balance'];
+                     @endphp
+                     @endforeach
+                </tbody>
                <tfoot class="table-dark">
                 <tr>
                         <td colspan="4">

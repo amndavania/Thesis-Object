@@ -1,9 +1,11 @@
-<div class="sidebar" style="position: fixed;">
+<div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <a href="/" class="brand-link">
-  <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-  <h5 class="font-weight-light">IAI Ibrahimy</h5>
-</a>
+    <div class="d-flex align-items-start">
+    <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <h5 class="font-weight-light brand-text">IAI Ibrahimy</h5>
+  </div>
+    </a>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
         <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
@@ -13,6 +15,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
 
         @if(Auth::user()->role == 'super admin')
           {{-- menu --}}
@@ -63,6 +66,7 @@
           </li>
           @endif
 
+          @if(Auth::user()->role == 'super admin' || Auth::user()->role == 'admin keuangan')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
@@ -111,6 +115,7 @@
               </li>
             </ul>
           </li>
+          @endif
 
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
@@ -149,6 +154,10 @@
               </li>
             </ul>
           </li>
+          @endif
+
+          @if(Auth::user()->role == 'super admin')
+          {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-school"></i>
@@ -177,6 +186,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="{{ route('bimbinganstudi.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lembar Bimbingan Studi</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="{{ route('examcard.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kartu Ujian</p>
@@ -184,16 +199,21 @@
                   </li>
             </ul>
           </li>
+          @endif
 
+          @if(Auth::user()->role == 'DPA')
         {{-- menu --}}
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-graduate"></i>
+          <a href="{{ url('daftar_mahasiswa') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Dasbor Mahasiswa
+                Daftar Mahasiswa
               </p>
             </a>
           </li>
+          @endif
+
+          @if(Auth::user()->role == 'super admin')
         {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('pengguna.index') }}" class="nav-link">
@@ -203,10 +223,9 @@
               </p>
             </a>
           </li>
-        @endif
+          @endif
 
         {{-- menu sub--}}
-        
           {{-- menu --}}
           <li class="nav-item has-treeview">
             <a href="{{ route('profile.edit') }}" class="nav-link">
@@ -216,8 +235,9 @@
               </p>
             </a>
           </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
 
-  </div>
+</div>

@@ -25,14 +25,24 @@
                <input type="number" class="form-control" id="force" name="force" placeholder="Masukkan tahun masuk" value="{{ old('force') }}">
           </div>
           <div class="form-group">
-               <label for="study_program_id">Program Studi</label>
-               <select class="form-control" id="study_program_id" name="study_program_id">
+            <label for="study_program_id">Program Studi</label>
+            <select class="form-control" id="study_program_id" name="study_program_id">
                 <option value="">Pilih Program Studi</option>
-                    @foreach ($study_program as $item)
-                         <option value="{{ $item->id }}" {{ old('study_program_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-                    @endforeach
-               </select>
-          </div>
+                @foreach ($study_program as $item)
+                    <option value="{{ $item->id }}" {{ old('study_program_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dpa_id">DPA</label>
+            <select class="form-control selectpicker" id="dpa_id" name="dpa_id" data-live-search="true">
+                <option value="">Pilih DPA</option>
+                @foreach ($dpa as $item)
+                    <option value="{{ $item->id }}" {{ old('dpa_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        
           <div class="form-group">
                <label for="student_types_id">Skema Pembayaran</label>
                <select class="form-control" id="student_types_id" name="student_types_id">
