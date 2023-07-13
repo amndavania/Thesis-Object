@@ -218,7 +218,7 @@ class DpaController extends Controller
             if ($semester == "GASAL") {
                 $semesterStudent = (($tahunAjaran - $item->force) * 2) + 1;
             } elseif ($semester == "GENAP") {
-                $semesterStudent = (($tahunAjaran - $item->force) * 2);
+                $semesterStudent = (($tahunAjaran - $item->force) * 2) + 2;
             }
 
             if ($semesterStudent >= 1 && !$wisuda) {

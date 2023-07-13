@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\HistoryReport;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\Session;
 use App\Models\TransactionAccount;
 use DateTime;
 use Illuminate\Http\Request;
-use PDF;
 
 
 class NeracaController extends Controller

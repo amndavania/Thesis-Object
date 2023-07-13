@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\HistoryReport;
 use DateTime;
 use Illuminate\Http\Request;
-use PDF;
 
 
 class CashFlowController extends Controller

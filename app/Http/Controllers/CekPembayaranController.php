@@ -105,7 +105,7 @@ class CekPembayaranController extends Controller
         if ($bimbinganstudi->semester == "GASAL") {
             $semesterStudent = (($bimbinganstudi->year - $student->force) * 2) + 1;
         } elseif ($bimbinganstudi->semester == "GENAP") {
-            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2);
+            $semesterStudent = (($bimbinganstudi->year - $student->force) * 2) + 2;
         }
 
         return view('report.printformat.krs')->with([

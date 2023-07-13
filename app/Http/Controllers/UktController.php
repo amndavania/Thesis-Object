@@ -54,7 +54,7 @@ class UktController extends Controller
             $yearPrevious = $year-1;
             $semesterPrevious = "GENAP";
         }elseif ($semester == "GENAP") {
-            $semester_student = (($year - $studentData[0]->force) * 2);
+            $semester_student = (($year - $studentData[0]->force) * 2) + 2;
             $yearPrevious = $year;
             $semesterPrevious = "GASAL";
         }
