@@ -24,6 +24,7 @@ class DpaCreateRequest extends FormRequest
         return [
             'name'=>'required',
             'email'=>'required',
+            'study_program_id'=>'required',
         ];
     }
 
@@ -32,6 +33,7 @@ class DpaCreateRequest extends FormRequest
         return [
             'name.required'=>'Nama Dosen harus diisi',
             'email.required'=>'Email harus diisi',
+            'study_program_id.required'=>'Program studi harus diisi'
         ];
     }
 }
