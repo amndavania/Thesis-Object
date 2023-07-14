@@ -8,13 +8,13 @@
                 <h5>Perbarui Password</h5>
             </div><!-- /.card-header -->
             <div class="card-body">
-                <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+                <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6" autocomplete="off" >
                     @csrf
                     @method('put')
                     <div class="form-group row">
                         <x-input-label for="current_password" :value="__('Password saat ini')" />
                         <div class="col-sm-10">
-                            <x-text-input id="current_password" placeholder="Password saat ini" name="current_password" type="password" autocomplete="current-password" />
+                            <x-text-input id="current_password" placeholder="Password saat ini" name="current_password" type="password" autocomplete="new-password" />
                             <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                         </div>
                     </div>
