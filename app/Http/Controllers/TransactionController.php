@@ -74,7 +74,7 @@ class TransactionController extends Controller
     public function update(TransactionUpdateRequest $request, string $id)
     {
         $transaction = Transaction::findOrFail($id);
-        $request['transaction_accounts_id'] = $transaction->transaction_accounts_id;        
+        $request['transaction_accounts_id'] = $transaction->transaction_accounts_id;
         $transaction->update($request->all());
 
         $this->updateTransactionAccount($request->transaction_accounts_id, $request->type);
@@ -111,7 +111,7 @@ class TransactionController extends Controller
         if (empty($transactions)){
             $ammount = 0;
         }else {
-            $ammount = $transactions->sum('amount');         
+            $ammount = $transactions->sum('amount');
         }
 
         $account = TransactionAccount::findOrFail($transaction_accounts_id);

@@ -32,23 +32,24 @@ class SaveTransactionMonthly extends Command
         //
         $dateToday = Carbon::today();
         $month = $dateToday->subMonth()->format('Y-m');
-        $totalDebit = 0;
-        $totalKredit = 0;
 
         $transaction_accounts = TransactionAccount::all();
         foreach ($transaction_accounts as $transaction_account) {
-            $transactions = Transaction::where('transaction_accounts_id', $transaction_account->id)
-                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $month)
-                    ->get();
+            $transactions = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $month)
+                ->where('transaction_accounts_id', $transaction_account->id)->get();
             $history = HistoryReport::where('transaction_accounts_id', $transaction_account->id)
                     ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $month)
                     ->where('type', 'monthly')
                     ->first();
 
-            if (!empty($transactions)) {
-                $totalDebit = $transactions::where('type', 'debit')->sum('amount');
-                $totalKredit = $transactions::where('type', 'kredit')->sum('amount');
+            if ($transactions->isNotEmpty()) {
+                $totalDebit = $transactions->where('type', 'debit')->sum('amount');
+                $totalKredit = $transactions->where('type', 'kredit')->sum('amount');
+            } else {
+                $totalDebit = 0;
+                $totalKredit = 0;
             }
+
 
             if (empty($history)) {
                 $saldo = $totalDebit - $totalKredit;
@@ -61,7 +62,7 @@ class SaveTransactionMonthly extends Command
                 'type' => 'monthly',
                 'saldo' => $saldo,
             ];
-            
+
             try {
                 HistoryReport::create($saveData);
             } catch (\Exception $e) {
