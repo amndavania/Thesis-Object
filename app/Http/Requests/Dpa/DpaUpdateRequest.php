@@ -21,7 +21,6 @@ class DpaUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $student_id = $this->route('dpa');
 
         return [
             'name'=>'required',
@@ -32,7 +31,7 @@ class DpaUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Nama mahasiswa harus diisi',
+            'name.required'=>'Nama Dosen harus diisi',
             'email.required'=>'Email harus diisi',
         ];
     }
