@@ -15,7 +15,7 @@ class SaveTransactionYearly extends Command
      *
      * @var string
      */
-    protected $signature = 'app:save-transaction-yearly';
+    protected $signature = 'save-transaction-yearly';
 
     /**
      * The console command description.

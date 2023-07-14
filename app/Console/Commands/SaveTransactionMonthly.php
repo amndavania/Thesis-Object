@@ -15,7 +15,7 @@ class SaveTransactionMonthly extends Command
      *
      * @var string
      */
-    protected $signature = 'app:save-transaction-monthly';
+    protected $signature = 'save-transaction-monthly';
 
     /**
      * The console command description.
