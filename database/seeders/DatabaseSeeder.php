@@ -32,19 +32,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'super admin'
         ]);
 
-        User::factory()->create([
-            'name' => 'admin keuangan',
-            'email' => 'adminkeuangan@example.com',
-            'password'  => bcrypt('admin'),
-            'role' => 'admin keuangan'
-        ]);
-        User::factory()->create([
-            'name' => 'zidny',
-            'email' => 'azzidti34@gmail.com',
-            'password'  => bcrypt('admin'),
-            'role' => 'super admin'
-        ]);
-
         $accountingGroups = [
             ['name' => 'Pendapatan', 'description' => 'grup akun pendapatan'],
             ['name' => 'Pengeluaran', 'description' => 'grup akun pengeluaran'],
@@ -68,57 +55,79 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Bank', 'description' => 'grup akun bank'],
         ];
 
-        $transactionAccounts = TransactionAccount::factory()->count(58)->create();
+        // $transactionAccounts = TransactionAccount::factory()->count(58)->create();
 
         TransactionAccount::factory()->create([
             'id' => 1120,
             'name'=> 'Kas Operasional',
             'description' => 'pendapatan',
-            'balance' => -2000000,
+            'balance' => 0,
         ]);
         TransactionAccount::factory()->create([
             'id' => 1130,
             'name'=> 'Bank BRI Ibrahimy',
             'description' => 'bank',
-            'balance' => -100000000,
+            'balance' => 0,
         ]);
 
+        // $groupTransactions = collect($accountingGroups)->map(function ($group) {
+        //     return AccountingGroup::factory()->create($group);
+        // });
+        foreach ($accountingGroups as $group) {
+            AccountingGroup::factory()->create($group);
+        }
 
+        $groupTransactionsPivot = [
+            [
+                'group_id' => 1,
+                'transaction_accounts' => [1120],
+            ],
+            [
+                'group_id' => 20,
+                'transaction_accounts' => [1130],
+            ],
+        ];
 
-        $groupTransactions = collect($accountingGroups)->map(function ($group) {
-            return AccountingGroup::factory()->create($group);
-        });
+        foreach ($groupTransactionsPivot as $groupTransaction) {
+            $group = AccountingGroup::find($groupTransaction['group_id']);
+            $transactionAccounts = TransactionAccount::find($groupTransaction['transaction_accounts']);
 
-        foreach ($groupTransactions as $groupTransaction) {
-            $randomTransactionAccounts = $transactionAccounts->random(3);
-    
-            $groupTransaction->transactionAccounts()->attach(
-                $randomTransactionAccounts->pluck('id')->toArray()
+            $group->transactionAccounts()->attach(
+                $transactionAccounts->pluck('id')->toArray()
             );
         }
 
 
-        Transaction::factory(1000)->create();
-        Faculty::factory(5)->create();
-        StudyProgram::factory(13)->create();
-        StudentType::factory(5)->create();
-        
-        // DPA
-        User::factory(44)->create();
-        Dpa::factory(40)->create();
+        // foreach ($groupTransactions as $groupTransaction) {
+        //     $randomTransactionAccounts = $transactionAccounts->random(3);
 
-        Report::factory(30)->create();
+        //     $groupTransaction->transactionAccounts()->attach(
+        //         $randomTransactionAccounts->pluck('id')->toArray()
+        //     );
+        // }
 
-        Student::factory()->create([
-            'name' => 'Ahmad Izaz Nur Fikri',
-            'nim'=> 192410102020,
-            'force'=> 2019,
-            'study_program_id'=>1,
-            'student_types_id'=>1,
-            'dpa_id'=>1,
-        ]);
 
-        Student::factory(1999)->create();
-        Ukt::factory(12000)->create();
+        // Transaction::factory(1000)->create();
+        // Faculty::factory(5)->create();
+        // StudyProgram::factory(13)->create();
+        // StudentType::factory(5)->create();
+
+        // // DPA
+        // User::factory(44)->create();
+        // Dpa::factory(40)->create();
+
+        // Report::factory(30)->create();
+
+        // Student::factory()->create([
+        //     'name' => 'Ahmad Izaz Nur Fikri',
+        //     'nim'=> 192410102020,
+        //     'force'=> 2019,
+        //     'study_program_id'=>1,
+        //     'student_types_id'=>1,
+        //     'dpa_id'=>1,
+        // ]);
+
+        // Student::factory(1999)->create();
+        // Ukt::factory(12000)->create();
     }
 }
