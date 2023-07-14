@@ -21,11 +21,8 @@
                          <td>Tahun Ajaran</td>
                          <td>Semester</td>
                          <td>Jenis</td>
-                         {{-- <td>Nomor Referensi</td> --}}
                          <td>Nominal</td>
-                         {{-- <td>Total</td> --}}
                          <td>Status</td>
-                         {{-- <td>Akun Transaksi</td> --}}
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -41,10 +38,7 @@
                               <td>{{ $row->year . "/" . ($row->year + 1) }}</td>
                               <td>{{ $row->semester }}</td>
                               <td>{{ $row->type }}</td>
-                              {{-- <td>{{ $row->reference_number ? $row->reference_number : '-' }}</td> --}}
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
-                              {{-- <td>{{ 'Rp ' . number_format($row->total, 2, ',', '.') }}</td> --}}
-                              {{-- <td>{{ $row->status }}</td> --}}
                               <td>
                                 @if ($row->status == "Lunas")
                                     <span class="badge bg-success">Lunas</span>
@@ -54,10 +48,8 @@
                                     <span class="badge bg-warning">Lebih</span>
                                 @endif
                               </td>
-                              {{-- <td>{{ $row->transactionaccount->name }}</td> --}}
                               <td>
                                    <div class="d-flex">
-                                        {{-- <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('ukt.edit',$row->id) }}'">Edit</button> --}}
                                         <form action="{{ route('ukt.destroy',$row->id) }}" method="post" class="m-1">
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm(&quot;Apakah ingin menghapus data tersebut?&quot;)">Hapus</button>
                                         @csrf

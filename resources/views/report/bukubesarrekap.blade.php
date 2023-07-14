@@ -77,9 +77,6 @@
                     </tr>
                 </tfoot>
           </table>
-          {{-- <div class="d-flex justify-content-center align-items-center text-center">
-            {{ $data->links() }}
-        </div> --}}
      </div>
     </div>
 </x-app-layout>
