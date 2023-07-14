@@ -220,7 +220,7 @@
            <tr>
             <td></td>
                 <td colspan="1">
-                     <strong>Total Pembelian Aset</strong>
+                     <strong>Total Bunga / Pajak</strong>
                 </td>
                 <td style="text-align: right; @if ($totalBungaPajak < 0) color: red; @endif">
                     @if ($totalBungaPajak < 0)

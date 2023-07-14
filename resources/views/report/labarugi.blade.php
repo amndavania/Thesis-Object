@@ -219,7 +219,7 @@
                                 @if ($row['saldo'] < 0)
                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                    Rp {{ number_format($totalBungaPajak, 2, ',', '.') }}
+                                    Rp {{ number_format($row['saldo'], 2, ',', '.') }}
                                 @else
                                     -
                                 @endif
@@ -232,7 +232,7 @@
            <tr>
             <td></td>
                 <td colspan="1">
-                     <strong>Total Pembelian Aset</strong>
+                     <strong>Total Bunga / Pajak</strong>
                 </td>
                 <td style="text-align: right; @if ($totalBungaPajak < 0) color: red; @endif">
                     @if ($totalBungaPajak < 0)

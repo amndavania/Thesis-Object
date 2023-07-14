@@ -65,6 +65,22 @@
                           $totalModalAwal += $row['saldo'];
                           @endphp
                      @endforeach
+                     @php
+                          $totalModalAwal += $labaDitahan;
+                          @endphp
+                     <tr>
+                               <td></td>
+                               <td>Laba / Rugi Ditahan</td>
+                                 <td style="text-align: right; @if ($labaDitahan < 0) color: red; @endif">
+                                     @if ($labaDitahan < 0)
+                                         (Rp {{ number_format(abs($labaDitahan), 2, ',', '.') }})
+                                     @elseif ($labaDitahan > 0 || $labaDitahan == 0)
+                                         Rp {{ number_format($labaDitahan, 2, ',', '.') }}
+                                     @else
+                                         -
+                                     @endif
+                                 </td>
+                          </tr>
                 <tr>
                     <td></td>
                      <td colspan="1">
@@ -109,6 +125,22 @@
                           @endphp
                      @endforeach
                 <tr>
+                @php
+                          $totalPenambahanModal += $labaBerjalan;
+                          @endphp
+                <tr>
+                               <td></td>
+                               <td>Laba / Rugi Berjalan</td>
+                                 <td style="text-align: right; @if ($labaBerjalan < 0) color: red; @endif">
+                                     @if ($labaBerjalan < 0)
+                                         (Rp {{ number_format(abs($labaBerjalan), 2, ',', '.') }})
+                                     @elseif ($labaBerjalan > 0 || $labaBerjalan == 0)
+                                         Rp {{ number_format($labaBerjalan, 2, ',', '.') }}
+                                     @else
+                                         -
+                                     @endif
+                                 </td>
+                          </tr>
                     <td></td>
                      <td colspan="1">
                           <strong>Total Penambahan Modal</strong>

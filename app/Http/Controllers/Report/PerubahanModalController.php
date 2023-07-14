@@ -25,7 +25,25 @@ class PerubahanModalController extends Controller
             'penguranganModal' => 19,
         ];
 
+        $accounting_group_laba = [
+            'pendapatan' => 1,
+            'pengeluaran' => 2,
+            'penyusutanAmortisasi' => 3,
+            'bungaPajak' => 4,
+            'pendapatanPengeluaranLain' => 5,
+        ];
+
+
+        if ($getDate[2] == 'month') {
+            $date = date('Y-m', strtotime('-1 month', strtotime($getDate[0])));
+        } else if ($getDate[2] == 'year') {
+            $date = date('Y', strtotime('-1 year', strtotime($getDate[0])));
+        }
+
+
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
+        $labaTetap = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
+        $labaBerjalan = $this->getLaba($getDate[2], $date, $accounting_group_laba);
 
         return view('report.perubahanmodal')->with([
             'modaldiAwal' => $results['modaldiAwal'],
@@ -33,6 +51,8 @@ class PerubahanModalController extends Controller
             'penguranganModal' => $results['penguranganModal'],
             'datepicker' => $getDate[1],
             'filter' => $getDate[2],
+            'labaBerjalan' => $labaBerjalan,
+            'labaDitahan' => $labaTetap,
         ]);
     }
 
@@ -158,5 +178,44 @@ class PerubahanModalController extends Controller
         }
 
         return $results;
+    }
+
+    public function getLaba($filter, $date, $accounting_group)
+    {
+        $laba = 0;
+        foreach ($accounting_group as $key => $value) {
+            $getTransaction = $this->getTransaction($date, $filter, $value);
+
+            $transaction_accounts = TransactionAccount::whereHas('accountinggroup', function ($query) use ($value) {
+                $query->whereIn('id', [$value]);
+            })->get();
+
+            
+            foreach ($transaction_accounts as $item) {
+                $debit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'debit')->sum('amount');
+                $kredit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'kredit')->sum('amount');
+
+                $getHistory = $this->getHistory($filter, $item->id, $date);
+
+                if (!empty($getHistory)) {
+                    $saldo = $getHistory->saldo + ($debit - $kredit);
+                } else {
+                    $saldo = $debit - $kredit;
+                }
+
+                if ($saldo != 0) {
+                    $laba += $saldo;
+                }
+            }
+
+            $labaAkhir = $laba;
+        }
+        
+
+
+
+
+
+        return $labaAkhir;
     }
 }
