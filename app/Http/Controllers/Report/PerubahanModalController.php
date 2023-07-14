@@ -42,8 +42,8 @@ class PerubahanModalController extends Controller
 
 
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
-        $labaTetap = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
-        $labaBerjalan = $this->getLaba($getDate[2], $date, $accounting_group_laba);
+        $labaBerjalan = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
+        $labaTetap = $this->getLaba($getDate[2], $date, $accounting_group_laba);
 
         return view('report.perubahanmodal')->with([
             'modaldiAwal' => $results['modaldiAwal'],
