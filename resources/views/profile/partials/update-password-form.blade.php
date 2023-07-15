@@ -38,13 +38,7 @@
                       <div class="offset-sm-2 col-sm-10">
                         <x-primary-button>{{ __('Save') }}</x-primary-button>
                         @if (session('status') === 'password-updated')
-                        <p
-                            x-data="{ show: true }"
-                            x-show="show"
-                            x-transition
-                            x-init="setTimeout(() => show = false, 2000)"
-                            class="text-sm text-success"
-                        >{{ __('Saved.') }}</p>
+                          <h5 class="text text-success mt-2">Password telah diperbarui!</h5>
                         @endif
                       </div>
                     </div>

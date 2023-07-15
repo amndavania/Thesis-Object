@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('student_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('type')->unique();
             $table->string('year');
             $table->foreignId('study_program_id')->constrained();
             $table->decimal('dpp', 14, 2)->nullable();

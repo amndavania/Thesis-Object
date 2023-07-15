@@ -6,16 +6,20 @@
     <h5 class="font-weight-light brand-text">IAI Ibrahimy</h5>
   </div>
     </a>
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-wrap">
       <div class="info">
-        <h5 class="d-block brand-text text-light">Selamat Datang, <b>{{ strtok(Auth::user()->name, ' ') }}</b>!</h5>
+        <h5 class="d-block brand-text text-light">Selamat Datang,</h5>
+        <h5 class="d-block brand-text text-light">
+          <b class="{{ strlen(Auth::user()->name) >= 25 ? 'text-sm' : (strlen(Auth::user()->name) > 19 ? 'text-md' : '') }}">
+            {{ Auth::user()->name }}
+          </b>!
+        </h5>
       </div>
     </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
 
         @if(Auth::user()->role == 'super admin')
           {{-- menu --}}
