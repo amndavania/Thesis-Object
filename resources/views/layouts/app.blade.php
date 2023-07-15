@@ -17,24 +17,12 @@
 
   <link rel="stylesheet" href={{asset('vendor/dist/css/select2.min.css')}}>
 
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/1.0.0-beta.1/select2-bootstrap.min.css"> --}}
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" /> --}}
-
-
 
 
 </head>
 <!--
-`body` tag options:
 
-  Apply one or more of the following classes to to the body tag
-  to get the desired effect
-
-  * sidebar-collapse
-  * sidebar-mini
 -->
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -100,9 +88,7 @@
 
 <!-- OPTIONAL SCRIPTS -->
 <script src={{asset('vendor/plugins/chart.js/Chart.min.js')}}></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src={{asset('vendor/dist/js/demo.js')}}></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
 <script src={{asset('vendor/dist/js/pages/dashboard3.js')}}></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>

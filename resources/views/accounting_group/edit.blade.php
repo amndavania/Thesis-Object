@@ -8,14 +8,9 @@
                <h4>Ubah Data</h4>
           </div>
      </div>
-     <div class="card-body">
-          {{-- <form method="POST" class="mx-2 p-4" action="/"> --}}
-               {{-- {{ $accounting_group }} --}}
-          {{-- <form method="post" class="mx-2 p-4" action="{{ url('accounting_group/' .$accounting_group->id) }}"> --}}
-            @include('message.form-message')
+     <div class="card-body">@include('message.form-message')
           <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}">
-          {{-- <form method="post" class="mx-2 p-4" action="{{ route('accounting_group.update', $accounting_group->id) }}"> --}}
-               @csrf
+          @csrf
                @method('put')
           <div class="form-group">
                <label for="name">Nama Grup</label>
