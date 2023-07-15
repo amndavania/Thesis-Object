@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TransactionAccount\TransactionAccountCreateRequest;
 use App\Http\Requests\TransactionAccount\TransactionAccountUpdateRequest;
 use App\Models\AccountingGroup;
+use App\Models\HistoryReport;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use Illuminate\Http\RedirectResponse;
@@ -94,15 +95,19 @@ class TransactionAccountController extends Controller
     public function destroy($id):RedirectResponse
     {
         $transaction = Transaction::where('transaction_accounts_id', $id)->exists();
+        $history = HistoryReport::where('transaction_accounts_id', $id)->exists();
 
         if ($id == 1130 || $id == 1120) {
             return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi tidak dapat dihapus']);
-        } elseif (!$transaction) {
+        } elseif ($transaction) {
+            return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di Data Transaksi']);
+        } elseif ($history) {
+            return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di History Transaksi']);
+        } 
+        else{
             $transaction_account = TransactionAccount::findOrFail($id);
             $transaction_account->delete();
             return redirect()->route('transaction_account.index')->with(['success' => 'Data berhasil dihapus']);
-        } else{
-            return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di Data Transaksi']);
         }
     }
 }
