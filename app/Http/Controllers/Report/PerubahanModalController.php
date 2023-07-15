@@ -77,6 +77,26 @@ class PerubahanModalController extends Controller
             'penguranganModal' => 19,
         ];
 
+        $accounting_group_laba = [
+            'pendapatan' => 1,
+            'pengeluaran' => 2,
+            'penyusutanAmortisasi' => 3,
+            'bungaPajak' => 4,
+            'pendapatanPengeluaranLain' => 5,
+        ];
+
+
+        if ($getDate[2] == 'month') {
+            $date = date('Y-m', strtotime('-1 month', strtotime($getDate[0])));
+        } else if ($getDate[2] == 'year') {
+            $date = date('Y', strtotime('-1 year', strtotime($getDate[0])));
+        }
+
+
+        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
+        $labaBerjalan = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
+        $labaTetap = $this->getLaba($getDate[2], $date, $accounting_group_laba);
+
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
 
         return view('report.printformat.perubahanmodal')->with([
@@ -85,7 +105,9 @@ class PerubahanModalController extends Controller
             'penguranganModal' => $results['penguranganModal'],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
-            'title' => "Laporan Perubahan Modal"
+            'title' => "Laporan Perubahan Modal",
+            'labaBerjalan' => $labaBerjalan,
+            'labaDitahan' => $labaTetap,
         ]);
 
     }
