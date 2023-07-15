@@ -2,9 +2,9 @@
     <!-- Sidebar user panel (optional) -->
     <a href="/" class="brand-link">
     <div class="d-flex align-items-start">
-    <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <h5 class="font-weight-light brand-text">IAI Ibrahimy</h5>
-  </div>
+      <img src='../../img/logo.webp' alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <h5 class="font-weight-light brand-text">IAI Ibrahimy</h5>
+    </div>
     </a>
     <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-wrap">
       <div class="info">
