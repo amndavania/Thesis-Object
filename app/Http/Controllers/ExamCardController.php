@@ -23,7 +23,7 @@ class ExamCardController extends Controller
         $card = ExamCard::where('id', $request->id)->first();
         $student = Student::where('id', $card->students_id)->first();
 
-        return view('report.printformat.examcard')->with([
+        return view('report.printformat.ujian')->with([
             'examcard' => $card,
             'student' => $student
         ]);
