@@ -22,8 +22,7 @@ class StudentTypeCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'type'=>'required|unique:student_types,type',
-            'type'=>'required',
+            'type'=>'required|unique:student_types,type',
             'year'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'dpp'=>'nullable|numeric|min:0',
@@ -38,7 +37,7 @@ class StudentTypeCreateRequest extends FormRequest
     {
         return [
             'type.required'=>'Nama program harus diisi',
-            // 'type.unique'=>'Nama program sudah ada',
+            'type.unique'=>'Nama program sudah ada',
             'year.required'=>'Tahun harus diisi',
             'year.min'=>'Tahun tidak boleh Negatif!',
             'study_program_id'=>'Program Studi harus diisi',

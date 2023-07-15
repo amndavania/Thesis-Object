@@ -21,11 +21,10 @@ class StudentTypeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $student_type_id = $this->route('student_type');
+        // $student_type_id = $this->route('student_type');
 
         return [
-            // 'type'=>'required|unique:student_types,type,'.$student_type_id,
-            'type'=>'required',
+            'type'=>'required|unique:student_types,type,'.$this->type,
             'year'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'dpp'=>'numeric|min:0',
@@ -40,7 +39,7 @@ class StudentTypeUpdateRequest extends FormRequest
     {
         return [
             'type.required'=>'Nama program harus diisi',
-            // 'type.unique'=>'Nama program sudah ada',
+            'type.unique'=>'Nama program sudah ada',
             'year.required'=>'Tahun harus diisi',
             'year.min'=>'Tahun tidak boleh Negatif!',
             'study_program_id'=>'Program Studi harus diisi',

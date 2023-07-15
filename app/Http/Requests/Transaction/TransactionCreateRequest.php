@@ -35,6 +35,7 @@ class TransactionCreateRequest extends FormRequest
         return[
             'description.required'=>'Deskripsi harus diisi',
             'type.required'=>'Tipe harus diisi',
+            'reference_number'=>'Nomor referensi harus berupa angka',
             'reference_number'=>'Nomor referensi tidak boleh Negatif!',
             'amount.required'=>'Nominal harus diisi',
             'amount.min'=>'Nominal tidak boleh Negatif!',

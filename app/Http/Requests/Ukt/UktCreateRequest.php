@@ -26,6 +26,7 @@ class UktCreateRequest extends FormRequest
             'year'=>'required',
             'semester'=>'required',
             'type'=>'required',
+            'reference_number'=>'nullable|numeric|min:0',
             'amount'=>'required|numeric|min:0',
         ];
     }
@@ -37,6 +38,8 @@ class UktCreateRequest extends FormRequest
             'year.required'=>'Tahun Ajaran harus diisi',
             'semester.required'=>'Semester harus diisi',
             'type.required'=>'Status harus diisi',
+            'reference_number'=>'Nomor referensi harus berupa angka',
+            'reference_number'=>'Nomor referensi tidak boleh Negatif!',
             'amount.required'=>'Jumlah harus diisi',
             'amount.min'=>'Jumlah tidak boleh Negatif!'
         ];

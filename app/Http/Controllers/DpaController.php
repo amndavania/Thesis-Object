@@ -213,7 +213,7 @@ class DpaController extends Controller
     {
         $data = [];
         foreach ($students as $item) {
-            $wisuda = Ukt::where('students_id', $item->id)->where('type', "WISUDA")->exists();
+            $wisuda = Ukt::where('students_id', $item->id)->where('type', "WISUDA")->first();
 
             if ($semester == "GASAL") {
                 $semesterStudent = (($tahunAjaran - $item->force) * 2) + 1;
@@ -221,25 +221,53 @@ class DpaController extends Controller
                 $semesterStudent = (($tahunAjaran - $item->force) * 2) + 2;
             }
 
-            if ($semesterStudent >= 1 && !$wisuda) {
-                $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
-                if (empty($bimbinganStudy)) {
-                    $status = "Tidak Aktif";
-                    $lbs_id = null;
-                } else {
-                    $lbs_id = $bimbinganStudy->id;
-                    $status = $bimbinganStudy->status;
-                }
+            if (!empty($wisuda)) {
+                $tahunLulus = $wisuda->year;
 
-                $data[$item->id] = [
-                    'id' => $item->id,
-                    'nim' => $item->nim,
-                    'name' => $item->name,
-                    'semester' => $semesterStudent,
-                    'lbs_id' => $lbs_id,
-                    'status' => $status
-                ];
+                if ($semesterStudent >= 1 && $tahunAjaran <= $tahunLulus) {
+                    $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
+
+                    if (empty($bimbinganStudy)) {
+                        $status = "Tidak Aktif";
+                        $lbs_id = null;
+                    } else {
+                        $lbs_id = $bimbinganStudy->id;
+                        $status = $bimbinganStudy->status;
+                    }
+
+                    $data[$item->id] = [
+                        'id' => $item->id,
+                        'nim' => $item->nim,
+                        'name' => $item->name,
+                        'semester' => $semesterStudent,
+                        'lbs_id' => $lbs_id,
+                        'status' => $status
+                    ];
+                }
+            } else {
+                if ($semesterStudent >= 1) {
+                    $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
+
+                    if (empty($bimbinganStudy)) {
+                        $status = "Tidak Aktif";
+                        $lbs_id = null;
+                    } else {
+                        $lbs_id = $bimbinganStudy->id;
+                        $status = $bimbinganStudy->status;
+                    }
+
+                    $data[$item->id] = [
+                        'id' => $item->id,
+                        'nim' => $item->nim,
+                        'name' => $item->name,
+                        'semester' => $semesterStudent,
+                        'lbs_id' => $lbs_id,
+                        'status' => $status
+                    ];
+                }
             }
+
+
         }
 
         return $data;
