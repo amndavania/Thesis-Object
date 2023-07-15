@@ -17,13 +17,13 @@
               <div class="input-group mb-3">
                 <x-text-input id="name" type="text" name="name" placeholder="Full Name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-icon-input icon="fas fa-user"/>
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
               </div>
+              <x-input-error :messages="$errors->get('name')" class="mt-1" />
               <div class="input-group mb-3">
                 <x-text-input id="email" placeholder="Email" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-icon-input icon="fas fa-envelope"/>
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
               </div>
+              <x-input-error :messages="$errors->get('email')" class="mt-1" />
               <div class="input-group mb-3">
                <select class="form-control" id="role" name="role">
                   <option>Role</option>
@@ -34,13 +34,13 @@
               <div class="input-group mb-3">
                 <x-text-input id="password" placeholder="Password" type="password" name="password" required autocomplete="new-password" />
                 <x-icon-input icon="fas fa-lock"/>
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
               </div>
+              <x-input-error :messages="$errors->get('password')" class="mt-1" />
               <div class="input-group mb-3">
                 <x-text-input id="password_confirmation"  placeholder="Retype password" type="password" name="password_confirmation"  required autocomplete="new-password" />
                 <x-icon-input icon="fas fa-lock"/>
-                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
               </div>
+              <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
               <div class="row">
                 <div class="col-8">
                   <div class="icheck-primary">
