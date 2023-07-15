@@ -64,7 +64,7 @@ class UktController extends Controller
 
         if (($semester_student > 2 && empty($statusDPP)) || ($semester_student > 2 && $statusDPP->status == "Belum Lunas")) {
             return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi DPP terlebih dahulu']);
-        }elseif ((($semester_student != 1 && empty($statusUKT))) || ($semester_student != 1 && $statusUKT->status == "Belum Lunas")) {
+        }elseif ((($semester_student != 1 && empty($statusUKT))) || ($semester_student != 1 && $statusUKT->status != "Lunas")) {
             return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi UKT semester lalu terlebih dahulu']);
         }else {
             // Add Transaction on debit
@@ -189,29 +189,58 @@ class UktController extends Controller
         $totalPayment = $payment->sum('amount') + $nominal;
 
         if ($payment_type == 'DPP') {
-            $total = $student_type->dpp;
             $dpp = Ukt::where('students_id', $student_id)->where('year', $year)
                 ->where('type', $payment_type)->get();
-            $status = $this->setStatus(($dpp->sum('amount') + $nominal), $total);
+            $status = $this->setStatus(($dpp->sum('amount') + $nominal), $payment_type, $student_type);
         } elseif ($payment_type == 'UKT') {
-            $total = $student_type->krs + $student_type->uts + $student_type->uas;
-            $status = $this->setStatus(($totalPayment), $total);
+            $status = $this->setStatus($totalPayment, $payment_type, $student_type);
         } elseif ($payment_type == 'WISUDA') {
-            $total = $student_type->wisuda;
-            $status = $this->setStatus(($totalPayment), $total);
+            $status = $this->setStatus($totalPayment, $payment_type, $student_type);
         }
 
         return $status;
     }
 
-    public function setStatus($amount, $total)
+    public function setStatus($amount, $payment_type, $student_type)
     {
-        if ($amount < $total) {
-            $status = 'Belum Lunas';
-        }elseif ($amount == $total) {
-            $status = 'Lunas';
-        }elseif ($amount > $total) {
-            $status = 'Lebih';
+        // dd($student_type);
+        if ($payment_type == 'UKT') {
+            $totalKRS = floatval($student_type->krs);
+            $totalUTS = $totalKRS + $student_type->uts;
+            $totalUAS = $totalUTS + $student_type->uas;
+
+            // dd([$totalUAS, $totalUTS, $totalKRS, $amount]);
+
+            if ($amount > $totalUAS) {
+                $status = 'Lebih';
+            } elseif ($amount == $totalUAS) {
+                $status = 'Lunas';
+            } elseif ($amount >= $totalUTS) {
+                $status = 'Lunas UTS';
+            } elseif ($amount >= $totalKRS) {
+                $status = 'Lunas KRS';
+            } else {
+                $status = 'Belum Lunas';
+            }
+
+            // dd([$amount, $totalKRS, $totalUTS, $totalUAS, $status]);
+                        
+        } elseif ($payment_type == 'DPP') {
+            if ($amount < $student_type->dpp) {
+                $status = 'Belum Lunas';
+            }elseif ($amount == $student_type->dpp) {
+                $status = 'Lunas';
+            }elseif ($amount > $student_type->dpp) {
+                $status = 'Lebih';
+            }
+        } elseif ($payment_type == 'WISUDA') {
+            if ($amount < $student_type->wisuda) {
+                $status = 'Belum Lunas';
+            }elseif ($amount == $student_type->wisuda) {
+                $status = 'Lunas';
+            }elseif ($amount > $student_type->wisuda) {
+                $status = 'Lebih';
+            }
         }
 
         return $status;
@@ -222,24 +251,24 @@ class UktController extends Controller
         $payment = Ukt::latest()->first();
 
         if ($payment_type == "UKT") {
-            $ukt = Ukt::where('students_id', $studentData[0]->id)
-                ->where('year', $year)
-                ->where('semester', $semester)
-                ->where('type', $payment_type)->get();
+            // $ukt = Ukt::where('students_id', $studentData[0]->id)
+            //     ->where('year', $year)
+            //     ->where('semester', $semester)
+            //     ->where('type', $payment_type)->get();
 
-            $totalKRS = $studentData[1]->krs;
-            $totalUTS = $totalKRS + $studentData[1]->uts;
-            $totalPayment = $ukt->sum('amount');
+            // $totalKRS = $studentData[1]->krs;
+            // $totalUTS = $totalKRS + $studentData[1]->uts;
+            // $totalPayment = $ukt->sum('amount');
 
             $bimbinganStudy = BimbinganStudy::where('students_id', $studentData[0]->id)
                     ->where('year', $year)->where('semester', $semester)->exists();
 
             if ($status == "Lunas") {
                 if (!$bimbinganStudy) {
-                    $payment->keterangan = 'UAS';
+                    // $payment->keterangan = 'UAS';
                     $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
                 } else {
-                    $payment->keterangan = 'UAS';
+                    // $payment->keterangan = 'UAS';
                     $exam_uts = ExamCard::where('students_id', $studentData[0]->id)->where('semester', $semester)->where('type', "UTS")->exists();
                     $exam_uas = ExamCard::where('students_id', $studentData[0]->id)->where('semester', $semester)->where('type', "UAS")->exists();
                     if (!$exam_uts && !$exam_uas) {
@@ -251,37 +280,43 @@ class UktController extends Controller
                         $payment->exam_uts_id = $this->createExamCard($studentData[0]->id, "UTS", $semester, $year);
                     }
                 }
-            } elseif ($status == "Belum Lunas") {
-                if ($totalPayment >= $totalUTS) {
-                    if (!$bimbinganStudy) {
-                        $payment->keterangan = 'UTS';
-                        $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
-                    } else {
-                        $card = ExamCard::where('students_id', $studentData[0]->id)
-                            ->where('semester', $semester)->where('type', "UTS")->exists();
-                        if (!$card) {
-                            $payment->keterangan = 'UTS';
-                            $payment->exam_uts_id = $this->createExamCard($studentData[0]->id, "UTS", $semester, $year);
-                        } else{
-                            $payment->keterangan = 'Menunggu Dispensasi UAS';
-                        }
+            } elseif ($status == "Lunas UTS") {
+                if (!$bimbinganStudy) {
+                    // $payment->keterangan = 'UTS';
+                    $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                } else {
+                    $card = ExamCard::where('students_id', $studentData[0]->id)
+                        ->where('semester', $semester)->where('type', "UTS")->exists();
+                    if (!$card) {
+                        // $payment->keterangan = 'UTS';
+                        $payment->exam_uts_id = $this->createExamCard($studentData[0]->id, "UTS", $semester, $year);
+                    } else{
+                        $payment->keterangan = 'Menunggu Dispensasi UAS';
                     }
-                } elseif ($totalPayment >= $totalKRS) {
-                    if (!$bimbinganStudy) {
-                        $payment->keterangan = 'KRS';
-                        $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
-                    } else {
-                        $card = Ukt::where('students_id', $studentData[0]->id)
-                            ->where('semester', $semester)->where('keterangan', "KRS")->exists();
-                        if (!$card) {
-                            $payment->keterangan = 'KRS';
-                        } else {
-                            $payment->keterangan = 'Menunggu Dispensasi UTS';
-                        }
-                    }
-                } elseif ($totalPayment < $totalKRS) {
-                    $payment->keterangan = 'Menunggu Dispensasi KRS';
                 }
+            } elseif ($status == "Lunas KRS") {
+                if (!$bimbinganStudy) {
+                    // $payment->keterangan = 'KRS';
+                    $payment->lbs_id = $this->createBimbinganStudy($studentData[0]->id, $year, $semester);
+                } else {
+                    $krs = Ukt::where('students_id', $studentData[0]->id)
+                        ->where('semester', $semester)->where('status', "Lunas KRS")->exists();
+                    if ($krs) {
+                        $payment->keterangan = 'Menunggu Dispensasi UTS';
+                        // $payment->keterangan = 'KRS';
+                    } else {
+                        // $payment->keterangan = 'Menunggu Dispensasi UTS';
+                    }
+                }
+            }elseif ($status == "Belum Lunas") {
+                $payment->keterangan = 'Menunggu Dispensasi KRS';
+                // if ($totalPayment >= $totalUTS) {
+                    
+                // } elseif ($totalPayment >= $totalKRS) {
+                    
+                // } elseif ($totalPayment < $totalKRS) {
+                    
+                // }
             }
         }
 

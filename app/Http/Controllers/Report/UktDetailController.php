@@ -24,13 +24,13 @@ class UktDetailController extends Controller
             $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
 
             if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
-                $payment->keterangan = "UTS";
+                $payment->keterangan = "Dispen UTS";
                 $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
             } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
-                $payment->keterangan = "UAS";
+                $payment->keterangan = "Dispen UAS";
                 $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
             } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
-                $payment->keterangan = "KRS";
+                $payment->keterangan = "Dispen KRS";
                 $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
             }
             $payment->save();

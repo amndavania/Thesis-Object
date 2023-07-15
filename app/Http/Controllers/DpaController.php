@@ -200,9 +200,9 @@ class DpaController extends Controller
         $bimbinganStudy->save();
 
         $payment = Ukt::where('lbs_id', $id)->first();
-        if ($payment->keterangan == "UTS") {
+        if ($payment->status == "Lunas UTS") {
             $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-        } elseif ($payment->keterangan == "UAS") {
+        } elseif ($payment->status == "Lunas") {
             $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
             $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
         }

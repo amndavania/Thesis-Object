@@ -56,10 +56,14 @@
                               <td>
                                 @if ($row->status == "Lunas")
                                     <span class="badge bg-success">Lunas</span>
+                                @elseif ($row->status == "Lunas UTS")
+                                    <span class="badge bg-warning">Lunas UTS</span>
+                                @elseif ($row->status == "Lunas KRS")
+                                    <span class="badge bg-warning">Lunas KRS</span>
                                 @elseif ($row->status == "Belum Lunas")
                                     <span class="badge bg-danger">Belum Lunas</span>
                                 @else
-                                    <span class="badge bg-warning">Lebih</span>
+                                    <span class="badge bg-danger">Lebih</span>
                                 @endif
                               </td>
                               <td>{{ $row->keterangan }}</td>
