@@ -27,20 +27,24 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $request->user()->save();
+
         $name = $request->user()->name;
         $email = $request->user()->email;
         $user_id = $request->user()->id;
 
-        $dpa = Dpa::findOrFail($user_id);
-        $dpa->update([
-        'name' => $name,
-        'email' => $email,
-    ]);
-
-        $request->user()->save();
+        if ($request->user()->role == 'DPA') {
+            $dpa = Dpa::where('user_id', $user_id)->firstOrFail();
+            $dpa->update([
+                'name' => $name,
+                'email' => $email,
+            ]);
+            $dpa->save();
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
 
     /**
      * Delete the user's account.

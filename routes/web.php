@@ -61,6 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin:super admin,admin keuangan')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::resource('transaction', TransactionController::class)->except(['show']);
+        Route::resource('transaction_account', TransactionAccountController::class)->except(['show']);
+        Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
+
         Route::resource('jurnal', JurnalController::class)->except(['show']);
         Route::resource('bukubesarrekap', BukuBesarRekapController::class)->except(['show']);
         Route::resource('bukubesar', BukuBesarController::class)->except(['show']);
@@ -92,10 +96,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('dpa', DpaController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
-        Route::resource('accounting_group', AccountingGroupController::class)->except(['show']);
         Route::resource('ukt', UktController::class)->except(['show']);
-        Route::resource('transaction', TransactionController::class)->except(['show']);
-        Route::resource('transaction_account', TransactionAccountController::class)->except(['show']);
+        
 
         Route::get('examcard/show', [ExamCardController::class, 'show']);
         Route::resource('pengguna', PenggunaController::class)->except((['show','update','edit']));
