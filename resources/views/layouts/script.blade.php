@@ -169,8 +169,8 @@
 </script>
 
 <script>
-    function updateKrs(dpa_id, id) {
-    var url = '{{ url('daftar_mahasiswa') }}?dpa_id=' + encodeURIComponent(dpa_id) + '&id=' + encodeURIComponent(id);
+    function updateKrs(dpa_id, lbs_id, student_id, status) {
+    var url = '{{ url('daftar_mahasiswa') }}?dpa_id=' + encodeURIComponent(dpa_id) + '&lbs_id=' + encodeURIComponent(lbs_id) + '&student_id=' + encodeURIComponent(student_id) + '&status=' + encodeURIComponent(status);
     window.location.href = url;
 }
 

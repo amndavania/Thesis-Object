@@ -345,7 +345,7 @@ class UktController extends Controller
             'students_id' => $student_id,
             'year' => $year,
             'semester' => $semester,
-            'status' => "Tunda"
+            'status' => "Menunggu Persetujuan"
         ];
 
         BimbinganStudy::create($bimbinganStudy);
