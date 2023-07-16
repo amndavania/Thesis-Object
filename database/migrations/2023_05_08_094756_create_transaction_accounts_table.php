@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('transaction_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('lajurSaldo');
-            $table->string('lajurLaporan');
+            $table->enum('lajurSaldo', ['Debit','Kredit']);
+            $table->enum('lajurLaporan', ['Laba Rugi','Neraca']);
             $table->string('description')->nullable();
             $table->decimal('kredit', 14, 2);
             $table->decimal('debit', 14, 2);
