@@ -16,11 +16,14 @@
                     <input type="text" class="form-control mb-2 mr-sm-2" id="datepicker" name="datepicker" placeholder="Pilih Bulan" readonly>
                     <button type="submit" class="btn btn-primary mb-2">Cari</button>
                 </form>
-                @if (!empty($modaldiAwal) || !empty($penambahanModal) || !empty($penguranganModal))
+                <button onclick="window.open('{{ url('perubahanmodal/export') }}?datepicker={{ $datepicker }}&filter={{ $filter }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
+                    <i class="fas fa-print"></i> Export PDF
+                </button>
+                {{-- @if (!empty($modaldiAwal) || !empty($penambahanModal) || !empty($penguranganModal))
                     <button onclick="window.open('{{ url('perubahanmodal/export') }}?datepicker={{ $datepicker }}&filter={{ $filter }}', '_blank')" class="btn btn-sm btn-primary ml-auto p-2">
                         <i class="fas fa-print"></i> Export PDF
                     </button>
-                @endif
+                @endif --}}
             </div>
        </div>
          <div class="card-body">

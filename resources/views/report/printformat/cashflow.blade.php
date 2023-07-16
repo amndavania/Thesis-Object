@@ -57,7 +57,7 @@
                                  </td>
                           </tr>
                           @php
-                          $totalArusKasMasuk += $row['saldo'];
+                            $totalArusKasMasuk += $row['saldo'];
                           @endphp
                      @endforeach
                 <tr>
@@ -196,7 +196,7 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                                 <td style="text-align: right @if ($row['saldo'] < 0) color: red; @endif;">
+                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif;">
                                      @if ($row['saldo'] < 0)
                                          (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
                                      @elseif ($row['saldo'] > 0)
