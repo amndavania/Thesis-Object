@@ -15,7 +15,7 @@ class BukuBesarController extends Controller
 {
     public function index(Request $request)
     {
-        $select = TransactionAccount::pluck('name', 'id');
+        $select = TransactionAccount::pluck('name', 'id', 'lajurLaporan');
         $search_account = $request->input('search_account');
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');

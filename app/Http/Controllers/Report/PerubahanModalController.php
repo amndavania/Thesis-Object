@@ -220,9 +220,9 @@ class PerubahanModalController extends Controller
                 $getHistory = $this->getHistory($filter, $item->id, $date);
 
                 if (!empty($getHistory)) {
-                    $saldo = $getHistory->saldo + ($debit - $kredit);
+                    $saldo = $getHistory->saldo + ($kredit - $debit);
                 } else {
-                    $saldo = $debit - $kredit;
+                    $saldo = $kredit - $debit;
                 }
 
                 if ($saldo != 0) {

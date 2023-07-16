@@ -96,20 +96,6 @@
                             @endif
                         </td>
                     </tr>
-                <tr>
-                        <td colspan="4">
-                             <strong>Total</strong>
-                        </td>
-                        <td style="@if (($totalDebit - $totalKredit) < 0) color: red; @endif; text-align: center;" colspan="2">
-                            @if (($totalDebit - $totalKredit) < 0)
-                                (Rp {{ number_format(abs(($totalDebit - $totalKredit)), 2, ',', '.') }})
-                            @elseif (($totalDebit - $totalKredit) > 0 || ($totalDebit - $totalKredit) == 0)
-                                Rp {{ number_format(($totalDebit - $totalKredit), 2, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
                 </tfoot>
           </table>
      </div>

@@ -163,9 +163,6 @@ class LabaRugiController extends Controller
                     $saldo = $debit - $kredit;
                 }
 
-                if ($item->lajurLaporan == 'labaRugi') {
-                    $saldo = -$saldo;
-                }
 
                 if ($saldo != 0) {
                     $summary[$item->id] = [

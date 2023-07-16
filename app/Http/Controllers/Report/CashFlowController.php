@@ -157,9 +157,17 @@ class CashFlowController extends Controller
                 $getHistory = $this->getHistory($filter, $item->id, $date);
 
                 if (!empty($getHistory)) {
-                    $saldo = $getHistory->saldo + ($debit - $kredit);
+                    if ($item->lajurLaporan == 'labaRugi') {
+                        $saldo = $getHistory->saldo + ($kredit - $debit);
+                    } else {
+                        $saldo = $getHistory->saldo + ($debit - $kredit);
+                    }
                 } else {
-                    $saldo = $debit - $kredit;
+                    if ($item->lajurLaporan == 'labaRugi') {
+                        $saldo = $kredit - $debit;
+                    } else {
+                        $saldo =  $debit - $kredit;
+                    }
                 }
 
                 $summary[$item->id] = [
