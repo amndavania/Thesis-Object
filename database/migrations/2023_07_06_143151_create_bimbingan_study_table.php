@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('students_id')->constrained();
             $table->string('year');
             $table->string('semester');
-            $table->enum('status', ['Aktif','Tunda']);
+            $table->string('status');
             $table->timestamps();
         });
     }

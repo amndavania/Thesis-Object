@@ -13,6 +13,7 @@ use App\Http\Requests\Dpa\DpaCreateRequest;
 use App\Http\Requests\Dpa\DpaUpdateRequest;
 use App\Models\Student;
 use App\Models\Ukt;
+use App\Models\ExamCard;
 use Illuminate\Support\Facades\Auth;
 
 class DpaController extends Controller
@@ -130,12 +131,19 @@ class DpaController extends Controller
         $dpa_id = $request->dpa_id;
         $tahunAjaran = $request->year;
         $semester = $request->semester;
-        $lbs_id = $request->input('id');
+        $lbs_id = $request->lbs_id;
+        $student_id = $request->student_id;
+        $status = $request->status;
 
         if (empty($dpa_id)) {
-            $user_id = Auth::user()->id;
-            $dpa = Dpa::where('user_id', $user_id)->first();
-            $dpa_id = $dpa->id;
+            if (Auth::user()->role == "DPA") {
+                $user_id = Auth::user()->id;
+                $dpa = Dpa::where('user_id', $user_id)->first();
+                $dpa_id = $dpa->id;
+            } else {
+                $dpa = Dpa::first();
+                $dpa_id = $dpa->id;
+            }
         }
 
         if (empty($tahunAjaran) || empty($semester)) {
@@ -146,9 +154,14 @@ class DpaController extends Controller
         $dpa = Dpa::where('id', $dpa_id)->first();
         $students = Student::where('dpa_id', $dpa_id)->get();
 
-        if (!empty($lbs_id)) {
-            $this->setujuKrs($lbs_id);
+        // if (!empty($lbs_id)) {
+        //     $this->setujuKrs($lbs_id, $status);
+        // }
+
+        if (!empty($student_id)) {
+            $this->setujuKrs($lbs_id, $status, $student_id, $tahunAjaran, $semester);
         }
+        // $this->setujuKrs($lbs_id, $status, $students->id, $tahunAjaran, $semester);
 
         $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
 
@@ -191,22 +204,55 @@ class DpaController extends Controller
         ]);
     }
 
-    public function setujuKrs($id)
+    public function setujuKrs($id, $status, $student_id, $tahunAjaran, $semester)
     {
         $uktController = new UktController;
 
-        $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
-        $bimbinganStudy->status = "Aktif";
-        $bimbinganStudy->save();
+        if (empty($id)) {
+            $bimbinganStudy = [
+                'students_id' => $student_id,
+                'year' => $tahunAjaran,
+                'semester' => $semester,
+                'status' => $status
+            ];
+    
+            BimbinganStudy::create($bimbinganStudy);
+        } else {
+            $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
+            $bimbinganStudy->status = $status;
+            $bimbinganStudy->save();
+        }
 
         $payment = Ukt::where('lbs_id', $id)->first();
-        if ($payment->keterangan == "UTS") {
-            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-        } elseif ($payment->keterangan == "UAS") {
-            $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-            $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
+        if (!empty($payment)) {
+            $uts_id = $payment->exam_uts_id;
+            $uas_id = $payment->exam_uas_id;
+            if ($payment->status == "Lunas UTS") {
+                if (empty($payment->exam_uts_id) && $status == "Aktif") {
+                    $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+                } elseif ($status == "Tidak Aktif" || $status == "Cuti") {
+                    $payment->exam_uts_id = null;
+                    ExamCard::where('id', $uts_id)->delete();
+                }
+            } elseif ($payment->status == "Lunas") {
+                if ((empty($payment->exam_uts_id) || empty($payment->exam_uas_id)) && $status == "Aktif") {
+                    $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+                    $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
+                } elseif ($status == "Tidak Aktif" || $status == "Cuti") {
+                    $payment->exam_uts_id = null;
+                    $payment->exam_uas_id = null;
+                    ExamCard::where('id', $uts_id)->delete();
+                    ExamCard::where('id', $uas_id)->delete();
+                }
+                $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
+                $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
+            }
+            $payment->save();
+        } else {
+            if ($status == "Tidak Aktif" && !empty($id)) {
+                BimbinganStudy::where('id', $id)->delete();
+            }
         }
-        $payment->save();
     }
 
     public function getBimbinganStudi($students, $tahunAjaran, $semester)

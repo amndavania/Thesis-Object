@@ -181,7 +181,7 @@ class DashboardController extends Controller
                     $belumBayar += 1;
                 }elseif ($dataUkt->status == "Lunas") {
                     $lunas += 1;
-                } elseif ($dataUkt->status == "Belum Lunas") {
+                } elseif ($dataUkt->status == "Belum Lunas" || $dataUkt->status == "Lunas KRS" || $dataUkt->status == "Lunas UTS") {
                     $belumLunas += 1;
                 }
             }
