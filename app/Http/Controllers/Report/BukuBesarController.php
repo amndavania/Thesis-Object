@@ -11,16 +11,20 @@ use DateTime;
 use Illuminate\Http\Request;
 use PDF;
 
+use function Pest\Laravel\get;
+
 class BukuBesarController extends Controller
 {
     public function index(Request $request)
     {
-        $select = TransactionAccount::pluck('name', 'id', 'lajurLaporan');
+        $select = TransactionAccount::pluck('name', 'id');
         $search_account = $request->input('search_account');
         $datepicker = $request->input('datepicker');
         $filter = $request->input('filter');
 
         $getData = $this->getData($search_account, $datepicker, $filter);
+
+        $lajurLaporan = TransactionAccount::where('id', $getData[0])->pluck('lajurLaporan')->first();
 
         if ($filter == 'year') {
             $data = Transaction::where('transaction_accounts_id', $getData[0])
@@ -44,7 +48,8 @@ class BukuBesarController extends Controller
             'account' => $account,
             'datepicker' => $getData[2],
             'filter' => $filter,
-            'history' => $history
+            'history' => $history,
+            'lajurLaporan' => $lajurLaporan,
         ]);
     }
 
@@ -63,6 +68,8 @@ class BukuBesarController extends Controller
         }
 
         $getData = $this->getData($search_account, $date, $filter);
+
+        $lajurLaporan = TransactionAccount::where('id', $getData[0])->pluck('lajurLaporan')->first();
         
         if ($filter == 'year') {
             $data = Transaction::where('transaction_accounts_id', $getData[0])
@@ -86,7 +93,8 @@ class BukuBesarController extends Controller
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'account' => $account,
             'title' => "Laporan Buku Besar",
-            'history' => $history
+            'history' => $history,
+            'lajurLaporan' => $lajurLaporan,
         ]);
 
     }

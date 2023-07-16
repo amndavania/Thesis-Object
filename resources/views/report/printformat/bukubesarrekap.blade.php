@@ -22,49 +22,70 @@
             <thead>
                 <tr>
                     <th style="width: 5%;">No</th>
-                    <th style="width: 10%;">Kode Akun</th>
+                    <th style="width: 15%;">Kode Akun</th>
                     <th style="width: 20%;">Nama</th>
-                    <th style="width: 50%;">Deskripsi</th>
-                    <th style="width: 15%;">Saldo</th>
+                    <th style="width: 20%;">Deskripsi</th>
+                    <th style="width: 20%;">Debit</th>
+                    <th style="width: 20%;">Kredit</th>
                 </tr>
             </thead>
             <tbody>
+                   @php
+                $totalDebit = 0;
+                $totalKredit = 0;
+                @endphp
+
+                @foreach ($data as $row)
+                <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')"
+                        style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
+                    <th>{{ $loop->iteration }}</th>
+                    <td>{{ $row['id'] }}</td>
+                    <td>{{ $row['name'] }}</td>
+                    <td>{{ $row['description'] }}</td>
+                    <td style="@if ($row['debit'] < 0) color: red; @endif; width:20%">
+                        @if ($row['debit'] < 0)
+                            (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                        @elseif ($row['debit'] > 0)
+                            Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td style="@if ($row['kredit'] < 0) color: red; @endif; width:20%">
+                        @if ($row['kredit'] < 0)
+                            (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                        @elseif ($row['kredit'] > 0)
+                            Rp {{ number_format($row['kredit'], 2, ',', '.') }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                </tr>
                 @php
-                                 $totalSaldo = 0;
-                                 
-                                 @endphp
-                     @foreach ($data as $row)
-                          <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')" 
-                          style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
-                               <th>{{ $loop->iteration }}</th>
-                               <td style="text-align: center;">{{ $row['id'] }}</td>
-                               <td>{{ $row['name'] }}</td>
-                               <td>{{ $row['description'] }}</td>
-                               <td style="@if (($row['balance']) < 0) color: red; @endif; text-align: right; width:20%" colspan="2">
-                             @if (($row['balance']) < 0)
-                                 (Rp {{ number_format(abs(($row['balance'])), 2, ',', '.') }})
-                             @elseif (($row['balance']) > 0 || ($row['balance']) == 0)
-                                 Rp {{ number_format(($row['balance']), 2, ',', '.') }}
-                             @else
-                                 -
-                             @endif
-                         </td>
-                          </tr>                              
-                          @php
-                     $totalSaldo += $row['balance'];
-                     @endphp
-                     @endforeach
-                </tbody>
+                $totalDebit += $row['debit'];
+                $totalKredit += $row['kredit'];
+                @endphp
+            @endforeach
+               </tbody>
                <tfoot class="table-dark">
                 <tr>
                         <td colspan="4">
-                             <strong>Total balance</strong>
+                             <strong>Total</strong>
                         </td>
-                        <td style="@if (($totalSaldo) < 0) color: red; @endif; text-align: center;" colspan="2">
-                            @if (($totalSaldo) < 0)
-                                (Rp {{ number_format(abs(($totalSaldo)), 2, ',', '.') }})
-                            @elseif (($totalSaldo) > 0 || ($totalSaldo) == 0)
-                                Rp {{ number_format(($totalSaldo), 2, ',', '.') }}
+                        <td style="@if (($totalDebit) < 0) color: red; @endif;">
+                            @if (($totalDebit) < 0)
+                                (Rp {{ number_format(abs(($totalDebit)), 2, ',', '.') }})
+                            @elseif (($totalDebit) > 0 || ($totalDebit) == 0)
+                                Rp {{ number_format(($totalDebit), 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td style="@if (($totalKredit) < 0) color: red; @endif;">
+                            @if (($totalKredit) < 0)
+                                (Rp {{ number_format(abs(($totalKredit)), 2, ',', '.') }})
+                            @elseif (($totalKredit) > 0 || ($totalKredit) == 0)
+                                Rp {{ number_format(($totalKredit), 2, ',', '.') }}
                             @else
                                 -
                             @endif
