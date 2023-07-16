@@ -32,22 +32,24 @@
             </h5>
           <table class="table table-striped ">
                <thead class="table-dark">
-                    <tr>
-                         <td style="text-align: center;">Kode Akun</td>
-                         <td>Nama Akun</td>
-                         <td style="text-align: right;">Saldo</td>
-                    </tr>
+                <tr>
+                    <td style="text-align: center;">Kode Akun</td>
+                    <td>Nama Akun</td>
+                    <td style="text-align: center;">Debit</td>
+                    <td style="text-align: center;">Kredit</td>
+                    <td style="text-align: center;">Saldo</td>
+                  </tr>
                </thead>
                <tbody>
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                           <strong>AKTIVA</strong>
                      </td>
                  </tr>
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                           <strong>Aktiva Lancar</strong>
                      </td>
                  </tr>
@@ -58,23 +60,33 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: right; @if ($row['debit'] < 0) color: red; @endif">
+                                @if ($row['debit'] < 0)
+                                    (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                                @elseif ($row['debit'] > 0)
+                                    Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                               <td style="text-align: right; @if ($row['kredit'] < 0) color: red; @endif">
+                                 @if ($row['kredit'] < 0)
+                                     (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                                 @elseif ($row['kredit'] > 0)
+                                     Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
                              </td>
+                             <td></td>
                           </tr>
                           @php
-                          $totalAktivaLancar += $row['saldo'];
+                          $totalAktivaLancar += ($row['debit'] - $row['kredit']);
                           @endphp
                      @endforeach
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                      <strong>Aktiva Tetap</strong>
                      </td>
                  </tr>
@@ -85,23 +97,33 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: right; @if ($row['debit'] < 0) color: red; @endif">
+                                @if ($row['debit'] < 0)
+                                    (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                                @elseif ($row['debit'] > 0)
+                                    Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                               <td style="text-align: right; @if ($row['kredit'] < 0) color: red; @endif">
+                                 @if ($row['kredit'] < 0)
+                                     (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                                 @elseif ($row['kredit'] > 0)
+                                     Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
                              </td>
+                             <td></td>
                           </tr>
                           @php
-                          $totalAktivaTetap += $row['saldo'];
+                          $totalAktivaTetap += ($row['debit'] - $row['kredit']);
                           @endphp
                      @endforeach
                 <tr>
                  <td></td>
-                     <td colspan="1">
+                     <td colspan="3">
                           <strong>TOTAL AKTIVA</strong>
                      </td>
                      @php
@@ -119,13 +141,13 @@
                  </tr>
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                      <strong>PASIVA</strong>
                      </td>
                  </tr>
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                      <strong>Hutang Lancar</strong>
                      </td>
                  </tr>
@@ -136,23 +158,33 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: right; @if ($row['debit'] < 0) color: red; @endif">
+                                @if ($row['debit'] < 0)
+                                    (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                                @elseif ($row['debit'] > 0)
+                                    Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                               <td style="text-align: right; @if ($row['kredit'] < 0) color: red; @endif">
+                                 @if ($row['kredit'] < 0)
+                                     (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                                 @elseif ($row['kredit'] > 0)
+                                     Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
                              </td>
+                             <td></td>
                           </tr>
                           @php
-                          $totalHutangLancar += $row['saldo'];
+                          $totalHutangLancar += ($row['debit'] - $row['kredit']);
                           @endphp
                      @endforeach
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                      <strong>Hutang Jangka Panjang</strong>
                      </td>
                  </tr>
@@ -163,23 +195,33 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: right; @if ($row['debit'] < 0) color: red; @endif">
+                                @if ($row['debit'] < 0)
+                                    (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                                @elseif ($row['debit'] > 0)
+                                    Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                               <td style="text-align: right; @if ($row['kredit'] < 0) color: red; @endif">
+                                 @if ($row['kredit'] < 0)
+                                     (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                                 @elseif ($row['kredit'] > 0)
+                                     Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
                              </td>
+                             <td></td>
                           </tr>
                           @php
-                          $totalHutangJangkaPanjang += $row['saldo'];
+                          $totalHutangJangkaPanjang += ($row['debit'] - $row['kredit']);
                           @endphp
                      @endforeach
                 <tr>
                  <td></td>
-                     <td colspan="1">
+                     <td colspan="3">
                           <strong>Total Hutang</strong>
                      </td>
                      @php
@@ -197,7 +239,7 @@
                  </tr>
                 <tr>
                  <td></td>
-                     <td colspan="2">
+                     <td colspan="4">
                      <strong>MODAL</strong>
                      </td>
                  </tr>
@@ -208,23 +250,33 @@
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                               <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                 @if ($row['saldo'] < 0)
-                                     (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                 @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                     Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                               <td style="text-align: right; @if ($row['debit'] < 0) color: red; @endif">
+                                @if ($row['debit'] < 0)
+                                    (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                                @elseif ($row['debit'] > 0)
+                                    Rp {{ number_format($row['debit'], 2, ',', '.') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                               <td style="text-align: right; @if ($row['kredit'] < 0) color: red; @endif">
+                                 @if ($row['kredit'] < 0)
+                                     (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                                 @elseif ($row['kredit'] > 0)
+                                     Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                                  @else
                                      -
                                  @endif
                              </td>
+                             <td></td>
                           </tr>
                           @php
-                          $totalModal += $row['saldo'];
+                          $totalModal += ($row['debit'] - $row['kredit']);
                           @endphp
                      @endforeach
                 <tr>
                  <td></td>
-                     <td colspan="1">
+                     <td colspan="3">
                           <strong>Total Modal</strong>
                      </td>
                      <td style="text-align: right; @if ($totalModal < 0) color: red; @endif">
@@ -239,7 +291,7 @@
                  </tr>
                  <tr>
                      <td></td>
-                         <td colspan="1">
+                         <td colspan="3">
                               <strong>Total Pasiva</strong>
                          </td>
                          @php

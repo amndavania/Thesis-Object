@@ -155,10 +155,19 @@ class NeracaController extends Controller
                     $saldo = $debit-$kredit;
                 }
 
+                if ($item->lajurSaldo == "debit") {
+                    $debit = $saldo;
+                    $kredit = 0;
+                } else {
+                    $debit = 0;
+                    $kredit = $saldo;
+                }
+
                 if ($saldo != 0) {
                     $summary[$item->id] = [
                         'name' => $item->name,
-                        'saldo' => $saldo
+                        'debit' => $debit,
+                        'kredit' => $kredit
                     ];
                 }
             }
