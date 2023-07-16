@@ -39,57 +39,33 @@
                 $totalDebit = 0;
                 $totalKredit = 0;
                 @endphp
-                
+
                 @foreach ($data as $row)
-                <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')" 
+                <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')"
                         style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ $row['id'] }}</td>
                     <td>{{ $row['name'] }}</td>
                     <td>{{ $row['description'] }}</td>
-                    @php
-                    if ($history->count() > 0)
-                    {
-                        $sisaSaldo = $history->where('transaction_accounts_id',$row['id'])->first()->saldo;
-                    }
-                    else {
-                        $sisaSaldo = 0;
-                    }
-                    if ($row['lajurLaporan'] == 'labaRugi')
-                    {
-                        $debit = -$row['debit'];
-                        $kredit = -$row['kredit'];
-                    } else {
-                        $debit = $row['debit'];
-                        $kredit = $row['kredit'];
-                    }
-                    $saldo = $sisaSaldo + ($debit - $kredit);
-                    @endphp
-
-                    @if ($row['lajurSaldo'] == 'debit')
-                    <td style="@if (($saldo) < 0) color: red; @endif; width:20%">
-                        @if (($saldo) < 0)
-                            (Rp {{ number_format(abs(($saldo)), 2, ',', '.') }})
-                        @elseif (($saldo) > 0 || ($saldo) == 0)
-                            Rp {{ number_format(($saldo), 2, ',', '.') }}
+                    <td style="@if ($row['debit'] < 0) color: red; @endif; width:20%">
+                        @if ($row['debit'] < 0)
+                            (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
+                        @elseif ($row['debit'] > 0 || $row['debit'] == 0)
+                            Rp {{ number_format($row['debit'], 2, ',', '.') }}
                         @else
                             -
                         @endif
                     </td>
-                    <td>-</td>
-                    @else
-                    <td>-</td>
-                    <td style="@if (($saldo) < 0) color: red; @endif; width:20%">
-                        @if (($saldo) < 0)
-                            (Rp {{ number_format(abs(($saldo)), 2, ',', '.') }})
-                        @elseif (($saldo) > 0 || ($saldo) == 0)
-                            Rp {{ number_format(($saldo), 2, ',', '.') }}
+                    <td style="@if ($row['kredit'] < 0) color: red; @endif; width:20%">
+                        @if ($row['kredit'] < 0)
+                            (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
+                        @elseif ($row['kredit'] > 0 || $row['kredit'] == 0)
+                            Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                         @else
                             -
                         @endif
                     </td>
-                    @endif
-                </tr>                              
+                </tr>
                 @php
                 $totalDebit += $row['debit'];
                 $totalKredit += $row['kredit'];

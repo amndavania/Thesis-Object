@@ -23,8 +23,8 @@ class BukuBesarRekapController extends Controller
         $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.bukubesarrekap')->with([
-            'data' => $data[0],
-            'history' => $data[1],
+            'data' => $data,
+            // 'history' => $data[1],
             'datepicker' => $date[1],
         ]);
     }
@@ -69,40 +69,73 @@ class BukuBesarRekapController extends Controller
     public function getData($datepicker, $currentMonthYear)
     {
         $transactionAccount = TransactionAccount::all();
-        
+
         if ($datepicker == $currentMonthYear) {
-            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $currentMonthYear)->get();
-            $data = $transactionAccount;
-        } else {
-            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get();
             $data = [];
             foreach ($transactionAccount as $item) {
-                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get('saldo');
-                $balance = empty($history->saldo) ? 0 : $history->saldo;
-                if ($item->lajurSaldo == 'debit') {
-                    $data[$item->id] = [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'description' => $item->description,
-                        'lajurSaldo' => $item->lajurSaldo,
-                        'lajurLaporan' => $item->lajurLaporan,
-                        'debit' => $balance
-                    ];
-                } else {
-                    $data[$item->id] = [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'description' => $item->description,
-                        'lajurSaldo' => $item->lajurSaldo,
-                        'lajurLaporan' => $item->lajurLaporan,
-                        'kredit' => $balance
-                    ];
+                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->first('saldo');
+
+                $balanceHistory = empty($history->saldo) ? 0 : $history->saldo;
+
+                $currentDebit = $item->debit;
+                $currentKredit = $item->kredit;
+
+                if ($item->lajurLaporan == 'labaRugi') {
+                    $currentDebit = -$currentDebit;
+                    $currentKredit = -$currentKredit;
                 }
+
+                $balance = $balanceHistory + ($currentDebit - $currentKredit);
+
+                if ($item->lajurSaldo == 'debit') {
+                    $debit = $balance;
+                    $kredit = 0;
+                } elseif ($item->lajurSaldo == 'kredit') {
+                    $debit = 0;
+                    $kredit = $balance;
+                }
+
+                $data[$item->id] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'description' => $item->description,
+                    'lajurSaldo' => $item->lajurSaldo,
+                    'lajurLaporan' => $item->lajurLaporan,
+                    'kredit' => $kredit,
+                    'debit' => $debit,
+                ];
+            }
+        } else {
+            $monthAfter = date('Y-m', strtotime($datepicker . ' +1 month'));
+            $data = [];
+            foreach ($transactionAccount as $item) {
+                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $monthAfter)->first('saldo');
+                $balance = empty($history->saldo) ? 0 : $history->saldo;
+
+                if ($item->lajurLaporan == 'labaRugi') {
+                    $balance = -$balance;
+                }
+
+                if ($item->lajurSaldo == 'debit') {
+                    $debit = $balance;
+                    $kredit = 0;
+                } elseif ($item->lajurSaldo == 'kredit') {
+                    $debit = 0;
+                    $kredit = $balance;
+                }
+
+                $data[$item->id] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'description' => $item->description,
+                    'lajurSaldo' => $item->lajurSaldo,
+                    'lajurLaporan' => $item->lajurLaporan,
+                    'kredit' => $kredit,
+                    'debit' => $debit,
+                ];
             }
         }
 
-
-
-        return [$data, $history];
+        return $data;
     }
 }
