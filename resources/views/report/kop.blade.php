@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/laporan.css') }}">
     <script src="{{asset('js/laporan.js')}}"></script>
     <title>{{$title}}</title>
+
+    <script>
+        window.history.replaceState({}, document.title, window.location.pathname);
+    </script>
 </head>
 <body>
     <div class="a4-container">

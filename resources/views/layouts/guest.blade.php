@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="{{asset('vendor/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('vendor/dist/css/adminlte.min.css')}}">
+
+  <script>
+    window.history.replaceState({}, document.title, window.location.pathname);
+</script>
 </head>
 <body class="hold-transition register-page">
   
