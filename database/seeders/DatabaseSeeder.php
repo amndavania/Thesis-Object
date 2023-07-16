@@ -64,6 +64,8 @@ class DatabaseSeeder extends Seeder
         TransactionAccount::factory()->create([
             'id' => 1120,
             'name'=> 'Pendapatan UKT',
+            'lajurSaldo'=> 'kredit',
+            'lajurLaporan'=> 'labaRugi',
             'description' => 'pendapatan',
             'kredit' => 0,
             'debit' => 0,
@@ -71,6 +73,8 @@ class DatabaseSeeder extends Seeder
         TransactionAccount::factory()->create([
             'id' => 1130,
             'name'=> 'Bank BRI Ibrahimy',
+            'lajurSaldo'=> 'debit',
+            'lajurLaporan'=> 'neraca',
             'description' => 'bank',
             'kredit' => 0,
             'debit' => 0,
