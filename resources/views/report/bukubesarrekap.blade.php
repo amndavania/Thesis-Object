@@ -50,7 +50,7 @@
                     <td style="@if ($row['debit'] < 0) color: red; @endif; width:20%">
                         @if ($row['debit'] < 0)
                             (Rp {{ number_format(abs($row['debit']), 2, ',', '.') }})
-                        @elseif ($row['debit'] > 0 || $row['debit'] == 0)
+                        @elseif ($row['debit'] > 0)
                             Rp {{ number_format($row['debit'], 2, ',', '.') }}
                         @else
                             -
@@ -59,7 +59,7 @@
                     <td style="@if ($row['kredit'] < 0) color: red; @endif; width:20%">
                         @if ($row['kredit'] < 0)
                             (Rp {{ number_format(abs($row['kredit']), 2, ',', '.') }})
-                        @elseif ($row['kredit'] > 0 || $row['kredit'] == 0)
+                        @elseif ($row['kredit'] > 0)
                             Rp {{ number_format($row['kredit'], 2, ',', '.') }}
                         @else
                             -

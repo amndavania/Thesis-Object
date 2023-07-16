@@ -81,11 +81,10 @@ class BukuBesarRekapController extends Controller
                 $currentKredit = $item->kredit;
 
                 if ($item->lajurLaporan == 'labaRugi') {
-                    $currentDebit = -$currentDebit;
-                    $currentKredit = -$currentKredit;
+                    $balance = $balanceHistory + ($currentKredit - $currentDebit);
+                } else {
+                    $balance = $balanceHistory + ($currentDebit - $currentKredit);
                 }
-
-                $balance = $balanceHistory + ($currentDebit - $currentKredit);
 
                 if ($item->lajurSaldo == 'debit') {
                     $debit = $balance;

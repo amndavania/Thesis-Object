@@ -112,20 +112,6 @@
                         <td>{{ 'Rp ' . number_format($totalDebit, 2, ',', '.') }}</td>
                         <td>{{ 'Rp ' . number_format($totalKredit, 2, ',', '.') }}</td>
                     </tr>
-                <tr>
-                        <td colspan="3">
-                             <strong>Total Saldo</strong>
-                        </td>
-                        <td style="@if (($totalDebit - $totalKredit) < 0) color: red; @endif; text-align: center;" colspan="2">
-                            @if (($totalDebit - $totalKredit) < 0)
-                                (Rp {{ number_format(abs(($totalDebit - $totalKredit)), 2, ',', '.') }})
-                            @elseif (($totalDebit - $totalKredit) > 0 || ($totalDebit - $totalKredit) == 0)
-                                Rp {{ number_format(($totalDebit - $totalKredit), 2, ',', '.') }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
                 </tfoot>
           </table>
      </div>
