@@ -74,18 +74,30 @@ class BukuBesarRekapController extends Controller
             $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $currentMonthYear)->get();
             $data = $transactionAccount;
         } else {
-            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker);
+            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get();
             $data = [];
             foreach ($transactionAccount as $item) {
-                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get('saldo');
-
+                $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker)->get('saldo');
                 $balance = empty($history->saldo) ? 0 : $history->saldo;
-                $data[$item->id] = [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'description' => $item->description,
-                    'balance' => $balance
-                ];
+                if ($item->lajurSaldo == 'debit') {
+                    $data[$item->id] = [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'description' => $item->description,
+                        'lajurSaldo' => $item->lajurSaldo,
+                        'lajurLaporan' => $item->lajurLaporan,
+                        'debit' => $balance
+                    ];
+                } else {
+                    $data[$item->id] = [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'description' => $item->description,
+                        'lajurSaldo' => $item->lajurSaldo,
+                        'lajurLaporan' => $item->lajurLaporan,
+                        'kredit' => $balance
+                    ];
+                }
             }
         }
 

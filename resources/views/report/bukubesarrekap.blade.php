@@ -35,10 +35,11 @@
                     </tr>
                </thead>
                <tbody>
-                @php
+                   @php
                 $totalDebit = 0;
                 $totalKredit = 0;
                 @endphp
+                
                 @foreach ($data as $row)
                 <tr onclick="window.open('{{ route('bukubesar.index') }}?search_account={{ $row['id'] }}&datepicker={{ $datepicker }}', '_blank')" 
                         style="cursor: pointer; background-color: #f5f5f5;" onmouseover="this.style.backgroundColor='#e9e9e9';" onmouseout="this.style.backgroundColor='#f5f5f5';">
@@ -47,8 +48,6 @@
                     <td>{{ $row['name'] }}</td>
                     <td>{{ $row['description'] }}</td>
                     @php
-
-
                     if ($history->count() > 0)
                     {
                         $sisaSaldo = $history->where('transaction_accounts_id',$row['id'])->first()->saldo;
@@ -60,6 +59,9 @@
                     {
                         $debit = -$row['debit'];
                         $kredit = -$row['kredit'];
+                    } else {
+                        $debit = $row['debit'];
+                        $kredit = $row['kredit'];
                     }
                     $saldo = $sisaSaldo + ($debit - $kredit);
                     @endphp
@@ -92,7 +94,7 @@
                 $totalDebit += $row['debit'];
                 $totalKredit += $row['kredit'];
                 @endphp
-                @endforeach
+            @endforeach
                </tbody>
                <tfoot class="table-dark">
                 <tr>
