@@ -23,7 +23,8 @@ class BukuBesarRekapController extends Controller
         $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.bukubesarrekap')->with([
-            'data' => $data,
+            'data' => $data[0],
+            'history' => $data[1],
             'datepicker' => $date[1],
         ]);
     }
@@ -41,7 +42,8 @@ class BukuBesarRekapController extends Controller
         $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.printformat.bukubesarrekap')->with([
-            'data' => $data,
+            'data' => $data[0],
+            'history' => $data[1],
             'datepicker' => $date[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Buku Besar",
@@ -67,9 +69,12 @@ class BukuBesarRekapController extends Controller
     public function getData($datepicker, $currentMonthYear)
     {
         $transactionAccount = TransactionAccount::all();
+        
         if ($datepicker == $currentMonthYear) {
+            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $currentMonthYear);
             $data = $transactionAccount;
         } else {
+            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $datepicker);
             $data = [];
             foreach ($transactionAccount as $item) {
                 $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get('saldo');
@@ -84,6 +89,8 @@ class BukuBesarRekapController extends Controller
             }
         }
 
-        return $data;
+
+
+        return [$data, $history];
     }
 }
