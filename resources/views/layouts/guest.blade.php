@@ -18,8 +18,8 @@
   <link rel="stylesheet" href="{{asset('vendor/dist/css/adminlte.min.css')}}">
 </head>
 <body class="hold-transition register-page">
+  
 {{$slot}}
-<!-- /.register-box -->
 
 <!-- jQuery -->
 <script src="{{asset('vendor/plugins/jquery/jquery.min.js')}}"></script>
