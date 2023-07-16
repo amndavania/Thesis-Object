@@ -38,8 +38,6 @@
                               <td>{{ $row->lajurSaldo == 'debit' ? 'Debit' : 'Kredit'}}</td>
                               <td>{{ $row->lajurLaporan == 'neraca' ? 'Neraca' : 'Laba Rugi'}}</td>
                               <td>{{ $row->accountinggroup->pluck('name')->implode(', ') }}</td>
-                              {{-- <td>{{ 'Rp ' . number_format($row->ammount_debit, 2, ',', '.') }}</td>
-                              <td>{{ 'Rp ' . number_format($row->ammount_kredit, 2, ',', '.') }}</td> --}}
                               <td>
                                 <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('transaction_account.edit',$row->id) }}'">Edit</button>
