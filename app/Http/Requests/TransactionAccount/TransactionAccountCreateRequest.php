@@ -24,6 +24,8 @@ class TransactionAccountCreateRequest extends FormRequest
         return [
             'id'=>'required|numeric|min:1|unique:transaction_accounts,id',
             'name'=>'required|unique:transaction_accounts,name',
+            'lajurSaldo'=>'required',
+            'lajurLaporan'=>'required',
             'accounting_group_id'=>'required',
         ];
     }
@@ -37,6 +39,8 @@ class TransactionAccountCreateRequest extends FormRequest
             'id.min'=>'Id harus bernilai > 0',
             'name.required'=>'Nama Akun harus diisi',
             'name.unique'=>'Nama Akun sudah ada',
+            'lajurSaldo'=>'Lajur Saldo harus diisi',
+            'lajurLaporan'=>'Lajur Laporan harus diisi',
             'accounting_group_id.required'=>'Grup Akun Transaksi harus diisi',
         ];
     }
