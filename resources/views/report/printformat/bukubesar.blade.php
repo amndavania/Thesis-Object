@@ -105,6 +105,17 @@
                         <td colspan="3">
                              <strong>Total Saldo</strong>
                         </td>
+                        @if ($lajurLaporan == 'labaRugi')
+                        <td style="@if (($totalKredit - $totalDebit) < 0) color: red; @endif; text-align: center;" colspan="2">
+                            @if (($totalKredit - $totalDebit) < 0)
+                                (Rp {{ number_format(abs(($totalKredit - $totalDebit)), 2, ',', '.') }})
+                            @elseif (($totalKredit - $totalDebit) > 0 || ($totalKredit - $totalDebit) == 0)
+                                Rp {{ number_format(($totalKredit - $totalDebit), 2, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        @else
                         <td style="@if (($totalDebit - $totalKredit) < 0) color: red; @endif; text-align: center;" colspan="2">
                             @if (($totalDebit - $totalKredit) < 0)
                                 (Rp {{ number_format(abs(($totalDebit - $totalKredit)), 2, ',', '.') }})
@@ -114,6 +125,7 @@
                                 -
                             @endif
                         </td>
+                        @endif
                     </tr>
                 </tfoot>
             </div>

@@ -42,8 +42,7 @@ class BukuBesarRekapController extends Controller
         $data = $this->getData($date[0], $currentMonthYear);
 
         return view('report.printformat.bukubesarrekap')->with([
-            'data' => $data[0],
-            'history' => $data[1],
+            'data' => $data,
             'datepicker' => $date[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Buku Besar",
