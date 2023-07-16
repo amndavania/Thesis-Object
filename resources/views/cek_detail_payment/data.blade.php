@@ -7,7 +7,7 @@
         <div class="d-flex text-center">
             <div class="text-center">
                 <h4 class="text-center">
-                    Data Pembayaran Mahasiswa   
+                    Data Pembayaran Mahasiswa
                 </h4>
             </div>
         </div>
@@ -26,7 +26,7 @@
             @endif
         </h5>
           <table class="table table-striped text-center my-2">
-               <thead class="table-dark"> 
+               <thead class="table-dark">
                     <tr>
                          <th>No</th>
                          <td>Tanggal</td>
@@ -35,7 +35,7 @@
                          <td>Nominal</td>
                          <td>Status</td>
                          <td>Keterangan</td>
-                         <td></td>
+                         <td>Cetak</td>
                     </tr>
                </thead>
                <tbody>
@@ -49,31 +49,53 @@
                               <td>
                                 @if ($row->status == "Lunas")
                                     <span class="badge bg-success">Lunas</span>
+                                @elseif ($row->status == "Lunas UTS")
+                                    <span class="badge bg-warning">Lunas UTS</span>
+                                @elseif ($row->status == "Lunas KRS")
+                                    <span class="badge bg-warning">Lunas KRS</span>
                                 @elseif ($row->status == "Belum Lunas")
                                     <span class="badge bg-danger">Belum Lunas</span>
                                 @else
-                                    <span class="badge bg-warning">Lebih</span>
+                                    <span class="badge bg-danger">Lebih</span>
                                 @endif
                               </td>
                               <td>{{ $row->keterangan }}</td>
                               <td>
-                                @if ($row->keterangan == 'KRS')
-                                    <a href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
-                                @elseif ($row->keterangan == 'UTS')
-                                    <a href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}">Lihat Kartu</a>
-                                @elseif ($row->keterangan == 'UAS')
+                                @if (!is_null($row->lbs_id) && !is_null($row->exam_uts_id) && !is_null($row->exam_uas_id))
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}'">UTS</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}'">UAS</button>
+                                @elseif (!is_null($row->lbs_id) && !is_null($row->exam_uts_id))
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}'">UTS</button>
+                                @elseif (!is_null($row->lbs_id))
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                @elseif (!is_null($row->exam_uts_id))
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}'">UTS</button>
+                                @elseif (!is_null($row->exam_uas_id))
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}'">UAS</button>
+                                @endif
+
+                                {{-- @if ($row->status == 'Belum Lunas')
+                                    @if (!is_null($row->lbs_id))
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                    @endif
+                                @elseif ($row->status == 'Lunas KRS')
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                @elseif ($row->status == 'Lunas UTS')
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}'">UTS</button>
+                                @elseif ($row->status == 'Lunas')
                                     @if (is_null($row->lbs_id) && is_null($row->exam_uts_id) && !is_null($row->exam_uas_id))
-                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}">Lihat Kartu UAS</a>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}'">UAS</button>
                                     @elseif (!is_null($row->lbs_id) && is_null($row->exam_uts_id) && is_null($row->exam_uas_id))
-                                        <a class="d-block" href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
-                                        <a class="d-block" href="#" disable>Kartu belum tersedia</a>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
                                     @elseif (!is_null($row->lbs_id) && !is_null($row->exam_uts_id) && !is_null($row->exam_uas_id))
-                                        <a class="d-block" href="{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}">Cetak KRS</a>
-                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}">Lihat Kartu UTS</a>
-                                        <a class="d-block" href="{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}">Lihat Kartu UAS</a>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/exportLBS') }}?id={{ $row->lbs_id }}'">KRS</button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uts_id }}'">UTS</button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ url('databayar/lihatKartu') }}?id={{ $row->exam_uas_id }}'">UAS</button>
                                     @endif
 
-                                @endif
+                                @endif --}}
                               </td>
                          </tr>
                     @endforeach
