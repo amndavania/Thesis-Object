@@ -205,6 +205,33 @@
           </li>
           @endif
 
+          @if(Auth::user()->role == 'admin keuangan')
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-closed">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-school"></i>
+              <p>
+                Kemahasiswaan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('ukt.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pembayaran Mahasiswa</p>
+                    </a>
+                </li>
+                  <li class="nav-item">
+                    <a href="{{ route('uktdetail.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Detail Pembayaran</p>
+                    </a>
+                  </li>
+            </ul>
+          </li>
+          @endif
+
           @if(Auth::user()->role == 'DPA')
         {{-- menu --}}
           <li class="nav-item has-treeview">

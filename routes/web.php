@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function () {
         Route::get('neraca/export', [NeracaController::class, 'export']);
         Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
         Route::get('uktdetail/export', [UktDetailController::class, 'export']);
+
+        Route::resource('ukt', UktController::class)->except(['show']);
     }); 
 
     Route::middleware('admin:super admin,DPA')->group(function () {
@@ -96,8 +98,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('dpa', DpaController::class)->except(['show']);
         Route::resource('student', StudentController::class)->except(['show']);
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
-        Route::resource('ukt', UktController::class)->except(['show']);
-        
 
         Route::get('examcard/show', [ExamCardController::class, 'show']);
         Route::resource('pengguna', PenggunaController::class)->except((['show','update','edit']));
