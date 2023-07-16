@@ -29,7 +29,6 @@ class TransactionAccountController extends Controller
      */
     public function create():View
     {
-        //
         $accounting_group = AccountingGroup::all();
         return view('transaction_account.create',  compact('accounting_group'));
     }
@@ -39,7 +38,8 @@ class TransactionAccountController extends Controller
      */
     public function store(TransactionAccountCreateRequest $request)
     {
-        $request['balance'] = 0;
+        $request['kredit'] = 0;
+        $request['debit'] = 0;
         $transactionAccount = TransactionAccount::create($request->except('accounting_group_id'));
         $accountingGroupIds = $request->input('accounting_group_id', []);
 

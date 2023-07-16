@@ -20,7 +20,8 @@ class TransactionAccountFactory extends Factory
         return [
             'name' => "Akun Transaksi ".$this->faker->word,
             'description' => $this->faker->text,
-            'balance'=>fake()->numberBetween(10000, 1000000),
+            'debit'=>fake()->numberBetween(10000, 1000000),
+            'kredit'=>fake()->numberBetween(10000, 1000000),
         ];
     }
 }

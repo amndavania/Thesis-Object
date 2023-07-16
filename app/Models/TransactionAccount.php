@@ -17,8 +17,11 @@ class TransactionAccount extends Model
     protected $fillable = [
         'id',
         'name',
+        'lajurSaldo',
+        'lajurLaporan',
         'description',
-        'balance',
+        'kredit',
+        'debit',
         'accounting_group_id',
     ];
 

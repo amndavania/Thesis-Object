@@ -37,7 +37,7 @@ class TransactionController extends Controller
         $request['user_id'] = $request->user()->id;
         Transaction::create($request->all());
 
-        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type);
+        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type, $request->amount);
 
         return redirect()->route('transaction.index')->with(['success' => 'Data berhasil disimpan']);
     }
@@ -75,9 +75,12 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
         $request['transaction_accounts_id'] = $transaction->transaction_accounts_id;
+        $oldAmount = $transaction->amount;
+        $newAmount = $request->amount;
+        $amount = $newAmount - $oldAmount;
         $transaction->update($request->all());
 
-        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type);
+        $this->updateTransactionAccount($request->transaction_accounts_id, $request->type, $amount);
 
         return redirect()->route('transaction.index')->with(['success' => 'Data berhasil diupdate']);
     }
@@ -94,8 +97,9 @@ class TransactionController extends Controller
 
         if (!$ukt_debit && !$ukt_kredit) {
             $transactions = Transaction::findOrFail($id);
+            $amount = $transaction->amount;
+            $this->updateTransactionAccount($transaction->transaction_accounts_id, $transaction->type, -$amount);
             $transactions->delete();
-            $this->updateTransactionAccount($transaction->transaction_accounts_id);
 
             return redirect()->route('transaction.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
@@ -104,18 +108,19 @@ class TransactionController extends Controller
 
     }
 
-    public function updateTransactionAccount($transaction_accounts_id)
+    public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
     {
-        $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
-
-        if (empty($transactions)){
-            $ammount = 0;
-        }else {
-            $ammount = $transactions->sum('amount');
-        }
-
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
-        $account->fill(['balance' => $ammount]);
+
+        if ($type == 'kredit') {     
+            $ammount = $account->kredit;
+            $inputAmount = $ammount + $amount;
+            $account->fill(['kredit' => $inputAmount]);
+        } elseif ($type == 'debit') {
+            $ammount = $account->debit;
+            $inputAmount = $ammount + $amount;
+            $account->fill(['debit' => $inputAmount]);
+        }
 
         $account->save();
     }

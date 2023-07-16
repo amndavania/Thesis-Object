@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('transaction_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('lajurSaldo', ['debit','kredit']);
+            $table->enum('lajurLaporan', ['labaRugi','neraca']);
             $table->string('description')->nullable();
-            $table->decimal('balance', 14, 2);
+            $table->decimal('kredit', 14, 2);
+            $table->decimal('debit', 14, 2);
             // $table->foreignId('accounting_group_id')->constrained();
             $table->timestamps();
         });

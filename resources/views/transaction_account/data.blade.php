@@ -17,11 +17,11 @@
                     <tr>
                          <th>No</th>
                          <td>ID Akun</td>
-                         <td style="width: 20%">Nama</td>
-                         <td style="width: 20%">Deskripsi</td>
-                         <td style="width: 30%">Grup</td>
-                         {{-- <td style="width: 20%">Debit</td>
-                         <td style="width: 20%">Kredit</td> --}}
+                         <td style="width: 15%">Nama</td>
+                         <td style="width: 15%">Deskripsi</td>
+                         <td style="width: 15%">Lajur Saldo</td>
+                         <td style="width: 15%">Lajur Laporan</td>
+                         <td style="width: 20%">Grup</td>
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -32,9 +32,11 @@
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
-                              <th>{{ $row->id }}</th>
+                              <td>{{ $row->id }}</td>
                               <td>{{ $row->name }}</td>
                               <td>{{ $row->description ? $row->description : '-' }}</td>
+                              <td>{{ $row->lajurSaldo == 'debit' ? 'Debit' : 'Kredit'}}</td>
+                              <td>{{ $row->lajurLaporan == 'neraca' ? 'Neraca' : 'Laba Rugi'}}</td>
                               <td>{{ $row->accountinggroup->pluck('name')->implode(', ') }}</td>
                               {{-- <td>{{ 'Rp ' . number_format($row->ammount_debit, 2, ',', '.') }}</td>
                               <td>{{ 'Rp ' . number_format($row->ammount_kredit, 2, ',', '.') }}</td> --}}

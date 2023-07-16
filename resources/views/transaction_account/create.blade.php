@@ -25,6 +25,22 @@
                <input type="text" class="form-control" id="description" name="description" placeholder="Masukkan deskripsi" value="{{ old('description') }}">
           </div>
           <div class="form-group">
+            <label for="lajurSaldo">Lajur Saldo</label>
+            <select class="form-control" id="lajurSaldo" name="lajurSaldo">
+               <option value="">Pilih Lajur Saldo</option>
+               <option value="debit">Debit</option>
+               <option value="kredit">Kredit</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lajurLaporan">Lajur Laporan</label>
+            <select class="form-control" id="lajurLaporan" name="lajurLaporan">
+               <option value="">Pilih Lajur Laporan</option>
+               <option value="neraca">Neraca</option>
+               <option value="labaRugi">Laba Rugi</option>
+            </select>
+        </div>
+          <div class="form-group">
             <label for="accounting_group_id">Grup</label>
             <select class="form-control" id="accounting_group_id" name="accounting_group_id[]" multiple>
             {{-- <select class="form-control" id="accounting_group_id" name="accounting_group_id"> --}}
