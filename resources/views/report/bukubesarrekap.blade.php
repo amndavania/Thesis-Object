@@ -47,7 +47,9 @@
                     <td>{{ $row['name'] }}</td>
                     <td>{{ $row['description'] }}</td>
                     @php
-                    if ($history->exists())
+
+
+                    if ($history->count() > 0)
                     {
                         $sisaSaldo = $history->where('transaction_accounts_id',$row['id'])->first()->saldo;
                     }

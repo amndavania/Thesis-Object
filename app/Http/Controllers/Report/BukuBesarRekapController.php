@@ -71,10 +71,10 @@ class BukuBesarRekapController extends Controller
         $transactionAccount = TransactionAccount::all();
         
         if ($datepicker == $currentMonthYear) {
-            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $currentMonthYear);
+            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $currentMonthYear)->get();
             $data = $transactionAccount;
         } else {
-            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $datepicker);
+            $history = HistoryReport::where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $datepicker);
             $data = [];
             foreach ($transactionAccount as $item) {
                 $history = HistoryReport::where('transaction_accounts_id', $item->id)->where('type', 'monthly')->whereRaw('DATE_FORMAT(created_at, "%m-%Y") = ?', $datepicker)->get('saldo');
