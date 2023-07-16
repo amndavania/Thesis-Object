@@ -52,6 +52,11 @@ class SaveTransactionYearly extends Command
                 $totalKredit = 0;
             }
 
+            if ($transaction_account->lajurLaporan == "labaRugi") {
+                $totalDebit = -$totalDebit;
+                $totalKredit = -$totalKredit;
+            }
+
             if (empty($history)) {
                 $saldo = $totalDebit - $totalKredit;
             } else {
