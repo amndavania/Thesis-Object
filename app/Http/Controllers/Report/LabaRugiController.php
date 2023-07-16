@@ -152,16 +152,26 @@ class LabaRugiController extends Controller
 
                 $getHistory = $this->getHistory($filter, $item->id, $date);
 
+                if ($item->lajurLaporan == 'labaRugi') {
+                    $debit = -$debit;
+                    $kredit = -$kredit;
+                }
+
                 if (!empty($getHistory)) {
                     $saldo = $getHistory->saldo + ($debit - $kredit);
                 } else {
                     $saldo = $debit - $kredit;
                 }
 
+                if ($item->lajurLaporan == 'labaRugi') {
+                    $saldo = -$saldo;
+                }
+
                 if ($saldo != 0) {
                     $summary[$item->id] = [
                         'name' => $item->name,
-                        'saldo' => $saldo
+                        'saldo' => $saldo,
+                        'lajurSaldo' => $item->lajurSaldo,
                     ];
                 }
             }
