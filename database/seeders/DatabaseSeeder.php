@@ -33,41 +33,47 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $accountingGroups = [
+            // laba rugi
             ['name' => 'Pendapatan', 'description' => 'grup akun pendapatan'],
             ['name' => 'Pengeluaran', 'description' => 'grup akun pengeluaran'],
             ['name' => 'Penyusutan/Amortisasi', 'description' => 'grup akun penyusutan/amortisasi'],
             ['name' => 'Bunga/Pajak', 'description' => 'grup akun bunga/pajak'],
             ['name' => 'Pendapatan atau Pengeluaran lain', 'description' => 'grup akun pendapatan atau pengeluaran lain2'],
+            // neraca
             ['name' => 'Aktiva Lancar', 'description' => 'grup akun aktiva lancar'],
             ['name' => 'Aktiva Tetap', 'description' => 'grup akun aktiva tetap'],
             ['name' => 'Hutang Lancar', 'description' => 'grup akun hutang lancar'],
             ['name' => 'Utang Jangka Panjang', 'description' => 'grup akun utang jangka panjang'],
             ['name' => 'Modal', 'description' => 'grup akun modal'],
+            // cashflow
             ['name' => 'Arus Kas Masuk', 'description' => 'grup akun kas masuk'],
             ['name' => 'Arus Kas Keluar', 'description' => 'grup akun kas keluar'],
             ['name' => 'Penjualan Aset', 'description' => 'grup akun penjualan aset'],
             ['name' => 'Pembelian Aset', 'description' => 'grup akun pembelian aset'],
             ['name' => 'Penambahan Dana', 'description' => 'grup akun penambahan dana'],
             ['name' => 'Pengurangan Dana', 'description' => 'grup akun pengurangan dana'],
+            // perubahan modal
             ['name' => 'Modal di Awal', 'description' => 'grup akun modal di awal'],
             ['name' => 'Penambahan Modal', 'description' => 'grup akun penambahan modal'],
             ['name' => 'Pengurangan Modal', 'description' => 'grup akun pengurangan modal'],
-            ['name' => 'Bank', 'description' => 'grup akun bank'],
+            // ['name' => 'Bank', 'description' => 'grup akun bank'],
         ];
 
         // $transactionAccounts = TransactionAccount::factory()->count(58)->create();
 
         TransactionAccount::factory()->create([
             'id' => 1120,
-            'name'=> 'Kas Operasional',
+            'name'=> 'Pendapatan UKT',
             'description' => 'pendapatan',
-            'balance' => 0,
+            'kredit' => 0,
+            'debit' => 0,
         ]);
         TransactionAccount::factory()->create([
             'id' => 1130,
             'name'=> 'Bank BRI Ibrahimy',
             'description' => 'bank',
-            'balance' => 0,
+            'kredit' => 0,
+            'debit' => 0,
         ]);
 
         // $groupTransactions = collect($accountingGroups)->map(function ($group) {
@@ -83,7 +89,11 @@ class DatabaseSeeder extends Seeder
                 'transaction_accounts' => [1120],
             ],
             [
-                'group_id' => 20,
+                'group_id' => 11,
+                'transaction_accounts' => [1120],
+            ],
+            [
+                'group_id' => 6,
                 'transaction_accounts' => [1130],
             ],
         ];

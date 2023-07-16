@@ -78,7 +78,7 @@ class UktController extends Controller
             $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
             $latestTransaction = Transaction::latest('id')->first();
             $request['transaction_debit_id'] = $latestTransaction->id;
-            $this->updateTransactionAccount($transaction_accounts_id);
+            $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
 
             //Add Transaction on kredit
             $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
@@ -89,7 +89,7 @@ class UktController extends Controller
             $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
             $latestTransaction = Transaction::latest('id')->first();
             $request['transaction_kredit_id'] = $latestTransaction->id;
-            $this->updateTransactionAccount($transaction_accounts_id);
+            $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
 
             //Save data UKT
             $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
@@ -128,8 +128,8 @@ class UktController extends Controller
 
         $this->deleteBimbinganStudi($ukt->lbs_id);
 
-        $this->updateTransactionAccount(1120);
-        $this->updateTransactionAccount(1130);
+        $this->updateTransactionAccount(1120, 'kredit', -$ukt->amount);
+        $this->updateTransactionAccount(1130, 'debit', -$ukt->amount);
 
         $ukt->delete();
 
@@ -156,18 +156,19 @@ class UktController extends Controller
 
     }
 
-    public function updateTransactionAccount($transaction_accounts_id)
+    public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
     {
-        $transactions = Transaction::where('transaction_accounts_id', $transaction_accounts_id)->get();
-
-        if (empty($transactions)){
-            $ammount = 0;
-        }else {
-            $ammount = $transactions->sum('amount');
-        }
-
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
-        $account->fill(['amount' => $ammount]);
+
+        if ($type == 'kredit') {     
+            $ammount = $account->kredit;
+            $inputAmount = $ammount + $amount;
+            $account->fill(['kredit' => $inputAmount]);
+        } elseif ($type == 'debit') {
+            $ammount = $account->debit;
+            $inputAmount = $ammount + $amount;
+            $account->fill(['debit' => $inputAmount]);
+        }
 
         $account->save();
     }
