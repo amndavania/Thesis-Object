@@ -182,6 +182,25 @@
     });
 </script>
 
+<script>
+    function handleFilterUktChange() {
+        var filterUktSelect = document.getElementById("filterUkt");
+        var mahasiswaContainer = document.getElementById("mahasiswaContainer");
+        var fakultasContainer = document.getElementById("fakultasContainer");
+        var datepickerContainer = document.getElementById("datepickerContainer");
+
+        if (filterUktSelect.value === "student") {
+            mahasiswaContainer.style.display = "block";
+            fakultasContainer.style.display = "none";
+            datepickerContainer.style.display = "none";
+        } else if (filterUktSelect.value === "faculty") {
+            mahasiswaContainer.style.display = "none";
+            fakultasContainer.style.display = "block";
+            datepickerContainer.style.display = "block";
+        }
+    }
+</script>
+
 {{-- Script Dashboar --}}
 <script>
     $(function () {

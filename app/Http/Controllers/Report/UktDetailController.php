@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UktController;
 use App\Models\BimbinganStudy;
+use App\Models\Faculty;
 use App\Models\Student;
 use App\Models\Ukt;
 use Illuminate\Http\Request;
@@ -15,50 +16,101 @@ class UktDetailController extends Controller
     {
         $uktController = new UktController;
 
-        $student_id = $request->input('students_id');
-        $payment_id = $request->input('id');
-        $dispensasi = $request->input('dispensasi');
+        $selectStudent = Student::select('name', 'id', 'nim')->get();
+        $selectFaculty = Faculty::select('id', 'name')->get();
+        $filter = empty($request->filterUkt) ? "student" : $request->filterUkt;
 
-        if (!empty($payment_id) && !empty($dispensasi)) {
-            $payment = Ukt::where('id', $payment_id)->first();
-            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+        if ($filter == "student") {
+            $student_id = $request->input('students_id');
 
-            if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
-                $payment->keterangan = "Dispen UTS";
-                $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
-            } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
-                $payment->keterangan = "Dispen UAS";
-                $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
-            } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
-                $payment->keterangan = "Dispen KRS";
-                $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
+            $payment_id = $request->input('id');
+            $dispensasi = $request->input('dispensasi');
+
+            if (!empty($payment_id) && !empty($dispensasi)) {
+                $payment = Ukt::where('id', $payment_id)->first();
+                $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+                if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+                    $payment->keterangan = "Dispen UTS";
+                    $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+                } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+                    $payment->keterangan = "Dispen UAS";
+                    $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+                } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+                    $payment->keterangan = "Dispen KRS";
+                    $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
+                }
+                $payment->save();
             }
-            $payment->save();
 
-        }
-
-        if (empty($student_id)) {
-            $student_first = Student::first();
-            if ($student_first) {
-                $student_id = $student_first->id;
+            if (empty($student_id)) {
+                if (Student::first()) {
+                    $student_id = Student::first()->id;
+                } else {
+                    $student_id = null;
+                }
             }
+
+            $student = Student::where('id', $student_id)->first();
+
+            if (!empty($student)) {
+                $ukt = Ukt::where('students_id', $student->id)->latest()->get();
+                $totalUkt = $ukt->sum('amount');
+            } else {
+                $ukt = null;
+                $totalUkt = 0;
+            }
+
+            return view('detail_payment.ukt')->with([
+                'ukt' => $ukt,
+                'students' => $selectStudent,
+                'choice' => $student,
+                'faculty' => $selectFaculty,
+                'totalUkt' => $totalUkt,
+                'filter' => $filter,
+            ]);
+
+        } elseif ($filter == "faculty") {
+            $faculty_id = $request->faculty_id;
+            $datepicker = $request->datepicker;
+
+            $parsedDate = \DateTime::createFromFormat('m-Y', $datepicker);
+            $formattedDate = $parsedDate->format('F Y');
+            $date = $parsedDate->format('Y-m');
+
+            $ukt = Ukt::whereIn('students_id', function ($query) use ($faculty_id) {
+                $query->select('id')
+                    ->from('students')
+                    ->whereIn('study_program_id', function ($query) use ($faculty_id) {
+                        $query->select('id')
+                            ->from('study_programs')
+                            ->where('faculty_id', $faculty_id);
+                    });
+            })
+            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$date])
+            ->get();
+
+
+            dd($ukt);
+
+
         }
 
-        $student = Student::where('id', $student_id)->first();
-
-        if (!empty($student)) {
-            return view('detail_payment.ukt')->with([
-                'ukt' => Ukt::where('students_id', $student->id)->latest()->get(),
-                'students' => Student::select('name', 'id', 'nim')->get(),
-                'choice' => $student,
-            ]);
-        } else{
-            return view('detail_payment.ukt')->with([
-                'ukt' => Ukt::where('students_id', 1)->latest()->get(),
-                'students' => Student::select('name', 'id', 'nim')->get(),
-                'choice' => $student,
-            ]);
-        }
+        // if (!empty($student)) {
+        //     return view('detail_payment.ukt')->with([
+        //         'ukt' => Ukt::where('students_id', $student->id)->latest()->get(),
+        //         'students' => Student::select('name', 'id', 'nim')->get(),
+        //         'choice' => $student,
+        //         'faculty' => Faculty::select('id', 'name')->get()
+        //     ]);
+        // } else{
+        //     return view('detail_payment.ukt')->with([
+        //         'ukt' => Ukt::where('students_id', 1)->latest()->get(),
+        //         'students' => Student::select('name', 'id', 'nim')->get(),
+        //         'choice' => $student,
+        //         'faculty' => Faculty::select('id', 'name')->get()
+        //     ]);
+        // }
 
 
     }
