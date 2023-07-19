@@ -3,6 +3,7 @@
 namespace App\Http\Requests\StudentType;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StudentTypeUpdateRequest extends FormRequest
 {
@@ -21,10 +22,13 @@ class StudentTypeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // $student_type_id = $this->route('student_type');
+        $student_type_id = $this->route('student_type');
 
         return [
-            'type'=>'required|unique:student_types,type,'.$this->type,
+            'type' => [
+                'required',
+                Rule::unique('student_types')->ignore($student_type_id),
+            ],
             'year'=>'required|numeric|min:0',
             'study_program_id'=>'required',
             'dpp'=>'numeric|min:0',
