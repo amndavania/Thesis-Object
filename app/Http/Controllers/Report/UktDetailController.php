@@ -98,8 +98,10 @@ class UktDetailController extends Controller
                         });
                 })
                 ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$getDate[0]])
-                ->where('type', "UKT")
-                ->get();
+                ->where(function ($query) {
+                    $query->where('type', 'UKT')
+                          ->orWhere('type', 'DPP');
+                })->get();
                 $totalUkt = $ukt->sum('amount');
             } else {
                 $ukt = null;
@@ -158,8 +160,10 @@ class UktDetailController extends Controller
                     });
             })
             ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$getDate[0]])
-            ->where('type', "UKT")
-            ->get();
+            ->where(function ($query) {
+                $query->where('type', 'UKT')
+                      ->orWhere('type', 'DPP');
+            })->get();
 
             $totalUkt = $ukt->sum('amount');
 

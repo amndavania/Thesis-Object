@@ -101,6 +101,19 @@
                          </tr>
                      @endforeach
              </tbody>
+             <tfoot class="table-dark">
+                <tr>
+                        <td colspan="5">
+                             <strong>Total Pembayaran UKT</strong>
+                        </td>
+                        <td>
+                            <strong>{{ 'Rp ' . number_format($totalUkt, 2, ',', '.') }}</strong>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
                  @endif
            </table>
         @elseif ($filter == "faculty")
