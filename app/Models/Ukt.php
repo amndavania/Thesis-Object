@@ -30,20 +30,4 @@ class Ukt extends Model
     {
         return $this->belongsTo(Student::class, 'students_id');
     }
-
-
-    // public function transactionaccount(): BelongsTo
-    // {
-    //     return $this->belongsTo(TransactionAccount::class, 'transaction_accounts_id');
-    // }
-
-    // public function transactiondebit(): BelongsTo
-    // {
-    //     return $this->belongsTo(Transaction::class, 'transaction_debit_id');
-    // }
-
-    // public function transactionkredit(): BelongsTo
-    // {
-    //     return $this->belongsTo(Transaction::class, 'transaction_kredit_id');
-    // }
 }
