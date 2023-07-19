@@ -39,9 +39,11 @@
                               <td> {{ $semester == 0 ? 'GENAP':'GASAL'}}</td>
                               <td>{{ $row->status }}</td>
                               <td>
+                                @if ($row->status != "Cuti")
                                    <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.open('{{ url('bimbinganstudi/export') }}?id={{ $row->id }}','_blank')" >Cetak</button>
                                    </div>
+                                @endif
                               </td>
                          </tr>
                     @endforeach

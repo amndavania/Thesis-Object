@@ -96,12 +96,12 @@ class UktController extends Controller
             $request['status'] = $setTotalStatus;
 
             Ukt::create($request->all());
-            
+
             //Set keterangan
             $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus);
 
             return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
-            
+
         }
     }
 
@@ -160,7 +160,7 @@ class UktController extends Controller
     {
         $account = TransactionAccount::findOrFail($transaction_accounts_id);
 
-        if ($type == 'kredit') {     
+        if ($type == 'kredit') {
             $ammount = $account->kredit;
             $inputAmount = $ammount + $amount;
             $account->fill(['kredit' => $inputAmount]);
@@ -225,7 +225,7 @@ class UktController extends Controller
             }
 
             // dd([$amount, $totalKRS, $totalUTS, $totalUAS, $status]);
-                        
+
         } elseif ($payment_type == 'DPP') {
             if ($amount < $student_type->dpp) {
                 $status = 'Belum Lunas';
@@ -247,7 +247,7 @@ class UktController extends Controller
         return $status;
     }
 
-    public function setKeterangan($studentData, $year, $semester, $payment_type, $status) 
+    public function setKeterangan($studentData, $year, $semester, $payment_type, $status)
     {
         $payment = Ukt::latest()->first();
 
@@ -312,11 +312,11 @@ class UktController extends Controller
             }elseif ($status == "Belum Lunas") {
                 $payment->keterangan = 'Menunggu Dispensasi KRS';
                 // if ($totalPayment >= $totalUTS) {
-                    
+
                 // } elseif ($totalPayment >= $totalKRS) {
-                    
+
                 // } elseif ($totalPayment < $totalKRS) {
-                    
+
                 // }
             }
         }
@@ -346,7 +346,7 @@ class UktController extends Controller
             'students_id' => $student_id,
             'year' => $year,
             'semester' => $semester,
-            'status' => "Menunggu Persetujuan"
+            'status' => "Tunda"
         ];
 
         BimbinganStudy::create($bimbinganStudy);

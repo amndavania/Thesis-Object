@@ -58,16 +58,33 @@
                               <td>{{ $row['nim'] }}</td>
                               <td>{{ $row['name'] }}</td>
                               <td>{{ $row['semester'] }}</td>
-                              <td>{{ $row['status'] }}</td>
+                              {{-- <td>{{ $row['status'] }}</td> --}}
+                              <td>
+                                @if ($row['status'] == "Aktif")
+                                    <span class="badge bg-success">Aktif</span>
+                                @elseif ($row['status'] == "Tunda")
+                                    <span class="badge bg-warning">Tunda</span>
+                                @elseif ($row['status'] == "Cuti")
+                                    <span class="badge bg-warning">Cuti</span>
+                                @elseif ($row['status'] == "Tidak Aktif")
+                                    <span class="badge bg-danger">Tidak Aktif</span>
+                                @endif
+                            </td>
                               <td>
                                 <div class="dropdown">
                                     <button class="btn btn-sm btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ubah Status
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="statusDropdown">
+                                        @if ($row['status'] == "Tunda")
                                         <a class="dropdown-item" href="#" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Aktif'); setStatusText('Aktif')">Aktif</a>
+                                        @elseif ($row['status'] == "Aktif")
+                                        <a class="dropdown-item" href="#" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Tunda'); setStatusText('Tunda')">Tunda</a>
+                                        @elseif ($row['status'] == "Tidak Aktif")
                                         <a class="dropdown-item" href="#" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Cuti'); setStatusText('Cuti')">Cuti</a>
+                                        @elseif ($row['status'] == "Cuti")
                                         <a class="dropdown-item" href="#" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Tidak Aktif'); setStatusText('Tidak Aktif')">Tidak Aktif</a>
+                                        @endif
                                     </div>
                                 </div>
                             </td>

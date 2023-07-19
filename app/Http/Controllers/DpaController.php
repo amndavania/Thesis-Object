@@ -230,22 +230,20 @@ class DpaController extends Controller
             if ($payment->status == "Lunas UTS") {
                 if (empty($payment->exam_uts_id) && $status == "Aktif") {
                     $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-                } elseif ($status == "Tidak Aktif" || $status == "Cuti") {
+                } elseif ($status == "Tunda") {
                     $payment->exam_uts_id = null;
                     ExamCard::where('id', $uts_id)->delete();
                 }
             } elseif ($payment->status == "Lunas") {
-                if ((empty($payment->exam_uts_id) || empty($payment->exam_uas_id)) && $status == "Aktif") {
+                if ((empty($payment->exam_uts_id) && empty($payment->exam_uas_id)) && $status == "Aktif") {
                     $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
                     $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
-                } elseif ($status == "Tidak Aktif" || $status == "Cuti") {
+                } elseif ($status == "Tunda") {
                     $payment->exam_uts_id = null;
                     $payment->exam_uas_id = null;
                     ExamCard::where('id', $uts_id)->delete();
                     ExamCard::where('id', $uas_id)->delete();
                 }
-                $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-                $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
             }
             $payment->save();
         } else {
