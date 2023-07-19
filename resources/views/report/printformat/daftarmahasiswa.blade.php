@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        window.history.replaceState({}, document.title, window.location.pathname);
-    </script>
     
     <style>
         .a4-container {
@@ -184,6 +181,8 @@
         <h2 class="title">
             Laporan Bimbingan Studi
         </h2>
+        <div class="container">
+        <div class="table-keterangan">
         <table class="keterangan">
             <tr>
                 <td>
@@ -207,6 +206,29 @@
                 <td>{{ $tahunAjaran[1] }}</td>
             </tr>
         </table>
+        <table class="keterangan">
+            <tr>
+                <td>
+                    Fakultas
+                </td>
+                <td>:</td>
+                <td>{{ $dpa->studyprogram->faculty->name }}</td> 
+            </tr>
+            <tr>
+                <td>
+                    Program Studi
+                </td>
+                <td>:</td>
+                <td>{{ $dpa->studyprogram->name }}</td>                   
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>  
+            </tr>
+        </table>
+        </div>
+        </div>
         <table class="content">
             <thead>
                 <tr>

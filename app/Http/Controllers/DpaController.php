@@ -185,9 +185,14 @@ class DpaController extends Controller
         }
 
         if (empty($dpa_id)) {
-            $user_id = Auth::user()->id;
-            $dpa = Dpa::where('user_id', $user_id)->first();
-            $dpa_id = $dpa->id;
+            if (Auth::user()->role == "DPA") {
+                $user_id = Auth::user()->id;
+                $dpa = Dpa::where('user_id', $user_id)->first();
+                $dpa_id = $dpa->id;
+            } else {
+                $dpa = Dpa::first();
+                $dpa_id = $dpa->id;
+            }
         }
 
         $dpa = Dpa::where('id', $dpa_id)->first();

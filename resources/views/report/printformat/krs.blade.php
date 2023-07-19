@@ -5,9 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title}}</title>
-    <script>
-        window.history.replaceState({}, document.title, window.location.pathname);
-    </script>
     <style>
         .a4-container {
             width: 210mm;
@@ -279,17 +276,17 @@
     <table class="keterangan">
         <tr>
             <td>
-                Program Studi
-            </td>
-            <td>:</td>
-            <td>{{ $student->studyprogram->name }}</td>                   
-        </tr>
-        <tr>
-            <td>
                 Fakultas
             </td>
             <td>:</td>
             <td>{{ $student->studyprogram->faculty->name }}</td> 
+        </tr>
+        <tr>
+            <td>
+                Program Studi
+            </td>
+            <td>:</td>
+            <td>{{ $student->studyprogram->name }}</td>                   
         </tr>
         <tr>
             <td>
@@ -304,22 +301,16 @@
 <table class="content">
     <thead>
         <tr>
-            <th rowspan="2" style="width: 5%;">No</th>
-            <th rowspan="2" style="width: 15%;">Kode</th>
-            <th rowspan="2" style="width: 25%;">Mata Kuliah</th>
-            <th rowspan="2" style="width: 5%;">SKS</th>
-            <th rowspan="2" style="width: 20%;">Dosen Pengampu</th>
-            <th colspan="2" style="width: 30%;">Jadwal</th>
-        </tr>
-        <tr style="background-color: rgba(128, 128, 128, 0.4)">
-            <td style="text-align: center;"><strong>Hari</strong></td>
-            <td style="text-align: center;"><strong>Jam</strong></td>
+            <th style="width: 5%;">No</th>
+            <th style="width: 15%;">Tanggal</th>
+            <th style="width: 65%;">Topik Bimbingan</th>
+            <th style="width: 15%;">Tanda Tangan</th>
         </tr>
     </thead>
     <tbody>
         @for ($i = 1; $i <= 10; $i++)
-            <tr style="height: 30px;">
-                @for ($j = 1; $j <= 7; $j++)
+            <tr style="height: 40px;">
+                @for ($j = 1; $j <= 4; $j++)
                     <td></td>
                 @endfor
             </tr>
@@ -327,12 +318,6 @@
     </tbody>            
     </div>
 </table>
-<div class="catatan">
-    <p><strong>Catatan Bimbingan:</strong></p>
-        <table class="catatandosen">
-            <th></th>
-        </table>
-</div>
 <div class="signature-container">
     <div class="signature signature-left">
         <div class="signature-placeholder">
