@@ -65,7 +65,7 @@
                                 @elseif ($row['status'] == "Tunda")
                                     <span class="badge bg-warning">Tunda</span>
                                 @elseif ($row['status'] == "Cuti")
-                                    <span class="badge bg-warning">Cuti</span>
+                                    <span class="badge bg-dark">Cuti</span>
                                 @elseif ($row['status'] == "Tidak Aktif")
                                     <span class="badge bg-danger">Tidak Aktif</span>
                                 @endif
