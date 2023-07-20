@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PenggunaController extends Controller
 {
@@ -66,6 +67,12 @@ class PenggunaController extends Controller
      */
     public function destroy($id)
     {
+        $loggedInUserId = Auth::id();
+
+        if ($id == $loggedInUserId) {
+        return redirect()->route('pengguna.index')->with(['warning' => 'Anda tidak dapat menghapus akun Anda sendiri']);
+        }
+
         $report = Report::where('user_id', $id)->exists();
         $transaction = Transaction::where('user_id', $id)->exists();
 

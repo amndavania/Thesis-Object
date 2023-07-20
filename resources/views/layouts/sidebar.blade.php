@@ -160,6 +160,56 @@
           </li>
           @endif
 
+          @if(Auth::user()->role == 'akademik')
+          {{-- menu sub--}}
+          <li class="nav-item has-treeview menu-closed">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-university"></i>
+              <p>
+                Akademik
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('dpa.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>DPA</p>
+                    </a>
+                  </li>
+                <li class="nav-item">
+                    <a href="{{ route('faculty.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Fakultas</p>
+                    </a>
+                  </li>
+              <li class="nav-item">
+                <a href="{{ route('study_program.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Program Studi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview menu-closed">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-school"></i>
+              <p>
+                Kemahasiswaan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('student.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Mahasiswa</p>
+                  </a>
+                </li>
+            </ul>
+          </li>
+          @endif
+
           @if(Auth::user()->role == 'super admin')
           {{-- menu sub--}}
           <li class="nav-item has-treeview menu-closed">
@@ -176,7 +226,7 @@
                       <i class="far fa-circle nav-icon"></i>
                       <p>Daftar Mahasiswa</p>
                     </a>
-                  </li>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('ukt.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
@@ -216,6 +266,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('student.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Daftar Mahasiswa</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('ukt.index') }}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
