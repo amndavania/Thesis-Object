@@ -16,12 +16,10 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <td>Nama</td>
-                         <td>NIM</td>
-                         <td>Tahun Masuk</td>
-                         <td>Prodi</td>
-                         <td>DPA</td>
+                         <td>Identitas Mahasiwa</td>
+                         <td>Prodi dan DPA</td>
                          <td>Program</td>
+                         <td>Status Pembayaran</td>
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -32,12 +30,16 @@
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
-                              <td>{{ $row->name }}</td>
-                              <td>{{ $row->nim }}</td>
-                              <td>{{ $row->force }}</td>
-                              <td>{{ $row->studyprogram->name }}</td>
-                              <td>{{ $row->dpa->name }}</td>
-                              <td>{{ $row->studenttype->type }}</td>
+                              <td>
+                                   <p class="m-0">{{ $row->name }}</p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->force }} - {{ $row->nim }}</p>
+                              </td>
+                              <td>
+                                   <p class="m-0">{{ $row->study_program_name }}</p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->dpas_name }}</p>
+                              </td>
+                              <td>{{ $row->student_type }}</td>
+                              <td><p class="text-secondary m-0">{{ $row->status ?: 'Belum ada data UKT' }}</p></td>
                               <td>
                                    <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('student.edit',$row->id) }}'">Edit</button>
