@@ -17,6 +17,10 @@
                <input type="text" class="form-control" id="description" name="description" placeholder="Transaksinya untuk apa?" value="{{ old('description') }}">
           </div>
           <div class="form-group">
+               <label for="created_at">Tanggal Pembayaran</label>
+               <input type="date" class="form-control mb-2" id="created_at" name="created_at" max="<?= date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
+          </div>
+          <div class="form-group">
                <label for="reference_number">Nomor Referensi</label>
                <input type="number" class="form-control" id="reference_number" name="reference_number" placeholder="Masukkan nomor referensi" value="{{ old('reference_number') }}">
           </div>

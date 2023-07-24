@@ -7,6 +7,7 @@ use App\Http\Requests\Transaction\TransactionUpdateRequest;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -34,6 +35,10 @@ class TransactionController extends Controller
      */
     public function store(TransactionCreateRequest $request)
     {
+        $created_at = Carbon::createFromFormat('Y-m-d', $request['created_at'])
+                        ->setTime(00,00,00);
+        $request['created_at'] = $created_at;
+
         $request['user_id'] = $request->user()->id;
         Transaction::create($request->all());
 

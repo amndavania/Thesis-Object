@@ -20,6 +20,7 @@ class Ukt extends Model
         'status',
         'transaction_debit_id',
         'transaction_kredit_id',
+        'created_at',
     ];
 
     public function student_id(): BelongsTo
