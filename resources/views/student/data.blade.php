@@ -16,7 +16,7 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <td>Identitas Mahasiwa</td>
+                         <td>Mahasiwa</td>
                          <td>Prodi dan DPA</td>
                          <td>Program</td>
                          <td>Status Pembayaran</td>

@@ -19,7 +19,6 @@
                          <td>Tanggal</td>
                          <td>Mahasiswa</td>
                          <td>Tahun Ajaran</td>
-                         <td>Semester</td>
                          <td>Jenis</td>
                          <td>Nominal</td>
                          <td>Status</td>
@@ -34,9 +33,15 @@
                          <tr>
                               <th>{{ $number }}</th>
                               <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                              <td>{{ $row->student_id->nim }} | {{ $row->student_id->name }}</td>
-                              <td>{{ $row->year . "/" . ($row->year + 1) }}</td>
-                              <td>{{ $row->semester }}</td>
+                              <td>
+                                   <p class="m-0">{{ $row->student_id->name }}</p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->student_id->nim }}</p>
+                              </td>
+                              <td>
+                                   <p class="m-0">{{ $row->semester }} </p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->year . "/" . ($row->year + 1) }}</p>
+                                   
+                              </td>
                               <td>{{ $row->type }}</td>
                               <td>{{ 'Rp ' . number_format($row->amount, 2, ',', '.') }}</td>
                               <td>
