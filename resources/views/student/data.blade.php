@@ -5,7 +5,20 @@
     <div class="card">
      <div class="card-header">
           <div class="d-flex">
-            @include('message.flash-message')
+               <form class="form-inline" action="{{ route('student.index') }}" method="GET">
+                <div class="mb-2 mr-sm-2" id="mahasiswaContainer">
+                    <select class="form-control selectpicker" name="students_id" id="students_id" data-live-search="true">
+                        <option value="">Pilih Mahasiswa</option>
+                        @foreach ($student_search as $search)
+                            <option value="{{ $search->id }}">{{ $search->nim . ' / ' . $search->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+               <button type="submit" class="btn btn-primary mb-2">Cari</button>
+               </form>
+
+               @include('message.flash-message')
                <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('student/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                </button>

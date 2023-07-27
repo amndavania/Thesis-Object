@@ -11,13 +11,20 @@ use App\Http\Requests\Student\StudentCreateRequest;
 use App\Http\Requests\Student\StudentUpdateRequest;
 use App\Models\Dpa;
 use App\Models\Ukt;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $student = DB::table('students')
+        $student_search = DB::table('students')
+            ->select('students.id', 'students.name', 'students.nim')
+            ->get();
+        
+        if (!empty($request['students_id'])) {
+            $student =  $student = DB::table('students')
+            ->where('students.id','=',$request['students_id'])
             ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
             ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
             ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
@@ -25,8 +32,21 @@ class StudentController extends Controller
             ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
             ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
             ->paginate(20);
-
-        return view('student.data', compact('student'));
+        } else {
+            $student = DB::table('students')
+            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
+            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
+            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
+            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
+            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
+            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
+            ->paginate(20);
+        }
+            
+        return view('student.data')->with([
+            'student' => $student,
+            'student_search' => $student_search,
+        ]);
     }
 
     public function create():View
