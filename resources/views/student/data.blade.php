@@ -17,11 +17,36 @@
 
                <button type="submit" class="btn btn-primary mb-2">Cari</button>
                </form>
-
-               @include('message.flash-message')
+               
                <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('student/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                </button>
+          </div>          
+          <div class="d-flex">
+          <form class="form-inline" action="{{ route('student.index') }}" method="GET">
+               <div class="mb-2 mr-sm-2">
+                    <select class="form-control my-custom-select1" name="prodi_search_id" id="prodi_search_id" data-live-search="true">
+                         <option value="">Pilih Program Studi</option>
+                         @foreach ($prodi_search as $prodi)
+                              <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
+                         @endforeach
+                    </select>
+               </div>
+               <div class="mb-2 mr-sm-2">
+                    <select class="form-control my-custom-select2" name="angkatan_search_id" id="angkatan_search_id" data-live-search="true">
+                         <option value="">Pilih Angkatan</option>
+                         @foreach ($angkatan_search as $angkatan)
+                              <option value="{{ $angkatan->force }}">{{ $angkatan->force }}</option>
+                         @endforeach
+                    </select>
+               </div>
+
+               <button type="submit" class="btn btn-primary mb-2">Cari</button>
+          </form>
+          </div>
+
+          <div class="d-flex">
+               @include('message.flash-message')
           </div>
      </div>
      <div class="card-body">
