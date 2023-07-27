@@ -33,17 +33,8 @@ class PerubahanModalController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-
-        if ($getDate[2] == 'month') {
-            $date = date('Y-m', strtotime('-1 month', strtotime($getDate[0])));
-        } else if ($getDate[2] == 'year') {
-            $date = date('Y', strtotime('-1 year', strtotime($getDate[0])));
-        }
-
-
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
-        $labaBerjalan = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
-        $labaTetap = $this->getLaba($getDate[2], $date, $accounting_group_laba);
+        $laba = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
 
         return view('report.perubahanmodal')->with([
             'modaldiAwal' => $results['modaldiAwal'],
@@ -51,8 +42,8 @@ class PerubahanModalController extends Controller
             'penguranganModal' => $results['penguranganModal'],
             'datepicker' => $getDate[1],
             'filter' => $getDate[2],
-            'labaBerjalan' => $labaBerjalan,
-            'labaDitahan' => $labaTetap,
+            'labaBerjalan' => $laba[1],
+            'labaDitahan' => $laba[0],
         ]);
     }
 
@@ -85,19 +76,9 @@ class PerubahanModalController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-
-        if ($getDate[2] == 'month') {
-            $date = date('Y-m', strtotime('-1 month', strtotime($getDate[0])));
-        } else if ($getDate[2] == 'year') {
-            $date = date('Y', strtotime('-1 year', strtotime($getDate[0])));
-        }
-
-
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
-        $labaBerjalan = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
-        $labaTetap = $this->getLaba($getDate[2], $date, $accounting_group_laba);
+        $laba = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
 
-        $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
 
         return view('report.printformat.perubahanmodal')->with([
             'modaldiAwal' => $results['modaldiAwal'],
@@ -106,8 +87,8 @@ class PerubahanModalController extends Controller
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
             'title' => "Laporan Perubahan Modal",
-            'labaBerjalan' => $labaBerjalan,
-            'labaDitahan' => $labaTetap,
+            'labaBerjalan' => $laba[1],
+            'labaDitahan' => $laba[0],
         ]);
 
     }
@@ -204,7 +185,29 @@ class PerubahanModalController extends Controller
 
     public function getLaba($filter, $date, $accounting_group)
     {
-        $laba = 0;
+        $labaBerjalan = 0;
+
+        if ($filter == 'year') {
+            $labaDitahan = HistoryReport::where('transaction_accounts_id', 9999)
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?',  $date . '-01')
+                    ->where('type', 'monthly')
+                    ->select('saldo')
+                    ->first();
+        
+        } else {
+           $labaDitahan = HistoryReport::where('transaction_accounts_id', 9999)
+                    ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', $date)
+                    ->where('type', 'monthly')
+                    ->select('saldo')
+                    ->first();
+        }
+
+        if (empty($labaDitahan)) {
+            $labaDitahan = 0;
+        } else{
+            $labaDitahan = $labaDitahan->saldo;
+        }
+        
         foreach ($accounting_group as $key => $value) {
             $getTransaction = $this->getTransaction($date, $filter, $value);
 
@@ -217,27 +220,16 @@ class PerubahanModalController extends Controller
                 $debit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'debit')->sum('amount');
                 $kredit = $getTransaction->where('transaction_accounts_id', $item->id)->where('type', 'kredit')->sum('amount');
 
-                $getHistory = $this->getHistory($filter, $item->id, $date);
-
-                if (!empty($getHistory)) {
-                    $saldo = $getHistory->saldo + ($kredit - $debit);
-                } else {
-                    $saldo = $kredit - $debit;
-                }
+                $saldo = $kredit - $debit;
 
                 if ($saldo != 0) {
-                    $laba += $saldo;
+                    $labaBerjalan += $saldo;
                 }
             }
 
-            $labaAkhir = $laba;
         }
+        $laba = [$labaDitahan, $labaBerjalan];
         
-
-
-
-
-
-        return $labaAkhir;
+        return $laba;
     }
 }

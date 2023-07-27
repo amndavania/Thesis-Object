@@ -67,7 +67,7 @@ class BukuBesarRekapController extends Controller
 
     public function getData($datepicker, $currentMonthYear)
     {
-        $transactionAccount = TransactionAccount::all();
+        $transactionAccount = TransactionAccount::where('name', '!=', 'labaDitahan')->get();
 
         if ($datepicker == $currentMonthYear) {
             $data = [];

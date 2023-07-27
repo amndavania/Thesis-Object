@@ -34,7 +34,7 @@ class SaveTransactionYearly extends Command
         $dateToday = Carbon::today();
         $year = $dateToday->subMonth()->format('Y');
 
-        $transaction_accounts = TransactionAccount::all();
+        $transaction_accounts = TransactionAccount::where('name', '!=', 'labaDitahan')->get();
         foreach ($transaction_accounts as $transaction_account) {
             $transactions = Transaction::whereRaw('DATE_FORMAT(created_at, "%Y") = ?', $year)
                     ->where('transaction_accounts_id', $transaction_account->id)

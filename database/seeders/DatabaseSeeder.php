@@ -79,6 +79,15 @@ class DatabaseSeeder extends Seeder
             'kredit' => 0,
             'debit' => 0,
         ]);
+        TransactionAccount::factory()->create([
+            'id' => 9999,
+            'name'=> 'labaDitahan',
+            'lajurSaldo'=> 'debit',
+            'lajurLaporan'=> 'neraca',
+            'description' => 'akun khusus',
+            'kredit' => 0,
+            'debit' => 0,
+        ]);
 
         // $groupTransactions = collect($accountingGroups)->map(function ($group) {
         //     return AccountingGroup::factory()->create($group);
