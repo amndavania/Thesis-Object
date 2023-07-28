@@ -67,11 +67,20 @@
                                 @elseif ($row['status'] == "Cuti")
                                     <span class="badge bg-dark">Cuti</span>
                                 @elseif ($row['status'] == "Tidak Aktif")
-                                    <span class="badge bg-danger">Tidak Aktif</span>
+                                    <span class="badge bg-danger">Tunda</span>
                                 @endif
                             </td>
                               <td>
-                                <div class="dropdown">
+                                @if ($row['status'] == "Tunda")
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Aktif'); setStatusText('Aktif')">Aktif</button>
+                                @elseif ($row['status'] == "Aktif")
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Tunda'); setStatusText('Tunda')">Tunda</button>
+                                @elseif ($row['status'] == "Tidak Aktif")
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Cuti'); setStatusText('Cuti')">Cuti</button>
+                                @elseif ($row['status'] == "Cuti")
+                                    <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Tidak Aktif'); setStatusText('Tunda')">Tunda</button>
+                                @endif
+                                {{-- <div class="dropdown">
                                     <button class="btn btn-sm btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Ubah Status
                                     </button>
@@ -86,7 +95,7 @@
                                         <a class="dropdown-item" href="#" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}', '{{ $row['id'] }}', 'Tidak Aktif'); setStatusText('Tidak Aktif')">Tidak Aktif</a>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                             </td>
                               {{-- <td>
                                 <button type="button" onclick="updateKrs('{{ $dpa->id }}', '{{ $row['lbs_id'] }}')" class="btn btn-sm btn-outline-danger">Ubah Status</button>
