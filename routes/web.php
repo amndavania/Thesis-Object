@@ -43,6 +43,8 @@ Route::get('/', function () {
         return redirect('/cekpembayaran');
     } elseif (Auth::user()->role == 'DPA'){
         return redirect('/daftar_mahasiswa');
+    } elseif (Auth::user()->role == 'akademik'){
+        return redirect('/dpa');
     } else {
         return redirect('/dashboard');
     }
@@ -92,11 +94,18 @@ Route::middleware('auth')->group(function () {
         Route::get('daftar_mahasiswa/export', [DpaController::class, 'export']);
     });
 
-    Route::middleware('admin:super admin')->group(function () {
+    Route::middleware('admin:super admin,akademik')->group(function () {
         Route::resource('faculty', FacultyController::class)->except(['show']);
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
         Route::resource('dpa', DpaController::class)->except(['show']);
+    });
+
+    Route::middleware('admin:super admin,akademik,admin keuangan')->group(function () {
         Route::resource('student', StudentController::class)->except(['show']);
+    });
+
+
+    Route::middleware('admin:super admin')->group(function () {
         Route::resource('student_type', StudentTypeController::class)->except(['show']);
 
         Route::get('examcard/show', [ExamCardController::class, 'show']);

@@ -29,6 +29,7 @@
                   <option>Role</option>
                   <option value="super admin">Super Admin</option>
                   <option value="admin keuangan">Admin Keuangan</option>
+                  <option value="akademik">Operator Akademik</option>
                </select>
               </div>
               <div class="input-group mb-3">
