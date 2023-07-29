@@ -316,4 +316,29 @@
     })
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('.my-custom-select1').select2();
+        $('.my-custom-select2').select2();
+        $('#prodi_search_id').on('change', function() {
+            var searchText = $(this).val().toLowerCase();
+            $('#prodi_search_id option').each(function() {
+                var optionText = $(this).text().toLowerCase();
+                var showOption = optionText.includes(searchText);
+                $(this).toggle(showOption);
+            });
+            $('.my-custom-select1').select2('destroy').select2();
+        });
 
+        $('#angkatan_search_id').on('change', function() {
+            var searchText = $(this).val().toLowerCase();
+            $('#angkatan_search_id option').each(function() {
+                var optionText = $(this).text().toLowerCase();
+                var showOption = optionText.includes(searchText);
+                $(this).toggle(showOption);
+            });
+            
+            $('.my-custom-select2').select2('destroy').select2();
+        });
+    });
+</script>

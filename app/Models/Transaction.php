@@ -20,6 +20,7 @@ class Transaction extends Model
         'amount',
         'type',
         'transaction_accounts_id',
+        'created_at',
     ];
 
     protected $hidden = [];

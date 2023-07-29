@@ -10,6 +10,7 @@ use App\Models\StudentType;
 use App\Models\Transaction;
 use App\Models\TransactionAccount;
 use App\Models\Ukt;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 
 class UktController extends Controller
@@ -39,6 +40,10 @@ class UktController extends Controller
      */
     public function store(UktCreateRequest $request)
     {
+        $created_at = Carbon::createFromFormat('Y-m-d', $request['created_at'])
+                        ->setTime(00,00,00);
+        $request['created_at'] = $created_at;
+
         $student_id = $request->students_id;
         $year = $request->year;
         $semester = $request->semester;

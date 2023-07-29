@@ -5,10 +5,48 @@
     <div class="card">
      <div class="card-header">
           <div class="d-flex">
-            @include('message.flash-message')
+               <form class="form-inline" action="{{ route('student.index') }}" method="GET">
+                <div class="mb-2 mr-sm-2" id="mahasiswaContainer">
+                    <select class="form-control selectpicker" name="students_id" id="students_id" data-live-search="true">
+                        <option value="">Pilih Mahasiswa</option>
+                        @foreach ($student_search as $search)
+                            <option value="{{ $search->id }}">{{ $search->nim . ' / ' . $search->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+               <button type="submit" class="btn btn-primary mb-2">Cari</button>
+               </form>
+               
                <button type="button" class="btn btn-sm btn-primary ml-auto p-2" onclick="window.location='{{ url('student/create') }}'">
                     <i class="fas fa-plus-circle"></i> Tambah Data
                </button>
+          </div>          
+          <div class="d-flex">
+          <form class="form-inline" action="{{ route('student.index') }}" method="GET">
+               <div class="mb-2 mr-sm-2">
+                    <select class="form-control my-custom-select1" name="prodi_search_id" id="prodi_search_id" data-live-search="true">
+                         <option value="">Pilih Program Studi</option>
+                         @foreach ($prodi_search as $prodi)
+                              <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
+                         @endforeach
+                    </select>
+               </div>
+               <div class="mb-2 mr-sm-2">
+                    <select class="form-control my-custom-select2" name="angkatan_search_id" id="angkatan_search_id" data-live-search="true">
+                         <option value="">Pilih Angkatan</option>
+                         @foreach ($angkatan_search as $angkatan)
+                              <option value="{{ $angkatan->force }}">{{ $angkatan->force }}</option>
+                         @endforeach
+                    </select>
+               </div>
+
+               <button type="submit" class="btn btn-primary mb-2">Cari</button>
+          </form>
+          </div>
+
+          <div class="d-flex">
+               @include('message.flash-message')
           </div>
      </div>
      <div class="card-body">
@@ -16,12 +54,10 @@
                <thead class="table-dark">
                     <tr>
                          <th>No</th>
-                         <td>Nama</td>
-                         <td>NIM</td>
-                         <td>Tahun Masuk</td>
-                         <td>Prodi</td>
-                         <td>DPA</td>
+                         <td>Mahasiwa</td>
+                         <td>Prodi dan DPA</td>
                          <td>Program</td>
+                         <td>Status Pembayaran</td>
                          <td>Aksi</td>
                     </tr>
                </thead>
@@ -32,12 +68,16 @@
                     @endphp
                          <tr>
                               <th>{{ $number }}</th>
-                              <td>{{ $row->name }}</td>
-                              <td>{{ $row->nim }}</td>
-                              <td>{{ $row->force }}</td>
-                              <td>{{ $row->studyprogram->name }}</td>
-                              <td>{{ $row->dpa->name }}</td>
-                              <td>{{ $row->studenttype->type }}</td>
+                              <td>
+                                   <p class="m-0">{{ $row->name }}</p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->force }} - {{ $row->nim }}</p>
+                              </td>
+                              <td>
+                                   <p class="m-0">{{ $row->study_program_name }}</p>
+                                   <p class="text-secondary text-sm m-0">{{ $row->dpas_name }}</p>
+                              </td>
+                              <td>{{ $row->student_type }}</td>
+                              <td><p class="text-secondary m-0">{{ $row->status ?: 'Belum ada data UKT' }}</p></td>
                               <td>
                                    <div class="d-flex">
                                         <button type="button" class="btn btn-sm btn-outline-dark m-1" onclick="window.location='{{ route('student.edit',$row->id) }}'">Edit</button>

@@ -25,7 +25,7 @@ class Student extends Model
 
     public function ukt(): HasMany
     {
-        return $this->hasMany(Ukt::class);
+        return $this->hasMany(Ukt::class, 'students_id');
     }
 
     public function dpa(): BelongsTo
