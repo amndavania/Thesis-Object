@@ -20,9 +20,8 @@ class PerubahanModalController extends Controller
         $getDate = $this->getDate($datepicker, $filter);
 
         $accounting_group = [
-            'modaldiAwal' => 17,
-            'penambahanModal' => 18,
-            'penguranganModal' => 19,
+            'modal' => 17,
+            'penguranganModal' => 18,
         ];
 
         $accounting_group_laba = [
@@ -37,8 +36,7 @@ class PerubahanModalController extends Controller
         $laba = $this->getLaba($getDate[2], $getDate[0], $accounting_group_laba);
 
         return view('report.perubahanmodal')->with([
-            'modaldiAwal' => $results['modaldiAwal'],
-            'penambahanModal' => $results['penambahanModal'],
+            'modal' => $results['modal'],
             'penguranganModal' => $results['penguranganModal'],
             'datepicker' => $getDate[1],
             'filter' => $getDate[2],
@@ -63,9 +61,8 @@ class PerubahanModalController extends Controller
         $getDate = $this->getDate($date, $filter);
         
         $accounting_group = [
-            'modaldiAwal' => 17,
-            'penambahanModal' => 18,
-            'penguranganModal' => 19,
+            'modal' => 17,
+            'penguranganModal' => 18,
         ];
 
         $accounting_group_laba = [
@@ -81,8 +78,7 @@ class PerubahanModalController extends Controller
 
 
         return view('report.printformat.perubahanmodal')->with([
-            'modaldiAwal' => $results['modaldiAwal'],
-            'penambahanModal' => $results['penambahanModal'],
+            'modal' => $results['modal'],
             'penguranganModal' => $results['penguranganModal'],
             'datepicker' => $getDate[1],
             'today' => date('d F Y', strtotime(date('Y-m-d'))),
@@ -172,7 +168,9 @@ class PerubahanModalController extends Controller
                 if ($saldo != 0) {
                     $summary[$item->id] = [
                         'name' => $item->name,
-                        'saldo' => $saldo
+                        'saldo' => $saldo,
+                        'penambahanSaldo' => ($debit - $kredit),
+                        'saldoAwal' => $getHistory->saldo,
                     ];
                 }
             }

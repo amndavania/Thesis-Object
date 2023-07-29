@@ -41,22 +41,22 @@
                 @php
                 $totalModalAwal = 0;
                 @endphp
-                     @foreach ($modaldiAwal as $accountId => $row)
+                     @foreach ($modal as $accountId => $row)
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                     @if ($row['saldo'] < 0)
-                                         (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                     @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                         Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                                 <td style="text-align: right; @if ($row['saldoAwal'] < 0) color: red; @endif">
+                                     @if ($row['saldoAwal'] < 0)
+                                         (Rp {{ number_format(abs($row['saldoAwal']), 2, ',', '.') }})
+                                     @elseif ($row['saldoAwal'] > 0 || $row['saldoAwal'] == 0)
+                                         Rp {{ number_format($row['saldoAwal'], 2, ',', '.') }}
                                      @else
                                          -
                                      @endif
                                  </td>
                           </tr>
                           @php
-                          $totalModalAwal += $row['saldo'];
+                          $totalModalAwal += $row['saldoAwal'];
                           @endphp
                      @endforeach
                      @php
@@ -100,22 +100,22 @@
                 @php
                 $totalPenambahanModal = 0;
                 @endphp
-                     @foreach ($penambahanModal as $accountId => $row)
+                     @foreach ($modal as $accountId => $row)
                           <tr>
                                <td style="text-align: center;">{{ $accountId }}</td>
                                <td>{{ $row['name'] }}</td>
-                                 <td style="text-align: right; @if ($row['saldo'] < 0) color: red; @endif">
-                                     @if ($row['saldo'] < 0)
-                                         (Rp {{ number_format(abs($row['saldo']), 2, ',', '.') }})
-                                     @elseif ($row['saldo'] > 0 || $row['saldo'] == 0)
-                                         Rp {{ number_format($row['saldo'], 2, ',', '.') }}
+                                 <td style="text-align: right; @if ($row['penambahanSaldo'] < 0) color: red; @endif">
+                                     @if ($row['penambahanSaldo'] < 0)
+                                         (Rp {{ number_format(abs($row['penambahanSaldo']), 2, ',', '.') }})
+                                     @elseif ($row['penambahanSaldo'] > 0 || $row['penambahanSaldo'] == 0)
+                                         Rp {{ number_format($row['penambahanSaldo'], 2, ',', '.') }}
                                      @else
                                          -
                                      @endif
                                  </td>
                           </tr>
                           @php
-                          $totalPenambahanModal += $row['saldo'];
+                          $totalPenambahanModal += $row['penambahanSaldo'];
                           @endphp
                      @endforeach
                 <tr>

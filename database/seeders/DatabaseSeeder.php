@@ -46,17 +46,13 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Utang Jangka Panjang', 'description' => 'grup akun utang jangka panjang'],
             ['name' => 'Modal', 'description' => 'grup akun modal'],
             // cashflow
-            ['name' => 'Arus Kas Masuk', 'description' => 'grup akun kas masuk'],
-            ['name' => 'Arus Kas Keluar', 'description' => 'grup akun kas keluar'],
-            ['name' => 'Penjualan Aset', 'description' => 'grup akun penjualan aset'],
-            ['name' => 'Pembelian Aset', 'description' => 'grup akun pembelian aset'],
+            ['name' => 'Arus Kas', 'description' => 'grup akun kas masuk dan keluar'],
+            ['name' => 'Aset', 'description' => 'grup akun pembelian dan penjualan aset'],
             ['name' => 'Penambahan Dana', 'description' => 'grup akun penambahan dana'],
             ['name' => 'Pengurangan Dana', 'description' => 'grup akun pengurangan dana'],
             // perubahan modal
-            ['name' => 'Modal di Awal', 'description' => 'grup akun modal di awal'],
-            ['name' => 'Penambahan Modal', 'description' => 'grup akun penambahan modal'],
+            ['name' => 'Modal', 'description' => 'grup akun modal di awal dan penambahan modal'],
             ['name' => 'Pengurangan Modal', 'description' => 'grup akun pengurangan modal'],
-            // ['name' => 'Bank', 'description' => 'grup akun bank'],
         ];
 
         // $transactionAccounts = TransactionAccount::factory()->count(58)->create();

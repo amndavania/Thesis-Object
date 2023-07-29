@@ -20,22 +20,18 @@ class CashFlowController extends Controller
         $getDate = $this->getDate($datepicker, $filter);
 
         $accounting_group = [
-            'arusKasMasuk' => 11,
-            'arusKasKeluar' => 12,
-            'penjualanAset' => 13,
-            'pembelianAset' => 14,
-            'penambahanDana' => 15,
-            'penguranganDana' => 16,
+            'arusKas' => 11,
+            'aset' => 12,
+            'penambahanDana' => 13,
+            'penguranganDana' => 14,
         ];
 
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
         $saldoAwal = $this->getSaldoAwal($getDate[2], $getDate[0]);
 
         return view('report.cashflow')->with([
-            'arusKasMasuk' => $results['arusKasMasuk'],
-            'arusKasKeluar' => $results['arusKasKeluar'],
-            'penjualanAset' => $results['penjualanAset'],
-            'pembelianAset' => $results['pembelianAset'],
+            'arusKas' => $results['arusKas'],
+            'aset' => $results['aset'],
             'penambahanDana' => $results['penambahanDana'],
             'penguranganDana' => $results['penguranganDana'],
             'datepicker' => $getDate[1],
@@ -61,22 +57,19 @@ class CashFlowController extends Controller
         $getDate = $this->getDate($date, $filter);
         
         $accounting_group = [
-            'arusKasMasuk' => 11,
-            'arusKasKeluar' => 12,
-            'penjualanAset' => 13,
-            'pembelianAset' => 14,
-            'penambahanDana' => 15,
-            'penguranganDana' => 16,
+            'arusKas' => 11,
+            'aset' => 12,
+            'penambahanDana' => 13,
+            'penguranganDana' => 14,
         ];
 
         $results = $this->setResults($getDate[2], $getDate[0], $accounting_group);
         $saldoAwal = $this->getSaldoAwal($getDate[2], $getDate[0]);
 
         return view('report.printformat.cashflow')->with([
-            'arusKasMasuk' => $results['arusKasMasuk'],
-            'arusKasKeluar' => $results['arusKasKeluar'],
-            'penjualanAset' => $results['penjualanAset'],
-            'pembelianAset' => $results['pembelianAset'],
+            'arusKas' => $results['arusKas'],
+            'aset' => $results['aset'],
+            
             'penambahanDana' => $results['penambahanDana'],
             'penguranganDana' => $results['penguranganDana'],
             'datepicker' => $getDate[1],
@@ -172,7 +165,9 @@ class CashFlowController extends Controller
 
                 $summary[$item->id] = [
                     'name' => $item->name,
-                    'saldo' => $saldo
+                    'saldo' => $saldo,
+                    'debit' => $debit,
+                    'kredit' => $kredit,
                 ];
             }
 
