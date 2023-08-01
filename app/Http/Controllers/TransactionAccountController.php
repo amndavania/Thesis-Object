@@ -97,7 +97,7 @@ class TransactionAccountController extends Controller
         $transaction = Transaction::where('transaction_accounts_id', $id)->exists();
         $history = HistoryReport::where('transaction_accounts_id', $id)->exists();
 
-        if ($id == 1130 || $id == 1120) {
+        if ($id == 1130 || $id == 1120 || $id == 9999) {
             return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi tidak dapat dihapus']);
         } elseif ($transaction) {
             return redirect()->route('transaction_account.index')->with(['warning' => 'Akun Transaksi sedang dipakai di Data Transaksi']);
