@@ -97,7 +97,7 @@ $maxWidth = [
           {{$modal_body}}
         </div>
         <div class="modal-footer">
-          {{$modal_footer}}
+          {{$modal_footer}}scale-100
         </div>
       </div>
       <!-- /.modal-content -->
