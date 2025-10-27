@@ -1,0 +1,3113 @@
+
+--- Control Dependencies (Grouped & Ordered by Controller) ---
+S88-S118
+S10 → S11
+  S10: if ($semester == "GASAL") {
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S10 → S12
+  S10: if ($semester == "GASAL") {
+  S12  : $yearPrevious = $year - 1;
+
+S10 → S13
+  S10: if ($semester == "GASAL") {
+  S13  : $semesterPrevious = "GENAP";
+
+S10 → S15
+  S10: if ($semester == "GASAL") {
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S10 → S16
+  S10: if ($semester == "GASAL") {
+  S16  : $yearPrevious = $year;
+
+S10 → S17
+  S10: if ($semester == "GASAL") {
+  S17  : $semesterPrevious = "GASAL";
+
+S14 → S15
+  S14: elseif ($semester == "GENAP") {
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S14 → S16
+  S14: elseif ($semester == "GENAP") {
+  S16  : $yearPrevious = $year;
+
+S14 → S17
+  S14: elseif ($semester == "GENAP") {
+  S17  : $semesterPrevious = "GASAL";
+
+S20 → S21
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S21  : return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi DPP terlebih dahulu']);
+
+S20 → S23
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S23  : return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi UKT semester lalu terlebih dahulu']);
+
+S20 → S24
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S24  : $user_id = $request->user()->id;
+
+S20 → S25
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S20 → S26
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S26  : $reference_number = $request->reference_number;
+
+S20 → S27
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S27  : $amount = $request->amount;
+
+S20 → S28
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S28  : $type = "debit";
+
+S20 → S29
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S29  : $transaction_accounts_id = 1130;
+
+S20 → S30
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S20 → S31
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S31  : $latestTransaction = Transaction::latest('id')->first();
+
+S20 → S32
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S32  : $request['transaction_debit_id'] = $latestTransaction->id;
+
+S20 → S33
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S20 → S34
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S20 → S35
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S35  : $amount = $request->amount;
+
+S20 → S36
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S36  : $type = "kredit";
+
+S20 → S37
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S37  : $transaction_accounts_id = 1120;
+
+S20 → S38
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S20 → S39
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S39  : $latestTransaction = Transaction::latest('id')->first();
+
+S20 → S40
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S40  : $request['transaction_kredit_id'] = $latestTransaction->id;
+
+S20 → S41
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S20 → S42
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S20 → S43
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S43  : $request['status'] = $setTotalStatus;
+
+S20 → S44
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S44  : $ukt = Ukt::create($request->all());
+
+S20 → S45
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S20 → S46
+  S20: if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+  S46  : return redirect()->route('ukt.index')->with(['success' => 'Data berhasil disimpan']);
+
+S22 → S23
+  S22: elseif ($semester_student != 1 && empty($statusUKT) || $semester_student != 1 && $statusUKT->status != "Lunas") {
+  S23  : return redirect()->route('ukt.index')->with(['error' => 'Harap lunasi UKT semester lalu terlebih dahulu']);
+
+S60 → S61
+  S60: if ($type == 'kredit') {
+  S61  : $ammount = $account->kredit;
+
+S60 → S62
+  S60: if ($type == 'kredit') {
+  S62  : $inputAmount = $ammount + $amount;
+
+S60 → S63
+  S60: if ($type == 'kredit') {
+  S63  : $account->fill(['kredit' => $inputAmount]);
+
+S60 → S64
+  S60: if ($type == 'kredit') {
+  S64  : 'kredit' => $inputAmount
+
+S60 → S66
+  S60: if ($type == 'kredit') {
+  S66  : $ammount = $account->debit;
+
+S60 → S67
+  S60: if ($type == 'kredit') {
+  S67  : $inputAmount = $ammount + $amount;
+
+S60 → S68
+  S60: if ($type == 'kredit') {
+  S68  : $account->fill(['debit' => $inputAmount]);
+
+S60 → S69
+  S60: if ($type == 'kredit') {
+  S69  : 'debit' => $inputAmount
+
+S65 → S66
+  S65: elseif ($type == 'debit') {
+  S66  : $ammount = $account->debit;
+
+S65 → S67
+  S65: elseif ($type == 'debit') {
+  S67  : $inputAmount = $ammount + $amount;
+
+S65 → S68
+  S65: elseif ($type == 'debit') {
+  S68  : $account->fill(['debit' => $inputAmount]);
+
+S65 → S69
+  S65: elseif ($type == 'debit') {
+  S69  : 'debit' => $inputAmount
+
+S80 → S81
+  S80: if ($payment_type == 'DPP') {
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S80 → S82
+  S80: if ($payment_type == 'DPP') {
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S80 → S84
+  S80: if ($payment_type == 'DPP') {
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S80 → S86
+  S80: if ($payment_type == 'DPP') {
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S83 → S84
+  S83: elseif ($payment_type == 'UKT') {
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S85 → S86
+  S85: elseif ($payment_type == 'WISUDA') {
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S89 → S90
+  S89: if ($payment_type !== "UKT") {
+  S90  : return;
+
+S96 → S98
+  S96: if ($status === "Lunas") {
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S96 → S99
+  S96: if ($status === "Lunas") {
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S96 → S100
+  S96: if ($status === "Lunas") {
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S96 → S102
+  S96: if ($status === "Lunas") {
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S96 → S104
+  S96: if ($status === "Lunas") {
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S96 → S107
+  S96: if ($status === "Lunas") {
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S96 → S108
+  S96: if ($status === "Lunas") {
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S96 → S110
+  S96: if ($status === "Lunas") {
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S96 → S111
+  S96: if ($status === "Lunas") {
+  S111  : $ukt->keterangan = 'Menunggu Dispensasi UAS';
+
+S96 → S114
+  S96: if ($status === "Lunas") {
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S96 → S115
+  S96: if ($status === "Lunas") {
+  S115  : $ukt->keterangan = 'Menunggu Dispensasi UTS';
+
+S96 → S117
+  S96: if ($status === "Lunas") {
+  S117  : $ukt->keterangan = 'Menunggu Dispensasi KRS';
+
+S97 → S98
+  S97: if (!$bimbinganExists) {
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S101 → S102
+  S101: if (!$examUTSExists) {
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S103 → S104
+  S103: if (!$examUASExists) {
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S105 → S107
+  S105: elseif ($status === "Lunas UTS") {
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S105 → S108
+  S105: elseif ($status === "Lunas UTS") {
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S105 → S110
+  S105: elseif ($status === "Lunas UTS") {
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S105 → S111
+  S105: elseif ($status === "Lunas UTS") {
+  S111  : $ukt->keterangan = 'Menunggu Dispensasi UAS';
+
+S106 → S107
+  S106: if (!$bimbinganExists) {
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S109 → S110
+  S109: if (!$examUTSExists) {
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S109 → S111
+  S109: if (!$examUTSExists) {
+  S111  : $ukt->keterangan = 'Menunggu Dispensasi UAS';
+
+S112 → S114
+  S112: elseif ($status === "Lunas KRS") {
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S112 → S115
+  S112: elseif ($status === "Lunas KRS") {
+  S115  : $ukt->keterangan = 'Menunggu Dispensasi UTS';
+
+S113 → S114
+  S113: if (!$bimbinganExists) {
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S113 → S115
+  S113: if (!$bimbinganExists) {
+  S115  : $ukt->keterangan = 'Menunggu Dispensasi UTS';
+
+S116 → S117
+  S116: elseif ($status === "Belum Lunas") {
+  S117  : $ukt->keterangan = 'Menunggu Dispensasi KRS';
+
+
+--- Data Dependencies (Grouped & Ordered by Definer) ---
+S1 → S2 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S2  : $created_at = Carbon::createFromFormat('Y-m-d', $request['created_at'])->setTime(00, 00, 00);
+
+S1 → S3 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S3  : $request['created_at'] = $created_at;
+
+S1 → S4 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S4  : $student_id = $request->students_id;
+
+S1 → S5 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S5  : $year = $request->year;
+
+S1 → S6 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S6  : $semester = $request->semester;
+
+S1 → S7 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S7  : $payment_type = $request->type;
+
+S1 → S8 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S8  : $amount = $request->amount;
+
+S1 → S9 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S9  : $studentData = $this->getStudentData($request->students_id);
+
+S1 → S24 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S24  : $user_id = $request->user()->id;
+
+S1 → S25 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S1 → S26 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S26  : $reference_number = $request->reference_number;
+
+S1 → S27 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S27  : $amount = $request->amount;
+
+S1 → S32 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S32  : $request['transaction_debit_id'] = $latestTransaction->id;
+
+S1 → S34 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S1 → S35 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S35  : $amount = $request->amount;
+
+S1 → S40 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S40  : $request['transaction_kredit_id'] = $latestTransaction->id;
+
+S1 → S43 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S43  : $request['status'] = $setTotalStatus;
+
+S1 → S44 [$request]
+  S1: public function store(UktCreateRequest $request)
+  S44  : $ukt = Ukt::create($request->all());
+
+S2 → S3 [$created_at]
+  S2: $created_at = Carbon::createFromFormat('Y-m-d', $request['created_at'])->setTime(00, 00, 00);
+  S3  : $request['created_at'] = $created_at;
+
+S4 → S18 [$student_id]
+  S4: $student_id = $request->students_id;
+  S18  : $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+
+S4 → S19 [$student_id]
+  S4: $student_id = $request->students_id;
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S4 → S42 [$student_id]
+  S4: $student_id = $request->students_id;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S4 → S72 [$student_id]
+  S4: $student_id = $request->students_id;
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S4 → S78 [$student_id]
+  S4: $student_id = $request->students_id;
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S4 → S81 [$student_id]
+  S4: $student_id = $request->students_id;
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S4 → S120 [$student_id]
+  S4: $student_id = $request->students_id;
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S4 → S121 [$student_id]
+  S4: $student_id = $request->students_id;
+  S121  : 'students_id' => $student_id
+
+S4 → S126 [$student_id]
+  S4: $student_id = $request->students_id;
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S4 → S129 [$student_id]
+  S4: $student_id = $request->students_id;
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S4 → S130 [$student_id]
+  S4: $student_id = $request->students_id;
+  S130  : 'students_id' => $student_id
+
+S4 → S134 [$student_id]
+  S4: $student_id = $request->students_id;
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S5 → S11 [$year]
+  S5: $year = $request->year;
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S5 → S12 [$year]
+  S5: $year = $request->year;
+  S12  : $yearPrevious = $year - 1;
+
+S5 → S15 [$year]
+  S5: $year = $request->year;
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S5 → S16 [$year]
+  S5: $year = $request->year;
+  S16  : $yearPrevious = $year;
+
+S5 → S42 [$year]
+  S5: $year = $request->year;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S5 → S45 [$year]
+  S5: $year = $request->year;
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S5 → S78 [$year]
+  S5: $year = $request->year;
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S5 → S81 [$year]
+  S5: $year = $request->year;
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S5 → S95 [$year]
+  S5: $year = $request->year;
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S5 → S98 [$year]
+  S5: $year = $request->year;
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S5 → S102 [$year]
+  S5: $year = $request->year;
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S5 → S104 [$year]
+  S5: $year = $request->year;
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S5 → S107 [$year]
+  S5: $year = $request->year;
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S5 → S110 [$year]
+  S5: $year = $request->year;
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S5 → S114 [$year]
+  S5: $year = $request->year;
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S5 → S120 [$year]
+  S5: $year = $request->year;
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S5 → S124 [$year]
+  S5: $year = $request->year;
+  S124  : 'year' => $year
+
+S5 → S129 [$year]
+  S5: $year = $request->year;
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S5 → S131 [$year]
+  S5: $year = $request->year;
+  S131  : 'year' => $year
+
+S6 → S10 [$semester]
+  S6: $semester = $request->semester;
+  S10  : if ($semester == "GASAL") {
+
+S6 → S14 [$semester]
+  S6: $semester = $request->semester;
+  S14  : elseif ($semester == "GENAP") {
+
+S6 → S42 [$semester]
+  S6: $semester = $request->semester;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S6 → S45 [$semester]
+  S6: $semester = $request->semester;
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S6 → S78 [$semester]
+  S6: $semester = $request->semester;
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S6 → S95 [$semester]
+  S6: $semester = $request->semester;
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S6 → S98 [$semester]
+  S6: $semester = $request->semester;
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S6 → S99 [$semester]
+  S6: $semester = $request->semester;
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S6 → S100 [$semester]
+  S6: $semester = $request->semester;
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S6 → S102 [$semester]
+  S6: $semester = $request->semester;
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S6 → S104 [$semester]
+  S6: $semester = $request->semester;
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S6 → S107 [$semester]
+  S6: $semester = $request->semester;
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S6 → S108 [$semester]
+  S6: $semester = $request->semester;
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S6 → S110 [$semester]
+  S6: $semester = $request->semester;
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S6 → S114 [$semester]
+  S6: $semester = $request->semester;
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S6 → S120 [$semester]
+  S6: $semester = $request->semester;
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S6 → S123 [$semester]
+  S6: $semester = $request->semester;
+  S123  : 'semester' => $semester
+
+S6 → S126 [$semester]
+  S6: $semester = $request->semester;
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S6 → S129 [$semester]
+  S6: $semester = $request->semester;
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S6 → S132 [$semester]
+  S6: $semester = $request->semester;
+  S132  : 'semester' => $semester
+
+S6 → S134 [$semester]
+  S6: $semester = $request->semester;
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S7 → S42 [$payment_type]
+  S7: $payment_type = $request->type;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S7 → S45 [$payment_type]
+  S7: $payment_type = $request->type;
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S7 → S78 [$payment_type]
+  S7: $payment_type = $request->type;
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S7 → S80 [$payment_type]
+  S7: $payment_type = $request->type;
+  S80  : if ($payment_type == 'DPP') {
+
+S7 → S81 [$payment_type]
+  S7: $payment_type = $request->type;
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S7 → S82 [$payment_type]
+  S7: $payment_type = $request->type;
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S7 → S83 [$payment_type]
+  S7: $payment_type = $request->type;
+  S83  : elseif ($payment_type == 'UKT') {
+
+S7 → S84 [$payment_type]
+  S7: $payment_type = $request->type;
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S7 → S85 [$payment_type]
+  S7: $payment_type = $request->type;
+  S85  : elseif ($payment_type == 'WISUDA') {
+
+S7 → S86 [$payment_type]
+  S7: $payment_type = $request->type;
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S7 → S89 [$payment_type]
+  S7: $payment_type = $request->type;
+  S89  : if ($payment_type !== "UKT") {
+
+S8 → S27 [$amount]
+  S8: $amount = $request->amount;
+  S27  : $amount = $request->amount;
+
+S8 → S30 [$amount]
+  S8: $amount = $request->amount;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S8 → S33 [$amount]
+  S8: $amount = $request->amount;
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S8 → S35 [$amount]
+  S8: $amount = $request->amount;
+  S35  : $amount = $request->amount;
+
+S8 → S38 [$amount]
+  S8: $amount = $request->amount;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S8 → S41 [$amount]
+  S8: $amount = $request->amount;
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S8 → S42 [$amount]
+  S8: $amount = $request->amount;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S8 → S48 [$amount]
+  S8: $amount = $request->amount;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S8 → S52 [$amount]
+  S8: $amount = $request->amount;
+  S52  : 'amount' => $amount
+
+S8 → S62 [$amount]
+  S8: $amount = $request->amount;
+  S62  : $inputAmount = $ammount + $amount;
+
+S8 → S67 [$amount]
+  S8: $amount = $request->amount;
+  S67  : $inputAmount = $ammount + $amount;
+
+S9 → S11 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S9 → S15 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S9 → S25 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S9 → S34 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S9 → S42 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S9 → S45 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S9 → S91 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S91  : $student = $studentData[0];
+
+S9 → S92 [$studentData]
+  S9: $studentData = $this->getStudentData($request->students_id);
+  S92  : $studentType = $studentData[1];
+
+S11 → S15 [$semester_student]
+  S11: $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S11 → S20 [$semester_student]
+  S11: $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+  S20  : if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+
+S11 → S22 [$semester_student]
+  S11: $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+  S22  : elseif ($semester_student != 1 && empty($statusUKT) || $semester_student != 1 && $statusUKT->status != "Lunas") {
+
+S12 → S16 [$yearPrevious]
+  S12: $yearPrevious = $year - 1;
+  S16  : $yearPrevious = $year;
+
+S12 → S19 [$yearPrevious]
+  S12: $yearPrevious = $year - 1;
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S13 → S17 [$semesterPrevious]
+  S13: $semesterPrevious = "GENAP";
+  S17  : $semesterPrevious = "GASAL";
+
+S13 → S19 [$semesterPrevious]
+  S13: $semesterPrevious = "GENAP";
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S15 → S11 [$semester_student]
+  S15: $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S15 → S20 [$semester_student]
+  S15: $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+  S20  : if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+
+S15 → S22 [$semester_student]
+  S15: $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+  S22  : elseif ($semester_student != 1 && empty($statusUKT) || $semester_student != 1 && $statusUKT->status != "Lunas") {
+
+S16 → S12 [$yearPrevious]
+  S16: $yearPrevious = $year;
+  S12  : $yearPrevious = $year - 1;
+
+S16 → S19 [$yearPrevious]
+  S16: $yearPrevious = $year;
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S17 → S13 [$semesterPrevious]
+  S17: $semesterPrevious = "GASAL";
+  S13  : $semesterPrevious = "GENAP";
+
+S17 → S19 [$semesterPrevious]
+  S17: $semesterPrevious = "GASAL";
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S18 → S20 [$statusDPP]
+  S18: $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+  S20  : if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+
+S19 → S22 [$statusUKT]
+  S19: $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+  S22  : elseif ($semester_student != 1 && empty($statusUKT) || $semester_student != 1 && $statusUKT->status != "Lunas") {
+
+S24 → S30 [$user_id]
+  S24: $user_id = $request->user()->id;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S24 → S38 [$user_id]
+  S24: $user_id = $request->user()->id;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S24 → S48 [$user_id]
+  S24: $user_id = $request->user()->id;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S24 → S49 [$user_id]
+  S24: $user_id = $request->user()->id;
+  S49  : 'user_id' => $user_id
+
+S25 → S30 [$description]
+  S25: $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S25 → S34 [$description]
+  S25: $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S25 → S38 [$description]
+  S25: $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S25 → S48 [$description]
+  S25: $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S25 → S50 [$description]
+  S25: $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S50  : 'description' => $description
+
+S26 → S30 [$reference_number]
+  S26: $reference_number = $request->reference_number;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S26 → S38 [$reference_number]
+  S26: $reference_number = $request->reference_number;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S26 → S48 [$reference_number]
+  S26: $reference_number = $request->reference_number;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S26 → S51 [$reference_number]
+  S26: $reference_number = $request->reference_number;
+  S51  : 'reference_number' => $reference_number
+
+S27 → S8 [$amount]
+  S27: $amount = $request->amount;
+  S8  : $amount = $request->amount;
+
+S27 → S30 [$amount]
+  S27: $amount = $request->amount;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S27 → S33 [$amount]
+  S27: $amount = $request->amount;
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S27 → S35 [$amount]
+  S27: $amount = $request->amount;
+  S35  : $amount = $request->amount;
+
+S27 → S38 [$amount]
+  S27: $amount = $request->amount;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S27 → S41 [$amount]
+  S27: $amount = $request->amount;
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S27 → S42 [$amount]
+  S27: $amount = $request->amount;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S27 → S48 [$amount]
+  S27: $amount = $request->amount;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S27 → S52 [$amount]
+  S27: $amount = $request->amount;
+  S52  : 'amount' => $amount
+
+S27 → S62 [$amount]
+  S27: $amount = $request->amount;
+  S62  : $inputAmount = $ammount + $amount;
+
+S27 → S67 [$amount]
+  S27: $amount = $request->amount;
+  S67  : $inputAmount = $ammount + $amount;
+
+S28 → S30 [$type]
+  S28: $type = "debit";
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S28 → S33 [$type]
+  S28: $type = "debit";
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S28 → S36 [$type]
+  S28: $type = "debit";
+  S36  : $type = "kredit";
+
+S28 → S38 [$type]
+  S28: $type = "debit";
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S28 → S41 [$type]
+  S28: $type = "debit";
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S28 → S48 [$type]
+  S28: $type = "debit";
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S28 → S53 [$type]
+  S28: $type = "debit";
+  S53  : 'type' => $type
+
+S28 → S60 [$type]
+  S28: $type = "debit";
+  S60  : if ($type == 'kredit') {
+
+S28 → S65 [$type]
+  S28: $type = "debit";
+  S65  : elseif ($type == 'debit') {
+
+S28 → S120 [$type]
+  S28: $type = "debit";
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S28 → S122 [$type]
+  S28: $type = "debit";
+  S122  : 'type' => $type
+
+S28 → S126 [$type]
+  S28: $type = "debit";
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S29 → S30 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S29 → S33 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S29 → S37 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S37  : $transaction_accounts_id = 1120;
+
+S29 → S38 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S29 → S41 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S29 → S48 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S29 → S54 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S54  : 'transaction_accounts_id' => $transaction_accounts_id
+
+S29 → S59 [$transaction_accounts_id]
+  S29: $transaction_accounts_id = 1130;
+  S59  : $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+S31 → S32 [$latestTransaction]
+  S31: $latestTransaction = Transaction::latest('id')->first();
+  S32  : $request['transaction_debit_id'] = $latestTransaction->id;
+
+S31 → S39 [$latestTransaction]
+  S31: $latestTransaction = Transaction::latest('id')->first();
+  S39  : $latestTransaction = Transaction::latest('id')->first();
+
+S31 → S40 [$latestTransaction]
+  S31: $latestTransaction = Transaction::latest('id')->first();
+  S40  : $request['transaction_kredit_id'] = $latestTransaction->id;
+
+S34 → S25 [$description]
+  S34: $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S34 → S30 [$description]
+  S34: $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S34 → S38 [$description]
+  S34: $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S34 → S48 [$description]
+  S34: $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S34 → S50 [$description]
+  S34: $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+  S50  : 'description' => $description
+
+S35 → S8 [$amount]
+  S35: $amount = $request->amount;
+  S8  : $amount = $request->amount;
+
+S35 → S27 [$amount]
+  S35: $amount = $request->amount;
+  S27  : $amount = $request->amount;
+
+S35 → S30 [$amount]
+  S35: $amount = $request->amount;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S35 → S33 [$amount]
+  S35: $amount = $request->amount;
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S35 → S38 [$amount]
+  S35: $amount = $request->amount;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S35 → S41 [$amount]
+  S35: $amount = $request->amount;
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S35 → S42 [$amount]
+  S35: $amount = $request->amount;
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S35 → S48 [$amount]
+  S35: $amount = $request->amount;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S35 → S52 [$amount]
+  S35: $amount = $request->amount;
+  S52  : 'amount' => $amount
+
+S35 → S62 [$amount]
+  S35: $amount = $request->amount;
+  S62  : $inputAmount = $ammount + $amount;
+
+S35 → S67 [$amount]
+  S35: $amount = $request->amount;
+  S67  : $inputAmount = $ammount + $amount;
+
+S36 → S28 [$type]
+  S36: $type = "kredit";
+  S28  : $type = "debit";
+
+S36 → S30 [$type]
+  S36: $type = "kredit";
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S36 → S33 [$type]
+  S36: $type = "kredit";
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S36 → S38 [$type]
+  S36: $type = "kredit";
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S36 → S41 [$type]
+  S36: $type = "kredit";
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S36 → S48 [$type]
+  S36: $type = "kredit";
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S36 → S53 [$type]
+  S36: $type = "kredit";
+  S53  : 'type' => $type
+
+S36 → S60 [$type]
+  S36: $type = "kredit";
+  S60  : if ($type == 'kredit') {
+
+S36 → S65 [$type]
+  S36: $type = "kredit";
+  S65  : elseif ($type == 'debit') {
+
+S36 → S120 [$type]
+  S36: $type = "kredit";
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S36 → S122 [$type]
+  S36: $type = "kredit";
+  S122  : 'type' => $type
+
+S36 → S126 [$type]
+  S36: $type = "kredit";
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S37 → S29 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S29  : $transaction_accounts_id = 1130;
+
+S37 → S30 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S37 → S33 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S37 → S38 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S37 → S41 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S37 → S48 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S37 → S54 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S54  : 'transaction_accounts_id' => $transaction_accounts_id
+
+S37 → S59 [$transaction_accounts_id]
+  S37: $transaction_accounts_id = 1120;
+  S59  : $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+S39 → S31 [$latestTransaction]
+  S39: $latestTransaction = Transaction::latest('id')->first();
+  S31  : $latestTransaction = Transaction::latest('id')->first();
+
+S39 → S32 [$latestTransaction]
+  S39: $latestTransaction = Transaction::latest('id')->first();
+  S32  : $request['transaction_debit_id'] = $latestTransaction->id;
+
+S39 → S40 [$latestTransaction]
+  S39: $latestTransaction = Transaction::latest('id')->first();
+  S40  : $request['transaction_kredit_id'] = $latestTransaction->id;
+
+S42 → S43 [$setTotalStatus]
+  S42: $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+  S43  : $request['status'] = $setTotalStatus;
+
+S42 → S45 [$setTotalStatus]
+  S42: $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S44 → S45 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S44 → S98 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S44 → S102 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S44 → S104 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S44 → S107 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S44 → S110 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S44 → S111 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S111  : $ukt->keterangan = 'Menunggu Dispensasi UAS';
+
+S44 → S114 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S44 → S115 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S115  : $ukt->keterangan = 'Menunggu Dispensasi UTS';
+
+S44 → S117 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S117  : $ukt->keterangan = 'Menunggu Dispensasi KRS';
+
+S44 → S118 [$ukt]
+  S44: $ukt = Ukt::create($request->all());
+  S118  : $ukt->save();
+
+S47 → S8 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S8  : $amount = $request->amount;
+
+S47 → S24 [$user_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S24  : $user_id = $request->user()->id;
+
+S47 → S25 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S47 → S26 [$reference_number]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S26  : $reference_number = $request->reference_number;
+
+S47 → S27 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S27  : $amount = $request->amount;
+
+S47 → S28 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S28  : $type = "debit";
+
+S47 → S29 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S29  : $transaction_accounts_id = 1130;
+
+S47 → S30 [$user_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S30 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S30 [$reference_number]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S30 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S30 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S30 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S33 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S33 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S33 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S34 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S47 → S35 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S35  : $amount = $request->amount;
+
+S47 → S36 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S36  : $type = "kredit";
+
+S47 → S37 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S37  : $transaction_accounts_id = 1120;
+
+S47 → S38 [$user_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S38 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S38 [$reference_number]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S38 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S38 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S38 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S47 → S41 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S41 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S41 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S47 → S42 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S47 → S48 [$user_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S48 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S48 [$reference_number]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S48 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S48 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S48 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S47 → S49 [$user_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S49  : 'user_id' => $user_id
+
+S47 → S50 [$description]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S50  : 'description' => $description
+
+S47 → S51 [$reference_number]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S51  : 'reference_number' => $reference_number
+
+S47 → S52 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S52  : 'amount' => $amount
+
+S47 → S53 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S53  : 'type' => $type
+
+S47 → S54 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S54  : 'transaction_accounts_id' => $transaction_accounts_id
+
+S47 → S59 [$transaction_accounts_id]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S59  : $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+S47 → S60 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S60  : if ($type == 'kredit') {
+
+S47 → S62 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S62  : $inputAmount = $ammount + $amount;
+
+S47 → S65 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S65  : elseif ($type == 'debit') {
+
+S47 → S67 [$amount]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S67  : $inputAmount = $ammount + $amount;
+
+S47 → S120 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S47 → S122 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S122  : 'type' => $type
+
+S47 → S126 [$type]
+  S47: public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S55 → S56 [$transaction_id]
+  S55: public function deleteTransaction($transaction_id)
+  S56  : $transaction = Transaction::where('id', $transaction_id)->first();
+
+S56 → S57 [$transaction]
+  S56: $transaction = Transaction::where('id', $transaction_id)->first();
+  S57  : $transaction->delete();
+
+S58 → S8 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S8  : $amount = $request->amount;
+
+S58 → S27 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S27  : $amount = $request->amount;
+
+S58 → S28 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S28  : $type = "debit";
+
+S58 → S29 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S29  : $transaction_accounts_id = 1130;
+
+S58 → S30 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S30 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S30 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S33 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S33 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S33 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S35 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S35  : $amount = $request->amount;
+
+S58 → S36 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S36  : $type = "kredit";
+
+S58 → S37 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S37  : $transaction_accounts_id = 1120;
+
+S58 → S38 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S38 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S38 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S58 → S41 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S41 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S41 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S58 → S42 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S58 → S48 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S58 → S48 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S58 → S48 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S58 → S52 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S52  : 'amount' => $amount
+
+S58 → S53 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S53  : 'type' => $type
+
+S58 → S54 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S54  : 'transaction_accounts_id' => $transaction_accounts_id
+
+S58 → S59 [$transaction_accounts_id]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S59  : $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+S58 → S60 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S60  : if ($type == 'kredit') {
+
+S58 → S62 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S62  : $inputAmount = $ammount + $amount;
+
+S58 → S65 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S65  : elseif ($type == 'debit') {
+
+S58 → S67 [$amount]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S67  : $inputAmount = $ammount + $amount;
+
+S58 → S120 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S58 → S122 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S122  : 'type' => $type
+
+S58 → S126 [$type]
+  S58: public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S59 → S61 [$account]
+  S59: $account = TransactionAccount::findOrFail($transaction_accounts_id);
+  S61  : $ammount = $account->kredit;
+
+S59 → S63 [$account]
+  S59: $account = TransactionAccount::findOrFail($transaction_accounts_id);
+  S63  : $account->fill(['kredit' => $inputAmount]);
+
+S59 → S66 [$account]
+  S59: $account = TransactionAccount::findOrFail($transaction_accounts_id);
+  S66  : $ammount = $account->debit;
+
+S59 → S68 [$account]
+  S59: $account = TransactionAccount::findOrFail($transaction_accounts_id);
+  S68  : $account->fill(['debit' => $inputAmount]);
+
+S59 → S70 [$account]
+  S59: $account = TransactionAccount::findOrFail($transaction_accounts_id);
+  S70  : $account->save();
+
+S61 → S62 [$ammount]
+  S61: $ammount = $account->kredit;
+  S62  : $inputAmount = $ammount + $amount;
+
+S61 → S66 [$ammount]
+  S61: $ammount = $account->kredit;
+  S66  : $ammount = $account->debit;
+
+S61 → S67 [$ammount]
+  S61: $ammount = $account->kredit;
+  S67  : $inputAmount = $ammount + $amount;
+
+S62 → S63 [$inputAmount]
+  S62: $inputAmount = $ammount + $amount;
+  S63  : $account->fill(['kredit' => $inputAmount]);
+
+S62 → S64 [$inputAmount]
+  S62: $inputAmount = $ammount + $amount;
+  S64  : 'kredit' => $inputAmount
+
+S62 → S67 [$inputAmount]
+  S62: $inputAmount = $ammount + $amount;
+  S67  : $inputAmount = $ammount + $amount;
+
+S62 → S68 [$inputAmount]
+  S62: $inputAmount = $ammount + $amount;
+  S68  : $account->fill(['debit' => $inputAmount]);
+
+S62 → S69 [$inputAmount]
+  S62: $inputAmount = $ammount + $amount;
+  S69  : 'debit' => $inputAmount
+
+S66 → S61 [$ammount]
+  S66: $ammount = $account->debit;
+  S61  : $ammount = $account->kredit;
+
+S66 → S62 [$ammount]
+  S66: $ammount = $account->debit;
+  S62  : $inputAmount = $ammount + $amount;
+
+S66 → S67 [$ammount]
+  S66: $ammount = $account->debit;
+  S67  : $inputAmount = $ammount + $amount;
+
+S67 → S62 [$inputAmount]
+  S67: $inputAmount = $ammount + $amount;
+  S62  : $inputAmount = $ammount + $amount;
+
+S67 → S63 [$inputAmount]
+  S67: $inputAmount = $ammount + $amount;
+  S63  : $account->fill(['kredit' => $inputAmount]);
+
+S67 → S64 [$inputAmount]
+  S67: $inputAmount = $ammount + $amount;
+  S64  : 'kredit' => $inputAmount
+
+S67 → S68 [$inputAmount]
+  S67: $inputAmount = $ammount + $amount;
+  S68  : $account->fill(['debit' => $inputAmount]);
+
+S67 → S69 [$inputAmount]
+  S67: $inputAmount = $ammount + $amount;
+  S69  : 'debit' => $inputAmount
+
+S71 → S4 [$student_id]
+  S71: public function getStudentData($student_id)
+  S4  : $student_id = $request->students_id;
+
+S71 → S18 [$student_id]
+  S71: public function getStudentData($student_id)
+  S18  : $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+
+S71 → S19 [$student_id]
+  S71: public function getStudentData($student_id)
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S71 → S42 [$student_id]
+  S71: public function getStudentData($student_id)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S71 → S72 [$student_id]
+  S71: public function getStudentData($student_id)
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S71 → S78 [$student_id]
+  S71: public function getStudentData($student_id)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S71 → S81 [$student_id]
+  S71: public function getStudentData($student_id)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S71 → S120 [$student_id]
+  S71: public function getStudentData($student_id)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S71 → S121 [$student_id]
+  S71: public function getStudentData($student_id)
+  S121  : 'students_id' => $student_id
+
+S71 → S126 [$student_id]
+  S71: public function getStudentData($student_id)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S71 → S129 [$student_id]
+  S71: public function getStudentData($student_id)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S71 → S130 [$student_id]
+  S71: public function getStudentData($student_id)
+  S130  : 'students_id' => $student_id
+
+S71 → S134 [$student_id]
+  S71: public function getStudentData($student_id)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S72 → S73 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S73  : $student_type = StudentType::where('id', $student->student_types_id)->first();
+
+S72 → S74 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S74  : return [$student, $student_type];
+
+S72 → S75 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S75  : $student
+
+S72 → S91 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S91  : $student = $studentData[0];
+
+S72 → S95 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S72 → S98 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S72 → S99 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S72 → S100 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S72 → S102 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S72 → S104 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S72 → S107 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S72 → S108 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S72 → S110 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S72 → S114 [$student]
+  S72: $student = Student::where('id', $student_id)->first();
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S73 → S74 [$student_type]
+  S73: $student_type = StudentType::where('id', $student->student_types_id)->first();
+  S74  : return [$student, $student_type];
+
+S73 → S76 [$student_type]
+  S73: $student_type = StudentType::where('id', $student->student_types_id)->first();
+  S76  : $student_type
+
+S73 → S82 [$student_type]
+  S73: $student_type = StudentType::where('id', $student->student_types_id)->first();
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S73 → S84 [$student_type]
+  S73: $student_type = StudentType::where('id', $student->student_types_id)->first();
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S73 → S86 [$student_type]
+  S73: $student_type = StudentType::where('id', $student->student_types_id)->first();
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S77 → S4 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S4  : $student_id = $request->students_id;
+
+S77 → S5 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S5  : $year = $request->year;
+
+S77 → S6 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S6  : $semester = $request->semester;
+
+S77 → S7 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S7  : $payment_type = $request->type;
+
+S77 → S10 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S10  : if ($semester == "GASAL") {
+
+S77 → S11 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S77 → S12 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S12  : $yearPrevious = $year - 1;
+
+S77 → S14 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S14  : elseif ($semester == "GENAP") {
+
+S77 → S15 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S77 → S16 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S16  : $yearPrevious = $year;
+
+S77 → S18 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S18  : $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+
+S77 → S19 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S77 → S42 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S77 → S42 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S77 → S42 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S77 → S42 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S77 → S45 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S77 → S45 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S77 → S45 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S77 → S72 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S77 → S73 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S73  : $student_type = StudentType::where('id', $student->student_types_id)->first();
+
+S77 → S74 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S74  : return [$student, $student_type];
+
+S77 → S76 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S76  : $student_type
+
+S77 → S78 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S77 → S78 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S77 → S78 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S77 → S78 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S77 → S79 [$nominal]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S79  : $totalPayment = $payment->sum('amount') + $nominal;
+
+S77 → S80 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S80  : if ($payment_type == 'DPP') {
+
+S77 → S81 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S77 → S81 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S77 → S81 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S77 → S82 [$nominal]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S77 → S82 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S77 → S82 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S77 → S83 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S83  : elseif ($payment_type == 'UKT') {
+
+S77 → S84 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S77 → S84 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S77 → S85 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S85  : elseif ($payment_type == 'WISUDA') {
+
+S77 → S86 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S77 → S86 [$student_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S77 → S89 [$payment_type]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S89  : if ($payment_type !== "UKT") {
+
+S77 → S95 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S77 → S95 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S77 → S98 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S98 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S99 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S77 → S100 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S77 → S102 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S77 → S102 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S77 → S104 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S77 → S104 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S77 → S107 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S107 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S108 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S77 → S110 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S77 → S110 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S77 → S114 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S114 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S77 → S120 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S77 → S120 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S77 → S120 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S77 → S121 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S121  : 'students_id' => $student_id
+
+S77 → S123 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S123  : 'semester' => $semester
+
+S77 → S124 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S124  : 'year' => $year
+
+S77 → S126 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S77 → S126 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S77 → S129 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S77 → S129 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S77 → S129 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S77 → S130 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S130  : 'students_id' => $student_id
+
+S77 → S131 [$year]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S131  : 'year' => $year
+
+S77 → S132 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S132  : 'semester' => $semester
+
+S77 → S134 [$student_id]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S77 → S134 [$semester]
+  S77: public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S78 → S79 [$payment]
+  S78: $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+  S79  : $totalPayment = $payment->sum('amount') + $nominal;
+
+S79 → S84 [$totalPayment]
+  S79: $totalPayment = $payment->sum('amount') + $nominal;
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S79 → S86 [$totalPayment]
+  S79: $totalPayment = $payment->sum('amount') + $nominal;
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S81 → S82 [$dpp]
+  S81: $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S82 → S84 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S82 → S86 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S82 → S87 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S87  : return $status;
+
+S82 → S96 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S96  : if ($status === "Lunas") {
+
+S82 → S105 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S105  : elseif ($status === "Lunas UTS") {
+
+S82 → S112 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S112  : elseif ($status === "Lunas KRS") {
+
+S82 → S116 [$status]
+  S82: $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+  S116  : elseif ($status === "Belum Lunas") {
+
+S84 → S82 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S84 → S86 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S84 → S87 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S87  : return $status;
+
+S84 → S96 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S96  : if ($status === "Lunas") {
+
+S84 → S105 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S105  : elseif ($status === "Lunas UTS") {
+
+S84 → S112 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S112  : elseif ($status === "Lunas KRS") {
+
+S84 → S116 [$status]
+  S84: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S116  : elseif ($status === "Belum Lunas") {
+
+S86 → S82 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S86 → S84 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S86 → S87 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S87  : return $status;
+
+S86 → S96 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S96  : if ($status === "Lunas") {
+
+S86 → S105 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S105  : elseif ($status === "Lunas UTS") {
+
+S86 → S112 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S112  : elseif ($status === "Lunas KRS") {
+
+S86 → S116 [$status]
+  S86: $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+  S116  : elseif ($status === "Belum Lunas") {
+
+S88 → S5 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S5  : $year = $request->year;
+
+S88 → S6 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S6  : $semester = $request->semester;
+
+S88 → S7 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S7  : $payment_type = $request->type;
+
+S88 → S9 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S9  : $studentData = $this->getStudentData($request->students_id);
+
+S88 → S10 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S10  : if ($semester == "GASAL") {
+
+S88 → S11 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S88 → S11 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S88 → S12 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S12  : $yearPrevious = $year - 1;
+
+S88 → S14 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S14  : elseif ($semester == "GENAP") {
+
+S88 → S15 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S88 → S15 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S88 → S16 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S16  : $yearPrevious = $year;
+
+S88 → S25 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S25  : $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S88 → S34 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S34  : $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+S88 → S42 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S88 → S42 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S88 → S42 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S88 → S42 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S88 → S44 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S44  : $ukt = Ukt::create($request->all());
+
+S88 → S45 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S88 → S45 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S88 → S45 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S88 → S45 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S88 → S45 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S88 → S78 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S88 → S78 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S88 → S78 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S88 → S80 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S80  : if ($payment_type == 'DPP') {
+
+S88 → S81 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S88 → S81 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S88 → S82 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S88 → S82 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S82  : $status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+
+S88 → S83 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S83  : elseif ($payment_type == 'UKT') {
+
+S88 → S84 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S88 → S84 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S84  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S88 → S85 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S85  : elseif ($payment_type == 'WISUDA') {
+
+S88 → S86 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S88 → S86 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S86  : $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+S88 → S87 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S87  : return $status;
+
+S88 → S89 [$payment_type]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S89  : if ($payment_type !== "UKT") {
+
+S88 → S91 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S91  : $student = $studentData[0];
+
+S88 → S92 [$studentData]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S92  : $studentType = $studentData[1];
+
+S88 → S95 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S88 → S95 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S88 → S96 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S96  : if ($status === "Lunas") {
+
+S88 → S98 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S98 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S98 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S99 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S88 → S100 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S88 → S102 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S102 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S102 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S104 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S88 → S104 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S88 → S104 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S88 → S105 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S105  : elseif ($status === "Lunas UTS") {
+
+S88 → S107 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S107 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S107 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S108 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S88 → S110 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S110 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S110 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S88 → S111 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S111  : $ukt->keterangan = 'Menunggu Dispensasi UAS';
+
+S88 → S112 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S112  : elseif ($status === "Lunas KRS") {
+
+S88 → S114 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S114 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S114 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S88 → S115 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S115  : $ukt->keterangan = 'Menunggu Dispensasi UTS';
+
+S88 → S116 [$status]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S116  : elseif ($status === "Belum Lunas") {
+
+S88 → S117 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S117  : $ukt->keterangan = 'Menunggu Dispensasi KRS';
+
+S88 → S118 [$ukt]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S118  : $ukt->save();
+
+S88 → S120 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S88 → S120 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S88 → S123 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S123  : 'semester' => $semester
+
+S88 → S124 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S124  : 'year' => $year
+
+S88 → S126 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S88 → S129 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S88 → S129 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S88 → S131 [$year]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S131  : 'year' => $year
+
+S88 → S132 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S132  : 'semester' => $semester
+
+S88 → S134 [$semester]
+  S88: public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S91 → S72 [$student]
+  S91: $student = $studentData[0];
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S91 → S73 [$student]
+  S91: $student = $studentData[0];
+  S73  : $student_type = StudentType::where('id', $student->student_types_id)->first();
+
+S91 → S74 [$student]
+  S91: $student = $studentData[0];
+  S74  : return [$student, $student_type];
+
+S91 → S75 [$student]
+  S91: $student = $studentData[0];
+  S75  : $student
+
+S91 → S95 [$student]
+  S91: $student = $studentData[0];
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S91 → S98 [$student]
+  S91: $student = $studentData[0];
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S91 → S99 [$student]
+  S91: $student = $studentData[0];
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S91 → S100 [$student]
+  S91: $student = $studentData[0];
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S91 → S102 [$student]
+  S91: $student = $studentData[0];
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S91 → S104 [$student]
+  S91: $student = $studentData[0];
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S91 → S107 [$student]
+  S91: $student = $studentData[0];
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S91 → S108 [$student]
+  S91: $student = $studentData[0];
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S91 → S110 [$student]
+  S91: $student = $studentData[0];
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S91 → S114 [$student]
+  S91: $student = $studentData[0];
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S92 → S93 [$studentType]
+  S92: $studentType = $studentData[1];
+  S93  : $totalKRS = $studentType->krs;
+
+S92 → S94 [$studentType]
+  S92: $studentType = $studentData[1];
+  S94  : $totalUTS = $totalKRS + $studentType->uts;
+
+S93 → S94 [$totalKRS]
+  S93: $totalKRS = $studentType->krs;
+  S94  : $totalUTS = $totalKRS + $studentType->uts;
+
+S95 → S97 [$bimbinganExists]
+  S95: $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+  S97  : if (!$bimbinganExists) {
+
+S95 → S106 [$bimbinganExists]
+  S95: $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+  S106  : if (!$bimbinganExists) {
+
+S95 → S113 [$bimbinganExists]
+  S95: $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+  S113  : if (!$bimbinganExists) {
+
+S99 → S101 [$examUTSExists]
+  S99: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S101  : if (!$examUTSExists) {
+
+S99 → S108 [$examUTSExists]
+  S99: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S99 → S109 [$examUTSExists]
+  S99: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S109  : if (!$examUTSExists) {
+
+S100 → S103 [$examUASExists]
+  S100: $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+  S103  : if (!$examUASExists) {
+
+S108 → S99 [$examUTSExists]
+  S108: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S108 → S101 [$examUTSExists]
+  S108: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S101  : if (!$examUTSExists) {
+
+S108 → S109 [$examUTSExists]
+  S108: $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+  S109  : if (!$examUTSExists) {
+
+S119 → S4 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S4  : $student_id = $request->students_id;
+
+S119 → S5 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S5  : $year = $request->year;
+
+S119 → S6 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S6  : $semester = $request->semester;
+
+S119 → S10 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S10  : if ($semester == "GASAL") {
+
+S119 → S11 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S119 → S12 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S12  : $yearPrevious = $year - 1;
+
+S119 → S14 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S14  : elseif ($semester == "GENAP") {
+
+S119 → S15 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S119 → S16 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S16  : $yearPrevious = $year;
+
+S119 → S18 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S18  : $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+
+S119 → S19 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S119 → S28 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S28  : $type = "debit";
+
+S119 → S30 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S30  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S119 → S33 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S33  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S119 → S36 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S36  : $type = "kredit";
+
+S119 → S38 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S38  : $this->addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id);
+
+S119 → S41 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S41  : $this->updateTransactionAccount($transaction_accounts_id, $type, $amount);
+
+S119 → S42 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S119 → S42 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S119 → S42 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S119 → S45 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S119 → S45 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S119 → S48 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S48  : Transaction::create(['user_id' => $user_id, 'description' => $description, 'reference_number' => $reference_number, 'amount' => $amount, 'type' => $type, 'transaction_accounts_id' => $transaction_accounts_id]);
+
+S119 → S53 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S53  : 'type' => $type
+
+S119 → S60 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S60  : if ($type == 'kredit') {
+
+S119 → S65 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S65  : elseif ($type == 'debit') {
+
+S119 → S72 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S119 → S78 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S119 → S78 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S119 → S78 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S119 → S81 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S119 → S81 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S119 → S95 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S119 → S95 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S119 → S98 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S98 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S99 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S119 → S100 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S119 → S102 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S119 → S102 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S119 → S104 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S119 → S104 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S119 → S107 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S107 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S108 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S119 → S110 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S119 → S110 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S119 → S114 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S114 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S119 → S120 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S119 → S120 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S119 → S120 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S119 → S120 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S119 → S121 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S121  : 'students_id' => $student_id
+
+S119 → S122 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S122  : 'type' => $type
+
+S119 → S123 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S123  : 'semester' => $semester
+
+S119 → S124 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S124  : 'year' => $year
+
+S119 → S126 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S119 → S126 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S119 → S126 [$type]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S119 → S129 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S119 → S129 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S119 → S129 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S119 → S130 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S130  : 'students_id' => $student_id
+
+S119 → S131 [$year]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S131  : 'year' => $year
+
+S119 → S132 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S132  : 'semester' => $semester
+
+S119 → S134 [$student_id]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S119 → S134 [$semester]
+  S119: public function createExamCard($student_id, $type, $semester, $year)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S120 → S125 [$examcard]
+  S120: $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+  S125  : ExamCard::create($examcard);
+
+S126 → S127 [$exam_id]
+  S126: $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+  S127  : return $exam_id->id;
+
+S128 → S4 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S4  : $student_id = $request->students_id;
+
+S128 → S5 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S5  : $year = $request->year;
+
+S128 → S6 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S6  : $semester = $request->semester;
+
+S128 → S10 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S10  : if ($semester == "GASAL") {
+
+S128 → S11 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S11  : $semester_student = ($year - $studentData[0]->force) * 2 + 1;
+
+S128 → S12 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S12  : $yearPrevious = $year - 1;
+
+S128 → S14 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S14  : elseif ($semester == "GENAP") {
+
+S128 → S15 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S15  : $semester_student = ($year - $studentData[0]->force) * 2 + 2;
+
+S128 → S16 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S16  : $yearPrevious = $year;
+
+S128 → S18 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S18  : $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+
+S128 → S19 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S19  : $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+
+S128 → S42 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S128 → S42 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S128 → S42 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S42  : $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+S128 → S45 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S128 → S45 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S45  : $this->setKeterangan($studentData, $year, $semester, $payment_type, $setTotalStatus, $ukt);
+
+S128 → S72 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S72  : $student = Student::where('id', $student_id)->first();
+
+S128 → S78 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S128 → S78 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S128 → S78 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S78  : $payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+
+S128 → S81 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S128 → S81 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S81  : $dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+
+S128 → S95 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S128 → S95 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S95  : $bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+
+S128 → S98 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S98 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S98  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S99 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S99  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S128 → S100 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S100  : $examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+
+S128 → S102 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S128 → S102 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S102  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S128 → S104 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S128 → S104 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S104  : $ukt->exam_uas_id = $this->createExamCard($student->id, 'UAS', $semester, $year);
+
+S128 → S107 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S107 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S107  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S108 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S108  : $examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+S128 → S110 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S128 → S110 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S110  : $ukt->exam_uts_id = $this->createExamCard($student->id, 'UTS', $semester, $year);
+
+S128 → S114 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S114 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S114  : $ukt->lbs_id = $this->createBimbinganStudy($student->id, $year, $semester);
+
+S128 → S120 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S128 → S120 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S128 → S120 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S120  : $examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+
+S128 → S121 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S121  : 'students_id' => $student_id
+
+S128 → S123 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S123  : 'semester' => $semester
+
+S128 → S124 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S124  : 'year' => $year
+
+S128 → S126 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S128 → S126 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S126  : $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+S128 → S129 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S128 → S129 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S128 → S129 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S128 → S130 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S130  : 'students_id' => $student_id
+
+S128 → S131 [$year]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S131  : 'year' => $year
+
+S128 → S132 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S132  : 'semester' => $semester
+
+S128 → S134 [$student_id]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S128 → S134 [$semester]
+  S128: public function createBimbinganStudy($student_id, $year, $semester)
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S129 → S133 [$bimbinganStudy]
+  S129: $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+  S133  : BimbinganStudy::create($bimbinganStudy);
+
+S129 → S134 [$bimbinganStudy]
+  S129: $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+  S134  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+S129 → S135 [$bimbinganStudy]
+  S129: $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+  S135  : return $bimbinganStudy->id;
+
+S134 → S129 [$bimbinganStudy]
+  S134: $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+  S129  : $bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+S134 → S133 [$bimbinganStudy]
+  S134: $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+  S133  : BimbinganStudy::create($bimbinganStudy);
+
+S134 → S135 [$bimbinganStudy]
+  S134: $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+  S135  : return $bimbinganStudy->id;
+

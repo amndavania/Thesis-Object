@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AccountingGroup extends Model
 {
     use HasFactory;
-    protected $table = 'accounting_groups';
-    protected $fillable = [
+    protected $table = 'accounting_groups'; //'accounting_groups' adalah string literal (token T_CONSTANT_ENCAPSED_STRING). Itu hanya nilai dari variabel $table, bukan nama variabel, bukan nama fungsi, bukan class name, bukan konstanta.
+    protected $fillable = [ //id, name, description (dalam array) tidak dihitung operand.
         'id',
         'name',
         'description',

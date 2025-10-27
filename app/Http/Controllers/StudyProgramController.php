@@ -75,7 +75,6 @@ class StudyProgramController extends Controller
         return redirect()->route('study_program.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
@@ -94,3 +93,5 @@ class StudyProgramController extends Controller
         }
     }
 }
+
+

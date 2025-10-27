@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\StudyProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,14 +18,14 @@ class StudentTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'type'=>fake()->word(),
+            'type' => fake()->unique()->word(),
             'dpp'=>fake()->numberBetween(100000, 1000000),
             'krs'=>fake()->numberBetween(100000, 1000000),
             'uts'=>fake()->numberBetween(100000, 1000000),
             'uas'=>fake()->numberBetween(100000, 1000000),
             'wisuda'=>fake()->numberBetween(100000, 1000000),
             'year'=>fake()->numberBetween(1996,2023),
-            'study_program_id' => mt_rand(1,13),
+            'study_program_id' => StudyProgram::factory(), // ✅ ini aman karena langsung buat 1
         ];
     }
 }

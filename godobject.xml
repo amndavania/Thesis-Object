@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="God Object Ruleset">
+    <description>Aturan kustom untuk mendeteksi God Object</description>
+    
+    <!-- Ruleset Codesize untuk mendeteksi Large Class dan Long Method -->
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="TooManyPublicMethods"/>
+        <include name="ExcessiveClassLength"/>
+        <include name="TooManyFields"/>
+        <include name="TooManyMethods"/>
+        <include name="ExcessiveMethodLength"/>
+        <include name="ExcessiveParameterLength"/>
+        <include name="CyclomaticComplexity"/>
+    </rule>
+    
+    <!-- Ruleset Design untuk mendeteksi Feature Envy dan Tight Coupling -->
+    <rule ref="rulesets/design.xml">
+        <include name="CouplingBetweenObjects"/>
+        <include name="ExcessiveParameterList"/>
+    </rule>
+</ruleset>

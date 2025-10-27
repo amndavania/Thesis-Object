@@ -22,10 +22,15 @@ class Dpa extends Model
     ];
 
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class, 'user_id');
-    }
+        return $this->belongsTo(User::class, 'user_id');
+    }    
+
+    // public function user(): HasOne
+    // {
+    //     return $this->hasOne(User::class, 'user_id');
+    // }
 
     public function student(): HasMany
     {

@@ -1,5 +1,9 @@
 <?php
 
+//One of the refactoring : Extract Method 
+// The testing file is : UktDetailControllerTest.php
+// Refactored method : index()
+
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
@@ -15,113 +19,152 @@ class UktDetailController extends Controller
 {
     public function index(Request $request)
     {
-        $uktController = new UktController;
+        $uktController = new UktController; //S2
 
-        $selectStudent = Student::select('name', 'id', 'nim')->get();
-        $selectFaculty = Faculty::select('id', 'name')->get();
-        $filter = empty($request->filterUkt) ? "student" : $request->filterUkt;
+        $selectStudent = Student::select('name', 'id', 'nim')->get(); //S3
+        $selectFaculty = Faculty::select('id', 'name')->get(); //S4
+        $filter = empty($request->filterUkt) ? "student" : $request->filterUkt; //S5
 
-        if ($filter == "student") {
-            $student_id = $request->input('students_id');
+        if ($filter == "student") { //S6
+            $student_id = $request->input('students_id'); //S7
+            $payment_id = $request->input('id');          //S8
+            $dispensasi = $request->input('dispensasi');  //S9
 
-            $payment_id = $request->input('id');
-            $dispensasi = $request->input('dispensasi');
+            return $this->handleStudentFilter(
+                $student_id,
+                $payment_id,
+                $dispensasi,
+                $uktController,
+                $selectStudent,
+                $selectFaculty,
+                $filter
+            );
 
-            if (!empty($payment_id) && !empty($dispensasi)) {
-                $payment = Ukt::where('id', $payment_id)->first();
-                $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
-
-                if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
-                    $payment->keterangan = "Dispen UTS";
-                    $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
-                } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
-                    $payment->keterangan = "Dispen UAS";
-                    $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
-                } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
-                    $payment->keterangan = "Dispen KRS";
-                    $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester );
-                }
-                $payment->save();
-            }
-
-            if (empty($student_id)) {
-                if (Student::first()) {
-                    $student_id = Student::first()->id;
-                } else {
-                    $student_id = null;
-                }
-            }
-
-            $student = Student::where('id', $student_id)->first();
-
-            if (!empty($student)) {
-                $ukt = Ukt::where('students_id', $student->id)->latest()->get();
-                $totalUkt = $ukt->sum('amount');
-            } else {
-                $ukt = null;
-                $totalUkt = 0;
-            }
-
-            return view('detail_payment.ukt')->with([
-                'ukt' => $ukt,
-                'students' => $selectStudent,
-                'choice' => $student,
-                'faculty' => $selectFaculty,
-                'totalUkt' => $totalUkt,
-                'filter' => $filter,
-            ]);
-
-        } elseif ($filter == "faculty") {
+        } elseif ($filter == "faculty") { //S40
             $faculty_id = $request->faculty_id;
             $datepicker = $request->datepicker;
 
-            $getDate = $this->getDate($datepicker);
+            return $this->handleFacultyFilter(
+                $faculty_id,
+                $datepicker,
+                $selectStudent,
+                $selectFaculty,
+                $filter
+            );
+        }
+    }
 
-            if (empty($faculty_id)) {
-                if (Faculty::first()) {
-                    $faculty_id = Faculty::first()->id;
-                } else {
-                    $faculty_id = null;
-                }
-            }
-
-            $faculty = Faculty::where('id', $faculty_id)->first();
-
-            if (!empty($faculty)) {
-                $ukt = Ukt::whereIn('students_id', function ($query) use ($faculty_id) {
-                    $query->select('id')
-                        ->from('students')
-                        ->whereIn('study_program_id', function ($query) use ($faculty_id) {
-                            $query->select('id')
-                                ->from('study_programs')
-                                ->where('faculty_id', $faculty_id);
-                        });
-                })
-                ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$getDate[0]])
-                ->where(function ($query) {
-                    $query->where('type', 'UKT')
-                          ->orWhere('type', 'DPP');
-                })->get();
-                $totalUkt = $ukt->sum('amount');
-            } else {
-                $ukt = null;
-                $totalUkt = 0;
-            }
-
-            return view('detail_payment.ukt')->with([
-                'ukt' => $ukt,
-                'students' => $selectStudent,
-                'choice' => $faculty,
-                'faculty' => $selectFaculty,
-                'totalUkt' => $totalUkt,
-                'filter' => $filter,
-                'datepicker' => $getDate[1]
-            ]);
-
-
+    private function handleStudentFilter($student_id, $payment_id, $dispensasi, $uktController, $selectStudent, $selectFaculty, $filter)
+    {
+        if (!empty($payment_id) && !empty($dispensasi)) { //S10
+            $this->processDispensasi($student_id, $payment_id, $dispensasi, $uktController);
         }
 
+        if (empty($student_id)) { //S23
+            $student_id = $this->getDefaultStudentId(); //S25/S26
+        }
+
+        $student = Student::where('id', $student_id)->first(); //S27
+
+        if (!empty($student)) { //S28
+            $ukt = Ukt::where('students_id', $student->id)->latest()->get(); //S29
+            $totalUkt = $ukt->sum('amount'); //S30
+        } else {
+            $ukt = null; //S31
+            $totalUkt = 0; //S32
+        }
+
+        return view('detail_payment.ukt')->with([ //S33
+            'ukt' => $ukt,             //S34
+            'students' => $selectStudent, //S35
+            'choice' => $student,      //S36
+            'faculty' => $selectFaculty, //S37
+            'totalUkt' => $totalUkt,   //S38
+            'filter' => $filter,       //S39
+        ]);
     }
+
+    private function processDispensasi($student_id, $payment_id, $dispensasi, $uktController)
+    {
+        $payment = Ukt::where('id', $payment_id)->first(); //S11
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id) //S12
+            ->where('year', $payment->year)
+            ->where('semester', $payment->semester)
+            ->first();
+
+        if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") { //S13
+            $payment->keterangan = "Dispen UTS"; //S14
+            $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year); //S15
+        } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") { //S16
+            $payment->keterangan = "Dispen UAS"; //S17
+            $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year); //S18
+        } elseif ($dispensasi == "Menunggu Dispensasi KRS") { //S19
+            $payment->keterangan = "Dispen KRS"; //S20
+            $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester); //S21
+        }
+
+        $payment->save(); //S22
+    }
+
+    private function getDefaultStudentId()
+    {
+        if (Student::first()) { //S24
+            return Student::first()->id; //S25
+        }
+        return null; //S26
+    }
+
+    private function handleFacultyFilter($faculty_id, $datepicker, $selectStudent, $selectFaculty, $filter)
+    {
+        $getDate = $this->getDate($datepicker);
+
+        if (empty($faculty_id)) {
+            $faculty_id = $this->getDefaultFacultyId();
+        }
+
+        $faculty = Faculty::where('id', $faculty_id)->first();
+
+        if (!empty($faculty)) {
+            $ukt = Ukt::whereIn('students_id', function ($query) use ($faculty_id) {
+                $query->select('id')
+                    ->from('students')
+                    ->whereIn('study_program_id', function ($query) use ($faculty_id) {
+                        $query->select('id')
+                            ->from('study_programs')
+                            ->where('faculty_id', $faculty_id);
+                    });
+            })
+            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$getDate[0]])
+            ->where(function ($query) {
+                $query->where('type', 'UKT')
+                      ->orWhere('type', 'DPP');
+            })->get();
+
+            $totalUkt = $ukt->sum('amount');
+        } else {
+            $ukt = null;
+            $totalUkt = 0;
+        }
+
+        return view('detail_payment.ukt')->with([
+            'ukt' => $ukt,
+            'students' => $selectStudent,
+            'choice' => $faculty,
+            'faculty' => $selectFaculty,
+            'totalUkt' => $totalUkt,
+            'filter' => $filter,
+            'datepicker' => $getDate[1]
+        ]);
+    }
+
+    private function getDefaultFacultyId()
+    {
+        if (Faculty::first()) {
+            return Faculty::first()->id;
+        }
+        return null;
+    }
+
 
     public function export(Request $request)
     {

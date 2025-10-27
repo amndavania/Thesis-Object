@@ -10,19 +10,29 @@ use App\Models\Transaction;
 use App\Models\Ukt;
 use Illuminate\View\View;
 
+// Controller untuk menampilkan data ringkasan keuangan dan mahasiswa
 class DashboardController extends Controller
 {
+    protected $cashflowController;
+    protected $labarugiController;
+
+    public function __construct(CashFlowController $cashflowController, LabaRugiController $labarugiController)
+    {
+        $this->cashflowController = $cashflowController;
+        $this->labarugiController = $labarugiController;
+    }
+
+    // Dashboard utama
     public function index():View
     {
-        $cashflowController = new CashFlowController;
-        $labarugiController = new LabaRugiController;
-
         $date = date('Y-m');
         $filter = 'month';
 
+        // Ambil tren keuangan tahun ini & tahun lalu
         $financeThisYear = $this->setTrendKeuangan('ThisYear');
         $financeLastYear = $this->setTrendKeuangan('LastYear');
 
+        // Hitung pertumbuhan antar bulan
         $growPercentagePreviousMonth = $this->setPersen(intval(substr($date, 5, 2)), $financeThisYear);
         $growPercentagePreviousMonth2 = $this->setPersen(intval(substr($date, 5, 2))-1, $financeThisYear);
 
@@ -43,15 +53,18 @@ class DashboardController extends Controller
             'pendapatanPengeluaranLain' => 5,
         ];
 
-        $saldoAkhir = $this->setSaldoAkhir($cashflowController, $filter, $date, $cashflow_group);
-        $saldoLabaRugi = $this->setLabaRugi($labarugiController, $filter, $date, $labarugi_group);
+        // Hitung saldo akhir & laba rugi
+        $saldoAkhir = $this->setSaldoAkhir($this->cashflowController, $filter, $date, $cashflow_group);
+        $saldoLabaRugi = $this->setLabaRugi($this->labarugiController, $filter, $date, $labarugi_group);
 
+        // Data tambahan
         $students = Student::all()->count();
         $transactions = Transaction::latest()->take(5)->get();
 
         $dataStudents = Student::all('id');
         $statusUKT = $this->setStatusUKT($dataStudents);
 
+        // Ambil tahun & semester aktif
         $dataUkt = Ukt::latest()->first();
 
         if (empty($dataUkt)) {
@@ -62,8 +75,7 @@ class DashboardController extends Controller
             $semester = $dataUkt->semester;
         }
 
-
-
+        // Kirim semua data ke view
         return view('dashboard')->with([
             'saldo' => $saldoAkhir,
             'labarugi' => $saldoLabaRugi,
@@ -77,6 +89,7 @@ class DashboardController extends Controller
         ]);
     }
 
+    // Hitung saldo akhir dari laporan arus kas
     public function setSaldoAkhir($cashflowController, $filter, $date, $cashflow_group) {
         $saldo = [];
         $cashflow = $cashflowController->setResults($filter, $date, $cashflow_group);
@@ -101,12 +114,14 @@ class DashboardController extends Controller
         $selisihDana = $penambahanDana - $penguranganDana;
 
         $total_saldo = $selisihKas + $selisihAset + $selisihDana;
-        $saldoAwal = $cashflowController->getSaldoAwal($filter, $date);
+        $saldoAwal = $this->cashflowController->getSaldoAwal($filter, $date);
         $saldoAkhir = $total_saldo + $saldoAwal;
 
         return $saldoAkhir;
     }
 
+    
+    // Hitung total laba rugi
     public function setLabaRugi($labarugiController, $filter, $date, $labarugi_group) {
         $labarugi = $labarugiController->setResults($filter, $date, $labarugi_group);
         $saldoLabaRugi = array_sum(array_map(function ($group) {
@@ -116,6 +131,7 @@ class DashboardController extends Controller
         return $saldoLabaRugi;
     }
 
+    // Ambil tren saldo per bulan
     public function setTrendKeuangan($type) {
         $currentYear = date('Y');
         if ($type == "LastYear") {
@@ -139,6 +155,7 @@ class DashboardController extends Controller
 
     }
 
+    // Hitung persen pertumbuhan antar bulan
     public function setPersen($thisMonth, $finance) {
         $previousMonth = $thisMonth-1;
         if ($thisMonth == 0 || $previousMonth == 0) {
@@ -160,6 +177,7 @@ class DashboardController extends Controller
         return $growthPercentage;
     }
 
+    // Hitung status pembayaran UKT mahasiswa
     public function setStatusUKT($students) {
 
         $lastUkt = Ukt::latest()->first();
@@ -188,9 +206,4 @@ class DashboardController extends Controller
         }
         return [$lunas, $belumLunas, $belumBayar];
     }
-
-
-
-
-
 }

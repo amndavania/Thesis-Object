@@ -1,0 +1,944 @@
+
+--- Control Dependencies (Grouped & Ordered by Controller) ---
+S8 → S9
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S9  : $payment = Ukt::where('id', $payment_id)->first();
+
+S8 → S10
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S10  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+S8 → S12
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S12  : $payment->keterangan = "UTS";
+
+S8 → S13
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S8 → S15
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S15  : $payment->keterangan = "UAS";
+
+S8 → S16
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S8 → S18
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S18  : $payment->keterangan = "KRS";
+
+S8 → S19
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S8 → S20
+  S8: if (!empty($payment_id) && !empty($dispensasi)) {
+  S20  : $payment->save();
+
+S11 → S12
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S12  : $payment->keterangan = "UTS";
+
+S11 → S13
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S11 → S15
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S15  : $payment->keterangan = "UAS";
+
+S11 → S16
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S11 → S18
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S18  : $payment->keterangan = "KRS";
+
+S11 → S19
+  S11: if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S14 → S15
+  S14: elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+  S15  : $payment->keterangan = "UAS";
+
+S14 → S16
+  S14: elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S17 → S18
+  S17: elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+  S18  : $payment->keterangan = "KRS";
+
+S17 → S19
+  S17: elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S21 → S22
+  S21: if (empty($student_id)) {
+  S22  : $student_first = Student::first();
+
+S21 → S24
+  S21: if (empty($student_id)) {
+  S24  : $student_id = $student_first->id;
+
+S23 → S24
+  S23: if ($student_first) {
+  S24  : $student_id = $student_first->id;
+
+S26 → S27
+  S26: if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+  S27  : $isValid = true;
+
+S26 → S28
+  S26: if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+  S28  : $isValid = false;
+
+S26 → S29
+  S26: if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+  S29  : $student = [];
+
+S30 → S31
+  S30: if (!empty($student)) {
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S30 → S32
+  S30: if (!empty($student)) {
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S30 → S33
+  S30: if (!empty($student)) {
+  S33  : 'choice' => $student
+
+S30 → S34
+  S30: if (!empty($student)) {
+  S34  : 'isValid' => $isValid
+
+S30 → S35
+  S30: if (!empty($student)) {
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S30 → S36
+  S30: if (!empty($student)) {
+  S36  : 'choice' => $student
+
+S30 → S37
+  S30: if (!empty($student)) {
+  S37  : 'isValid' => $isValid
+
+S50 → S51
+  S50: if ($bimbinganstudi->semester == "GASAL") {
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S50 → S53
+  S50: if ($bimbinganstudi->semester == "GASAL") {
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S52 → S53
+  S52: elseif ($bimbinganstudi->semester == "GENAP") {
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+
+--- Data Dependencies (Grouped & Ordered by Definer) ---
+S3 → S5 [$request]
+  S3: public function data(Request $request)
+  S5  : $student_id = $request->input('students_id');
+
+S3 → S6 [$request]
+  S3: public function data(Request $request)
+  S6  : $payment_id = $request->input('id');
+
+S3 → S7 [$request]
+  S3: public function data(Request $request)
+  S7  : $dispensasi = $request->input('dispensasi');
+
+S3 → S25 [$request]
+  S3: public function data(Request $request)
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S3 → S26 [$request]
+  S3: public function data(Request $request)
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S3 → S39 [$request]
+  S3: public function data(Request $request)
+  S39  : $ukt = Ukt::where('students_id', $request->student)->get();
+
+S3 → S40 [$request]
+  S3: public function data(Request $request)
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S3 → S48 [$request]
+  S3: public function data(Request $request)
+  S48  : $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+
+S3 → S59 [$request]
+  S3: public function data(Request $request)
+  S59  : $card = ExamCard::where('id', $request->id)->first();
+
+S4 → S13 [$uktController]
+  S4: $uktController = new UktController();
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S4 → S16 [$uktController]
+  S4: $uktController = new UktController();
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S4 → S19 [$uktController]
+  S4: $uktController = new UktController();
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S5 → S10 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S10  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+S5 → S13 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S5 → S16 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S5 → S19 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S5 → S21 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S21  : if (empty($student_id)) {
+
+S5 → S24 [$student_id]
+  S5: $student_id = $request->input('students_id');
+  S24  : $student_id = $student_first->id;
+
+S6 → S8 [$payment_id]
+  S6: $payment_id = $request->input('id');
+  S8  : if (!empty($payment_id) && !empty($dispensasi)) {
+
+S6 → S9 [$payment_id]
+  S6: $payment_id = $request->input('id');
+  S9  : $payment = Ukt::where('id', $payment_id)->first();
+
+S7 → S8 [$dispensasi]
+  S7: $dispensasi = $request->input('dispensasi');
+  S8  : if (!empty($payment_id) && !empty($dispensasi)) {
+
+S7 → S11 [$dispensasi]
+  S7: $dispensasi = $request->input('dispensasi');
+  S11  : if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+
+S7 → S14 [$dispensasi]
+  S7: $dispensasi = $request->input('dispensasi');
+  S14  : elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+
+S7 → S17 [$dispensasi]
+  S7: $dispensasi = $request->input('dispensasi');
+  S17  : elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+
+S9 → S10 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S10  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+S9 → S12 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S12  : $payment->keterangan = "UTS";
+
+S9 → S13 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S9 → S15 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S15  : $payment->keterangan = "UAS";
+
+S9 → S16 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S9 → S18 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S18  : $payment->keterangan = "KRS";
+
+S9 → S19 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S9 → S20 [$payment]
+  S9: $payment = Ukt::where('id', $payment_id)->first();
+  S20  : $payment->save();
+
+S10 → S11 [$bimbinganStudy]
+  S10: $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+  S11  : if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+
+S10 → S14 [$bimbinganStudy]
+  S10: $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+  S14  : elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+
+S22 → S23 [$student_first]
+  S22: $student_first = Student::first();
+  S23  : if ($student_first) {
+
+S22 → S24 [$student_first]
+  S22: $student_first = Student::first();
+  S24  : $student_id = $student_first->id;
+
+S24 → S5 [$student_id]
+  S24: $student_id = $student_first->id;
+  S5  : $student_id = $request->input('students_id');
+
+S24 → S10 [$student_id]
+  S24: $student_id = $student_first->id;
+  S10  : $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+S24 → S13 [$student_id]
+  S24: $student_id = $student_first->id;
+  S13  : $payment->exam_uts_id = $uktController->createExamCard($student_id, "UTS", $payment->semester, $payment->year);
+
+S24 → S16 [$student_id]
+  S24: $student_id = $student_first->id;
+  S16  : $payment->exam_uas_id = $uktController->createExamCard($student_id, "UAS", $payment->semester, $payment->year);
+
+S24 → S19 [$student_id]
+  S24: $student_id = $student_first->id;
+  S19  : $payment->lbs_id = $uktController->createBimbinganStudy($student_id, $payment->year, $payment->semester);
+
+S24 → S21 [$student_id]
+  S24: $student_id = $student_first->id;
+  S21  : if (empty($student_id)) {
+
+S25 → S26 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S25 → S29 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S29  : $student = [];
+
+S25 → S30 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S30  : if (!empty($student)) {
+
+S25 → S31 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S25 → S32 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S25 → S33 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S33  : 'choice' => $student
+
+S25 → S35 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S25 → S36 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S36  : 'choice' => $student
+
+S25 → S40 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S25 → S42 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S25 → S44 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S44  : 'name' => $student->name
+
+S25 → S45 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S45  : 'nim' => $student->nim
+
+S25 → S49 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S49  : $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+S25 → S51 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S25 → S53 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S25 → S54 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S25 → S56 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S56  : 'student' => $student
+
+S25 → S60 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S60  : $student = Student::where('id', $card->students_id)->first();
+
+S25 → S61 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S25 → S63 [$student]
+  S25: $student = Student::where('nim', $request['nim'])->first();
+  S63  : 'student' => $student
+
+S27 → S28 [$isValid]
+  S27: $isValid = true;
+  S28  : $isValid = false;
+
+S27 → S31 [$isValid]
+  S27: $isValid = true;
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S27 → S34 [$isValid]
+  S27: $isValid = true;
+  S34  : 'isValid' => $isValid
+
+S27 → S35 [$isValid]
+  S27: $isValid = true;
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S27 → S37 [$isValid]
+  S27: $isValid = true;
+  S37  : 'isValid' => $isValid
+
+S28 → S27 [$isValid]
+  S28: $isValid = false;
+  S27  : $isValid = true;
+
+S28 → S31 [$isValid]
+  S28: $isValid = false;
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S28 → S34 [$isValid]
+  S28: $isValid = false;
+  S34  : 'isValid' => $isValid
+
+S28 → S35 [$isValid]
+  S28: $isValid = false;
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S28 → S37 [$isValid]
+  S28: $isValid = false;
+  S37  : 'isValid' => $isValid
+
+S29 → S25 [$student]
+  S29: $student = [];
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S29 → S26 [$student]
+  S29: $student = [];
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S29 → S30 [$student]
+  S29: $student = [];
+  S30  : if (!empty($student)) {
+
+S29 → S31 [$student]
+  S29: $student = [];
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S29 → S32 [$student]
+  S29: $student = [];
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S29 → S33 [$student]
+  S29: $student = [];
+  S33  : 'choice' => $student
+
+S29 → S35 [$student]
+  S29: $student = [];
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S29 → S36 [$student]
+  S29: $student = [];
+  S36  : 'choice' => $student
+
+S29 → S40 [$student]
+  S29: $student = [];
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S29 → S42 [$student]
+  S29: $student = [];
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S29 → S44 [$student]
+  S29: $student = [];
+  S44  : 'name' => $student->name
+
+S29 → S45 [$student]
+  S29: $student = [];
+  S45  : 'nim' => $student->nim
+
+S29 → S49 [$student]
+  S29: $student = [];
+  S49  : $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+S29 → S51 [$student]
+  S29: $student = [];
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S29 → S53 [$student]
+  S29: $student = [];
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S29 → S54 [$student]
+  S29: $student = [];
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S29 → S56 [$student]
+  S29: $student = [];
+  S56  : 'student' => $student
+
+S29 → S60 [$student]
+  S29: $student = [];
+  S60  : $student = Student::where('id', $card->students_id)->first();
+
+S29 → S61 [$student]
+  S29: $student = [];
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S29 → S63 [$student]
+  S29: $student = [];
+  S63  : 'student' => $student
+
+S38 → S5 [$request]
+  S38: public function export(Request $request)
+  S5  : $student_id = $request->input('students_id');
+
+S38 → S6 [$request]
+  S38: public function export(Request $request)
+  S6  : $payment_id = $request->input('id');
+
+S38 → S7 [$request]
+  S38: public function export(Request $request)
+  S7  : $dispensasi = $request->input('dispensasi');
+
+S38 → S25 [$request]
+  S38: public function export(Request $request)
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S38 → S26 [$request]
+  S38: public function export(Request $request)
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S38 → S39 [$request]
+  S38: public function export(Request $request)
+  S39  : $ukt = Ukt::where('students_id', $request->student)->get();
+
+S38 → S40 [$request]
+  S38: public function export(Request $request)
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S38 → S48 [$request]
+  S38: public function export(Request $request)
+  S48  : $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+
+S38 → S59 [$request]
+  S38: public function export(Request $request)
+  S59  : $card = ExamCard::where('id', $request->id)->first();
+
+S39 → S41 [$ukt]
+  S39: $ukt = Ukt::where('students_id', $request->student)->get();
+  S41  : $totalUkt = $ukt->sum('amount');
+
+S39 → S42 [$ukt]
+  S39: $ukt = Ukt::where('students_id', $request->student)->get();
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S39 → S43 [$ukt]
+  S39: $ukt = Ukt::where('students_id', $request->student)->get();
+  S43  : 'ukt' => $ukt
+
+S40 → S25 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S40 → S26 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S40 → S29 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S29  : $student = [];
+
+S40 → S30 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S30  : if (!empty($student)) {
+
+S40 → S31 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S40 → S32 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S40 → S33 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S33  : 'choice' => $student
+
+S40 → S35 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S40 → S36 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S36  : 'choice' => $student
+
+S40 → S42 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S40 → S44 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S44  : 'name' => $student->name
+
+S40 → S45 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S45  : 'nim' => $student->nim
+
+S40 → S49 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S49  : $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+S40 → S51 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S40 → S53 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S40 → S54 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S40 → S56 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S56  : 'student' => $student
+
+S40 → S60 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S60  : $student = Student::where('id', $card->students_id)->first();
+
+S40 → S61 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S40 → S63 [$student]
+  S40: $student = Student::where('id', $request->student)->first();
+  S63  : 'student' => $student
+
+S41 → S42 [$totalUkt]
+  S41: $totalUkt = $ukt->sum('amount');
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S41 → S46 [$totalUkt]
+  S41: $totalUkt = $ukt->sum('amount');
+  S46  : 'totalUkt' => $totalUkt
+
+S47 → S5 [$request]
+  S47: public function exportLBS(Request $request)
+  S5  : $student_id = $request->input('students_id');
+
+S47 → S6 [$request]
+  S47: public function exportLBS(Request $request)
+  S6  : $payment_id = $request->input('id');
+
+S47 → S7 [$request]
+  S47: public function exportLBS(Request $request)
+  S7  : $dispensasi = $request->input('dispensasi');
+
+S47 → S25 [$request]
+  S47: public function exportLBS(Request $request)
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S47 → S26 [$request]
+  S47: public function exportLBS(Request $request)
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S47 → S39 [$request]
+  S47: public function exportLBS(Request $request)
+  S39  : $ukt = Ukt::where('students_id', $request->student)->get();
+
+S47 → S40 [$request]
+  S47: public function exportLBS(Request $request)
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S47 → S48 [$request]
+  S47: public function exportLBS(Request $request)
+  S48  : $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+
+S47 → S59 [$request]
+  S47: public function exportLBS(Request $request)
+  S59  : $card = ExamCard::where('id', $request->id)->first();
+
+S48 → S49 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S49  : $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+S48 → S50 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S50  : if ($bimbinganstudi->semester == "GASAL") {
+
+S48 → S51 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S48 → S52 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S52  : elseif ($bimbinganstudi->semester == "GENAP") {
+
+S48 → S53 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S48 → S54 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S48 → S55 [$bimbinganstudi]
+  S48: $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+  S55  : 'bimbinganstudi' => $bimbinganstudi
+
+S49 → S25 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S49 → S26 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S49 → S29 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S29  : $student = [];
+
+S49 → S30 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S30  : if (!empty($student)) {
+
+S49 → S31 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S49 → S32 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S49 → S33 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S33  : 'choice' => $student
+
+S49 → S35 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S49 → S36 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S36  : 'choice' => $student
+
+S49 → S40 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S49 → S42 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S49 → S44 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S44  : 'name' => $student->name
+
+S49 → S45 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S45  : 'nim' => $student->nim
+
+S49 → S51 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S49 → S53 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S49 → S54 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S49 → S56 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S56  : 'student' => $student
+
+S49 → S60 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S60  : $student = Student::where('id', $card->students_id)->first();
+
+S49 → S61 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S49 → S63 [$student]
+  S49: $student = Student::where('id', $bimbinganstudi->students_id)->first();
+  S63  : 'student' => $student
+
+S51 → S53 [$semesterStudent]
+  S51: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S51 → S54 [$semesterStudent]
+  S51: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S51 → S57 [$semesterStudent]
+  S51: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+  S57  : 'semester' => $semesterStudent
+
+S53 → S51 [$semesterStudent]
+  S53: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S53 → S54 [$semesterStudent]
+  S53: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S53 → S57 [$semesterStudent]
+  S53: $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+  S57  : 'semester' => $semesterStudent
+
+S58 → S5 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S5  : $student_id = $request->input('students_id');
+
+S58 → S6 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S6  : $payment_id = $request->input('id');
+
+S58 → S7 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S7  : $dispensasi = $request->input('dispensasi');
+
+S58 → S25 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S58 → S26 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S58 → S39 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S39  : $ukt = Ukt::where('students_id', $request->student)->get();
+
+S58 → S40 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S58 → S48 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S48  : $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+
+S58 → S59 [$request]
+  S58: public function lihatKartu(Request $request): View
+  S59  : $card = ExamCard::where('id', $request->id)->first();
+
+S59 → S60 [$card]
+  S59: $card = ExamCard::where('id', $request->id)->first();
+  S60  : $student = Student::where('id', $card->students_id)->first();
+
+S59 → S61 [$card]
+  S59: $card = ExamCard::where('id', $request->id)->first();
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S59 → S62 [$card]
+  S59: $card = ExamCard::where('id', $request->id)->first();
+  S62  : 'examcard' => $card
+
+S60 → S25 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S25  : $student = Student::where('nim', $request['nim'])->first();
+
+S60 → S26 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S26  : if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+
+S60 → S29 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S29  : $student = [];
+
+S60 → S30 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S30  : if (!empty($student)) {
+
+S60 → S31 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S31  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', $student->id)->latest()->get(), 'students' => Student::select('name', 'id', 'nim')->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S60 → S32 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S32  : 'ukt' => Ukt::where('students_id', $student->id)->latest()->get()
+
+S60 → S33 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S33  : 'choice' => $student
+
+S60 → S35 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S35  : return view('cek_detail_payment.data')->with(['ukt' => Ukt::where('students_id', 0)->get(), 'students' => Student::select('name', 'id', 'nim')->latest()->get(), 'choice' => $student, 'isValid' => $isValid]);
+
+S60 → S36 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S36  : 'choice' => $student
+
+S60 → S40 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S40  : $student = Student::where('id', $request->student)->first();
+
+S60 → S42 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S42  : return view('report.printformat.pembayaran')->with(['ukt' => $ukt, 'name' => $student->name, 'nim' => $student->nim, 'totalUkt' => $totalUkt, 'today' => date('d F Y', strtotime(date('Y-m-d'))), 'title' => "Laporan Pembayaran Mahasiswa"]);
+
+S60 → S44 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S44  : 'name' => $student->name
+
+S60 → S45 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S45  : 'nim' => $student->nim
+
+S60 → S49 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S49  : $student = Student::where('id', $bimbinganstudi->students_id)->first();
+
+S60 → S51 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S51  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+
+S60 → S53 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S53  : $semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+S60 → S54 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S54  : return view('report.printformat.krs')->with(['bimbinganstudi' => $bimbinganstudi, 'student' => $student, 'semester' => $semesterStudent, 'title' => "Lembar Bimbingan Studi", 'today' => date('d F Y', strtotime(date('Y-m-d')))]);
+
+S60 → S56 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S56  : 'student' => $student
+
+S60 → S61 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S61  : return view('report.printformat.examcard')->with(['examcard' => $card, 'student' => $student]);
+
+S60 → S63 [$student]
+  S60: $student = Student::where('id', $card->students_id)->first();
+  S63  : 'student' => $student
+

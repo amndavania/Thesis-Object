@@ -2,56 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dpa;
+use App\Models\Dpa; 
 use App\Models\User;
+use App\Models\Student;
 use App\Models\BimbinganStudy;
-use Illuminate\Http\Request;
 use App\Models\StudyProgram;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Dpa\DpaCreateRequest;
 use App\Http\Requests\Dpa\DpaUpdateRequest;
-use App\Models\Student;
-use App\Models\Ukt;
-use App\Models\ExamCard;
-use Illuminate\Support\Facades\Auth;
 
 class DpaController extends Controller
+
 {
-    public function index():View
+    public function index(): View
     {
         return view('dpa.data')->with([
             'dpa' => Dpa::latest()->paginate(30),
         ]);
     }
 
-    public function create():View
+    public function create(): View 
     {
-        $study_program = StudyProgram::all();
-        return view('dpa.create',  compact('study_program'));
+        $study_program = StudyProgram::all(); 
+        return view('dpa.create', compact('study_program'));
     }
 
-    public function store(DpaCreateRequest $request):RedirectResponse
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id): View
     {
-
-        // Simpan akun user DPA
-        $name = $request->name;
-        $email = $request->email;
-        $study_program = $request->study_program_id;
-        $password = bcrypt('admin');
-        $role = 'DPA';
-        $this->addUser($name, $email, $password, $role);
-
-        // Simpan data DPA
-        $user_id = User::where('name', $name)->first();
-        Dpa::create([
-            'name' => $name,
-            'email' => $email,
-            'study_program_id' => $study_program,
-            'user_id' => $user_id['id'],
+        return view('dpa.edit')->with([
+            'dpa' => Dpa::findOrFail($id),
+            'study_program' => StudyProgram::all(),
         ]);
-
-        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
     /**
@@ -59,281 +46,7 @@ class DpaController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id):View
-    {
-        //
-        return view('dpa.edit')->with([
-            'dpa' => Dpa::findOrFail($id),
-            "study_program" => StudyProgram::all(),
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(DpaUpdateRequest $request, string $id):RedirectResponse
-    {
-        $dpa = Dpa::findOrFail($id);
-        $dpa->update($request->all());
-
-        $name = $request->name;
-        $email = $request->email;
-
-        $user_id = $dpa['user_id'];
-        $user = User::findOrFail($user_id);
-        $user->update([
-            'name' => $name,
-            'email' => $email,
-        ]);
-
-        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $dpa = Dpa::findOrFail($id);
-        $student = Student::where('dpa_id', $id)->exists();
-
-        if (!$student) {
-            $user_id = $dpa['user_id'];
-            $user = User::findOrFail($user_id);
-            $dpa->delete();
-            $user->delete();
-        } else{
-            return redirect()->route('dpa.index')->with(['warning' => 'Data DPA masih terhubung dengan data Mahasiswa']);
-        }
-        return view('dpa.data')->with([
-            'dpa' => Dpa::latest()->paginate(30),
-        ]);
-    }
-
-    public function addUser($name, $email, $password, $role)
-    {
-        User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'role' => $role,
-        ]);
-    }
-
-    public function getMahasiswa(Request $request): View
-    {
-        $dpa_id = $request->dpa_id;
-        $tahunAjaran = $request->year;
-        $semester = $request->semester;
-        $lbs_id = $request->lbs_id;
-        $student_id = $request->student_id;
-        $status = $request->status;
-
-        if (empty($dpa_id)) {
-            if (Auth::user()->role == "DPA") {
-                $user_id = Auth::user()->id;
-                $dpa = Dpa::where('user_id', $user_id)->first();
-                $dpa_id = $dpa->id;
-            } else {
-                $dpa = Dpa::first();
-                $dpa_id = $dpa->id;
-            }
-        }
-
-        if (empty($tahunAjaran) || empty($semester)) {
-            $tahunAjaran = date('Y');
-            $semester = "GASAL";
-        }
-
-        $dpa = Dpa::where('id', $dpa_id)->first();
-        $students = Student::where('dpa_id', $dpa_id)->get();
-
-        // if (!empty($lbs_id)) {
-        //     $this->setujuKrs($lbs_id, $status);
-        // }
-
-        if (!empty($student_id)) {
-            $this->setujuKrs($lbs_id, $status, $student_id, $tahunAjaran, $semester);
-        }
-        // $this->setujuKrs($lbs_id, $status, $students->id, $tahunAjaran, $semester);
-
-        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
-
-        return view('dpa.daftarmahasiswa')->with([
-            'data' => $data,
-            'tahunAjaran' => [$tahunAjaran, $semester],
-            'dpa' => $dpa,
-
-        ]);
-    }
-
-    public function export(Request $request)
-    {
-        $dpa_id = $request->dpa_id;
-        $tahunAjaran = $request->year;
-        $semester = $request->semester;
-
-        if (empty($tahunAjaran) || empty($semester)) {
-            $tahunAjaran = date('Y');
-            $semester = "GASAL";
-        }
-
-        if (empty($dpa_id)) {
-            if (Auth::user()->role == "DPA") {
-                $user_id = Auth::user()->id;
-                $dpa = Dpa::where('user_id', $user_id)->first();
-                $dpa_id = $dpa->id;
-            } else {
-                $dpa = Dpa::first();
-                $dpa_id = $dpa->id;
-            }
-        }
-
-        $dpa = Dpa::where('id', $dpa_id)->first();
-        $students = Student::where('dpa_id', $dpa_id)->get();
-
-        $data = $this->getBimbinganStudi($students, $tahunAjaran, $semester);
-
-        return view('report.printformat.daftarmahasiswa')->with([
-            'data' => $data,
-            'tahunAjaran' => [$tahunAjaran, $semester],
-            'dpa' => $dpa,
-            'title' => "Lembar Bimbingan Studi",
-            'today' => date('d F Y', strtotime(date('Y-m-d'))),
-        ]);
-    }
-
-    public function setujuKrs($id, $status, $student_id, $tahunAjaran, $semester)
-    {
-        $uktController = new UktController;
-
-        if (empty($id)) {
-            $bimbinganStudy = [
-                'students_id' => $student_id,
-                'year' => $tahunAjaran,
-                'semester' => $semester,
-                'status' => $status
-            ];
-    
-            BimbinganStudy::create($bimbinganStudy);
-        } else {
-            $bimbinganStudy = BimbinganStudy::where('id', $id)->first();
-            $bimbinganStudy->status = $status;
-            $bimbinganStudy->save();
-        }
-
-        $payment = Ukt::where('lbs_id', $id)->first();
-        if (!empty($payment)) {
-            $uts_id = $payment->exam_uts_id;
-            $uas_id = $payment->exam_uas_id;
-            if ($payment->status == "Lunas UTS") {
-                if (empty($payment->exam_uts_id) && $status == "Aktif") {
-                    $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-                } elseif ($status == "Tunda") {
-                    $payment->exam_uts_id = null;
-                    ExamCard::where('id', $uts_id)->delete();
-                }
-            } elseif ($payment->status == "Lunas") {
-                if ((empty($payment->exam_uts_id) && empty($payment->exam_uas_id)) && $status == "Aktif") {
-                    $payment->exam_uts_id = $uktController->createExamCard($payment->students_id, "UTS", $payment->semester, $payment->year);
-                    $payment->exam_uas_id = $uktController->createExamCard($payment->students_id, "UAS", $payment->semester, $payment->year);
-                } elseif ($status == "Tunda") {
-                    $payment->exam_uts_id = null;
-                    $payment->exam_uas_id = null;
-                    ExamCard::where('id', $uts_id)->delete();
-                    ExamCard::where('id', $uas_id)->delete();
-                }
-            }
-            $payment->save();
-        } else {
-            if ($status == "Tidak Aktif" && !empty($id)) {
-                BimbinganStudy::where('id', $id)->delete();
-            }
-        }
-    }
-
-    public function getBimbinganStudi($students, $tahunAjaran, $semester)
-    {
-        $data = [];
-        foreach ($students as $item) {
-            $wisuda = Ukt::where('students_id', $item->id)->where('type', "WISUDA")->first();
-
-            if ($semester == "GASAL") {
-                $semesterStudent = (($tahunAjaran - $item->force) * 2) + 1;
-            } elseif ($semester == "GENAP") {
-                $semesterStudent = (($tahunAjaran - $item->force) * 2) + 2;
-            }
-
-            if (!empty($wisuda)) {
-                $tahunLulus = $wisuda->year;
-
-                if ($semesterStudent >= 1 && $tahunAjaran <= $tahunLulus) {
-                    $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
-
-                    if (empty($bimbinganStudy)) {
-                        $status = "Tidak Aktif";
-                        $lbs_id = null;
-                    } else {
-                        $lbs_id = $bimbinganStudy->id;
-                        $status = $bimbinganStudy->status;
-                    }
-
-                    $data[$item->id] = [
-                        'id' => $item->id,
-                        'nim' => $item->nim,
-                        'name' => $item->name,
-                        'semester' => $semesterStudent,
-                        'lbs_id' => $lbs_id,
-                        'status' => $status
-                    ];
-                }
-            } else {
-                if ($semesterStudent >= 1) {
-                    $bimbinganStudy = BimbinganStudy::where('students_id', $item->id)->where('year', $tahunAjaran)->where('semester', $semester)->first();
-
-                    if (empty($bimbinganStudy)) {
-                        $status = "Tidak Aktif";
-                        $lbs_id = null;
-                    } else {
-                        $lbs_id = $bimbinganStudy->id;
-                        $status = $bimbinganStudy->status;
-                    }
-
-                    $data[$item->id] = [
-                        'id' => $item->id,
-                        'nim' => $item->nim,
-                        'name' => $item->name,
-                        'semester' => $semesterStudent,
-                        'lbs_id' => $lbs_id,
-                        'status' => $status
-                    ];
-                }
-            }
-
-
-        }
-
-        return $data;
-    }
-
-    public function getDetailDpa(Request $request, string $id):RedirectResponse
-    {
-        $dpa = Dpa::findOrFail($id);
-        $dpa->update($request->all());
-
-        $user_id = $dpa['user_id'];
-        $user = User::findOrFail($user_id);
-        $user->update([
-            'status' => 'Aktif',
-        ]);
-
-        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
+        // 
     }
 
     public function getData($datepicker, $filter)
@@ -355,4 +68,92 @@ class DpaController extends Controller
 
         return [$date, $formattedDate];
     }
+
+    // ==============================
+    // SECTION: CREATE / UPDATE / DELETE
+    // ==============================
+
+    // Simpan akun user DPA
+    public function store(DpaCreateRequest $request): RedirectResponse
+    {
+        $name = $request->name;
+        $email = $request->email;
+        $study_program = $request->study_program_id;
+        $password = bcrypt('admin');
+        $role = 'DPA';
+
+        // Simpan data DPA
+        $user = $this->addUser($name, $email, $password, $role);
+        // $user_id = User::where('name', $name)->first();
+        Dpa::create([
+            'name' => $name,
+            'email' => $email,
+            'study_program_id' => $study_program,
+            'user_id' => $user->id,
+        ]);
+
+        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil disimpan']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(DpaUpdateRequest $request, string $id): RedirectResponse
+    {
+        $dpa = Dpa::findOrFail($id);
+        $dpa->update($request->all());
+
+        $user = User::findOrFail($dpa->user_id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id): View|RedirectResponse
+    {
+        $dpa = Dpa::findOrFail($id);
+        $studentExists = Student::where('dpa_id', $id)->exists();
+
+        if (!$studentExists) {
+            $user = User::findOrFail($dpa->user_id);
+            $dpa->delete();
+            $user->delete();
+        } else {
+            return redirect()->route('dpa.index')->with(['warning' => 'Data DPA masih terhubung dengan data Mahasiswa']);
+        }
+
+        return view('dpa.data')->with([
+            'dpa' => Dpa::latest()->paginate(30),
+        ]);
+    }
+
+    public function getDetailDpa(Request $request, string $id): RedirectResponse 
+    {
+        // $dpa = Dpa::findOrFail($id);
+        // $dpa->update($request->all());
+
+        // $user = User::findOrFail($dpa->user_id);
+        // $user->update([
+        //     'status' => 'Aktif',
+        // ]);
+
+        // return redirect()->route('dpa.index')->with(['success' => 'Data berhasil diupdate']);
+    }
+
+    private function addUser($name, $email, $password, $role)
+    {
+        return User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'role' => $role,
+        ]);
+    }
 }
+

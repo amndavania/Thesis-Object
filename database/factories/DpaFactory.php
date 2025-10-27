@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\StudyProgram;
 use App\Models\Dpa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,8 +22,10 @@ class DpaFactory extends Factory
          return [
             'name' => "Dosen ".fake()->word(),
             'email' => fake()->unique()->safeEmail(),
-            'user_id'=> fake()->unique()->numberBetween(4,43),
-            'study_program_id'=>mt_rand(1,13),
+            'user_id' => User::factory(), // otomatis buat user baru
+            'study_program_id' => StudyProgram::factory(), // otomatis buat study program baru
+            // 'user_id'=> fake()->unique()->numberBetween(4,43),
+            // 'study_program_id'=>mt_rand(1,13),
         ];  
     }
 }

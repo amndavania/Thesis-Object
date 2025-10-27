@@ -89,4 +89,65 @@ class StudentTypeController extends Controller
             return redirect()->route('student_type.index')->with(['warning' => 'Beasiswa masih terhubung dengan Mahasiswa']);
         }
     }
+
+    //this, the student_type parameter's declared in the getStudentData line 184 S1
+    public function setStatus($amount, $payment_type, $student_type) 
+    {
+        if ($payment_type == 'UKT') {
+            $status = $this->uktPaymentStatus($amount,$student_type);
+        } elseif ($payment_type == 'DPP') { 
+            $status = $this->dppPaymentStatus($amount,$student_type);
+        } elseif ($payment_type == 'WISUDA') {
+            $status = $this->wisudaPaymentStatus($amount,$student_type);
+        }
+        return $status; 
+    }
+
+    private function uktPaymentStatus($amount, $student_type)
+    {
+        $status = null; 
+        $totalKRS = floatval($student_type->krs);
+        $totalUTS = $totalKRS + $student_type->uts; 
+        $totalUAS = $totalUTS + $student_type->uas; 
+
+        if ($amount > $totalUAS) {
+            $status = 'Lebih'; 
+        } elseif ($amount == $totalUAS) { 
+            $status = 'Lunas';
+        } elseif ($amount >= $totalUTS) { 
+            $status = 'Lunas UTS';
+        } elseif ($amount >= $totalKRS) { 
+            $status = 'Lunas KRS'; 
+        } else {
+            $status = 'Belum Lunas';
+        }
+        return $status;
+    }
+
+    private function dppPaymentStatus($amount, $student_type)
+    {
+        if ($amount < $student_type->dpp) { 
+            $status = 'Belum Lunas'; 
+        } elseif ($amount == $student_type->dpp) { 
+            $status = 'Lunas'; 
+        } elseif ($amount > $student_type->dpp) { 
+            $status = 'Lebih'; 
+        }
+    
+        return $status; 
+    }
+    
+
+    private function wisudaPaymentStatus($amount, $student_type)
+    {
+        if ($amount < $student_type->wisuda) { 
+            $status = 'Belum Lunas'; 
+        }elseif ($amount == $student_type->wisuda) { 
+            $status = 'Lunas'; 
+        }elseif ($amount > $student_type->wisuda) { 
+            $status = 'Lebih'; 
+        }
+        return $status; 
+    }
 }
+

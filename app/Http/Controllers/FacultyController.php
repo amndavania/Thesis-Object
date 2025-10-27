@@ -11,14 +11,14 @@ use App\Http\Requests\Faculty\FacultyUpdateRequest;
 
 class FacultyController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      */
     public function index():View
     {
         //
-        return view('faculty.data')->with([
-            'faculty' => Faculty::latest()->paginate(20)
+        return view('faculty.data')->with([ 
+            'faculty' => Faculty::latest()->paginate(20) 
         ]);
     }
 
@@ -85,8 +85,6 @@ class FacultyController extends Controller
         } else {
             return redirect()->route('faculty.index')->with(['warning' => 'Fakultas masih terhubung dengan Program Studi']);
         }
-        
-
         
     }
 }

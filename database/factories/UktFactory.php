@@ -20,7 +20,7 @@ class UktFactory extends Factory
             'reference_number'=>fake()->randomNumber(5, true),
             'amount'=>fake()->numberBetween(100000, 1000000),
             // 'total'=>fake()->numberBetween(100000, 1000000),
-            'status'=>fake()->randomElement(['Lunas','Belum Lunas']),   
+            'status'=>fake()->randomElement(['Lunas','Belum Lunas','Lunas KRS', 'Lunas UTS']),   
             'transaction_debit_id'=>mt_rand(1,10),
             'transaction_kredit_id'=>mt_rand(1,10),
             'students_id'=>mt_rand(1,999),

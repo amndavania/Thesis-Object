@@ -1,0 +1,35 @@
+parameters:
+    level: 8
+    paths:
+        - app/Http/Controllers
+
+    # Saring error yang tidak relevan dengan tight coupling
+    ignoreErrors:
+        - '#Call to an undefined function .*#'
+        - '#Call to an undefined method .*#'
+        - '#Call to an undefined static method .*#'
+        - '#Access to an undefined property .*#'
+        - '#Cannot access property .* on .*#'
+        - '#Variable \$.+ might not be defined#'
+        - '#Method .* has no return type specified#'
+        - '#Method .* has parameter .* with no type specified#'
+        - '#Right side of && is always true#'
+        - '#If condition is always true#'
+        - '#Strict comparison using === between .* will always evaluate to false.#'
+        - '#should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View#'
+
+    reportUnmatchedIgnoredErrors: false
+
+    # Aktifkan pemeriksaan yang membantu deteksi tight coupling
+    checkExplicitMixed: true
+    checkUnionTypes: true
+    checkMissingVarTagTypehint: true
+    checkUninitializedProperties: true
+    inferPrivatePropertyTypeFromConstructor: true
+    checkDynamicProperties: true
+
+
+//DISINI AMANDA PAKE PHPSTAN BILA DATA TIGHT COUPLINGNYA KURANG, TP KALO DI REFACTOR PUN TERLALU MINOR JADI GAUSA PAKE EXTRACT BLABLABLA METHOD YA GAPAPA I THINK
+
+
+

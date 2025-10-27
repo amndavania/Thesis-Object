@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\StudyProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Faculty;
+
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\=StudentProgram>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StudentProgram>
  */
 class StudyProgramFactory extends Factory
 {
@@ -19,7 +22,8 @@ class StudyProgramFactory extends Factory
         return [
             'name' => "Ilmu ".fake()->word(),
             'kaprodi_name' => fake()->name(),
-            'faculty_id' => mt_rand(1,5),
+            'faculty_id' => Faculty::factory(), // otomatis buat data faculty
+            // 'faculty_id' => mt_rand(1,5),
         ];
     }
 }

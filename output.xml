@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PDepend>
+  <Packages>
+    <Package name="App\Models">
+      <Stats>
+        <TotalClasses>14</TotalClasses>
+        <ConcreteClasses>14</ConcreteClasses>
+        <AbstractClasses>0</AbstractClasses>
+        <Ca>0</Ca>
+        <Ce>3</Ce>
+        <A>0</A>
+        <I>1</I>
+        <D>0</D>
+      </Stats>
+      <ConcreteClasses>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\AccountingGroup.php">AccountingGroup</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\BimbinganStudy.php">BimbinganStudy</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Dpa.php">Dpa</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\ExamCard.php">ExamCard</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Faculty.php">Faculty</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\HistoryReport.php">HistoryReport</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Report.php">Report</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Student.php">Student</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\StudentType.php">StudentType</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\StudyProgram.php">StudyProgram</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Transaction.php">Transaction</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\TransactionAccount.php">TransactionAccount</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\Ukt.php">Ukt</Class>
+        <Class sourceFile="C:\laragon\www\accounting-app\app\Models\User.php">User</Class>
+      </ConcreteClasses>
+      <AbstractClasses/>
+      <DependsUpon>
+        <Package>Illuminate\Database\Eloquent</Package>
+        <Package>Illuminate\Database\Eloquent\Relations</Package>
+        <Package>Illuminate\Foundation\Auth</Package>
+      </DependsUpon>
+      <UsedBy/>
+    </Package>
+  </Packages>
+  <Cycles/>
+</PDepend>

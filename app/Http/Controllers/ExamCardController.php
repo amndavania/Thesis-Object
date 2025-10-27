@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ExamCardController extends Controller
 {
-
     public function index():View
     {
         //
@@ -20,7 +19,7 @@ class ExamCardController extends Controller
 
     public function show(Request $request):View
     {
-        $card = ExamCard::where('id', $request->id)->first();
+        $card = ExamCard::where('id', $request->id)->first(); 
         $student = Student::where('id', $card->students_id)->first();
 
         return view('report.printformat.ujian')->with([

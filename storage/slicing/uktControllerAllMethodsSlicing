@@ -1,0 +1,971 @@
+
+🔥 Kandidat Extract Method: S10 (jumlah dependency: 6)
+=== POTONGAN KODE (TERMINAL) ===
+if ($semester == "GASAL") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+$semesterPrevious = "GENAP";
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$semesterPrevious = "GASAL";
+
+=== DARI FILE SEBENARNYA ===
+        if ($semester == "GASAL") {
+            $semesterPrevious = "GENAP";
+            $yearPrevious = $year;
+            $semesterPrevious = "GASAL";
+
+---------------------------
+
+🔥 Kandidat Extract Method: S20 (jumlah dependency: 25)
+=== POTONGAN KODE (TERMINAL) ===
+if ($semester_student > 2 && empty($statusDPP) || $semester_student > 2 && $statusDPP->status == "Belum Lunas") {
+$user_id = $request->user()->id;
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$reference_number = $request->reference_number;
+$amount = $request->amount;
+$type = "debit";
+$transaction_accounts_id = 1130;
+$latestTransaction = Transaction::latest('id')->first();
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$amount = $request->amount;
+$type = "kredit";
+$transaction_accounts_id = 1120;
+$latestTransaction = Transaction::latest('id')->first();
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$ukt = Ukt::create($request->all());
+
+=== DARI FILE SEBENARNYA ===
+            $user_id = $request->user()->id;
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $reference_number = $request->reference_number;
+        $amount = $request->amount;
+            $type = "debit";
+            $transaction_accounts_id = 1130;
+            $latestTransaction = Transaction::latest('id')->first();
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+        $amount = $request->amount;
+            $type = "kredit";
+            $transaction_accounts_id = 1120;
+            $latestTransaction = Transaction::latest('id')->first();
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+            $ukt = Ukt::create($request->all());
+
+---------------------------
+
+🔥 Kandidat Extract Method: S60 (jumlah dependency: 8)
+=== POTONGAN KODE (TERMINAL) ===
+if ($type == 'kredit') {
+$ammount = $account->kredit;
+$inputAmount = $ammount + $amount;
+$ammount = $account->debit;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+        if ($type == 'kredit') {
+            $ammount = $account->kredit;
+            $inputAmount = $ammount + $amount;
+            $ammount = $account->debit;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S65 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+elseif ($type == 'debit') {
+$ammount = $account->debit;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+        } elseif ($type == 'debit') {
+            $ammount = $account->debit;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S80 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+if ($payment_type == 'DPP') {
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+=== DARI FILE SEBENARNYA ===
+        if ($payment_type == 'DPP') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+
+---------------------------
+
+🔥 Kandidat Extract Method: S96 (jumlah dependency: 12)
+=== POTONGAN KODE (TERMINAL) ===
+if ($status === "Lunas") {
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+=== DARI FILE SEBENARNYA ===
+        if ($status === "Lunas") { //96
+
+---------------------------
+
+🔥 Kandidat Extract Method: S105 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+elseif ($status === "Lunas UTS") {
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+=== DARI FILE SEBENARNYA ===
+        } elseif ($status === "Lunas UTS") { //105
+
+---------------------------
+
+🔥 Kandidat Extract Method: S1 (jumlah dependency: 18)
+=== POTONGAN KODE (TERMINAL) ===
+public function store(UktCreateRequest $request)
+$created_at = Carbon::createFromFormat('Y-m-d', $request['created_at'])->setTime(00, 00, 00);
+$student_id = $request->students_id;
+$year = $request->year;
+$semester = $request->semester;
+$payment_type = $request->type;
+$amount = $request->amount;
+$studentData = $this->getStudentData($request->students_id);
+$user_id = $request->user()->id;
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$reference_number = $request->reference_number;
+$amount = $request->amount;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$amount = $request->amount;
+$ukt = Ukt::create($request->all());
+
+=== DARI FILE SEBENARNYA ===
+    public function store(UktCreateRequest $request) //menyimpan data pembayaran baru
+        $student_id = $request->students_id;
+        $year = $request->year; 
+        $semester = $request->semester;
+        $payment_type = $request->type;
+        $amount = $request->amount;
+        $studentData = $this->getStudentData($request->students_id); 
+            $user_id = $request->user()->id;
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $reference_number = $request->reference_number;
+        $amount = $request->amount;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+        $amount = $request->amount;
+            $ukt = Ukt::create($request->all());
+
+---------------------------
+
+🔥 Kandidat Extract Method: S4 (jumlah dependency: 12)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->students_id;
+$statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+$statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$student = Student::where('id', $student_id)->first();
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->students_id;
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        $student = Student::where('id', $student_id)->first();
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S5 (jumlah dependency: 19)
+=== POTONGAN KODE (TERMINAL) ===
+$year = $request->year;
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+
+=== DARI FILE SEBENARNYA ===
+        $year = $request->year; 
+            $yearPrevious = $year;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+
+---------------------------
+
+🔥 Kandidat Extract Method: S6 (jumlah dependency: 21)
+=== POTONGAN KODE (TERMINAL) ===
+$semester = $request->semester;
+if ($semester == "GASAL") {
+elseif ($semester == "GENAP") {
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $semester = $request->semester;
+        if ($semester == "GASAL") {
+        }elseif ($semester == "GENAP") {
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S7 (jumlah dependency: 11)
+=== POTONGAN KODE (TERMINAL) ===
+$payment_type = $request->type;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+if ($payment_type == 'DPP') {
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+elseif ($payment_type == 'UKT') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+elseif ($payment_type == 'WISUDA') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+if ($payment_type !== "UKT") {
+
+=== DARI FILE SEBENARNYA ===
+        $payment_type = $request->type;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        if ($payment_type == 'DPP') {
+        } elseif ($payment_type == 'UKT') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        } elseif ($payment_type == 'WISUDA') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        if ($payment_type !== "UKT") { //89
+
+---------------------------
+
+🔥 Kandidat Extract Method: S8 (jumlah dependency: 11)
+=== POTONGAN KODE (TERMINAL) ===
+$amount = $request->amount;
+$amount = $request->amount;
+$amount = $request->amount;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$inputAmount = $ammount + $amount;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+        $amount = $request->amount;
+        $amount = $request->amount;
+        $amount = $request->amount;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+            $inputAmount = $ammount + $amount;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S9 (jumlah dependency: 8)
+=== POTONGAN KODE (TERMINAL) ===
+$studentData = $this->getStudentData($request->students_id);
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$student = $studentData[0];
+$studentType = $studentData[1];
+
+=== DARI FILE SEBENARNYA ===
+        $studentData = $this->getStudentData($request->students_id); 
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        $student = $studentData[0]; //91
+        $studentType = $studentData[1]; //92
+
+---------------------------
+
+🔥 Kandidat Extract Method: S24 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+$user_id = $request->user()->id;
+
+=== DARI FILE SEBENARNYA ===
+            $user_id = $request->user()->id;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S25 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+=== DARI FILE SEBENARNYA ===
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S26 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+$reference_number = $request->reference_number;
+
+=== DARI FILE SEBENARNYA ===
+            $reference_number = $request->reference_number;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S27 (jumlah dependency: 11)
+=== POTONGAN KODE (TERMINAL) ===
+$amount = $request->amount;
+$amount = $request->amount;
+$amount = $request->amount;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$inputAmount = $ammount + $amount;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+        $amount = $request->amount;
+        $amount = $request->amount;
+        $amount = $request->amount;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+            $inputAmount = $ammount + $amount;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S28 (jumlah dependency: 12)
+=== POTONGAN KODE (TERMINAL) ===
+$type = "debit";
+$type = "kredit";
+if ($type == 'kredit') {
+elseif ($type == 'debit') {
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+            $type = "debit";
+            $type = "kredit";
+        if ($type == 'kredit') {
+        } elseif ($type == 'debit') {
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S29 (jumlah dependency: 8)
+=== POTONGAN KODE (TERMINAL) ===
+$transaction_accounts_id = 1130;
+$transaction_accounts_id = 1120;
+$account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+=== DARI FILE SEBENARNYA ===
+            $transaction_accounts_id = 1130;
+            $transaction_accounts_id = 1120;
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+---------------------------
+
+🔥 Kandidat Extract Method: S34 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+=== DARI FILE SEBENARNYA ===
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S35 (jumlah dependency: 11)
+=== POTONGAN KODE (TERMINAL) ===
+$amount = $request->amount;
+$amount = $request->amount;
+$amount = $request->amount;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$inputAmount = $ammount + $amount;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+        $amount = $request->amount;
+        $amount = $request->amount;
+        $amount = $request->amount;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+            $inputAmount = $ammount + $amount;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S36 (jumlah dependency: 12)
+=== POTONGAN KODE (TERMINAL) ===
+$type = "debit";
+$type = "kredit";
+if ($type == 'kredit') {
+elseif ($type == 'debit') {
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+            $type = "debit";
+            $type = "kredit";
+        if ($type == 'kredit') {
+        } elseif ($type == 'debit') {
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S37 (jumlah dependency: 8)
+=== POTONGAN KODE (TERMINAL) ===
+$transaction_accounts_id = 1130;
+$transaction_accounts_id = 1120;
+$account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+=== DARI FILE SEBENARNYA ===
+            $transaction_accounts_id = 1130;
+            $transaction_accounts_id = 1120;
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+
+---------------------------
+
+🔥 Kandidat Extract Method: S44 (jumlah dependency: 11)
+=== POTONGAN KODE (TERMINAL) ===
+$ukt = Ukt::create($request->all());
+
+=== DARI FILE SEBENARNYA ===
+            $ukt = Ukt::create($request->all());
+
+---------------------------
+
+🔥 Kandidat Extract Method: S47 (jumlah dependency: 50)
+=== POTONGAN KODE (TERMINAL) ===
+$amount = $request->amount;
+$user_id = $request->user()->id;
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$reference_number = $request->reference_number;
+$amount = $request->amount;
+$type = "debit";
+$transaction_accounts_id = 1130;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$amount = $request->amount;
+$type = "kredit";
+$transaction_accounts_id = 1120;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id)
+$account = TransactionAccount::findOrFail($transaction_accounts_id);
+if ($type == 'kredit') {
+$inputAmount = $ammount + $amount;
+elseif ($type == 'debit') {
+$inputAmount = $ammount + $amount;
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $amount = $request->amount;
+            $user_id = $request->user()->id;
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $reference_number = $request->reference_number;
+        $amount = $request->amount;
+            $type = "debit";
+            $transaction_accounts_id = 1130;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+        $amount = $request->amount;
+            $type = "kredit";
+            $transaction_accounts_id = 1120;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+    public function addTransaction($user_id, $description, $reference_number, $amount, $type, $transaction_accounts_id) //menambahkan data transaksi ke tabel transaction
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+        if ($type == 'kredit') {
+            $inputAmount = $ammount + $amount;
+        } elseif ($type == 'debit') {
+            $inputAmount = $ammount + $amount;
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S58 (jumlah dependency: 34)
+=== POTONGAN KODE (TERMINAL) ===
+$amount = $request->amount;
+$amount = $request->amount;
+$type = "debit";
+$transaction_accounts_id = 1130;
+$amount = $request->amount;
+$type = "kredit";
+$transaction_accounts_id = 1120;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+public function updateTransactionAccount($transaction_accounts_id, $type, $amount)
+$account = TransactionAccount::findOrFail($transaction_accounts_id);
+if ($type == 'kredit') {
+$inputAmount = $ammount + $amount;
+elseif ($type == 'debit') {
+$inputAmount = $ammount + $amount;
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $amount = $request->amount;
+        $amount = $request->amount;
+            $type = "debit";
+            $transaction_accounts_id = 1130;
+        $amount = $request->amount;
+            $type = "kredit";
+            $transaction_accounts_id = 1120;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+    public function updateTransactionAccount($transaction_accounts_id, $type, $amount) //mengupdate nilai debit atau kredit pada akun transaksi
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+        if ($type == 'kredit') {
+            $inputAmount = $ammount + $amount;
+        } elseif ($type == 'debit') {
+            $inputAmount = $ammount + $amount;
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S59 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$account = TransactionAccount::findOrFail($transaction_accounts_id);
+$ammount = $account->kredit;
+$ammount = $account->debit;
+
+=== DARI FILE SEBENARNYA ===
+        $account = TransactionAccount::findOrFail($transaction_accounts_id);
+            $ammount = $account->kredit;
+            $ammount = $account->debit;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S62 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$inputAmount = $ammount + $amount;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+            $inputAmount = $ammount + $amount;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S67 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$inputAmount = $ammount + $amount;
+$inputAmount = $ammount + $amount;
+
+=== DARI FILE SEBENARNYA ===
+            $inputAmount = $ammount + $amount;
+            $inputAmount = $ammount + $amount;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S71 (jumlah dependency: 13)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->students_id;
+$statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+$statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+public function getStudentData($student_id)
+$student = Student::where('id', $student_id)->first();
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->students_id;
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+    public function getStudentData($student_id) //digunakan untuk memproses status pembayaran mahasiswa
+        $student = Student::where('id', $student_id)->first();
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S72 (jumlah dependency: 14)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('id', $student_id)->first();
+$student_type = StudentType::where('id', $student->student_types_id)->first();
+$student = $studentData[0];
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('id', $student_id)->first();
+        $student_type = StudentType::where('id', $student->student_types_id)->first(); //student_type used in setstatus
+        $student = $studentData[0]; //91
+
+---------------------------
+
+🔥 Kandidat Extract Method: S73 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$student_type = StudentType::where('id', $student->student_types_id)->first();
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+
+=== DARI FILE SEBENARNYA ===
+        $student_type = StudentType::where('id', $student->student_types_id)->first(); //student_type used in setstatus
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+
+---------------------------
+
+🔥 Kandidat Extract Method: S77 (jumlah dependency: 75)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->students_id;
+$year = $request->year;
+$semester = $request->semester;
+$payment_type = $request->type;
+if ($semester == "GASAL") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+elseif ($semester == "GENAP") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+$statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$student = Student::where('id', $student_id)->first();
+$student_type = StudentType::where('id', $student->student_types_id)->first();
+public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal)
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$totalPayment = $payment->sum('amount') + $nominal;
+if ($payment_type == 'DPP') {
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+elseif ($payment_type == 'UKT') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+elseif ($payment_type == 'WISUDA') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+if ($payment_type !== "UKT") {
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->students_id;
+        $year = $request->year; 
+        $semester = $request->semester;
+        $payment_type = $request->type;
+        if ($semester == "GASAL") {
+        }elseif ($semester == "GENAP") {
+            $yearPrevious = $year;
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        $student = Student::where('id', $student_id)->first();
+        $student_type = StudentType::where('id', $student->student_types_id)->first(); //student_type used in setstatus
+    public function setTotalStatus($student_id, $year, $semester, $payment_type, $student_type, $nominal) //menentukan status pembayaran seperti lunas, belum lunas, lunas uts
+        $totalPayment = $payment->sum('amount') + $nominal;
+        if ($payment_type == 'DPP') {
+        } elseif ($payment_type == 'UKT') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        } elseif ($payment_type == 'WISUDA') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        if ($payment_type !== "UKT") { //89
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S82 (jumlah dependency: 7)
+=== POTONGAN KODE (TERMINAL) ===
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+if ($status === "Lunas") {
+elseif ($status === "Lunas UTS") {
+elseif ($status === "Lunas KRS") {
+elseif ($status === "Belum Lunas") {
+
+=== DARI FILE SEBENARNYA ===
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        if ($status === "Lunas") { //96
+        } elseif ($status === "Lunas UTS") { //105
+        } elseif ($status === "Lunas KRS") { //112
+        } elseif ($status === "Belum Lunas") { //116
+
+---------------------------
+
+🔥 Kandidat Extract Method: S84 (jumlah dependency: 7)
+=== POTONGAN KODE (TERMINAL) ===
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+if ($status === "Lunas") {
+elseif ($status === "Lunas UTS") {
+elseif ($status === "Lunas KRS") {
+elseif ($status === "Belum Lunas") {
+
+=== DARI FILE SEBENARNYA ===
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        if ($status === "Lunas") { //96
+        } elseif ($status === "Lunas UTS") { //105
+        } elseif ($status === "Lunas KRS") { //112
+        } elseif ($status === "Belum Lunas") { //116
+
+---------------------------
+
+🔥 Kandidat Extract Method: S86 (jumlah dependency: 7)
+=== POTONGAN KODE (TERMINAL) ===
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+if ($status === "Lunas") {
+elseif ($status === "Lunas UTS") {
+elseif ($status === "Lunas KRS") {
+elseif ($status === "Belum Lunas") {
+
+=== DARI FILE SEBENARNYA ===
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        if ($status === "Lunas") { //96
+        } elseif ($status === "Lunas UTS") { //105
+        } elseif ($status === "Lunas KRS") { //112
+        } elseif ($status === "Belum Lunas") { //116
+
+---------------------------
+
+🔥 Kandidat Extract Method: S88 (jumlah dependency: 83)
+=== POTONGAN KODE (TERMINAL) ===
+$year = $request->year;
+$semester = $request->semester;
+$payment_type = $request->type;
+$studentData = $this->getStudentData($request->students_id);
+if ($semester == "GASAL") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+elseif ($semester == "GENAP") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$ukt = Ukt::create($request->all());
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+if ($payment_type == 'DPP') {
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$status = app(StudentTypeController::class)->setStatus($dpp->sum('amount') + $nominal, $payment_type, $student_type);
+elseif ($payment_type == 'UKT') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+elseif ($payment_type == 'WISUDA') {
+$status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type);
+public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt)
+if ($payment_type !== "UKT") {
+$student = $studentData[0];
+$studentType = $studentData[1];
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+if ($status === "Lunas") {
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+elseif ($status === "Lunas UTS") {
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+elseif ($status === "Lunas KRS") {
+elseif ($status === "Belum Lunas") {
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $year = $request->year; 
+        $semester = $request->semester;
+        $payment_type = $request->type;
+        $studentData = $this->getStudentData($request->students_id); 
+        if ($semester == "GASAL") {
+        }elseif ($semester == "GENAP") {
+            $yearPrevious = $year;
+            $description = "Pembayaran " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $description = "Pendapatan " . $request->type . " " . $studentData[0]->nim . " " . $studentData[0]->name;
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+            $ukt = Ukt::create($request->all());
+        if ($payment_type == 'DPP') {
+        } elseif ($payment_type == 'UKT') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+        } elseif ($payment_type == 'WISUDA') {
+            $status = app(StudentTypeController::class)->setStatus($totalPayment, $payment_type, $student_type); //ini dulunya pake $this
+    public function setKeterangan($studentData, $year, $semester, $payment_type, $status, $ukt) //s88
+        if ($payment_type !== "UKT") { //89
+        $student = $studentData[0]; //91
+        $studentType = $studentData[1]; //92
+        if ($status === "Lunas") { //96
+        } elseif ($status === "Lunas UTS") { //105
+        } elseif ($status === "Lunas KRS") { //112
+        } elseif ($status === "Belum Lunas") { //116
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S91 (jumlah dependency: 14)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('id', $student_id)->first();
+$student_type = StudentType::where('id', $student->student_types_id)->first();
+$student = $studentData[0];
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('id', $student_id)->first();
+        $student_type = StudentType::where('id', $student->student_types_id)->first(); //student_type used in setstatus
+        $student = $studentData[0]; //91
+
+---------------------------
+
+🔥 Kandidat Extract Method: S119 (jumlah dependency: 68)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->students_id;
+$year = $request->year;
+$semester = $request->semester;
+if ($semester == "GASAL") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+elseif ($semester == "GENAP") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+$statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+$type = "debit";
+$type = "kredit";
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+if ($type == 'kredit') {
+elseif ($type == 'debit') {
+$student = Student::where('id', $student_id)->first();
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+public function createExamCard($student_id, $type, $semester, $year)
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->students_id;
+        $year = $request->year; 
+        $semester = $request->semester;
+        if ($semester == "GASAL") {
+        }elseif ($semester == "GENAP") {
+            $yearPrevious = $year;
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+            $type = "debit";
+            $type = "kredit";
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        if ($type == 'kredit') {
+        } elseif ($type == 'debit') {
+        $student = Student::where('id', $student_id)->first();
+    public function createExamCard($student_id, $type, $semester, $year) //membuat kartu ujian (uts atau uas)
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S128 (jumlah dependency: 55)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->students_id;
+$year = $request->year;
+$semester = $request->semester;
+if ($semester == "GASAL") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 1;
+$yearPrevious = $year - 1;
+elseif ($semester == "GENAP") {
+$semester_student = ($year - $studentData[0]->force) * 2 + 2;
+$yearPrevious = $year;
+$statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+$statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+$setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+$student = Student::where('id', $student_id)->first();
+$payment = Ukt::where('students_id', $student_id)->where('year', $year)->where('semester', $semester)->where('type', $payment_type)->get();
+$dpp = Ukt::where('students_id', $student_id)->where('year', $year)->where('type', $payment_type)->get();
+$bimbinganExists = BimbinganStudy::where('students_id', $student->id)->where('year', $year)->where('semester', $semester)->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examUASExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UAS')->exists();
+$examUTSExists = ExamCard::where('students_id', $student->id)->where('semester', $semester)->where('type', 'UTS')->exists();
+$examcard = ['students_id' => $student_id, 'type' => $type, 'semester' => $semester, 'year' => $year];
+$exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+public function createBimbinganStudy($student_id, $year, $semester)
+$bimbinganStudy = ['students_id' => $student_id, 'year' => $year, 'semester' => $semester, 'status' => "Tunda"];
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->students_id;
+        $year = $request->year; 
+        $semester = $request->semester;
+        if ($semester == "GASAL") {
+        }elseif ($semester == "GENAP") {
+            $yearPrevious = $year;
+        $statusDPP = Ukt::where('students_id', $student_id)->where('type', "DPP")->orderBy('id', 'desc')->first();
+        $statusUKT = Ukt::where('students_id', $student_id)->where('type', "UKT")->where('year', $yearPrevious)->where('semester', $semesterPrevious)->orderBy('id', 'desc')->first();
+            $setTotalStatus = $this->setTotalStatus($student_id, $year, $semester, $payment_type, $studentData[1], $amount);
+        $student = Student::where('id', $student_id)->first();
+        $exam_id = ExamCard::where('students_id', $student_id)->where('semester', $semester)->where('type', $type)->latest('created_at')->first();
+    public function createBimbinganStudy($student_id, $year, $semester) { //membuat entitas bimbingan studi (lbs) jika belum ada
+        $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('semester', $semester)->latest('created_at')->first();
+
+---------------------------
+
+🏁 Ranking Kandidat Extract Method Berdasarkan Jumlah Dependency:
+1. S88 (Jumlah Dependency: 83) > setKeterangan
+2. S77 (Jumlah Dependency: 75)
+3. S119 (Jumlah Dependency: 68)
+4. S128 (Jumlah Dependency: 55)
+5. S47 (Jumlah Dependency: 50)
+6. S58 (Jumlah Dependency: 34)
+7. S20 (Jumlah Dependency: 25)
+8. S6 (Jumlah Dependency: 21) > store
+9. S5 (Jumlah Dependency: 19) > store
+10. S1 (Jumlah Dependency: 18) > store
+11. S72 (Jumlah Dependency: 14)
+12. S91 (Jumlah Dependency: 14)
+13. S71 (Jumlah Dependency: 13)
+14. S96 (Jumlah Dependency: 12)
+15. S4 (Jumlah Dependency: 12)
+16. S28 (Jumlah Dependency: 12)
+17. S36 (Jumlah Dependency: 12)
+18. S7 (Jumlah Dependency: 11)
+19. S8 (Jumlah Dependency: 11)
+20. S27 (Jumlah Dependency: 11)
+21. S35 (Jumlah Dependency: 11)
+22. S44 (Jumlah Dependency: 11)
+23. S60 (Jumlah Dependency: 8)
+24. S9 (Jumlah Dependency: 8)
+25. S29 (Jumlah Dependency: 8)
+26. S37 (Jumlah Dependency: 8)
+27. S82 (Jumlah Dependency: 7)
+28. S84 (Jumlah Dependency: 7)
+29. S86 (Jumlah Dependency: 7)
+30. S10 (Jumlah Dependency: 6)
+31. S25 (Jumlah Dependency: 5)
+32. S34 (Jumlah Dependency: 5)
+33. S59 (Jumlah Dependency: 5)
+34. S62 (Jumlah Dependency: 5)
+35. S67 (Jumlah Dependency: 5)
+36. S73 (Jumlah Dependency: 5)
+37. S65 (Jumlah Dependency: 4)
+38. S80 (Jumlah Dependency: 4)
+39. S105 (Jumlah Dependency: 4)
+40. S24 (Jumlah Dependency: 4)
+41. S26 (Jumlah Dependency: 4)

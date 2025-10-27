@@ -2,27 +2,28 @@
 
 namespace Database\Factories;
 
+use App\Models\Dpa;
+use App\Models\Student;
+use App\Models\StudentType;
+use App\Models\StudyProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\=Student>
+ * @extends Factory<Student>
  */
 class StudentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Student::class;
+
     public function definition(): array
     {
         return [
-            'name'=>fake()->name(),
-            'nim'=>fake()->randomNumber(8, true),
-            'force'=>fake()->numberBetween(1990, 2023),
-            'study_program_id'=>mt_rand(1,13),
-            'student_types_id'=>mt_rand(1,5),
-            'dpa_id'=>mt_rand(1,40),
+            'name' => $this->faker->name(),
+            'nim' => $this->faker->unique()->numerify('########'),
+            'force' => $this->faker->year,
+            'study_program_id' => StudyProgram::factory(),
+            'student_types_id' => StudentType::factory(),
+            'dpa_id' => Dpa::factory(),
         ];
     }
 }

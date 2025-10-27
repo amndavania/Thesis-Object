@@ -5,12 +5,14 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.3.0",
+        "akeneo/php-coupling-detector": "^0.8.3",
         "barryvdh/laravel-snappy": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.8",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "nikic/php-parser": "^5.4",
         "tecnickcom/tcpdf": "^6.6"
     },
     "require-dev": {
@@ -20,8 +22,16 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "pdepend/pdepend": "^2.16",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
+        "phpmd/phpmd": "^2.15",
+        "phpmetrics/phpmetrics": "^0.0.1",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^10.5",
+        "qossmic/deptrac": "^2.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {

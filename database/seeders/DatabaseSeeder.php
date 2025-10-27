@@ -25,12 +25,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@example.com',
-            'password'  => bcrypt('admin'),
-            'role' => 'super admin'
-        ]);
+
+        fake()->unique($reset = true);
+
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'admin',
+                'password' => bcrypt('admin'),
+                'role' => 'super admin',
+            ]
+        );
+        
 
         $accountingGroups = [
             // laba rugi
@@ -57,33 +63,10 @@ class DatabaseSeeder extends Seeder
 
         // $transactionAccounts = TransactionAccount::factory()->count(58)->create();
 
-        TransactionAccount::factory()->create([
-            'id' => 1120,
-            'name'=> 'Pendapatan UKT',
-            'lajurSaldo'=> 'kredit',
-            'lajurLaporan'=> 'labaRugi',
-            'description' => 'pendapatan',
-            'kredit' => 0,
-            'debit' => 0,
-        ]);
-        TransactionAccount::factory()->create([
-            'id' => 1130,
-            'name'=> 'Bank BRI Ibrahimy',
-            'lajurSaldo'=> 'debit',
-            'lajurLaporan'=> 'neraca',
-            'description' => 'bank',
-            'kredit' => 0,
-            'debit' => 0,
-        ]);
-        TransactionAccount::factory()->create([
-            'id' => 9999,
-            'name'=> 'labaDitahan',
-            'lajurSaldo'=> 'debit',
-            'lajurLaporan'=> 'neraca',
-            'description' => 'akun khusus',
-            'kredit' => 0,
-            'debit' => 0,
-        ]);
+        $this->call([
+            TransactionAccountSeeder::class,
+        ]);        
+    
 
         // $groupTransactions = collect($accountingGroups)->map(function ($group) {
         //     return AccountingGroup::factory()->create($group);
@@ -115,6 +98,15 @@ class DatabaseSeeder extends Seeder
                 $transactionAccounts->pluck('id')->toArray()
             );
         }
+        
+        $this->call([
+            StudentSeeder::class,
+            TransactionSeeder::class,
+            ExamCardSeeder::class,
+            BimbinganStudySeeder::class,
+            UktSeeder::class, // terakhir, karena tergantung data lainnya
+        ]);
+        
 
 
         // foreach ($groupTransactions as $groupTransaction) {

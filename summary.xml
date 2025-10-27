@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metrics generated="2025-04-13T11:34:29" pdepend="@package_version@" ahh="2" andc="0" calls="31" ccn="31" ccn2="31" cloc="32" clsa="0" clsc="14" eloc="390" fanout="47" leafs="12" lloc="186" loc="542" maxDIT="2" ncloc="510" noc="14" nof="0" noi="0" nom="31" nop="1" roots="2">
+  <files>
+    <file name="C:\laragon\www\accounting-app\app\Models\AccountingGroup.php" loc="32" cloc="4" eloc="21" lloc="11" ncloc="28"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\BimbinganStudy.php" loc="30" cloc="0" eloc="22" lloc="11" ncloc="30"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Dpa.php" loc="55" cloc="12" eloc="31" lloc="15" ncloc="43"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\ExamCard.php" loc="30" cloc="0" eloc="22" lloc="11" ncloc="30"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Faculty.php" loc="25" cloc="0" eloc="18" lloc="10" ncloc="25"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\HistoryReport.php" loc="26" cloc="0" eloc="19" lloc="9" ncloc="26"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Report.php" loc="25" cloc="0" eloc="18" lloc="10" ncloc="25"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Student.php" loc="56" cloc="0" eloc="44" lloc="21" ncloc="56"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\StudentType.php" loc="38" cloc="0" eloc="30" lloc="13" ncloc="38"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\StudyProgram.php" loc="43" cloc="0" eloc="33" lloc="17" ncloc="43"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Transaction.php" loc="38" cloc="0" eloc="30" lloc="14" ncloc="38"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\TransactionAccount.php" loc="50" cloc="0" eloc="40" lloc="19" ncloc="50"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\Ukt.php" loc="31" cloc="0" eloc="25" lloc="8" ncloc="31"/>
+    <file name="C:\laragon\www\accounting-app\app\Models\User.php" loc="63" cloc="16" eloc="37" lloc="17" ncloc="47"/>
+  </files>
+  <package name="App\Models" noc="14" noi="0" nom="31" nof="0" cr="0.15" rcr="0.405">
+    <class name="AccountingGroup" fqname="App\Models\AccountingGroup" start="10" end="31" loc="22" cloc="4" eloc="3" lloc="1" ncloc="18" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="1" ce="1" impl="0" cis="1" csz="4" npm="1" vars="3" varsi="3" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\AccountingGroup.php"/>
+      <method name="transactionAccounts" start="27" end="30" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="13" hnd="11" hv="44.972611042285" hd="4.8" hl="0.20833333333333" he="215.86853300297" ht="11.992696277943" hb="0.011995130357899" hi="9.3692939671427" mi="77.883626834239"/>
+    </class>
+    <class name="BimbinganStudy" fqname="App\Models\BimbinganStudy" start="10" end="29" loc="20" cloc="0" eloc="3" lloc="1" ncloc="20" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="2" ce="2" impl="0" cis="1" csz="4" npm="1" vars="3" varsi="3" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\BimbinganStudy.php"/>
+      <method name="student" start="24" end="27" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="Dpa" fqname="App\Models\Dpa" start="12" end="54" loc="43" cloc="12" eloc="9" lloc="3" ncloc="31" dit="2" noam="3" nocc="0" noom="0" nom="3" cr="0.15" rcr="0.15980769230769" ca="1" cbo="5" ce="5" impl="0" cis="3" csz="4" npm="3" vars="1" varsi="1" varsnp="0" wmc="3" wmci="3" wmcnp="3">
+      <file name="C:\laragon\www\accounting-app\app\Models\Dpa.php"/>
+      <method name="user" start="25" end="28" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="student" start="30" end="33" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="studyprogram" start="35" end="38" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="ExamCard" fqname="App\Models\ExamCard" start="10" end="29" loc="20" cloc="0" eloc="3" lloc="1" ncloc="20" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="2" ce="2" impl="0" cis="1" csz="4" npm="1" vars="3" varsi="3" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\ExamCard.php"/>
+      <method name="student" start="24" end="27" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="Faculty" fqname="App\Models\Faculty" start="9" end="24" loc="16" cloc="0" eloc="3" lloc="1" ncloc="16" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="2" ce="2" impl="0" cis="1" csz="4" npm="1" vars="3" varsi="3" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\Faculty.php"/>
+      <method name="studyprogram" start="20" end="23" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+    <class name="HistoryReport" fqname="App\Models\HistoryReport" start="9" end="25" loc="17" cloc="0" eloc="3" lloc="1" ncloc="17" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="2" ce="2" impl="0" cis="1" csz="3" npm="1" vars="2" varsi="2" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\HistoryReport.php"/>
+      <method name="transactionaccount" start="21" end="24" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="Report" fqname="App\Models\Report" start="9" end="24" loc="16" cloc="0" eloc="3" lloc="1" ncloc="16" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="1" cbo="2" ce="2" impl="0" cis="1" csz="4" npm="1" vars="3" varsi="3" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\Report.php"/>
+      <method name="user" start="20" end="23" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+    <class name="Student" fqname="App\Models\Student" start="10" end="55" loc="46" cloc="0" eloc="18" lloc="6" ncloc="46" dit="2" noam="6" nocc="0" noom="0" nom="6" cr="0.15" rcr="0.15980769230769" ca="5" cbo="8" ce="8" impl="0" cis="6" csz="9" npm="6" vars="3" varsi="3" varsnp="0" wmc="6" wmci="6" wmcnp="6">
+      <file name="C:\laragon\www\accounting-app\app\Models\Student.php"/>
+      <method name="ukt" start="26" end="29" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="dpa" start="31" end="34" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="studyprogram" start="36" end="39" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="studenttype" start="41" end="44" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="examcard" start="46" end="49" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="bimbinganStudy" start="51" end="54" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+    <class name="StudentType" fqname="App\Models\StudentType" start="10" end="37" loc="28" cloc="0" eloc="6" lloc="2" ncloc="28" dit="2" noam="2" nocc="0" noom="0" nom="2" cr="0.15" rcr="0.15980769230769" ca="2" cbo="4" ce="4" impl="0" cis="2" csz="5" npm="2" vars="3" varsi="3" varsnp="0" wmc="2" wmci="2" wmcnp="2">
+      <file name="C:\laragon\www\accounting-app\app\Models\StudentType.php"/>
+      <method name="student" start="28" end="31" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="studyprogram" start="33" end="36" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="StudyProgram" fqname="App\Models\StudyProgram" start="10" end="42" loc="33" cloc="0" eloc="12" lloc="4" ncloc="33" dit="2" noam="4" nocc="0" noom="0" nom="4" cr="0.15" rcr="0.15980769230769" ca="4" cbo="5" ce="5" impl="0" cis="4" csz="7" npm="4" vars="3" varsi="3" varsnp="0" wmc="4" wmci="4" wmcnp="4">
+      <file name="C:\laragon\www\accounting-app\app\Models\StudyProgram.php"/>
+      <method name="student" start="23" end="26" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="dpa" start="28" end="31" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="faculty" start="33" end="36" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="studentType" start="38" end="41" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+    <class name="Transaction" fqname="App\Models\Transaction" start="11" end="37" loc="27" cloc="0" eloc="6" lloc="2" ncloc="27" dit="2" noam="2" nocc="0" noom="0" nom="2" cr="0.15" rcr="0.15980769230769" ca="2" cbo="3" ce="3" impl="0" cis="2" csz="5" npm="2" vars="3" varsi="3" varsnp="0" wmc="2" wmci="2" wmcnp="2">
+      <file name="C:\laragon\www\accounting-app\app\Models\Transaction.php"/>
+      <method name="transactionaccount" start="28" end="31" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="user" start="33" end="36" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="TransactionAccount" fqname="App\Models\TransactionAccount" start="12" end="49" loc="38" cloc="0" eloc="12" lloc="4" ncloc="38" dit="2" noam="4" nocc="0" noom="0" nom="4" cr="0.15" rcr="0.15980769230769" ca="3" cbo="5" ce="5" impl="0" cis="4" csz="7" npm="4" vars="3" varsi="3" varsnp="0" wmc="4" wmci="4" wmcnp="4">
+      <file name="C:\laragon\www\accounting-app\app\Models\TransactionAccount.php"/>
+      <method name="accountinggroup" start="30" end="33" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="13" hnd="11" hv="44.972611042285" hd="4.8" hl="0.20833333333333" he="215.86853300297" ht="11.992696277943" hb="0.011995130357899" hi="9.3692939671427" mi="77.883626834239"/>
+      <method name="transaction" start="35" end="38" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+      <method name="Ukt" start="40" end="43" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="historyreport" start="45" end="48" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+    <class name="Ukt" fqname="App\Models\Ukt" start="9" end="30" loc="22" cloc="0" eloc="3" lloc="1" ncloc="22" dit="2" noam="1" nocc="0" noom="0" nom="1" cr="0.15" rcr="0.15980769230769" ca="2" cbo="2" ce="2" impl="0" cis="1" csz="2" npm="1" vars="1" varsi="1" varsnp="0" wmc="1" wmci="1" wmcnp="1">
+      <file name="C:\laragon\www\accounting-app\app\Models\Ukt.php"/>
+      <method name="student_id" start="26" end="29" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="9" hnd="9" hv="28.529325012981" hd="6" hl="0.16666666666667" he="171.17595007788" ht="9.5097750043269" hb="0.010276389970974" hi="4.7548875021635" mi="79.267620989406"/>
+    </class>
+    <class name="User" fqname="App\Models\User" start="13" end="62" loc="50" cloc="15" eloc="9" lloc="3" ncloc="35" dit="2" noam="3" nocc="0" noom="0" nom="3" cr="0.15" rcr="0.2775" ca="3" cbo="4" ce="4" impl="0" cis="3" csz="6" npm="3" vars="3" varsi="3" varsnp="0" wmc="3" wmci="3" wmcnp="3">
+      <file name="C:\laragon\www\accounting-app\app\Models\User.php"/>
+      <method name="transaction" start="48" end="51" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="report" start="53" end="56" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+      <method name="dpa" start="58" end="61" ccn="1" ccn2="1" loc="4" cloc="0" eloc="3" lloc="1" ncloc="4" npath="1" hnt="7" hnd="7" hv="19.651484454403" hd="6.25" hl="0.16" he="122.82177784002" ht="6.8234321022233" hb="0.0082362400950509" hi="3.1442375127045" mi="80.401219851729"/>
+    </class>
+  </package>
+</metrics>

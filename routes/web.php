@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FacultyController;
+use App\Http\Controllers\DpaAcademicController;
 use App\Http\Controllers\DpaController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentController;
@@ -78,26 +79,27 @@ Route::middleware('auth')->group(function () {
         Route::resource('examcard', ExamCardController::class)->except(['show']);
 
         Route::get('jurnal/export', [JurnalController::class, 'export']);
-        Route::get('bukubesar/export', [BukuBesarController::class, 'export']);
-        Route::get('bukubesarrekap/export', [BukuBesarRekapController::class, 'export']);
-        Route::get('cashflow/export', [CashFlowController::class, 'export']);
-        Route::get('labarugi/export', [LabaRugiController::class, 'export']);
-        Route::get('neraca/export', [NeracaController::class, 'export']);
-        Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export']);
-        Route::get('uktdetail/export', [UktDetailController::class, 'export']);
+        Route::get('bukubesar/export', [BukuBesarController::class, 'export'])->name('bukubesar.export');
+        Route::get('bukubesarrekap/export', [BukuBesarRekapController::class, 'export'])->name('bukubesarrekap.export');
+        Route::get('cashflow/export', [CashFlowController::class, 'export'])->name('cashflow.export');
+        Route::get('labarugi/export', [LabaRugiController::class, 'export'])->name('labarugi.export');
+        Route::get('neraca/export', [NeracaController::class, 'export'])->name('neraca.export');
+        Route::get('perubahanmodal/export', [PerubahanModalController::class, 'export'])->name('perubahanmodal.export');
+        Route::get('uktdetail/export', [UktDetailController::class, 'export'])->name('uktdetail.export');
 
         Route::resource('ukt', UktController::class)->except(['show']);
     }); 
 
     Route::middleware('admin:super admin,DPA')->group(function () {
-        Route::get('daftar_mahasiswa', [DpaController::class, 'getMahasiswa'])->name('daftar_mahasiswa');
-        Route::get('daftar_mahasiswa/export', [DpaController::class, 'export']);
+        Route::get('daftar_mahasiswa', [DpaAcademicController::class, 'getMahasiswa'])->name('daftar_mahasiswa'); //this for testing dpaacademic
+        Route::get('daftar_mahasiswa/export', [DpaAcademicController::class, 'export'])->name('daftar_mahasiswa.export'); //this for testing dpaacademic
     });
 
     Route::middleware('admin:super admin,akademik')->group(function () {
         Route::resource('faculty', FacultyController::class)->except(['show']);
         Route::resource('study_program', StudyProgramController::class)->except(['show']);
-        Route::resource('dpa', DpaController::class)->except(['show']);
+        Route::resource('dpa', DpaController::class)->except(['show']); //this
+
     });
 
     Route::middleware('admin:super admin,akademik,admin keuangan')->group(function () {
@@ -114,7 +116,7 @@ Route::middleware('auth')->group(function () {
         Route::post('register', [RegisteredUserController::class, 'store']);
 
         Route::resource('bimbinganstudi', KrsController::class)->except(['show']);
-        Route::get('bimbinganstudi/export', [KrsController::class, 'export']);
+        Route::get('bimbinganstudi/export', [KrsController::class, 'export'])->name('krs.export');;
 
     });
 });

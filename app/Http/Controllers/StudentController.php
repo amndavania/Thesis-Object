@@ -13,79 +13,30 @@ use App\Models\Dpa;
 use App\Models\Ukt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\StudentRepositoryInterface;
 
 class StudentController extends Controller
 {
+    protected $studentRepo;
+
+    public function __construct(StudentRepositoryInterface $studentRepo)
+    {
+        $this->studentRepo = $studentRepo;
+    }
+
     public function index(Request $request)
     {
-        $student_search = DB::table('students')
-            ->select('students.id', 'students.name', 'students.nim')
-            ->get();
-        $prodi = DB::table('study_programs')
-            ->select('study_programs.id','study_programs.name')
-            ->get();
-        $angkatan = DB::table('students')
-            ->select('force')
-            ->distinct()
-            ->orderBy('force', 'desc')
-            ->get();
-        
-        if (!empty($request['students_id'])) {
-            $student =  $student = DB::table('students')
-            ->where('students.id','=',$request['students_id'])
-            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
-            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
-            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
-            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
-            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
-            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
-            ->paginate(20);
+        $filters = [
+            'students_id' => $request['students_id'] ?? null, 
+            'prodi_search_id' => $request['prodi_search_id'] ?? null,
+            'angkatan_search_id' => $request['angkatan_search_id'] ?? null,
+        ];
 
-        } elseif (!empty($request['prodi_search_id']) && !empty($request['angkatan_search_id'])) {
-            $student = DB::table('students')
-            ->where('students.force', '=', $request['angkatan_search_id'])
-            ->where('students.study_program_id', '=', $request['prodi_search_id'])
-            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
-            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
-            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
-            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
-            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
-            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
-            ->paginate(20);
+        $student = $this->studentRepo->getAll($filters);
+        $student_search = \DB::table('students')->select('id','name','nim')->get(); 
+        $prodi = \DB::table('study_programs')->select('id','name')->get();
+        $angkatan = \DB::table('students')->select('force')->distinct()->orderBy('force','desc')->get();
 
-        } elseif (!empty($request['prodi_search_id'])) {
-            $student = DB::table('students')
-            ->where('students.study_program_id', '=', $request['prodi_search_id'])
-            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
-            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
-            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
-            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
-            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
-            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
-            ->paginate(20);
-
-        } elseif (!empty($request['angkatan_search_id'])) {
-            $student = DB::table('students')
-            ->where('students.force', '=', $request['angkatan_search_id'])
-            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
-            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
-            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
-            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
-            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
-            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
-            ->paginate(20);
-        }
-        else {
-            $student = DB::table('students')
-            ->leftJoin('ukts', 'students.id', '=', 'ukts.students_id')
-            ->leftJoin('student_types', 'students.student_types_id', '=', 'student_types.id')
-            ->leftJoin('study_programs', 'students.study_program_id', '=', 'study_programs.id')
-            ->leftJoin('dpas', 'students.dpa_id', '=', 'dpas.id')
-            ->select('students.id', 'students.name', 'students.nim', 'students.force', 'dpas.name AS dpas_name', 'student_types.type AS student_type', 'study_programs.name AS study_program_name', DB::raw('MAX(ukts.status) AS status'))
-            ->groupBy('students.id', 'students.name', 'students.nim', 'students.force', 'dpas_name', 'student_type', 'study_program_name')
-            ->paginate(20);
-        }
-            
         return view('student.data')->with([
             'student' => $student,
             'student_search' => $student_search,
@@ -104,8 +55,8 @@ class StudentController extends Controller
 
     public function store(StudentCreateRequest $request):RedirectResponse
     {
-
-        Student::create($request->all());
+        //ini maksudnya store
+        $this->studentRepo->create($request->all());
         return redirect()->route('student.index')->with(['success' => 'Data berhasil disimpan']);
     }
 
@@ -118,7 +69,7 @@ class StudentController extends Controller
     {
         //
         return view('student.edit')->with([
-            'student' => Student::findOrFail($id),
+            'student' => $this->studentRepo->findById($id),
             "study_program" => StudyProgram::all(),
             "student_type" => StudentType::all(),
            "dpa" => Dpa::all()
@@ -128,18 +79,14 @@ class StudentController extends Controller
     public function update(StudentUpdateRequest $request, string $id):RedirectResponse
     {
 
-        $student = Student::findOrFail($id);
-        $student->update($request->all());
+        $this->studentRepo->update($id, $request->all());
         return redirect()->route('student.index')->with(['success' => 'Data berhasil diupdate']);
     }
 
-    public function destroy($id):RedirectResponse
+    public function destroy($id): RedirectResponse
     {
-        $ukt = Ukt::where('students_id', $id)->exists();
-
-        if (!$ukt) {
-            $student = Student::findOrFail($id);
-            $student->delete();
+        if (!$this->studentRepo->hasUkt($id)) {
+            $this->studentRepo->delete($id);
             return redirect()->route('student.index')->with(['success' => 'Data berhasil dihapus']);
         } else {
             return redirect()->route('student.index')->with(['warning' => 'Mahasiswa masih terhubung dengan Pembayaran Mahasiswa']);

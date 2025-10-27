@@ -1,0 +1,371 @@
+
+🔥 Kandidat Extract Method: S8 (jumlah dependency: 9)
+=== POTONGAN KODE (TERMINAL) ===
+if (!empty($payment_id) && !empty($dispensasi)) {
+$payment = Ukt::where('id', $payment_id)->first();
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+=== DARI FILE SEBENARNYA ===
+        if (!empty($payment_id) && !empty($dispensasi)) { //untuk mengecek data pembuatan kartu bimbingan berdasarkan beberapa kondisi dispensasi yang diinputkan
+            $payment = Ukt::where('id', $payment_id)->first();
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S11 (jumlah dependency: 6)
+=== POTONGAN KODE (TERMINAL) ===
+if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+
+=== DARI FILE SEBENARNYA ===
+            if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+
+---------------------------
+
+🔥 Kandidat Extract Method: S30 (jumlah dependency: 7)
+=== POTONGAN KODE (TERMINAL) ===
+if (!empty($student)) {
+
+=== DARI FILE SEBENARNYA ===
+        if (!empty($student)) {
+
+---------------------------
+
+🔥 Kandidat Extract Method: S3 (jumlah dependency: 9)
+=== POTONGAN KODE (TERMINAL) ===
+public function data(Request $request)
+$student_id = $request->input('students_id');
+$payment_id = $request->input('id');
+$dispensasi = $request->input('dispensasi');
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$ukt = Ukt::where('students_id', $request->student)->get();
+$student = Student::where('id', $request->student)->first();
+$bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+$card = ExamCard::where('id', $request->id)->first();
+
+=== DARI FILE SEBENARNYA ===
+    public function data(Request $request) 
+        $student_id = $request->input('students_id');
+        $payment_id = $request->input('id');
+        $dispensasi = $request->input('dispensasi');
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+        $ukt = Ukt::where('students_id', $request->student)->get();
+        $student = Student::where('id', $request->student)->first();
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $card = ExamCard::where('id', $request->id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S5 (jumlah dependency: 6)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->input('students_id');
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+if (empty($student_id)) {
+$student_id = $student_first->id;
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->input('students_id');
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+        if (empty($student_id)) { //jika data student id yang diinputkan kosong, maka secara otomatis akan mengambil data student id pertama pada databse table student
+                $student_id = $student_first->id;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S7 (jumlah dependency: 4)
+=== POTONGAN KODE (TERMINAL) ===
+$dispensasi = $request->input('dispensasi');
+if (!empty($payment_id) && !empty($dispensasi)) {
+if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+
+=== DARI FILE SEBENARNYA ===
+        $dispensasi = $request->input('dispensasi');
+        if (!empty($payment_id) && !empty($dispensasi)) { //untuk mengecek data pembuatan kartu bimbingan berdasarkan beberapa kondisi dispensasi yang diinputkan
+            if ($dispensasi == "Menunggu Dispensasi UTS" && $bimbinganStudy->status == "Aktif") {
+            } elseif ($dispensasi == "Menunggu Dispensasi UAS" && $bimbinganStudy->status == "Aktif") {
+            } elseif ($dispensasi == "Menunggu Dispensasi KRS") {
+
+---------------------------
+
+🔥 Kandidat Extract Method: S9 (jumlah dependency: 8)
+=== POTONGAN KODE (TERMINAL) ===
+$payment = Ukt::where('id', $payment_id)->first();
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+=== DARI FILE SEBENARNYA ===
+            $payment = Ukt::where('id', $payment_id)->first();
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S24 (jumlah dependency: 6)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->input('students_id');
+$bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+if (empty($student_id)) {
+$student_id = $student_first->id;
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->input('students_id');
+            $bimbinganStudy = BimbinganStudy::where('students_id', $student_id)->where('year', $payment->year)->where('semester', $payment->semester)->first();
+        if (empty($student_id)) { //jika data student id yang diinputkan kosong, maka secara otomatis akan mengambil data student id pertama pada databse table student
+                $student_id = $student_first->id;
+
+---------------------------
+
+🔥 Kandidat Extract Method: S25 (jumlah dependency: 20)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$student = [];
+if (!empty($student)) {
+$student = Student::where('id', $request->student)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+$student = Student::where('id', $card->students_id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+            $student = [];
+        if (!empty($student)) {
+        $student = Student::where('id', $request->student)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $card->students_id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S27 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$isValid = true;
+$isValid = false;
+
+=== DARI FILE SEBENARNYA ===
+            $isValid = true; //Jika nama yang ada di database dan nama input sama, maka $isValid = true, menandakan validasi berhasil.
+            $isValid = false; //Kalau tidak cocok, maka $isValid = false dan $student direset ke array kosong [] supaya tidak ada data mahasiswa yang salah.
+
+---------------------------
+
+🔥 Kandidat Extract Method: S28 (jumlah dependency: 5)
+=== POTONGAN KODE (TERMINAL) ===
+$isValid = true;
+$isValid = false;
+
+=== DARI FILE SEBENARNYA ===
+            $isValid = true; //Jika nama yang ada di database dan nama input sama, maka $isValid = true, menandakan validasi berhasil.
+            $isValid = false; //Kalau tidak cocok, maka $isValid = false dan $student direset ke array kosong [] supaya tidak ada data mahasiswa yang salah.
+
+---------------------------
+
+🔥 Kandidat Extract Method: S29 (jumlah dependency: 20)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$student = [];
+if (!empty($student)) {
+$student = Student::where('id', $request->student)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+$student = Student::where('id', $card->students_id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+            $student = [];
+        if (!empty($student)) {
+        $student = Student::where('id', $request->student)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $card->students_id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S38 (jumlah dependency: 9)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->input('students_id');
+$payment_id = $request->input('id');
+$dispensasi = $request->input('dispensasi');
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+public function export(Request $request)
+$ukt = Ukt::where('students_id', $request->student)->get();
+$student = Student::where('id', $request->student)->first();
+$bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+$card = ExamCard::where('id', $request->id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->input('students_id');
+        $payment_id = $request->input('id');
+        $dispensasi = $request->input('dispensasi');
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+    public function export(Request $request)
+        $ukt = Ukt::where('students_id', $request->student)->get();
+        $student = Student::where('id', $request->student)->first();
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $card = ExamCard::where('id', $request->id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S40 (jumlah dependency: 20)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$student = [];
+if (!empty($student)) {
+$student = Student::where('id', $request->student)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+$student = Student::where('id', $card->students_id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+            $student = [];
+        if (!empty($student)) {
+        $student = Student::where('id', $request->student)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $card->students_id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S47 (jumlah dependency: 9)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->input('students_id');
+$payment_id = $request->input('id');
+$dispensasi = $request->input('dispensasi');
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$ukt = Ukt::where('students_id', $request->student)->get();
+$student = Student::where('id', $request->student)->first();
+public function exportLBS(Request $request)
+$bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+$card = ExamCard::where('id', $request->id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->input('students_id');
+        $payment_id = $request->input('id');
+        $dispensasi = $request->input('dispensasi');
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+        $ukt = Ukt::where('students_id', $request->student)->get();
+        $student = Student::where('id', $request->student)->first();
+    public function exportLBS(Request $request)
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $card = ExamCard::where('id', $request->id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S48 (jumlah dependency: 7)
+=== POTONGAN KODE (TERMINAL) ===
+$bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+if ($bimbinganstudi->semester == "GASAL") {
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+elseif ($bimbinganstudi->semester == "GENAP") {
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+
+=== DARI FILE SEBENARNYA ===
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        if ($bimbinganstudi->semester == "GASAL") {
+        } elseif ($bimbinganstudi->semester == "GENAP") {
+
+---------------------------
+
+🔥 Kandidat Extract Method: S49 (jumlah dependency: 20)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$student = [];
+if (!empty($student)) {
+$student = Student::where('id', $request->student)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+$student = Student::where('id', $card->students_id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+            $student = [];
+        if (!empty($student)) {
+        $student = Student::where('id', $request->student)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $card->students_id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S58 (jumlah dependency: 9)
+=== POTONGAN KODE (TERMINAL) ===
+$student_id = $request->input('students_id');
+$payment_id = $request->input('id');
+$dispensasi = $request->input('dispensasi');
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$ukt = Ukt::where('students_id', $request->student)->get();
+$student = Student::where('id', $request->student)->first();
+$bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+public function lihatKartu(Request $request): View
+$card = ExamCard::where('id', $request->id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student_id = $request->input('students_id');
+        $payment_id = $request->input('id');
+        $dispensasi = $request->input('dispensasi');
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+        $ukt = Ukt::where('students_id', $request->student)->get();
+        $student = Student::where('id', $request->student)->first();
+        $bimbinganstudi = BimbinganStudy::where('id', $request->id)->first();
+        $card = ExamCard::where('id', $request->id)->first();
+
+---------------------------
+
+🔥 Kandidat Extract Method: S60 (jumlah dependency: 20)
+=== POTONGAN KODE (TERMINAL) ===
+$student = Student::where('nim', $request['nim'])->first();
+if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) {
+$student = [];
+if (!empty($student)) {
+$student = Student::where('id', $request->student)->first();
+$student = Student::where('id', $bimbinganstudi->students_id)->first();
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 1;
+$semesterStudent = ($bimbinganstudi->year - $student->force) * 2 + 2;
+$student = Student::where('id', $card->students_id)->first();
+
+=== DARI FILE SEBENARNYA ===
+        $student = Student::where('nim', $request['nim'])->first(); //first() artinya ambil satu data pertama yang cocok (kalau ada). |  //User input NIM, lalu sistem akan mengambil data nim dari student
+        if (!empty($student) && strcasecmp($student->name, $request['name']) === 0) { //lalu sistem akan mengambil data nama dari nim yang diinputkan sekaligus dicocokkan dengan nama dari inputan user dari form
+            $student = [];
+        if (!empty($student)) {
+        $student = Student::where('id', $request->student)->first();
+        $student = Student::where('id', $bimbinganstudi->students_id)->first();
+        $student = Student::where('id', $card->students_id)->first();
+
+---------------------------
+
+🏁 Ranking Kandidat Extract Method Berdasarkan Jumlah Dependency:
+1. S25 (Jumlah Dependency: 20)
+2. S29 (Jumlah Dependency: 20)
+3. S40 (Jumlah Dependency: 20)
+4. S49 (Jumlah Dependency: 20)
+5. S60 (Jumlah Dependency: 20)
+6. S8 (Jumlah Dependency: 9)
+7. S3 (Jumlah Dependency: 9)
+8. S38 (Jumlah Dependency: 9)
+9. S47 (Jumlah Dependency: 9)
+10. S58 (Jumlah Dependency: 9)
+11. S9 (Jumlah Dependency: 8)
+12. S30 (Jumlah Dependency: 7)
+13. S48 (Jumlah Dependency: 7)
+14. S11 (Jumlah Dependency: 6)
+15. S5 (Jumlah Dependency: 6)
+16. S24 (Jumlah Dependency: 6)
+17. S27 (Jumlah Dependency: 5)
+18. S28 (Jumlah Dependency: 5)
+19. S7 (Jumlah Dependency: 4)
